@@ -10,7 +10,16 @@ Notes
 ----------
 Experimental Design:
 Random assignment via condition condition code
-
+SESSION CODE -> alphanumeric string chose by experimenter to indicate data collection SESSION
+CONDITION CODE ->
+10: control - no scaffold - no impasse
+20: text & image
+30: interactive image
+40: diagonal axis
+11: control - no scaffold + impasse
+21: text & image + impasse
+31: interactive image + impasse
+41: diagonal axis + impasse
 
 
 Structure
@@ -22,13 +31,14 @@ Installation & Notes
 ------------------
 https://github.com/Tuuleh/jsPsychBackendStart as reference
 0 Requires node.js
+------------------ RUNNING LOCAL ------------------
 1. After download of files from github, run [ npm update ] to install node_modules
 2. Check app.js file for proper configuration of local vs. hosted db information and server connections
 3. Run local Mongodb    [ mongod in terminal ]
 4. Start application [node app.js]
 5. Navigate to localhost:3000
 6. View database by running viewer (like RoboMongo)
-
+------------------
 
 Technical Notes
 ------------------

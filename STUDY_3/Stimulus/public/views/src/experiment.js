@@ -48,10 +48,8 @@ var questions = [
   "starts+finishes",
   "before+duration"
 ];
-var scenarios = ["longmire","axis"]; //determine the order of scenarios by randomly sorting the array
+var scenarios = ["acme"]; //determine the order of scenarios by randomly sorting the array
 var helps = 0;
-scenarios.sort(function(a, b){return 0.5 - Math.random()});
-console.log("I'm really trying! :)");
 var sid = jsPsych.randomization.randomID(5);
 sid = sid.toUpperCase();
 console.log(sid);
@@ -111,46 +109,15 @@ var instructions_lab = {
       block:"instructions_lab"
     }
 };
-var scenario_one = {
+var scenario = {
     type: 'single-stim',
     stimulus : 'img/'+scenarios[0]+'.png',
     choices: [13, 32],
     prompt: '<p style="font-style:italic;">Press enter to continue</p>',
     data: {
-      block: "scenario-one"
+      block: "scenario"
     }
 }
-var scenario_two = {
-    type: 'single-stim',
-    stimulus : 'img/'+scenarios[1]+'.png',
-    choices: [13, 32],
-    prompt: '<p style="font-style:italic;">Press enter to continue</p>',
-    data: {
-      block: "scenario-two"
-    }
-  }
-var scenario_draw = {
-    type: 'single-stim',
-    stimulus : 'img/jones.png',
-    choices: [13, 32],
-    prompt: '<p style="font-style:italic;">Press enter to continue</p>',
-    data: {
-      block: "scenario-draw"
-    }
-  }
-var instructions_draw = {
-      "type": "html",
-      "force_refresh": true,
-      "url": "../views/src/external/instructions_draw.html",
-      "cont_btn": "start",
-      "check_fn": check_draw,
-      data: {
-        block:"instructions_drawing"
-      },
-      on_start: function(){
-        sid= sid;
-    }
-  };
 var debrief = {
     "type": "html",
     "force_refresh": true,
@@ -222,31 +189,31 @@ var triangular_scaffolded = {
   timeline: [
       {on_start: function(){
           graph= "triangular";
-          scenario = scenarios[1];
+          scenario = scenarios[0];
           scaffold = scaffolds[condition];
           question = questions[0];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[condition];
         question = questions[1];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[condition];
         question = questions[2];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[condition];
         question = questions[3];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[condition];
         question = questions[4];
       }}
@@ -277,61 +244,61 @@ var triangular_testing = {
   timeline: [
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[5];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[6];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[7];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[8];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[9];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[10];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[11];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[12];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[13];
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[1];
+        scenario = scenarios[0];
         scaffold = scaffolds[0];
         question = questions[14];
       }}
@@ -349,7 +316,7 @@ exp_timeline.push(consent);
 exp_timeline.push(codes);
 exp_timeline.push(instructions_lab);
 // // // //TRIANGULAR MODEL
-exp_timeline.push(scenario_two);
+exp_timeline.push(scenario);
 exp_timeline.push(triangular_scaffolded);  //linear with scaffold q 1-5
 exp_timeline.push(triangular_testing);  //linear without scaffold q 6-15
 // // //WRAPUP
