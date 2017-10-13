@@ -18,9 +18,12 @@
 
 //---------------SETUP VARIABLES---------------------------------------
 var graph, scenario, question, scaffold, block, correct ;
+var graph = "triangular";
 var experiment = "experiment"; //overriden by URL
 var session = "default"; //overriden by codes block
 var condition = 0;  //overriden by codes block
+var explicit = 0; //overriden by codes block
+var impasse = 0; //overriden by codes block
 var colorClick = true; //define whether values turn green when clicked
 var clicked = [["answer","clicked"]]; //populate first row of clicked array with headers
 var scaffolds = [
@@ -88,11 +91,49 @@ var codes = {
       condition = i["Q1"];
       condition = condition.trim();
       condition = parseInt(condition);
-      if (condition != 0 && condition != 1 && condition != 2 && condition !=3 && condition !=4 && condition !=5) {condition = 0;} //default to condition with no scaffold
+
+      switch(condition) {
+        case 10:
+          impasse = 0;
+          explicit = 1;
+          break;
+        case 20:
+          impasse = 0;
+          explicit = 2;
+          break;
+        case 30:
+          impasse = 0;
+          explicit = 3;
+          break;
+        case 40:
+          impasse = 0;
+          explicit = 4;
+          break;
+        case 11:
+          impasse = 1;
+          explicit = 1;
+          break;
+        case 21:
+          impasse = 1;
+          explicit = 2;
+          break;
+        case 31:
+          impasse = 1;
+          explicit = 3;
+          break;
+        case 41:
+          impasse = 1;
+          explicit = 4;
+          break;
+      }
+
+      // if (condition != 0 && condition != 1 && condition != 2 && condition !=3 && condition !=4 && condition !=5) {condition = 0;} //default to condition with no scaffold
       console.log("experiment: "+experiment);
       console.log("session: "+session);
+      console.log("graph: "+graph);
       console.log("condition: "+condition);
       jsPsych.data.addProperties({experiment:experiment});
+      jsPsych.data.addProperties({graph:graph});
       jsPsych.data.addProperties({session:session});
       jsPsych.data.addProperties({condition:condition});
     }
@@ -159,8 +200,6 @@ var choice_survey = {
       block: "demo-2"
     }
 };
-
-
 
 
 //-------------STIM BLOCKS-----------------------------------------------

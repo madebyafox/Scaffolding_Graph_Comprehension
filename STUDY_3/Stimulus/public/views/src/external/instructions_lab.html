@@ -1,14 +1,10 @@
 <script>
 	//set text of scenario descriptions based on scenario randomization order in main
   switch(scenarios[0]) {
-    case "longmire":
-      $('#da1').text("Answer 15 questions to help an events manager coordinate a reservation schedule.");
-      $('#da2').text("Answer 15 questions to help a project manager coordinate a task schedule.");
+    case "acme":
+      $('#da1').text("Answer 15 questions to help a manager coordinate a factory shift schedule.");
       break;
-    case "axis":
-      $('#da1').text("Answer 15 questions to help a project manager coordinate a task schedule.");
-      $('#da2').text("Answer 15 questions to help an events manager coordinate a reservation schedule.");
-      break;
+
     }
 </script>
 
@@ -23,32 +19,15 @@
 
 <p>We are interested in learning about how people make decisions about time. In this study, you are going
    to solve a series of problems about scheduling events. To help you solve the problems, we are going to give you
-   a variety of graphs and diagrams. You are going to complete <i>most</i> of the activities on this computer, and the rest using
-	 the paper and pencil we've provided.
+   a variety of graphs and diagrams. You are going to complete <i>all</i> of the activities on this computer.
 
 <table cellspacing="0" cellpadding="0" border="0" style="display:block;">
   <tr>
     <td width="40" rowspan="2"><a class="fa fa-desktop fa-lg"></td>
-    <td >Scenario 1 [20 minutes]</td>
+    <td >Acme Factory [20 minutes]</td>
   </tr>
   <tr>
     <td><a id='da1' class="subheading"> </a></td>
-  </tr>
-	<tr height="15"></tr>
-  <tr>
-    <td rowspan="2"><a class="fa fa-desktop fa-lg"></td>
-    <td>Scenario 2 [20 minutes] </td>
-  </tr>
-  <tr>
-    <td><a id='da2' class="subheading"> </a></td>
-  </tr>
-	<tr height="15"></tr>
-	<tr>
-    <td rowspan="2"><a class="fa fa-pencil fa-lg"></td>
-    <td>Graph Drawing  [10 minutes]</td>
-  </tr>
-  <tr>
-    <td><i>Draw a graph based on data we give you.</i></td>
   </tr>
 	<tr height="15"></tr>
 	<tr>
