@@ -9,11 +9,10 @@
 // ' ' ' `-` `-' `-' o `-' `-| o `-` o  |  `-' ' `
 //                         `-'         -'
 //Amy Rae Fox   amyraefox@gmail.com
-//Experimental Design: x conditions (by scaffold) within subjects measure
-//of problem solving performance using first linear graph then triangular
-//model graph first 5 questions of each graph are scaffolded, remainder are
-//not. Followed by manual drawing task and concludes with demographic survey
-//and preferences before debrief
+//Experimental Design: x conditions (by scaffold) between subjects measure
+//of problem solving performance using first triangular model graph
+//first 5 questions of each graph are scaffolded, remainder are
+//not. Concludes with demographic survey and preferences before debrief
 //---------------------------------------------------------------------
 
 
@@ -194,249 +193,10 @@ var choice_survey = {
     }
 };
 
-//-------------CODE TESTING BLOCKS ----------------------------------------------
-var test_linear = {
-  type: "html",
-  force_refresh: true,
-  url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
-  data : {},
-  on_finish: function(data) {
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
-    jsPsych.data.addDataToLastTrial({graph:graph});
-    jsPsych.data.addDataToLastTrial({scenario:scenario});
-    jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
-    jsPsych.data.addDataToLastTrial({correct:correct});
-    jsPsych.data.addDataToLastTrial({clicked:clicked});
-    jsPsych.data.addDataToLastTrial({answer:answer});
-    jsPsych.data.addDataToLastTrial({helps:helps});
 
-  },
-  on_start: function(){
-          graph= "linear";
-          scenario = scenarios[0];
-          scaffold = scaffolds[1];
-          question = questions[14];
-          answer = 0;
-  }
-}
-var test_triangular = {
-  type: "html",
-  force_refresh: true,
-  url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
-  data : {},
-  on_finish: function(data) {
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
-    jsPsych.data.addDataToLastTrial({graph:graph});
-    jsPsych.data.addDataToLastTrial({scenario:scenario});
-    jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
-    jsPsych.data.addDataToLastTrial({correct:correct});
-    jsPsych.data.addDataToLastTrial({clicked:clicked});
-    jsPsych.data.addDataToLastTrial({answer:answer});
-    jsPsych.data.addDataToLastTrial({helps:helps});
-  },
-  on_start: function(){
-          graph= "triangular";
-          scenario = scenarios[0];
-          scaffold = scaffolds[1];
-          question = questions[14];
-  }
-}
 
-var drawing_test1 = {
-  type: "html",
-  force_refresh: true,
-  url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
-  data : {},
-  on_finish: function(data) {
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
-    jsPsych.data.addDataToLastTrial({graph:graph});
-    jsPsych.data.addDataToLastTrial({scenario:scenario});
-    jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
-    jsPsych.data.addDataToLastTrial({correct:correct});
-    jsPsych.data.addDataToLastTrial({answer:answer});
-    jsPsych.data.addDataToLastTrial({clicked:clicked});
-    jsPsych.data.addDataToLastTrial({block:"drawingTest"});
 
-  },
-  on_start: function(){
-          graph= "none";
-          scenario = "jones";
-          scaffold = scaffolds[0];
-          question = "duration";
-  }
-}
-var drawing_test2 = {
-  type: "html",
-  force_refresh: true,
-  url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
-  data : {},
-  on_finish: function(data) {
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
-    jsPsych.data.addDataToLastTrial({graph:graph});
-    jsPsych.data.addDataToLastTrial({scenario:scenario});
-    jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
-    jsPsych.data.addDataToLastTrial({correct:correct});
-    jsPsych.data.addDataToLastTrial({answer:answer});
-    jsPsych.data.addDataToLastTrial({clicked:clicked});
-    jsPsych.data.addDataToLastTrial({block:"drawingTest"});
-  },
-  on_start: function(){
-          graph= "none";
-          scenario = "jones";
-          scaffold = scaffolds[0];
-          question = "overlap";
-  }
-}
 //-------------STIM BLOCKS-----------------------------------------------
-var linear_scaffolded = {
-  type: "html",
-  force_refresh: true,
-  url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
-  data : {},
-  on_finish: function(data) {
-    jsPsych.data.addDataToLastTrial({graph:graph});
-    jsPsych.data.addDataToLastTrial({scenario:scenario});
-    jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
-    jsPsych.data.addDataToLastTrial({correct:correct});
-    jsPsych.data.addDataToLastTrial({answer:answer});
-    jsPsych.data.addDataToLastTrial({clicked:clicked});
-    jsPsych.data.addDataToLastTrial({helps:helps});
-    jsPsych.data.addDataToLastTrial({block:"linear_scaffolded"});
-    console.log("LS"+(data.trial_index-4));
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
-  },
-  timeline: [
-      {on_start: function(){
-          graph= "linear";
-          scenario = scenarios[0];
-          scaffold = scaffolds[condition];
-          question = questions[0];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[condition];
-        question = questions[1];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[condition];
-        question = questions[2];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[condition];
-        question = questions[3];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[condition];
-        question = questions[4];
-      }}
-    ]
-}
-var linear_testing = {
-  type: "html",
-  force_refresh: true,
-  url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
-  data : {},
-  on_finish: function(data) {
-    jsPsych.data.addDataToLastTrial({graph:graph});
-    jsPsych.data.addDataToLastTrial({scenario:scenario});
-    jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
-    jsPsych.data.addDataToLastTrial({correct:correct});
-    jsPsych.data.addDataToLastTrial({answer:answer});
-    jsPsych.data.addDataToLastTrial({clicked:clicked});
-    jsPsych.data.addDataToLastTrial({helps:helps});
-    jsPsych.data.addDataToLastTrial({block:"linear_testing"});
-    console.log("LT"+(data.trial_index-9));
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
-  },
-  timeline: [
-      {on_start: function(){
-          graph= "linear";
-          scenario = scenarios[0];
-          scaffold = scaffolds[0];
-          question = questions[5];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[6];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[7];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[8];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[9];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[10];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[11];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[12];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[13];
-      }},
-      {on_start: function(){
-        graph= "linear";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
-        question = questions[14];
-      }}
-  ],
-  randomize_order: true
-}
 
 var triangular_scaffolded = {
   type: "html",
@@ -581,8 +341,6 @@ var triangular_testing = {
 //-------------ESTABLISH THE TIMELINE -----------------------------------
 
 var exp_timeline = [];
-// exp_timeline.push(test_linear);
-// exp_timeline.push(test_triangular);
 
 //SETUP
 
@@ -590,19 +348,10 @@ exp_timeline.push(phone);
 exp_timeline.push(consent);
 exp_timeline.push(codes);
 exp_timeline.push(instructions_lab);
-// // // // //LINEAR MODEL
-exp_timeline.push(scenario_one);
-exp_timeline.push(linear_scaffolded);  //linear with scaffold q 1-5
-exp_timeline.push(linear_testing);  //linear without scaffold q 6-15
 // // // //TRIANGULAR MODEL
 exp_timeline.push(scenario_two);
 exp_timeline.push(triangular_scaffolded);  //linear with scaffold q 1-5
 exp_timeline.push(triangular_testing);  //linear without scaffold q 6-15
-// // //DRAWING TRANSFER TEST
-exp_timeline.push(scenario_draw);
-exp_timeline.push(instructions_draw);
-exp_timeline.push(drawing_test1);
-exp_timeline.push(drawing_test2);
 // // //WRAPUP
 exp_timeline.push(text_survey);
 exp_timeline.push(choice_survey);

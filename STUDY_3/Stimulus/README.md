@@ -8,6 +8,10 @@ SAMPLE URL FOR HEROKUAPP:
 
 Notes
 ----------
+Experimental Design:
+Random assignment via condition condition code
+
+
 
 Structure
 -----------
@@ -17,7 +21,7 @@ Condition [0-3] and question [0-14] are set in the querystring
 Installation & Notes
 ------------------
 https://github.com/Tuuleh/jsPsychBackendStart as reference
-0, Requires node.js
+0 Requires node.js
 1. After download of files from github, run [ npm update ] to install node_modules
 2. Check app.js file for proper configuration of local vs. hosted db information and server connections
 3. Run local Mongodb    [ mongod in terminal ]
