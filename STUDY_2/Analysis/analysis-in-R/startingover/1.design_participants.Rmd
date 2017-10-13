@@ -1,0 +1,159 @@
+---
+title: "2YP - FOX - Analysis "
+author: '-----'
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+```{r echo = FALSE} 
+#IMPORT NECESSARY PACKAGES
+library(readr) #load csv
+library(pastecs) #stat.desc
+library(tables) # pretty tables
+library(dplyr) #data formatting
+library(ez) #mixed anova
+library(reshape2) #reformatting data
+library(car)   #statistics
+library(ggplot2) #graphs!
+library(psych) #describeby
+library(gridExtra) #arranging plots
+```
+
+```{r echo = FALSE}
+#LOAD THE PARTICIPANT DATA
+all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+    col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+        `Graph Description (if other)` = col_skip(), 
+        `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+            "Triangular", "Linear Model", 
+            "Scatterplot", "Other", "Triangular (asymmetric)")), 
+        Points = col_skip(), Rater = col_skip(), 
+        `Select each item that is labelled in the graph` = col_skip(), 
+        `X Axis` = col_skip(), `Y Axis` = col_skip(),
+        GENDER = col_factor(levels = c("Male", 
+        "Female","Other")),
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+            "reverse")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip() ))
+#View(all_participants)
+
+#LOAD THE EXPERT DATA
+all_experts <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_experts.csv", 
+    col_types = cols(
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("reverse", 
+            "experiment")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip()))
+
+```
+
+```{r echo = FALSE}
+#SETUP DATA FRAMES
+#create copy data of base data frame 
+df_subjects <- cbind(all_participants)
+df_experts <- cbind(all_experts)
+
+#create a new column for order with better name
+df_subjects$order = df_subjects$experiment
+levels(df_subjects$order)[levels(df_subjects$order)=="experiment"] <- "LMFirst"
+levels(df_subjects$order)[levels(df_subjects$order)=="reverse"] <- "TMFirst"
+
+#create a column for the sum of the two graphing tasks (graphScore)
+df_subjects$graphScore = df_subjects$linear_score + df_subjects$triangular_score
+
+
+#create data subsets
+df_regular <- subset(df_subjects, experiment=="experiment")
+df_reverse <- subset(df_subjects, experiment=="reverse")
+```
+
+```{r echo = FALSE}
+#SETUP LABELS AND COLORS FOR GRAPHS
+order_labels <- c(LMFirst = "linear-first", TMFirst = "triangular-first")
+condition_lables <-c( '0' = "no scaffold", '1' = "what-text", '2' = "how-text", '3' = "static image", '4' = "interactive image")
+task_labels <- c("LM_T_M" = "linear graph", "TM_T_M" = "triangular graph")
+
+  red = "#F8766D"
+  green = "#1cc07e"
+  blue = "#59A1FC"
+  purple = "#C680FD"
+  none = "#7E7D7E"
+  text1 = "#071FD5"
+  text2 = "#0C91DF"
+  img1 = "#EF007A"
+  img2 = "#c481d5"
+
+```
+
+> Design
+
+The experiment employed a 5 (Scaffold: none, “what” text, “how” text, static image, interactive image) x 2 (Graph: linear model, triangular model) mixed design, with Scaffold as a between-subjects variable and Graph as a within-subject variable.  This design allows us to see an individual’s performance with each of the two graphs, and to compare this difference in performance between groups by Scaffold.  Participants were randomly assigned to one of the 5 between-subjects Scaffold conditions, such that each participant completed two graph reading tasks, one the LM, and one with TM.  We counterbalanced the order in which the graphs were presented (Order: linear-first, triangular-first), as well as the scenario for each graph (Scenario: project tasks, room reservations), and tested for effects of these variables in our statistical model. Our dependent variables were response accuracy and latency.     
+
+```{r results = 'asis', echo = FALSE}
+#create table of participants by experiment 
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+table <- tabular((Heading("Scaffold")*CONDITION+1)~(Heading("Graph Order")*ORDER+1), data = df_subjects )
+table_options(rowlabeljustification="center", justification="right", title="Test")
+#table
+html(table,options=htmloptions(head=TRUE))
+
+```  
+***
+
+> Participants
+
+```{r echo = FALSE}
+#EXPLORE SAMPLE STATISTICS
+
+#record sample size
+nSubjects = nrow(df_subjects)
+nExperts = nrow(df_experts)
+n = nSubjects + nExperts
+nReg = nrow(df_regular)
+nRev = nrow(df_reverse)
+
+#how many women?
+nFemale <-nrow(filter(df_subjects, df_subjects$GENDER == 'Female'))
+
+#describe the sample
+descriptives<-stat.desc(df_subjects)
+#descriptives
+
+#determine age range
+age_min = descriptives$AGE[4]
+age_max = descriptives$AGE[5]
+age_m = round(descriptives$AGE[9], 2)
+age_sd = round(descriptives$AGE[10], 2)
+
+
+time_min = round(descriptives$TOTAL_T_M[4], 0)
+time_max = round(descriptives$TOTAL_T_M[5], 0)
+time_m = round(descriptives$TOTAL_T_M[9], 0)
+time_sd = round(descriptives$TOTAL_T_M[10], 2)
+
+score_min = round(descriptives$graphScore[4], 0)
+score_max = round(descriptives$graphScore[5], 0)
+score_m = round(descriptives$graphScore[9], 0)
+score_sd = round(descriptives$graphScore[10], 2)
+
+```
+
+`r nSubjects` (`r round(nFemale/nSubjects,2) * 100`% female) students aged `r age_min` to `r age_max` at a public American univeristy participated in the study. 
+All participants completed three activities: two graph reading tasks (with both the linear model (LM) and triangular model (TM) graphs) followed by a drawing task. In some cases (linear-first), participants (n = `r nReg`) completed the graph reading task with the LM graph, followed by the task with the TM graph. An additional (n= `r nRev`) subjects completed the graph reading tasks in reverse order. Each particiant was randomly assigned to one of five conditions which determined what additional information (scaffold) they received while solving the first five problems with each graph: no-scaffold (control), 'what' text, 'how'-text, static-image, and interactive-image. The runtime of the entire study ranged from `r time_min` to `r time_max` minutes (m = `r time_m`, sd = `r time_sd`). In addition, we ran `r nExperts` expert participants through two conditions, composed of research assistants with more than 20 hours of experience analyzing data with the triangular model graph.   
+
+***

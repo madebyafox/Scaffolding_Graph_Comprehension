@@ -1,0 +1,68 @@
+---
+title: "Hypothesis Testing"
+output: html_notebook
+---
+```{r echo = FALSE}
+library(ggplot2)
+library(psych)
+library(pastecs)
+library(gridExtra)
+library(Hmisc)
+library(reshape2)
+```
+
+##Study 1: Regular Order (Linear Model - then - Triangular Model)
+### H3: (replication) The triangular model times will be LESS than linear model scores, because the triangular model is a more efficient representation for reasoning about temporal intervals (Qiang et. al. 2014). 
+<span style = "color: green"> 
+*interpretation* 
+</span>   
+
+#### a) Are the differences between triangular and linear model response times scores significantly different between scaffold groups? 
+> <span style="color:green">   </span>  
+
+```{r echo = FALSE}
+w.exp <- subset(participantData, experiment == "experiment")
+
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$DIFF_T_M)) 
+line + coord_cartesian(ylim=c(-5,5)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="time (in minutes)") +
+ggtitle("TM Response Time Improvement by Scaffold Condition") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+DiffScoreBoxplot <-ggplot(w.exp, aes(group=condition, x=condition,y=DIFF_T_M))
+DiffScoreBoxplot + geom_boxplot() +
+  coord_cartesian(ylim=c(-5,5)) +
+  labs(x="scaffold condition", y="TM Time Improvement (minutes)")+
+  ggtitle("Boxplot of TM Time Improvement") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$score_diff, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$DIFF_T_M, w.exp$condition, center=median)
+
+exp_difftimeBYconditionModel <- aov(DIFF_T_M~condition, data = w.exp)
+summary(exp_difftimeBYconditionModel)
+summary.lm(exp_difftimeBYconditionModel)
+```
+Levene's IS significant... therefore SHOULD run robust ANOVA...
+...1 way independent ANOVA is signficant at p < 0.001. F(1,163) = 21.88, p < 0.001. Multiple R-squared = eta-squared = 0.1183 = r-squared. Effect size r therefore = sqrt(0.1183) = 0.34 a medium effect.    In only the interactive depiction group were participants' accuracy on the triangular model task scores superior to their scores on the linear model task (M = 0.02, SD = 6.66).  In the other groups, the linear model scores were higher.  
+
+
+
+

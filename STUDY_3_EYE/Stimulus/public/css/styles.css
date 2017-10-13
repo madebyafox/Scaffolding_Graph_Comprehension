@@ -1,0 +1,198 @@
+html{
+  height:100%;
+  width: 100%;
+}
+
+.centered {
+  text-align:center;
+}
+/*transform: translateY(-50%);*/
+/*DIV CONTAINERS*/
+
+
+div.d3container{
+  /*background-color:green;*/
+  position:fixed;
+  left:500px;
+  top:0px;
+
+}
+.static { /*this is for the static image scaffold*/
+  position:fixed;
+  left:500px;
+  align:center;
+  top:-21px;
+  z-index: -1;
+  visibility:hidden;
+}
+div.legend{
+  /*background-color:pink;*/
+  position:fixed;
+  top:300px;
+  width:400px;
+  right:100px;
+  display:none;
+  color:#3498db;
+}
+div.test{
+  position:fixed;
+  bottom:50px;
+  text-align:center;
+  left:500px;
+
+}
+
+div.fixbottom{
+  /*background-color:blue;*/
+  position:fixed;
+  bottom:10px;
+  /*left:500px;*/
+
+}
+
+p .legend{
+  line-height: 1;
+  color:#3498db;
+}
+
+p {
+  font-size: 14px;
+}
+
+.grid  {
+  stroke: grey;
+  stroke-opacity: 0.75;
+  shape-rendering: crispEdges;
+}
+.grid  line {
+  stroke: grey;
+  stroke-opacity: 0.75;
+  shape-rendering: crispEdges;
+}
+/*.grid  line {
+  stroke: lightgrey;
+  stroke-opacity: 1;
+  shape-rendering: crispEdges;
+}*/
+.domain  {
+  stroke-width: 1;
+}
+.checkbox-grid li {
+  display: block;
+  float: left;
+  width: 20%;
+}
+.question {
+  font-style: italic;
+  /*text-align:center;*/
+  margin-top:3%;
+  margin-bottom:0;
+  /*color:#3498db;*/
+  /*font-weight: bold;*/
+}
+.checkbox {
+  font-size: 14px;
+}
+/*.vacationdays {*/
+  /*align-content: center;*/
+/*}*/
+.leaders {
+  stroke-width:5px;
+  stroke:#3498db;
+  opacity:0.75;
+  stroke-linecap:round;
+  stroke-dasharray:8,15;
+}
+.segment {
+  stroke:black;
+  stroke-width:5;
+  stroke-linecap:round;
+}
+.controls {
+  text-align: center;
+  margin-top:10px;
+}
+.btn {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-weight: bold;
+  background: #bdbdbd;
+  padding: 10px 20px 10px 20px;
+  border: solid #ffffff 2px;
+  text-decoration: none;
+  height: 34px;
+  width: 120px;
+  line-height: 8px;
+  font-size: 14px;
+  /*float:left;*/
+  margin-left:20px;
+}
+.btn:hover {
+  background: #807e80;
+  text-decoration: none;
+}
+/* The switch - the box around the slider */
+.onoffswitch {
+    float:left;
+    position: relative; width: 119px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    text-align:left;
+  }
+.onoffswitch-checkbox {
+    display: none;
+  }
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #FFFFFF; border-radius: 10px;
+  }
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+  }
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 32px; padding: 0; line-height: 32px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+  }
+.onoffswitch-inner:before {
+    content: "HELP ON";
+    padding-left: 10px;
+    background-color: #BDBDBD; color: #FFFFFF;
+  }
+.onoffswitch-inner:after {
+    content: "HELP OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+  }
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 7px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 83px;
+    border: 2px solid #FFFFFF; border-radius: 10px;
+    transition: all 0.3s ease-in 0s;
+  }
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+  }
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+  }
+.tmlabel{
+  font-size: 14px;
+}
+.scaffold text{
+  fill:#3498db;
+  font-family:"Helvetica";
+  font-size:14;
+}
+.subheading{
+	font-style:italic;
+}
+.boxed {
+  border: 1px solid black;
+}

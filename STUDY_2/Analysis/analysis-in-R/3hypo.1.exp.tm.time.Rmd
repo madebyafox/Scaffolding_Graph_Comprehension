@@ -1,0 +1,146 @@
+---
+title: "Hypothesis Testing"
+output: html_notebook
+---
+** GO BACK AND LOOK AT CORRELATION OF TIME BETWEEN LEARNING AND TESTING PHASE
+** CALCULATE ANOVA EFFECT SIZES 
+
+##Study 1: Regular Order (Linear Model - then - Triangular Model)
+### H1: The scaffolds function differently, and will significantly change the task completion time for unconventional graphs.
+<span style = "color: green"> *The data largely support this hypothesis.  Significant between group differences were found for the learning phase of the triangular model task, though not for the testing phase.  The combined completion times (learning + testing phase) were significantly different by group, with the interactive depiction group finishing fastest, followed by the static depiction, data description, no scaffold and finally the visual element description group.  * </span>   
+
+#### a) Does response time on the triangular model task differ significantly between scaffold groups? 
+> <span style="color:green"> **Yes, completion time for the triangular model task differed significantly between scaffold groups, F(1,163) = 6.62, p < 0.01, r = 0.20.   Scaffold group 4 (interactive depiction) resulted in the fastest performance (M = 9.32 minutes, SD = 2.45), while group 1 (visual element description) resulted in the slowest completion time (M = 11.74, SD = 3.99), even longer than the control (no scaffold) group. ** </span>  
+```{r echo = FALSE}
+
+##construct MEANS PLOT 
+line <- ggplot(df_subjects, aes(df_subjects$condition, df_subjects$TM_T_M)) 
+line + 
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "#8CC63F", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Mean Response Time for Triangular Graph Task by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$TM_T_M, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$TM_T_M, w.exp$condition, center=median)
+
+#ANOVA
+exp_tmtimeBYconditionModel <- aov(TM_T_M~condition, data = w.exp)
+summary(exp_tmtimeBYconditionModel)
+summary.lm(exp_tmtimeBYconditionModel)
+```
+*Levene's test for homogonaeity of variance is non-significant, ran one-way ANOVA which was signficant at p < 0.01 and an effect size (r) of 0.20, a small effect. *
+
+####b) Does response time on the triangular model task (learning phase) differ significantly between scaffold groups? 
+> During the triangular model task, participants in experimental groups 1 - 4 saw the graph scaffold while answering the first 5 questions, after which they answered 10 more questions without the scaffold. (Participants in group 0 -- control -- saw no scaffold). As the scaffolds contained information presented in different ways, we expect this will result in different completion times for the learning phase of the task.     
+<span style="color:green"> **Yes, the mean response times for the learning phase (first 5 questions with scaffold) of the triangular model task differed significantly by scaffold group, F(1.163) = 12.17, p < 0.001.  The longest fastest completion time was group 4 (interactive depiction) (M = 3.01 minutes, SD = 0.98), while the longest completion time was group 1 (visual element description) (M = 4.37 minutes, SD = 1.66), longer than the control (no scaffold) condition (M = 3.72 minutes, SD = 1.83). ** </span>   
+```{r echo = FALSE}
+
+#create new column for triangular scaffolding phase time in minutes
+w.exp$TS_T_M <- with(w.exp, ts_t / 1000 / 60)
+
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$TS_T_M)) 
+line + 
+coord_cartesian(ylim=c(0,5)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Mean Response Time for Triangular Model (learning phase) Task by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$TS_T_M, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$TS_T_M, w.exp$condition, center=median)
+
+exp_tmLearnTimeBYconditionModel <- aov(TS_T_M~condition, data = w.exp)
+summary(exp_tmLearnTimeBYconditionModel)
+summary.lm(exp_tmLearnTimeBYconditionModel)
+
+```
+.. Levene's IS signficant... therefore SHOULD use robust methods...
+ 1 way independent means ANOVA signficant at p < .001.  Multiple R-squared = 0.07, therefore eta squared = 0.07 therefore effect size R = sqrt(0.07) = 0.26 a small effect. 
+
+####c) Does response time on the triangular model task (testing phase) differ significantly between scaffold groups? 
+> After answering the first five questions (learning phase) with scaffolds, participants continued on to answer 10 progressively more complex questions without scaffolds. Without scaffold assistance, the graphs viewed by each group were identical. Although this means the information processing demands are the same across groups, we expect the completion time for the testing phase will differ significantly based on how well the scaffold facilitated the participant's learning of the graph system. 
+<span style="color:RED"> **The mean completion time for the testing phase of the triangular model task did not differ significantly by scaffold group, F(1,163) = 1.99, p = 0.16, r = 0.11.  ** </span>   
+```{r echo = FALSE}
+#create new column for triangular scaffolding phase time in minutes
+w.exp$TT_T_M <- with(w.exp, tt_t / 1000 / 60)
+
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$TT_T_M)) 
+line + 
+coord_cartesian(ylim=c(0,10)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Mean Response Time for Triangular Model (testing phase) Task by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$TT_T_M, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$TT_T_M, w.exp$condition, center=median)
+
+exp_tmTestTimeBYconditionModel <- aov(TT_T_M~condition, data = w.exp)
+summary(exp_tmTestTimeBYconditionModel)
+summary.lm(exp_tmTestTimeBYconditionModel)
+
+```
+Levene's is nonsignificant, therefore run 1 way independent means ANOVA, which is not signficant at p < 0.001.  Multiple R-squared = 0.012, therefore eta-squared = 0.012 therefore effect size r = sqrt (0.012) = 0.11, a small effect. 
+
+####d) Does response time on the drawing task (testing phase) differ significantly between scaffold groups? 
+> ...
+<span style="color:RED"> ** ** </span>   
+```{r echo = FALSE}
+#create new column for triangular scaffolding phase time in minutes
+w.exp$TT_T_M <- with(w.exp, w.exp$D_T_M)
+
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$D_T_M)) 
+line + 
+coord_cartesian(ylim=c(0,20)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Mean Response Time for Drawing Task by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+##construct scatterplot to visualize correlation between triangular model learning and testing phases 
+p <- ggplot(w.exp, aes(w.exp$TS_T_M, w.exp$TT_T_M)) 
+p + geom_point(position="jitter",aes(colour = factor(condition))) + 
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="learning phase time (min)", y="testing phase time (min)") +
+ggtitle("Correlation between learning and testing times in the Triangular Model Task") +
+theme_bw()
+```

@@ -1,0 +1,33 @@
+4.3.17
+> after (finally) getting the data massaged out of mongoDB, I've started running analyses in SPSS.
+> starting with analysis of norming data from mTurk
+>> extracted from spss_norming_participants collection = spss_norming_participants.xls)
+>> created data file in SPSS: participants-norming.sav
+> ran descriptive statistics
+
+For 24 norming participants, 9 completed the axis scenario, and 15 the longmire.
+ANOVAS with total_time and total_score as DVs and scenario as IV failed to reveal significant differences
+The minimum number of linear questions correct = 0, and the maximum is 14.
+The shortest amount of time is 427152ms and the maximum is 1835381ms.
+
+:: should re-run analyses with more participants (ie. experimental groups with linear first and control = no scaffold)
+
+>> extracted from spss_norming_blocks collection = spss_norming_blocks.xls
+>> MANUALLY edited file to create a single "answer" field concatenating all the answers array
+>> created data file in SPSS: blocks-norming.sav
+
+
+04.06.2017   PRELIMINARY EXPERIMENT DATA ANALYSIS
+Goal: Determine whether to proceed with modifying the experimental design
+> What would motivate that decision?
+>IF the linear model task is serving as a scaffold for the triangle task, then we may have a ceiling and the effect
+of the scaffolds may be outweighed.
+> This would be the case if the data show that performance on the triangle (in the control condition) is significantly better on the REVERSE mode than the experiment
+mode.
+
+
+likely user TGAU4 in BRAVO that I disrupted and resulted in really long time, however she was not the longest in the trial so maybe it's ok
+----------------
+
+04.07.2017
+Which scenario was harder? axis or longmire?

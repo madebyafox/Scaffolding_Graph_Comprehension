@@ -1,0 +1,381 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r echo = FALSE}
+#IMPORTANT NECESSARY PACKAGES
+library(readr) #load csv
+library(psych) #describeBy
+library(pastecs) #stat.desc
+library(tables) # pretty tables
+library(dplyr) #data formatting
+library(ez) #mixed anova
+library(reshape2) #reformatting data
+library(car)   #statistics
+library(multcompView) #Tukey
+library(effsize) #effect size
+
+#LOAD THE PARTICIPANT DATA
+#all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+#    col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+#        `Graph Description (if other)` = col_skip(), 
+#        `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+#            "Triangular", "Linear Model", 
+#            "Scatterplot", "Other", "Triangular (asymmetric)")), 
+#        Points = col_skip(), Rater = col_skip(), 
+#        `Select each item that is labelled in the graph` = col_skip(), 
+#        `X Axis` = col_skip(), `Y Axis` = col_skip(),
+#        GENDER = col_factor(levels = c("Male", 
+#        "Female","Other")),
+#        condition = col_factor(levels = c("0", 
+#            "1", "2", "3", "4")), d_t = col_skip(), 
+#        d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+#            "reverse")), linear_time = col_skip(), 
+#        lm_scenarios = col_factor(levels = c("axis", 
+#            "longmire")), ls_t = col_skip(), 
+#        lt_t = col_skip(), time_diff = col_skip(), 
+#        tm_scenarios = col_factor(levels = c("longmire", 
+#            "axis")), triangular_time = col_skip(), 
+#        ts_t = col_skip(), tt_t = col_skip() ))
+#View(all_participants)
+
+#LOAD THE PARTICIPANT DATA
+#ll_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+#   col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+#       `Graph Description (if other)` = col_skip(), 
+#       `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+#           "Triangular", "Linear Model", 
+#           "Scatterplot", "Other", "Triangular (asymmetric)")), 
+#       Points = col_skip(), Rater = col_skip(), 
+#       `Select each item that is labelled in the graph` = col_skip(), 
+#       `X Axis` = col_skip(), `Y Axis` = col_skip(),
+#       GENDER = col_factor(levels = c("Male", 
+#       "Female","Other")),
+#       condition = col_factor(levels = c("0", 
+#           "1", "2", "3", "4")), d_t = col_skip(), 
+#       d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+#           "reverse")), linear_time = col_skip(), 
+#       lm_scenarios = col_factor(levels = c("axis", 
+#           "longmire")), ls_t = col_skip(), 
+#       lt_t = col_skip(), time_diff = col_skip(), 
+#       tm_scenarios = col_factor(levels = c("longmire", 
+#           "axis")), triangular_time = col_skip(), 
+#       ts_t = col_skip(), tt_t = col_skip() ))
+
+
+all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+    col_types = cols(`Graph Type` = col_factor(levels = c("Triangular", 
+        "Triangular (right angle)", "Linear Model", 
+        "Triangular (asymmetric)", "Scatterplot", 
+        "Other")), condition = col_factor(levels = c("0", 
+        "1", "2", "3", "4")), experiment = col_factor(levels = c("reverse", 
+        "experiment")), lm_scenarios = col_factor(levels = c("axis", 
+        "longmire")), tm_scenarios = col_factor(levels = c("longmire", 
+        "axis"))))
+
+
+#LOAD THE EXPERT DATA
+all_experts <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_experts.csv", 
+    col_types = cols(
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("reverse", 
+            "experiment")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip()))
+
+
+
+#SETUP LABELS AND COLORS FOR GRAPHS
+order_labels <- c(LMFirst = "linear-first", TMFirst = "triangular-first")
+condition_lables <-c( '0' = "no scaffold", '1' = "what-text", '2' = "how-text", '3' = "static image", '4' = "interactive image")
+task_labels <- c("LM_T_M" = "linear graph", "TM_T_M" = "triangular graph")
+
+  red = "#F8766D"
+  green = "#1cc07e"
+  blue = "#59A1FC"
+  purple = "#C680FD"
+  none = "#7E7D7E"
+  text1 = "#071FD5"
+  text2 = "#0C91DF"
+  img1 = "#EF007A"
+  img2 = "#c481d5"
+
+
+  
+##DEAL WITH OUTLIERS
+all_participants$flag <- ""  
+all_participants$reason <- ""    
+
+
+  
+  
+#SETUP DATA FRAMES
+
+#create copy data of base data frame 
+df_subjects <- cbind(all_participants)
+df_experts <- cbind(all_experts)
+df_scaffolds <- subset(df_subjects, condition!="0")
+
+#create a new column for order with better name
+df_subjects$order = df_subjects$experiment
+levels(df_subjects$order)[levels(df_subjects$order)=="experiment"] <- "LMFirst"
+levels(df_subjects$order)[levels(df_subjects$order)=="reverse"] <- "TMFirst"
+
+#create a column for the sum of the two graphing reading task (graphScore)
+df_subjects$graphScore = df_subjects$linear_score + df_subjects$triangular_score
+
+#create a column for the sum of the two drawing tasks (graphScore)
+df_subjects$drawScore = df_subjects$points + df_subjects$d_n
+
+df_subjects$scaffolded[df_subjects$condition == "0"] <- "none"
+df_subjects$scaffolded[df_subjects$condition != "0"] <- "scaffold"
+df_subjects$scaffTYPE[df_subjects$condition == "0"] <- "none"
+df_subjects$scaffTYPE[df_subjects$condition == "1"] <- "text"
+df_subjects$scaffTYPE[df_subjects$condition == "2"] <- "text"
+df_subjects$scaffTYPE[df_subjects$condition == "3"] <- "image"
+df_subjects$scaffTYPE[df_subjects$condition == "4"] <- "image"
+
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "1"] <- "text"
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "2"] <- "text"
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "3"] <- "image"
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "4"] <- "image"
+df_scaffolds$scaffTYPE <-as.factor(df_scaffolds$scaffTYPE)
+
+
+#create data subsets for based on the order factor
+df_regular <- subset(df_subjects, experiment=="experiment")
+df_reverse <- subset(df_subjects, experiment=="reverse")
+
+#create subsets of GRAPH SCORES
+w_scores = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "tm_scenarios", "linear_score","triangular_score")) #create a wide form subset 
+l_scores <-melt(w_scores, id=c("subject","condition", "order", "lm_scenarios","tm_scenarios"), measured=c("linear_score","triangular_score")) #create a longform version
+l_scores$scenario <- l_scores[4:5][cbind(seq_along(l_scores$variable), l_scores$variable)] #merge scenario to single contextual column
+
+#GRAPH TIMES
+# our data df_subjects is in wide format (repeated measures in different columns), however we need it in long format
+w_times = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios","tm_scenarios", "LM_T_M","TM_T_M")) #create a wide form subset 
+l_times <-melt(w_times, id=c("subject","condition", "order", "lm_scenarios","tm_scenarios"), measured=c("LM_T_M","TM_T_M")) 
+l_times$scenario <- l_times[4:5][cbind(seq_along(l_times$variable), l_times$variable)]
+
+#DRAWING TIMES AND SCORES
+#create subsets of runtimes
+w_draw_s = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "drawScore")) #create a wide form subset 
+l_draw_s <-melt(w_draw_s, id=c("subject","condition", "order", "lm_scenarios"), measured=c("drawScore")) #create a longform version
+
+w_draw_t = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "DT_T_M")) #create a wide form subset 
+l_draw_t <-melt(w_draw_t, id=c("subject","condition", "order", "lm_scenarios"), measured=c("DT_T_M")) #create a longform version
+
+```
+
+
+
+### Learning Phase Score
+
+```{r echo = FALSE}
+##construct MEANS PLOT 
+line <- ggplot(df_subjects, aes(df_subjects$condition, df_subjects$ts_n)) 
+line + 
+coord_cartesian(ylim=c(1,5)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Accuracy Score for Triangular Model (learning phase) Task by Scaffold") +
+theme_bw()
+```
+
+### Learning Phase Time
+> Did students spend more time on the learning phase when they had the scaffolds?
+
+Students spend significantly more time on the learning phase questions with the text scaffold than the image scaffolds
+```{r echo = FALSE}
+##construct MEANS PLOT 
+line <- ggplot(df_subjects, aes(df_subjects$condition, df_subjects$ts_t/1000/60)) 
+line + 
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="Response time (min)") +
+ggtitle("Mean Respone Time (min) for Triangular Model (learning phase) Task by Scaffold") +
+theme_bw()
+
+
+bar <- ggplot(df_subjects, aes(x = scaffTYPE, y= ts_t/1000/60, fill=scaffolded))
+bar + stat_summary(aes(y = ts_t/1000/60, group=scaffTYPE), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=6, vjust=-2)+
+      labs (x = "Scaffold", y= "Score", fill ="Scaffold") +
+      coord_cartesian(ylim=c(0,15)) +
+     
+      scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean TM Learning Time ") #+
+     # scale_fill_manual( values = c(red,blue),
+     #                         breaks = c("triangular_score", "linear_score"),
+    #                     labels = c("triangular","linear")) + 
+    # scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+```
+
+Were there significant differences in learning phase time?
+
+
+```{r echo = FALSE}
+describeBy(x=df_scaffolds$ts_t, group=df_scaffolds$scaffTYPE)
+
+t.test(ts_t ~ scaffTYPE, data=df_scaffolds, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(ts_t ~ scaffTYPE, data= df_scaffolds)
+
+#learnTimeMODEL <- aov(ts_t ~ condition, data=df_subjects)
+#summary.lm(learnTimeMODEL)
+```
+
+
+
+
+
+### Compare Scaffolds to Control in TM SCORE
+> Are scaffolds more effective than no scaffolds?
+
+From the means, it appears that across all scaffold groups, scores were higher for scaffolds than the no-scaffold control. Students performed significantly better when they had access to a scaffold (M = 9.2, SD = 4.32) than when the did not (M = 6.9, SD = 4.51), t(88) = -3.64, p < .001, d = 0.53, a significant medium effect.
+
+```{r echo = FALSE } 
+bar <- ggplot(df_subjects, aes(x = scaffolded, y= triangular_score, fill=scaffolded))
+bar + stat_summary(aes(y = triangular_score, group=scaffolded), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=6, vjust=-2)+
+      labs (x = "Access to Scaffold", y= "TM Score", fill ="Access to Scaffold") +
+      coord_cartesian(ylim=c(0,15)) +
+     
+      scale_colour_manual(values = c(none, green),
+                      labels = c("triangular","linear"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean TM Score") #+
+     # scale_fill_manual( values = c(red,blue),
+     #                         breaks = c("triangular_score", "linear_score"),
+    #                     labels = c("triangular","linear")) + 
+    # scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+```
+> Is this difference significant?
+
+Students performed significantly better when they had access to a scaffold (M = 9.2, SD = 4.32) than when the did not (M = 6.9, SD = 4.51), t(88) = -3.64, p < .001, d = 0.53, a significant medium effect.
+
+```{r echo = FALSE}
+describeBy(x=df_subjects$triangular_score, group=df_subjects$scaffolded)
+
+t.test(triangular_score ~ scaffolded, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(triangular_score ~ scaffolded, data= df_subjects)
+
+```
+
+
+
+
+
+
+
+
+
+
+### Compare Scaffolds to Control in TM TIME
+> Are scaffolds more effective than no scaffolds?
+
+No signfificant differences in time 
+```{r echo = FALSE } 
+bar <- ggplot(df_subjects, aes(x = scaffolded, y= TM_T_M, fill=scaffolded))
+bar + stat_summary(aes(y = TM_T_M, group=scaffolded), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=4)), fun.y=mean, geom="text", size=6, vjust=-2)+
+      labs (x = "Access to Scaffold", y= "TM Score", fill ="Access to Scaffold") +
+      coord_cartesian(ylim=c(0,15)) +
+     
+      scale_colour_manual(values = c(none, green),
+                      labels = c("triangular","linear"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean TM Score") #+
+     # scale_fill_manual( values = c(red,blue),
+     #                         breaks = c("triangular_score", "linear_score"),
+    #                     labels = c("triangular","linear")) + 
+    # scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+```
+> Is this difference significant?
+
+Students performed significantly better when they had access to a scaffold (M = 9.2, SD = 4.32) than when the did not (M = 6.9, SD = 4.51), t(88) = -3.64, p < .001, d = 0.53, a significant medium effect.
+
+```{r echo = FALSE}
+describeBy(x=df_subjects$triangular_score, group=df_subjects$scaffolded)
+
+t.test(triangular_score ~ scaffolded, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(triangular_score ~ scaffolded, data= df_subjects)
+
+```
+
+
+
+
+
+### Compare Scaffolds to Control in DIFF SCORE
+> Are scaffolds more effective than no scaffolds?
+
+If we account for the student's performance on the LM graph by considering the difference in performance between the LM and TM graphs, we see that the difference in performance was significantly smaller when they had access to a scaffold (M = -1.73, SD = 3.88) than when the did not (M = -4.08, SD = 4.51), t(82) = -3.76, p < .001, d = 0.59, a significant medium effect.
+
+
+```{r echo = FALSE } 
+bar <- ggplot(df_subjects, aes(x = scaffolded, y= score_diff, fill=scaffolded))
+bar + stat_summary(aes(y = score_diff, group=scaffolded), fun.y=mean,  geom="point", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=6, vjust=-2)+
+      labs (x = "Scaffold", y= "Score", fill ="Scaffold") +
+      coord_cartesian(ylim=c(-15,15)) +
+     
+      scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Difference between LM and TM Score") #+
+     # scale_fill_manual( values = c(red,blue),
+     #                         breaks = c("triangular_score", "linear_score"),
+    #                     labels = c("triangular","linear")) + 
+    # scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+```
+> Is this difference significant?
+
+The difference in performance between the LM and TM graphs was significantly smaller when they had access to a scaffold (M = -1.73, SD = 3.88) than when the did not (M = -4.08, SD = 4.51), t(82) = -3.76, p < .001, d = 0.59, a significant medium effect.
+
+```{r echo = FALSE}
+describeBy(x=df_subjects$score_diff, group=df_subjects$scaffolded)
+
+t.test(score_diff ~ scaffolded, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(score_diff ~ scaffolded, data= df_subjects)
+
+```
+
+
+
+
+
+

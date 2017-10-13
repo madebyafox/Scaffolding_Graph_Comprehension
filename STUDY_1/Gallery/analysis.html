@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Results Gallery</title>
+  <meta name="author" content="Amy Rae Fox">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="gallery.js"></script>
+
+</head>
+
+<body>
+  <script>
+        $(function() {
+        		var selectedClass = "";
+        		$(".fil-cat").click(function(){
+        		selectedClass = $(this).attr("data-rel");
+             $("#portfolio").fadeTo(100, 0.1);
+        		$("#portfolio div").not("."+selectedClass).fadeOut().removeClass('scale-anm');
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn().addClass('scale-anm');
+              $("#portfolio").fadeTo(300, 1);
+            }, 300);
+        	});
+        });
+
+        var folder = "analysis/";
+        $.ajax({
+            url : folder,
+            success: function (data) {
+                $(data).find("a").attr("href", function (i, val) {
+        						var name = val;
+                    var subject = name.match(/\d/g);
+                    var classes = name.match(/_(\w+)./g);
+        						classes = classes[0].replace(".", "");
+        						classes = classes.split("_");
+        						classes.shift();
+        						console.log(val);
+        						console.log(classes);
+                    if( val.match(/\.(jpe?g|png|gif)$/) ) {
+                        $("#portfolio").append( "<div id="+i+"/>");
+        								$("#"+i+"").append( "<img id='"+val+"'src='"+ folder + val +"'>" );
+        								$("#"+i+"").addClass("all");
+                        $("#"+i+"").addClass(""+subject+"");
+        								$("#"+i+"").addClass("tile");
+        								$("#"+i+"").addClass("scale-anm");
+        								for (n=0;n<classes.length;n++) {
+        									$("#"+i+"").addClass(classes[n]);
+        								}
+                    }
+                });
+            }
+        });
+
+  </script>
+
+  <div class="toolbar mb2 mt2">
+    ANALYSIS
+    <button class="btn fil-cat" href="" data-rel="all">All</button>
+    <button class="btn fil-cat"         data-rel="graph">graph</button>
+    <button class="btn fil-cat"         data-rel="scratch">scratch</button>
+    <button class="btn fil-cat"         data-rel="questions">questions</button>
+    <button class="btn fil-cat"         data-rel="1">1</button>
+    <button class="btn fil-cat"         data-rel="2">2</button>
+    <button class="btn fil-cat"         data-rel="3">3</button>
+    <button class="btn fil-cat"         data-rel="4">4</button>
+    <button class="btn fil-cat"         data-rel="5">5</button>
+    <button class="btn fil-cat"         data-rel="6">6</button>
+
+
+  </div>
+
+  <div style="clear:both;"></div>
+  <div id="portfolio">
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+</body>
+</html>

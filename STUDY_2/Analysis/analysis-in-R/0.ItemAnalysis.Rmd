@@ -1,0 +1,178 @@
+---
+title: "2YP Item Analysis"
+output: html_notebook
+---
+
+```{r}
+library(readr)
+library(ggplot2)
+library(tables)
+library(gmodels) #chi square
+
+  red = "#F8766D"
+  green = "#1cc07e"
+  blue = "#59A1FC"
+  purple = "#C680FD"
+  none = "#7E7D7E"
+  text1 = "#071FD5"
+  text2 = "#0C91DF"
+  img1 = "#EF007A"
+  img2 = "#c481d5"
+  
+  
+all_items <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_items.csv")
+test_items = subset(all_items, scenario!="jones", select = c("subject","condition", "experiment", "scenario","question","correct","graph","q_order","rt_sec","answer")) #create a wide form
+
+tri_items = subset(all_items, graph=="triangular", select = c("subject","condition","experiment","scenario","question","correct","q_order","rt_sec","answer"))
+lin_items = subset(all_items, graph=="linear", select = c("subject","condition","experiment","scenario","question","correct","q_order","rt_sec","answer"))
+
+tri_scaff = subset(tri_items, q_order<=5)
+
+tri_scaff_long = subset(tri_items, scenario=="longmire")
+tri_scaff_axis = subset(tri_items, scenario=="axis")
+
+#View(all_items)
+```
+
+### SCENARIO COMPARISONS
+#### Plot question correct by scenario
+```{r echo = FALSE}
+
+
+#aggregate(tri_items$correct, by=list(Category=tri_items$scenario), FUN=sum)
+#aggregate(lin_items$correct, by=list(Category=lin_items$scenario), FUN=sum)
+
+
+#tri_table <-table(tri_items$question, tri_items$correct)
+#tri_table
+#
+#lin_table <-table(lin_items$question, lin_items$correct)
+#lin_table
+
+#g <- ggplot(test_items, aes(question))
+#g + geom_bar(aes(weight=correct))+facet_grid(scenario~graph)+coord_flip()
+
+g <- ggplot(lin_items, aes(question, fill=scenario))
+g + geom_bar(aes(weight=correct), position = "dodge")+coord_flip() + 
+ scale_fill_manual(values=c("red","black"))
+#
+#g <- ggplot(lin_items, aes(question, fill=scenario))
+#g + geom_bar(aes(weight=correct), position = "dodge")+coord_flip()
+```
+
+#### Table question correct by scenario
+
+```{r echo = FALSE}
+#mytable <- table(all_items$question,all_items$correct,all_items$scenario) # A will be rows, B will be columns 
+#mytable
+mytable <- xtabs(~question+scenario+correct, data=test_items)
+#ftable(mytable)
+
+df_summary <- as.data.frame(mytable)
+df_correct <- subset(df_summary, df_summary$correct == "1")
+df_correct$avg <- df_correct$Freq
+
+  table <- tabular(  (question~scenario*avg)
+                                   , data = df_correct)
+  table
+                
+
+
+
+```
+
+#### Table question correct by scenario and graph
+
+```{r echo = FALSE}
+#mytable <- table(all_items$question,all_items$correct,all_items$scenario) # A will be rows, B will be columns 
+#mytable
+mytable <- xtabs(~question+scenario+graph+correct, data=test_items)
+ftable(mytable)
+
+df_summary <- as.data.frame(mytable)
+df_correct <- subset(df_summary, df_summary$correct == "1")
+
+
+#MEANS TABLE FOR TOTAL RUNTIME
+
+#questions <-unique(test_items$question)
+
+#QUESTION <- factor(test_items$question)
+#SCENARIO <- factor(test_items$scenario)
+#GRAPH <-factor (test_items$graph)
+#
+#  table <- tabular(  (QUESTION~SCENARIO*GRAPH*correct*sum)
+#                                   , data = test_items)
+#  table
+                                  #*(Heading("Score"))
+#                                    *(Heading("LM")*LMPercent+Heading("TM")*TMPercent)*(mean+sd)
+#                                  +(Heading("Time"))
+#                                    *(Heading("LM")*LM_T_M+Heading("TM")*TM_T_M)*(mean+sd)
+#                                  ),  
+#                                      data = df_subjects)
+#table_options(rowlabeljustification="center", justification="right")
+##table
+##html(table,options=htmloptions(head=TRUE))
+#latex(table)
+```
+
+#### Which questions are significantly different by scenario?
+
+```{r echo = FALSE}
+#CrossTable(test_items$scenario, test_items$correct, fisher=TRUE, chisq = TRUE, expected = TRUE, sresid = TRUE, format = "SPSS")
+items.Model = aov(Freq ~ scenario*question, data = df_correct)
+items.Model
+summary.lm(items.Model)
+df_correct$question
+
+#pairwise.t.test(df_correct$Freq, df_correct$question, p.adjust.method="BH")
+```
+### START question exploration
+```{r echo = FALSE}
+
+
+start = subset(tri_items, question=="start")
+
+
+mytable <- xtabs(~question+scenario+answer+condition+correct, data=start)
+ftable(mytable)
+
+```
+
+
+```{r results = 'asis', echo = FALSE}
+
+#MEANS TABLE FOR TOTAL RUNTIME
+
+ORDER <- factor(tri_scaff$q_order)
+CONDITION <- factor(tri_scaff$condition)
+
+table <- tabular(  (ORDER+1)~(Format(digits=3)
+                                  *(Heading("Score"))
+                                    *(Heading("LM")*correct)*(mean+sd)),  
+                                      data = tri_scaff)
+table
+#html(table,options=htmloptions(head=TRUE))
+#latex(table)
+#
+#print("<H1>Total Time by Scaffold: REGULAR ORDER</H1>")
+#describeBy(df_regular$TOTAL_T_M, df_regular$condition)
+#print("Total Time by Scaffold: REVERSE ORDER")
+#describeBy(df_reverse$TOTAL_T_M, df_reverse$condition)
+```
+
+
+```{r echo = FALSE}
+first_five <- ggplot(tri_scaff, aes(x = q_order, y=correct)) #, fill=variable, shape=variable)) +
+
+
+first_five + facet_grid(~scenario~condition)+
+  stat_summary(fun.y = mean, geom = "bar", position=position_dodge(1)) +  #the point
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Question", y="%Correct", color="Graph Task") +
+  ggtitle("") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+

@@ -1,0 +1,129 @@
+---
+title: "2YP - FOX - Data Exploration"
+output: html_notebook
+---
+
+```{r echo = FALSE} 
+#IMPORT NECESSARY PACKAGES
+library(readr) #load csv
+library(pastecs) #stat.desc
+library(tables) # pretty tables
+library(dplyr) #data formatting
+library(ez) #mixed anova
+library(reshape2) #reformatting data
+library(car)   #statistics
+library(ggplot2) #graphs!
+```
+
+```{r echo = FALSE}
+#LOAD THE PARTICIPANT DATA
+all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+    col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+        `Graph Description (if other)` = col_skip(), 
+        `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+            "Triangular", "Linear Model", 
+            "Scatterplot", "Other", "Triangular (asymmetric)")), 
+        Points = col_skip(), Rater = col_skip(), 
+        `Select each item that is labelled in the graph` = col_skip(), 
+        `X Axis` = col_skip(), `Y Axis` = col_skip(),
+        GENDER = col_factor(levels = c("Male", 
+        "Female","Other")),
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+            "reverse")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip() ))
+#View(all_participants)
+
+#LOAD THE EXPERT DATA
+all_experts <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_experts.csv", 
+    col_types = cols(
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("reverse", 
+            "experiment")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip()))
+
+```
+
+```{r echo = FALSE}
+#SETUP DATA FRAMES
+#create copy data of base data frame 
+df_subjects <- cbind(all_participants)
+df_experts <- cbind(all_experts)
+
+#create a new column for order with better name
+df_subjects$order = df_subjects$experiment
+levels(df_subjects$order)[levels(df_subjects$order)=="experiment"] <- "LMFirst"
+levels(df_subjects$order)[levels(df_subjects$order)=="reverse"] <- "TMFirst"
+
+
+#create data subsets
+df_regular <- subset(df_subjects, experiment=="experiment")
+df_reverse <- subset(df_subjects, experiment=="reverse")
+```
+
+```{r echo = FALSE}
+#SETUP LABELS AND COLORS FOR GRAPHS
+order_labels <- c(LMFirst = "linear-first", TMFirst = "triangular-first")
+condition_lables <-c( '0' = "no scaffold", '1' = "what-text", '2' = "how-text", '3' = "static image", '4' = "interactive image")
+task_labels <- c("LM_T_M" = "linear graph", "TM_T_M" = "triangular graph")
+
+  red = "#F8766D"
+  green = "#1cc07e"
+  blue = "#59A1FC"
+  purple = "#C680FD"
+  none = "#7E7D7E"
+  text1 = "#071FD5"
+  text2 = "#0C91DF"
+  img1 = "#EF007A"
+  img2 = "#c481d5"
+
+```
+####Open Questions
+
+> Is learning phase time correlated with score?
+> do multiple models emerge? or single interpretation?
+> what is the depth of knowledge?
+> does score predict drawing time
+> how much variance is there in drawing time?
+
+***
+> What is the relationship between response score and response latency?
+
+We might expect to see a positive, linear relationship between score and response time: it could take longer to come up with the correct answer. Conversely, if the question is `easy`, it should take less time (and be more likely to produce a correct answer), suggesting a negative linear relationship.  
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() +
+    labs(x="Total Runtime", y="Total Score") +
+    ggtitle("Runtime and Score (across all Factors)") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~order)+
+    labs(x="Total Runtime", y="Total Score") +
+    ggtitle("Runtime and Score (by task order)") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~condition, labeller=labeller(condition=condition_lables))+
+    labs(x="Total Runtime", y="Total Score") +
+    ggtitle("Runtime and Score (by task condition)") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+```
+***

@@ -1,0 +1,169 @@
+---
+title: "Assumption Validation"
+output: html_notebook
+---
+
+###A. Equality of task scenarios  -- REGULAR ORDER --
+Two different data analysis scenarios were used in the study. The "axis" scenario involved solving scheduling questions for a project manager.  The "longmire" scenario involved solving scheduling questions for a conference events manager.  The order of presentation of the scenarios (and therefore whether they were delivered with the linear or triangular model graph) were counterbalanced and randomly assigned.  It is assumed that the scenarios are of equal difficulty.  
+
+**1. Linear model response TIMES for the axis and longmire scenarios should not be significantly different. **   
+For the regular graph order variant, mean response times for the linear model task were 9.4 minutes in the axis scenario and 10.1 minutes in the longmire scenario, a non-significant difference, t (144) = -1.39, p > 0.16.  <span style="color:green"> **Therefore, assumption #2 is confirmed.** </span>
+```{r echo = FALSE}
+#create stacked subset of times
+w.lm.times.scenario <- subset(df_regular, experiment=="experiment", select = c("subject","lm_scenarios","LM_T_M"))
+s.lm.times.scenario <- melt(w.lm.times.scenario, id=c("subject","lm_scenarios"),measured= c("LM_T_M"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.lm.times.scenario, aes(s.lm.times.scenario$lm_scenarios, s.lm.times.scenario$value)) 
+line + 
+coord_cartesian(ylim=c(0,20)) +
+theme_bw() +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="task scenario", y="response time (minutes)") +
+ggtitle("Mean Response Time for Linear Model Task by Scenario") 
+``` 
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(df_regular$LM_T_M, df_regular$lm_scenarios, stat.desc)
+
+#create subset of data for each scenario order
+w.lm.axis <- subset(df_regular, lm_scenarios == "axis" )
+w.lm.longmire <-subset(df_regular, lm_scenarios == "longmire" )
+
+#compute DEPENDENT means T test
+dept.t.test <-t.test(w.lm.axis$LM_T_M, w.lm.longmire$LM_T_M, paired = FALSE)
+dept.t.test
+#compute effect size
+t <-dept.t.test$statistic[[1]]
+df <- dept.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+
+```
+
+
+***   
+
+**2. Linear model response SCORES for the axis and longmire scenarios should not be significantly different. **
+Mean response scores for the linear model task were 11.0 in the axis scenario and 10.7 in the longmire scenario, a nonsignificant difference,  t(136) = 0.85, p = 0.39. 
+<span style="color:green"> **Therefore, assumption #2 is confirmed.** </span>
+
+
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.lm.scores.scenario <- subset(df_regular, select = c("subject","lm_scenarios","linear_score"))
+s.lm.scores.scenario <- melt(s.lm.scores.scenario, id=c("subject","lm_scenarios"),measured= c("linear_score"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.lm.scores.scenario, aes(s.lm.scores.scenario$lm_scenarios, s.lm.scores.scenario$value)) 
+line +  
+theme_bw() +
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="task scenario", y="score (# correct)") +
+ggtitle("Mean Response Score for Linear Model Task by Scenario")
+``` 
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(df_regular$linear_score, df_regular$lm_scenarios, stat.desc)
+
+#compute DEPENDENT means T test
+ind.t.test <-t.test(w.lm.axis$linear_score, w.lm.longmire$linear_score, paired = FALSE)
+ind.t.test
+#compute effect size
+t <-dept.t.test$statistic[[1]]
+df <- dept.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+```
+
+
+***
+
+**3. Triangular model response TIMES for the axis and longmire scenarios should not be significantly different. **   
+Mean response times for the triangular model task were 10.2 for the axis scenario and 10.5 for the longmire scenario, a nonsignificant difference, t(152) = 0.49, p > 0.61 with an extrememly small effect (r = 0.02).  
+<span style="color:green"> **Therefore, assumption #3 is confirmed.** </span>
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.tm.times.scenario <- subset(df_regular, select = c("subject","tm_scenarios","TM_T_M"))
+s.tm.times.scenario <- melt(s.tm.times.scenario, id=c("subject","tm_scenarios"),measured= c("TM_T_M"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.tm.times.scenario, aes(s.tm.times.scenario$tm_scenarios, s.tm.times.scenario$value)) 
+line + 
+coord_cartesian(ylim=c(0,30)) +
+theme_bw() +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="task scenario", y="response time (minutes)") +
+ggtitle("Mean Response Time for Triangular Model Task by Scenario") 
+``` 
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(df_regular$TM_T_M, df_regular$tm_scenarios, stat.desc)
+
+#compute DEPENDENT means T test
+ind.t.test <-t.test(w.lm.axis$TM_T_M, w.lm.longmire$TM_T_M, paired = FALSE)
+ind.t.test
+#compute effect size
+t <-ind.t.test$statistic[[1]]
+df <- ind.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+
+```
+
+***  
+
+**4. Triangular model response SCORES for the axis and longmire scenarios should not be significantly different. **
+Mean response scores for the triangular model task range were 8.0 in the axis scenario and 10.5 in the longmire scenario, a significant difference, t(149) = 3.76, p < 0.01, with a small effect (r = 0.27).     
+<span style="color:red"> **Therefore, assumption #4 is NOT confirmed.** </span>
+```{r echo = FALSE}
+#create stacked subset of times
+s.tm.scores.scenario <- subset(df_regular, select = c("subject","tm_scenarios","triangular_score"))
+s.tm.scores.scenario <- melt(s.tm.scores.scenario, id=c("subject","tm_scenarios"),measured= c("triangular_score"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.tm.scores.scenario, aes(s.tm.scores.scenario$tm_scenarios, s.tm.scores.scenario$value)) 
+line + 
+coord_cartesian(ylim=c(0,30)) +
+theme_bw() +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="task scenario", y=" score (# correct)") +
+ggtitle("Mean Response Score for Triangular Model Task by Scenario") 
+``` 
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(df_regular$triangular_score, df_regular$tm_scenarios, stat.desc)
+
+#compute DEPENDENT means T test
+ind.t.test <-t.test(w.lm.axis$triangular_score, w.lm.longmire$triangular_score, paired = FALSE)
+ind.t.test
+#compute effect size
+t <-ind.t.test$statistic[[1]]
+df <- ind.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+
+
+```

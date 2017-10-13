@@ -1,0 +1,1997 @@
+---
+title: "2YP Notebook"
+output:
+  html_notebook: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r echo = FALSE}
+#IMPORTANT NECESSARY PACKAGES
+library(readr) #load csv
+library(pastecs) #stat.desc
+library(tables) # pretty tables
+library(dplyr) #data formatting
+library(ez) #mixed anova
+library(reshape2) #reformatting data
+library(car)   #statistics
+library(psych) #describBy
+library(multcompView) #Tukey
+library(effsize) #effect size
+
+
+#LOAD THE PARTICIPANT DATA
+#all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+#    col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+#        `Graph Description (if other)` = col_skip(), 
+#        `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+#            "Triangular", "Linear Model", 
+#            "Scatterplot", "Other", "Triangular (asymmetric)")), 
+#        Points = col_skip(), Rater = col_skip(), 
+#        `Select each item that is labelled in the graph` = col_skip(), 
+#        `X Axis` = col_skip(), `Y Axis` = col_skip(),
+#        GENDER = col_factor(levels = c("Male", 
+#        "Female","Other")),
+#        condition = col_factor(levels = c("0", 
+#            "1", "2", "3", "4")), d_t = col_skip(), 
+#        d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+#            "reverse")), linear_time = col_skip(), 
+#        lm_scenarios = col_factor(levels = c("axis", 
+#            "longmire")), ls_t = col_skip(), 
+#        lt_t = col_skip(), time_diff = col_skip(), 
+#        tm_scenarios = col_factor(levels = c("longmire", 
+#            "axis")), triangular_time = col_skip(), 
+#        ts_t = col_skip(), tt_t = col_skip() ))
+#View(all_participants)
+
+#LOAD THE PARTICIPANT DATA
+#ll_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+#   col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+#       `Graph Description (if other)` = col_skip(), 
+#       `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+#           "Triangular", "Linear Model", 
+#           "Scatterplot", "Other", "Triangular (asymmetric)")), 
+#       Points = col_skip(), Rater = col_skip(), 
+#       `Select each item that is labelled in the graph` = col_skip(), 
+#       `X Axis` = col_skip(), `Y Axis` = col_skip(),
+#       GENDER = col_factor(levels = c("Male", 
+#       "Female","Other")),
+#       condition = col_factor(levels = c("0", 
+#           "1", "2", "3", "4")), d_t = col_skip(), 
+#       d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+#           "reverse")), linear_time = col_skip(), 
+#       lm_scenarios = col_factor(levels = c("axis", 
+#           "longmire")), ls_t = col_skip(), 
+#       lt_t = col_skip(), time_diff = col_skip(), 
+#       tm_scenarios = col_factor(levels = c("longmire", 
+#           "axis")), triangular_time = col_skip(), 
+#       ts_t = col_skip(), tt_t = col_skip() ))
+
+
+all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+    col_types = cols(`Graph Type` = col_factor(levels = c("Triangular", 
+        "Triangular (right angle)", "Linear Model", 
+        "Triangular (asymmetric)", "Scatterplot", 
+        "Other")), condition = col_factor(levels = c("0", 
+        "1", "2", "3", "4")), experiment = col_factor(levels = c("reverse", 
+        "experiment")), lm_scenarios = col_factor(levels = c("axis", 
+        "longmire")), tm_scenarios = col_factor(levels = c("longmire", 
+        "axis"))))
+
+
+#LOAD THE EXPERT DATA
+all_experts <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_experts.csv", 
+    col_types = cols(
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("reverse", 
+            "experiment")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip()))
+
+
+
+#SETUP LABELS AND COLORS FOR GRAPHS
+order_labels <- c(LMFirst = "linear-first", TMFirst = "triangular-first")
+condition_lables <-c( '0' = "no scaffold", '1' = "what-text", '2' = "how-text", '3' = "static image", '4' = "interactive image")
+task_labels <- c("LM_T_M" = "linear graph", "TM_T_M" = "triangular graph")
+
+  red = "#F8766D"
+  green = "#1cc07e"
+  blue = "#59A1FC"
+  purple = "#C680FD"
+  none = "#7E7D7E"
+  text1 = "#071FD5"
+  text2 = "#0C91DF"
+  img1 = "#EF007A"
+  img2 = "#c481d5"
+
+#SETUP DATA FRAMES
+
+#create copy data of base data frame 
+df_subjects <- cbind(all_participants)
+df_experts <- cbind(all_experts)
+
+#create a new column for order with better name
+df_subjects$order = df_subjects$experiment
+levels(df_subjects$order)[levels(df_subjects$order)=="experiment"] <- "LMFirst"
+levels(df_subjects$order)[levels(df_subjects$order)=="reverse"] <- "TMFirst"
+
+#create a column for the sum of the two graphing reading task (graphScore)
+df_subjects$graphScore = df_subjects$linear_score + df_subjects$triangular_score
+df_subjects$graphTime = df_subjects$LM_T_M + df_subjects$TM_T_M
+
+#create a column for the sum of the two drawing tasks (graphScore)
+df_subjects$drawScore = df_subjects$points + df_subjects$d_n
+df_subjects$tmPercent <- df_subjects$triangular_score/15*100
+df_subjects$drawPercent <- df_subjects$drawScore/12*100
+
+#create data subsets for based on the order factor
+df_regular <- subset(df_subjects, experiment=="experiment")
+df_reverse <- subset(df_subjects, experiment=="reverse")
+df_scaffolds <- subset(df_subjects, condition!="0")
+df_control <- subset(df_subjects, condition=="0")
+df_longmire <- subset(df_subjects, tm_scenarios=="longmire")
+df_axis <- subset(df_subjects, tm_scenarios=="axis")
+
+
+df_controlViv <- subset(df_subjects, condition == "0"|condition == "4")
+
+
+df_subjects$scaffolded[df_subjects$condition == "0"] <- "none"
+df_subjects$scaffolded[df_subjects$condition != "0"] <- "scaffold"
+df_subjects$scaffTYPE[df_subjects$condition == "0"] <- "none"
+df_subjects$scaffTYPE[df_subjects$condition == "1"] <- "text"
+df_subjects$scaffTYPE[df_subjects$condition == "2"] <- "text"
+df_subjects$scaffTYPE[df_subjects$condition == "3"] <- "image"
+df_subjects$scaffTYPE[df_subjects$condition == "4"] <- "image"
+
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "1"] <- "text"
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "2"] <- "text"
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "3"] <- "image"
+df_scaffolds$scaffTYPE[df_scaffolds$condition == "4"] <- "image"
+df_scaffolds$scaffTYPE <-as.factor(df_scaffolds$scaffTYPE)
+
+#create subsets of GRAPH SCORES
+w_scores = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "tm_scenarios", "linear_score","triangular_score","Graph Type")) #create a wide form subset 
+l_scores <-melt(w_scores, id=c("subject","condition", "order", "lm_scenarios","tm_scenarios","Graph Type"), measured=c("linear_score","triangular_score")) #create a longform version
+l_scores$scenario <- l_scores[4:5][cbind(seq_along(l_scores$variable), l_scores$variable)] #merge scenario to single contextual column
+t_scores = subset(l_scores, variable=="triangular_score")
+
+#GRAPH TIMES
+# our data df_subjects is in wide format (repeated measures in different columns), however we need it in long format
+w_times = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios","tm_scenarios", "LM_T_M","TM_T_M")) #create a wide form subset 
+l_times <-melt(w_times, id=c("subject","condition", "order", "lm_scenarios","tm_scenarios"), measured=c("LM_T_M","TM_T_M")) 
+l_times$scenario <- l_times[4:5][cbind(seq_along(l_times$variable), l_times$variable)]
+
+#DRAWING TIMES AND SCORES
+#create subsets of runtimes
+w_draw_s = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "drawScore")) #create a wide form subset 
+l_draw_s <-melt(w_draw_s, id=c("subject","condition", "order", "lm_scenarios"), measured=c("drawScore")) #create a longform version
+
+w_draw_t = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "DT_T_M")) #create a wide form subset 
+l_draw_t <-melt(w_draw_t, id=c("subject","condition", "order", "lm_scenarios"), measured=c("DT_T_M")) #create a longform version
+
+
+ideal = subset(df_subjects, tm_scenarios=="longmire" & condition=="1" & experiment =="experiment")
+```
+
+### METHODS
+```{r echo = FALSE}
+#EXPLORE SAMPLE STATISTICS
+
+#record sample size
+nSubjects = nrow(df_subjects)
+nExperts = nrow(df_experts)
+n = nSubjects + nExperts
+nReg = nrow(df_regular)
+nRev = nrow(df_reverse)
+
+#how many women?
+nFemale <-nrow(filter(df_subjects, df_subjects$GENDER == 'Female'))
+
+#describe the sample
+descriptives<-stat.desc(df_subjects)
+#descriptives
+
+#determine age range
+age_min = descriptives$AGE[4]
+age_max = descriptives$AGE[5]
+age_m = round(descriptives$AGE[9], 2)
+age_sd = round(descriptives$AGE[13], 2)
+
+
+time_min = round(descriptives$TOTAL_T_M[4], 0)
+time_max = round(descriptives$TOTAL_T_M[5], 0)
+time_m = round(descriptives$TOTAL_T_M[9], 0)
+time_sd = round(descriptives$TOTAL_T_M[13], 2)
+```
+
+#####1. Participants   
+`r nSubjects` (`r round(nFemale/nSubjects,2) * 100`% female) English speakers aged `r age_min` to `r age_max` were recruited from the experimental-subject pool at a large public university in the United States (M(age) = `r age_m`, SD(age) = `r age_sd`). Participants completed three activities: two graph reading tasks followed by a drawing task. In some cases (order = linear-first), participants (n = `r nReg`) completed the first graph reading task with a linear model graph, followed by the task with the triangular graph. To control for any effects of graph order on performance, an additional (n= `r nRev`) subjects completed the activities with the graphs in reverse order. Each participant was randomly assigned to one of five conditions which determined what additional information (scaffold) they received while solving the first five problems on each graph reading task: no-scaffold (control), 'what' text, 'how'-text, static-image, interactive-image. The runtime of the entire study ranged from `r time_min` to `r time_max` minutes (M = `r time_m`, SD = `r time_sd`).    
+
+In addition, we ran `r nExperts` expert participants through two conditions, composed of research assistants with more than 20 hours of experience analyzing data with the triangular model graph.   
+
+#####2. Group Totals
+Participants were randomnly assigned to task order (LMFirst, TMFirst) and Scaffold Condition (none, what-text, how-text, static image, interactive image) conditions
+```{r results = 'asis', echo = FALSE}
+#create table of participants numbers by experiment and condition
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+table <- tabular(  (Heading("Condition")*CONDITION+1)~(Heading("Task Order")*ORDER+1), data = df_subjects )
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+```  
+
+
+### EXPLORATION
+
+
+##### Longmire Hypothesis
+
+IN LONGMIRE scenario, there was NO available answer for the LM interpretation of the first TM question.
+```{r echo = FALSE}
+boxplot(df_longmire$triangular_score ~ df_longmire$condition)
+```
+IN AXIS scenario, there was an available answer for the LM interpretation of the first TM question.
+```{r echo = FALSE}
+boxplot(df_axis$triangular_score ~ df_axis$condition)
+```
+
+```{r echo = FALSE}
+
+#construct bar chart of TASK TIME facet by order
+MP_scores <- ggplot(df_longmire, aes(x = condition, y=triangular_score)) + #, fill=variable, shape=variable)) +
+    scale_shape_manual(values=c(15, 17))+
+    scale_fill_manual(values = c(green, red),
+                      breaks = c("triangular_score","linear_score"),
+                      labels = c("triangular","linear"))+
+    scale_x_discrete(labels=c("0" = "none", "1" = "what-text",
+                              "2" = "how-text", "3"="static img", "4"="ix img"))
+
+
+
+MP_scores +
+#+ facet_wrap(~order ,labeller=labeller(order = order_labels) ) +
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  #stat_summary(fun.y = mean, geom = "point") +  #the point
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  stat_summary(fun.y = mean, geom = "bar", position=position_dodge(1)) +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1,position=position_dodge(1)) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Task") +
+  ggtitle("Mean Score by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+
+
+#do ANOVA on score by scaffold to detect simple effects
+
+#l_scores$condition <-as.factor(l_scores$condition)
+
+anovaTMScore <- aov(triangular_score~linear_score+condition*order, data = df_longmire) #this makes it anacova
+summary(anovaTMScore)
+
+#interaction.plot(df_subjects$order, df_subjects$condition, df_subjects$triangular_score)
+#plot(ME.scaffold_score)
+```
+
+
+
+#####BAR CHART ALL SCORES
+Visualize with bar chart
+```{r echo = FALSE}
+#construct bar chart of TASK TIME facet by order
+MP_scores <- ggplot(l_scores, aes(x = condition, y=value, fill=variable, shape=variable)) +
+    scale_shape_manual(values=c(15, 17))+
+    scale_fill_manual(values = c(green, red),
+                      breaks = c("triangular_score","linear_score"),
+                      labels = c("triangular","linear"))+
+    scale_x_discrete(labels=c("0" = "none", "1" = "what-text",
+                              "2" = "how-text", "3"="static img", "4"="ix img"))
+
+MP_scores +
+#+ facet_wrap(~order ,labeller=labeller(order = order_labels) ) +
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  #stat_summary(fun.y = mean, geom = "point") +  #the point
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  stat_summary(fun.y = mean, geom = "bar", position=position_dodge(1)) +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1,position=position_dodge(1)) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Task") +
+  ggtitle("Mean Score by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+#####Relationship between GRAPH SCORE and DRAW TIME
+
+> There is no correlation between response score and response latency (in graph tasks)
+
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(x=triangular_score, y=DT_T_M))+geom_point(position = "jitter") +
+    geom_smooth(method="lm")+
+    labs(x="Draw Time", y="TM Score") +
+    ggtitle("Runtime and Score (across all Factors)") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+cor(df_subjects$DT_T_M, df_subjects$triangular_score) 
+#By ORDER
+#g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~order)+
+#    labs(x="Total Runtime", y="Total Score") +
+#    ggtitle("Runtime and Score (by task order)") +
+#    theme_bw() +
+#    theme(strip.background = element_blank()) 
+#g
+
+#By CONDITION
+#g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~condition, #labeller=labeller(condition=condition_lables))+
+#    labs(x="Total Runtime", y="Total Score") +
+#    ggtitle("Runtime and Score (by task condition)") +
+#    theme_bw() +
+#    theme(strip.background = element_blank()) 
+#g
+
+```
+
+
+
+
+#####Relationship between graph time and graph score
+
+> There is no correlation between response score and response latency (in graph tasks)
+
+We might expect to see a positive, linear relationship between score and response time: it could take longer to come up with the correct answer. Conversely, if the question is `easy`, it should take less time (and be more likely to produce a correct answer), suggesting a negative linear relationship.  
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(x=graphTime, y=graphScore))+geom_point(position = "jitter") +
+    geom_smooth(method="lm")+
+    labs(x="Total Runtime", y="Total Score") +
+    ggtitle("Runtime and Score (across all Factors)") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+cor(df_subjects$LM_T_M+df_subjects$TM_T_M, df_subjects$graphScore) 
+#By ORDER
+#g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~order)+
+#    labs(x="Total Runtime", y="Total Score") +
+#    ggtitle("Runtime and Score (by task order)") +
+#    theme_bw() +
+#    theme(strip.background = element_blank()) 
+#g
+
+#By CONDITION
+#g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~condition, #labeller=labeller(condition=condition_lables))+
+#    labs(x="Total Runtime", y="Total Score") +
+#    ggtitle("Runtime and Score (by task condition)") +
+#    theme_bw() +
+#    theme(strip.background = element_blank()) 
+#g
+
+```
+
+
+#####Relationship between graph score and drawing score
+
+> There is no correlation between graph and drawing score? 
+
+We might expect to see a positive, linear relationship between TM score and subsequent drawing score.  How could students produce an accurate TM graph if they were not first able to answer questions with it? 
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_control, aes(x=drawScore, y=triangular_score))+geom_point(position = "jitter") +
+  geom_smooth(method="lm")+
+    labs(x="Draw Score", y="TM Score") +
+    ggtitle("Graph Score and Drawing Score (for no scaffold control)") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+cor(df_control$drawScore, df_control$triangular_score) 
+
+#By ORDER
+#g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~order)+
+#    labs(x="Total Runtime", y="Total Score") +
+#    ggtitle("Runtime and Score (by task order)") +
+#    theme_bw() +
+#    theme(strip.background = element_blank()) 
+#g
+
+#By CONDITION
+#g <-ggplot(df_subjects, aes(x=TOTAL_T_M, y=totalScore))+geom_point() + facet_wrap(~condition, #labeller=labeller(condition=condition_lables))+
+#    labs(x="Total Runtime", y="Total Score") +
+#    ggtitle("Runtime and Score (by task condition)") +
+#    theme_bw() +
+#    theme(strip.background = element_blank()) 
+#g
+
+```
+
+
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(x=drawScore, y=triangular_score))+geom_point(position = "jitter") +
+    geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score") +
+    ggtitle("TM Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+cor(df_subjects$drawScore, df_subjects$triangular_score) 
+
+
+```
+
+##### Relationship between graph score and drawing score by GRAPH INTERPRETATION
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(y=triangular_score, x=drawScore, color=`Graph Type`))+geom_point(position = "jitter") +
+   # geom_smooth(method="lm")+
+    geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score", color= "Graph Interpretation") +
+    ggtitle("TM Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+cor(df_subjects$drawScore, df_subjects$triangular_score) 
+
+
+```
+
+> What's going on with the folks that score low on the TM model, and high on the drawing? What are their interpretations?
+
+```{r echo = FALSE}
+df_TM <- subset(df_subjects, `Graph Type` =="Triangular")
+df_LM <- subset(df_subjects, `Graph Type`=="Linear Model")
+df_RA <- subset(df_subjects, `Graph Type`=="Triangular (right angle)")
+df_ASY <- subset(df_subjects, `Graph Type`=="Triangular (asymmetric)")
+df_OTH <- subset(df_subjects, `Graph Type`=="Scatterplot")
+
+```
+
+>display all
+
+> DISPLAY ALL
+
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(x=drawScore, y=triangular_score, color=`Graph Type`))+geom_point(position = "jitter") +
+    facet_wrap(~`Graph Type`)+
+   # geom_smooth(method="lm")+
+    geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank())
+g
+
+cor(df_subjects$drawScore, df_subjects$triangular_score) 
+
+```
+
+
+```{r echo = FALSE}
+#TM
+g <-ggplot(df_TM, aes(x=drawScore, y=triangular_score, color=`Graph Type`))+geom_point(position="jitter") +
+   # geom_smooth(method="lm")+
+    #geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score", color= "Graph Interpretation") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+cor(df_subjects$drawScore, df_subjects$triangular_score) 
+
+```
+
+> DISPLAY TM INTERPRETATION
+
+```{r echo = FALSE}
+#TM
+g <-ggplot(df_TM, aes(y=triangular_score, x= drawScore, color=`Graph Type`))+geom_point(position = "jitter") +
+    coord_cartesian(ylim=c(0,15), xlim=c(0,12)) +
+    geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score", color= "Graph Interpretation") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank())
+g
+
+cor(df_TM$drawScore, df_TM$triangular_score) 
+
+
+```
+
+> DISPLAY RA INTERPRETATION
+
+```{r echo = FALSE}
+#RA
+g <-ggplot(df_RA, aes(x=drawScore, y=triangular_score, color=`Graph Type`))+geom_point(position = "jitter") +
+  coord_cartesian(ylim=c(0,15), xlim=c(0,12)) +
+  #geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(y="TM Score", x="Draw Score", color= "Graph Interpretation") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank())+
+    scale_color_manual(values=c("#B79F00"))
+g
+
+cor(df_RA$drawScore, df_RA$triangular_score) 
+
+```
+
+> DISPLAY LM INTERPRETATION
+
+```{r echo = FALSE}
+#LM
+g <-ggplot(df_LM, aes(x=drawScore, y=triangular_score, color=`Graph Type`))+geom_point(position = "jitter") +
+    coord_cartesian(ylim=c(0,15), xlim=c(0,12)) +
+    #geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score", color= "Graph Interpretation") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank())+
+    scale_color_manual(values=c("#00BA38"))
+g
+
+cor(df_LM$drawScore, df_LM$triangular_score) 
+
+```
+
+> DISPLAY ASY INTERPRETATION
+
+```{r echo = FALSE}
+#ASY
+g <-ggplot(df_ASY, aes(x=drawScore, y=triangular_score, color=`Graph Type`))+geom_point(position = "jitter") +
+    coord_cartesian(ylim=c(0,15), xlim=c(0,12)) +
+    #geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score", color= "Graph Interpretation") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank())+
+    scale_color_manual(values=c("#00BFC4"))
+g
+
+cor(df_ASY$drawScore, df_ASY$triangular_score) 
+
+```
+
+> DISPLAY SCATTERPLOT INTERPRETATION
+
+```{r echo = FALSE}
+#OTH
+g <-ggplot(df_OTH, aes(x=drawScore, y=triangular_score, color=`Graph Type`))+geom_point(position = "jitter") +
+    coord_cartesian(ylim=c(0,15), xlim=c(0,12)) +
+    #geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score", color= "Graph Interpretation") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank())+
+    scale_color_manual(values=c("#619CFF"))
+g
+
+cor(df_OTH$drawScore, df_OTH$triangular_score) 
+
+```
+
+> DISPLAY BY CONDITION
+
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(x=drawScore, y=triangular_score, color=condition))+geom_point(position = "jitter") +
+   # geom_smooth(method="lm")+
+    geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+    labs(x="Draw Score", y="TM Score") +
+    ggtitle("Graph Score and Drawing Score") +
+    theme_bw() +
+    theme(strip.background = element_blank())
+g
+
+cor(df_subjects$drawScore, df_subjects$triangular_score) 
+
+```
+
+
+
+
+#### Are drawing time and score correlated? 
+No, there is no correlation between drawing time and drawing score
+```{r echo = FALSE}
+#EXPLORE time and score data via scatterplot
+g <-ggplot(df_subjects, aes(x=DT_T_M, y=drawScore))+geom_point(position="jitter") +
+    labs(x="Total Runtime", y="Total Score") +
+    ggtitle("Runtime and Score (across all Factors)") +
+    theme_bw() +
+    theme(strip.background = element_blank()) 
+g
+
+cor(df_subjects$DT_T_M, df_subjects$drawScore) 
+```
+
+
+
+####Assumptions: DO LM scores differ significantly by order or scaffold?
+No, no significant difference are found in LM scores based on scaffold or task order. This confirms the assumption that LM is a conventional representation. 
+```{r echo = FALSE}
+#do ANOVA on score by scaffold to detect simple effects
+
+#l_scores$condition <-as.factor(l_scores$condition)
+
+anovaLMScore <- aov(linear_score~condition*order, data = df_subjects)
+summary(anovaLMScore)
+
+#plot(ME.scaffold_score)
+```
+
+
+
+
+####Hypothesis: DO TM scores differ significantly by scaffold, order or scenario?
+Yes, TM scores are significantly different based on scaffold condition (yay!) and scenario (boo). No significant differences are found in TM scores based on task order (boo!)
+```{r echo = FALSE}
+#do ANOVA on score by scaffold to detect simple effects
+
+#l_scores$condition <-as.factor(l_scores$condition)
+
+anovaTMScore <- aov(triangular_score~linear_score+condition*order*lm_scenarios, data = df_subjects) #this makes it anacova
+summary(anovaTMScore)
+
+#interaction.plot(df_subjects$order, df_subjects$condition, df_subjects$triangular_score)
+#plot(ME.scaffold_score)
+```
+### TABLES
+#####Mean Response time and Score for Graphing Tasks
+
+```{r results = 'asis', echo = FALSE}
+
+#MEANS TABLE FOR TOTAL RUNTIME
+df_subjects$LMPercent = df_subjects$linear_score/15
+df_subjects$TMPercent = df_subjects$triangular_score/15
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+
+table <- tabular(  (CONDITION+1)~(Format(digits=3)
+                                  *(Heading("Score"))
+                                    *(Heading("LM")*LMPercent+Heading("TM")*TMPercent)*(mean+sd)
+                                  +(Heading("Time"))
+                                    *(Heading("LM")*LM_T_M+Heading("TM")*TM_T_M)*(mean+sd)
+                                  ),  
+                                      data = df_subjects)
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+#latex(table)
+#
+#print("<H1>Total Time by Scaffold: REGULAR ORDER</H1>")
+#describeBy(df_regular$TOTAL_T_M, df_regular$condition)
+#print("Total Time by Scaffold: REVERSE ORDER")
+#describeBy(df_reverse$TOTAL_T_M, df_reverse$condition)
+```
+
+#####Mean Response time and Score for Drawing Tasks
+```{r results = 'asis', echo = FALSE}
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+df_subjects$drawPercent <- df_subjects$drawScore/12
+table <- tabular(  (CONDITION+1)~(Format(digits=3)
+                                    *(Heading("Score")*drawPercent)*(mean+sd)
+                                    +(Heading("Time")*DT_T_M)*(mean+sd)
+                                  ),  
+                                      data = df_subjects)
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+```
+
+
+
+
+
+
+#####Mean TM Score by Drawing Interpretation
+```{r results = 'asis', echo = FALSE}
+INTERPRETATION <- factor(df_subjects$`Graph Type`)
+CONDITION <- factor(df_subjects$condition)
+table <- tabular(  (INTERPRETATION+1)~(Format(digits=3)
+                                    *(Heading("TM Score")*tmPercent)*(1+mean+sd)
+                                   # +(Heading("Time")*TM_T_M)*(mean+sd)
+                                    +(Heading("Draw Score")*drawPercent)*(mean+sd)
+                                  ),  
+                                      data = df_subjects)
+table_options(rowlabeljustification="center", justification="right")
+table
+html(table,options=htmloptions(head=TRUE))
+```
+#####Mean Drawing Interpretation X task order
+```{r results = 'asis', echo = FALSE}
+#create contingency table for drawing interpretation
+tbl = table(df_subjects$order, df_subjects$`Graph Type`)
+tbl
+
+```
+
+
+### SIMPLE: Compare Scaffolds to Control in TM SCORE
+> Are scaffolds more effective than no scaffolds?
+
+From the means, it appears that across all scaffold groups, scores were higher for scaffolds than the no-scaffold control. Students performed significantly better when they had access to a scaffold (M = 9.2, SD = 4.32) than when the did not (M = 6.9, SD = 4.51), t(88) = -3.64, p < .001, d = 0.53, a significant medium effect.
+
+```{r echo = FALSE } 
+bar <- ggplot(df_subjects, aes(x = scaffolded, y= tmPercent, fill=scaffolded))
+bar + stat_summary(aes(y = tmPercent, group=scaffolded), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=6, vjust=-2)+
+      labs (x = "Access to Scaffold", y= "TM Score (% correct)", fill ="Access to Scaffold") +
+      coord_cartesian(ylim=c(0,100)) +
+      scale_fill_manual(values = c(none, "#16B3B7"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean TM Score") #+
+     # scale_fill_manual( values = c(red,blue),
+     #                         breaks = c("triangular_score", "linear_score"),
+    #                     labels = c("triangular","linear")) + 
+    # scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+```
+> Is this difference significant?
+
+Students performed significantly better when they had access to a scaffold (M = 9.2, SD = 4.32) than when the did not (M = 6.9, SD = 4.51), t(88) = -3.64, p < .001, d = 0.53, a significant medium effect.
+
+```{r echo = FALSE}
+describeBy(x=df_subjects$triangular_score, group=df_subjects$scaffolded)
+
+t.test(triangular_score ~ scaffolded, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(triangular_score ~ scaffolded, data= df_subjects)
+
+```
+
+> Does ORDER function as a scaffold for the TM (only for the control condition?
+NO
+
+```{r echo = FALSE}
+describeBy(x=df_control$triangular_score, group=df_control$order)
+
+t.test(triangular_score ~ order, data=df_control, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(triangular_score ~ order, data= df_control)
+```
+
+> Does ORDER function as a scaffold for the TM (only for the control condition?
+NO
+
+```{r echo = FALSE}
+describeBy(x=df_control$triangular_score, group=df_control$order)
+
+t.test(triangular_score ~ order, data=df_control, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(triangular_score ~ order, data= df_control)
+```
+
+
+
+
+
+
+### Compare Scaffolds to Control in TM TIME
+> Are scaffolds more effective than no scaffolds?
+
+No signfificant differences in time 
+```{r echo = FALSE } 
+bar <- ggplot(df_subjects, aes(x = scaffolded, y= TM_T_M, fill=scaffolded))
+bar + stat_summary(aes(y = TM_T_M, group=scaffolded), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=4)), fun.y=mean, geom="text", size=6, vjust=-2)+
+      labs (x = "Access to Scaffold", y= "TM Score", fill ="Access to Scaffold") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_colour_manual(values = c(none, green),
+                      labels = c("triangular","linear"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean TM Score") #+
+     # scale_fill_manual( values = c(red,blue),
+     #                         breaks = c("triangular_score", "linear_score"),
+    #                     labels = c("triangular","linear")) + 
+    # scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+```
+> Is this difference significant?
+
+Students with access to scaffolds did not spend significantly more or less time on the TM task than those in the control group.
+
+```{r echo = FALSE}
+describeBy(x=df_subjects$TM_T_M, group=df_subjects$scaffolded)
+
+t.test(TM_T_M ~ scaffolded, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(TM_T_M ~ scaffolded, data= df_subjects)
+
+```
+
+
+
+
+
+### Compare Scaffolds to Control in DIFF SCORE
+> Are scaffolds more effective than no scaffolds?
+
+If we account for the student's performance on the LM graph by considering the difference in performance between the LM and TM graphs, we see that the difference in performance was significantly smaller when they had access to a scaffold (M = -1.73, SD = 3.88) than when the did not (M = -4.08, SD = 4.51), t(82) = -3.76, p < .001, d = 0.59, a significant medium effect.
+
+
+```{r echo = FALSE } 
+bar <- ggplot(df_subjects, aes(x = scaffolded, y= score_diff, fill=scaffolded))
+bar + stat_summary(aes(y = score_diff, group=scaffolded), fun.y=mean,  geom="point", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=6, vjust=-2)+
+      labs (x = "Scaffold", y= "Score", fill ="Scaffold") +
+      coord_cartesian(ylim=c(-15,15)) +
+     
+      scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Difference between LM and TM Score") #+
+     # scale_fill_manual( values = c(red,blue),
+     #                         breaks = c("triangular_score", "linear_score"),
+    #                     labels = c("triangular","linear")) + 
+    # scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+```
+> Is this difference significant?
+
+The difference in performance between the LM and TM graphs was significantly smaller when they had access to a scaffold (M = -1.73, SD = 3.88) than when the did not (M = -4.08, SD = 4.51), t(82) = -3.76, p < .001, d = 0.59, a significant medium effect.
+
+```{r echo = FALSE}
+describeBy(x=df_subjects$score_diff, group=df_subjects$scaffolded)
+
+t.test(score_diff ~ scaffolded, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(score_diff ~ scaffolded, data= df_subjects)
+
+```
+
+
+
+
+
+
+
+
+### SIMPLE: TM Score by Scaffold Group
+
+```{r echo = FALSE } 
+# Plot TM scores by scaffold
+bar <- ggplot(l_scores, aes(x = condition, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+  stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+  # stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=4, vjust=-3,position = position_dodge(width=0.9))+
+  labs (x = "Scaffold", y= "Score (# correct)", fill ="Graph") +
+  coord_cartesian(ylim=c(0,15)) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold")) + 
+  theme(legend.text=element_text(size=14),
+        legend.title=element_text(size=16,face="bold"))+
+  theme(plot.title =element_text(size=16,face="bold") )+
+#  theme(text = element_text(size=15))+
+  ggtitle("Mean Score by Graph Task and Scaffold") +
+  scale_x_discrete(labels=c("none", "what-text", "how-text" , "static image", "interactive image")) +
+  scale_fill_manual( values = c(green,red),
+                     breaks = c("triangular_score", "linear_score"),
+                     labels = c("Triangular","Linear"))
+```
+
+```{r echo = FALSE } 
+# Plot TM scores by scaffold
+bar <- ggplot(l_scores, aes(x = condition, y= value, fill=variable))+ facet_wrap(~variable)
+bar + stat_summary(aes(y = value), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=4, vjust=-3,position = position_dodge(width=0.9))+
+      labs (x = "Scaffold", y= "Score", fill ="Graph") +
+      coord_cartesian(ylim=c(0,15)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Graph Task and Scaffold") +
+      scale_x_discrete(labels=c("none", "what-text", "how-text" , "static image", "interactive image")) +
+      scale_fill_manual( values = c(green,red),
+                         breaks = c("triangular_score", "linear_score"),
+                         labels = c("triangular","linear"))
+```
+
+```{r echo = FALSE}
+t_scores <- subset(l_scores,variable=="triangular_score")
+t_scores$tmPercent = t_scores$value/15*100
+
+# Plot TM scores by scaffold
+bar <- ggplot(t_scores, aes(x = condition, y= tmPercent, fill=variable))
+bar + stat_summary(aes(y = tmPercent), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=4, vjust=-4,position = position_dodge(width=0.9))+
+      labs (x = "Scaffold", y= "TM Score (% correct)", fill ="Graph") +
+      coord_cartesian(ylim=c(0,100)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean TM Score by Scaffold") +
+      scale_x_discrete(labels=c("none", "what-text", "how-text" , "static image", "interactive image")) +
+      scale_fill_manual( values = c(red,red),
+                         breaks = c("triangular_score", "linear_score"),
+                         labels = c("triangular","linear"))
+```
+```{r echo = FALSE}
+TMMODEL <- aov (value ~ condition, data=t_scores)
+#summary(TMMODEL)
+summary.lm(TMMODEL)
+#plot(TMMODEL)
+#boxplot(value ~ condition, data=t_scores, col=rainbow(5))
+tuk<- TukeyHSD(TMMODEL)
+tuk
+
+#boxplot(value/15*100 ~ condition, data=t_scores)
+```
+An ANOVA on TM score by scaffold condition reveals significant differences between scaffolds, F(4,464) = 6.27, p < 0.001, r = 0.29.  Post-hoc Tukey tests demonstrate that the source of this difference is the superiority of the interactive image condition, which performs significantly better than the no-scaffold control (p <.001), "how-image" (p <0.05), and static-image (p <0.05)
+scaffolds. 
+
+### DV: GRAPH SCORE
+
+####Mixed Effects ANOVA on SCORE
+
+> All effects are reported significant at p < .001.  There were significant main effects of condition, F(4,297) = 4.31, scenario, F(1,297) = 22.29, and graph-type, F(1,297) = 97.67,  There were significant interaction effects for the graph-type and the scaffold condition, F(4,297) = 9.99, the graph-type and scenario, F(1,297) = 34.80.  The three-way interaction of graph-type, scaffold condition and graph-order approached significance at F(4,297) = 2.03, p = 0.08
+
+####Construct a mixed ANOVA
+
+```{r echo = FALSE}
+#1. Explore descriptives for each factor 
+#explore descriptive statistics based on each IV
+#by(l_scores$value, list(l_scores$condition, l_times$order, l_times$variable), stat.desc, basic=FALSE)
+
+#2. Construct contrasts
+#construct contrasts for ANOVA model
+lmVStm <-c(1,-1)
+contrasts(l_scores$variable) <- cbind(lmVStm)
+expVSrev<-c(1,-1)
+contrasts(l_scores$order) <- cbind(lmVStm)
+scaffVSold<-c(-1,0,0,0,1)
+contrasts(l_scores$condition) <- cbind(scaffVSold)
+
+#3. compute the ANOVA model
+
+options(contrasts=c("contr.sum","contr.poly"))
+
+#execute the model
+scores.mixedModel = ezANOVA(data = l_scores,
+                     dv = .(value),
+                     wid = .(subject),
+                     between = .(condition,order,lm_scenarios),
+                     within = .(variable),
+                     type = 3,
+                     detailed = FALSE)
+scores.mixedModel
+summary(scores.mixedModel)
+summary.lm(scores.mixedModel)
+```
+
+MIXED EFFECTS ANOVA ON SCORE    
+Main effect of Scaffold  F(4,297) = 4.24, p < .05   
+Main effect of Scenario  F(1,297) = 22.25, p < .001   
+Main effect of Graph     F(1,297) = 96.67, p < .001   
+Interaction of Scaffold and Graph F(4,297) = 10.03, p <.001   
+Interaction of Graph and Scenario F(1,297) = 34.34, p <.001  
+
+
+####Main Effect: GRAPH 
+LM Model scores were significantly higher than TM scores. 
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = variable, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task", y= "Score", fill ="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("linear_score" = "Linear Model", "triangular_score" = "Triangular Model")) +
+      scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Graph Task") +
+      scale_fill_manual( values = c(green,red),
+                         breaks = c("triangular_score", "linear_score"),
+                         labels = c("triangular","linear"))
+```
+
+####Main Effect of SCAFFOLD 
+Only condition #4: interactive graph, yielded significantly better performance than the control
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = condition, y= value, fill=condition))
+bar + stat_summary(aes(y = value), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Scaffold", y= "Score", fill="Scaffold") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("none", "what-text", "how-text" , "static image", "interactive image")) +
+      scale_fill_manual(values = c(none, text1, text2,img1,img2),
+                      labels = c("none","what-text","how-text","static image", "interactive image"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Scaffold") 
+      
+```
+
+####Main Effect of SCENARIO 
+Scores were significantly lower in the axis scenario than the longmire scenario. 
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = scenario, y= value, fill=scenario))
+bar + stat_summary(aes(y = value), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Scenario", y= "Score", fill="Scenario ") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("axis" = "axis" , "longmire"="longmire")) +
+      theme_bw() +
+      scale_fill_manual(values=c(purple,blue),
+                        breaks=c("longmire","axis"),
+                        labels=c("longmire","axis"))+
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Scenario") 
+      
+```
+
+####Interaction of GRAPH & SCAFFOLD
+There was a significant interaction between graph-type and the scaffold condition, 
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_scores <- ggplot(l_scores, aes(x = variable, y=value, color=condition)) 
+
+MP_scores + 
+  stat_summary(aes(y = value,group=condition), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Task ", y="Score") +
+  ggtitle("Mean Score by Scaffold and Graph Task") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("triangular_score" = "triangular", "linear_score" = "linear"))+
+  scale_color_manual(values = c("black",text1,text2,img1,img2),
+                       name="Scaffold ",
+                       breaks=c("0", "1","2","3","4"),
+                       labels=c("none","what-text","how-text","static image","interactive image"))
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_scores <- ggplot(l_scores, aes(x = condition, y=value, color=variable)) 
+
+MP_scores + 
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  #stat_summary(fun.y = mean, geom = "point") +  #the point
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  stat_summary(fun.y = mean, geom = "point", position=position_dodge(0.2)) +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1, position=position_dodge(0.2)) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold", y="Score") +
+  ggtitle("Mean Score by Scaffold and Graph Task") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("none","what-text","how-text","static image","interactive image"))+
+  scale_color_manual(values = c(green,red),
+                       name="Graph Task",
+                       breaks=c("triangular_score", "linear_score"),
+                       labels=c("triangular", "linear"))
+```
+
+####Interaction of GRAPH & SCENARIO
+There was a significant interaction between graph-type and scenario
+
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = variable, y= value, fill=scenario))
+bar + stat_summary(aes(y = value, group=scenario), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task", y= "Score", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("triangular_score" = "Triangular Model", "linear_score" = "Linear Model")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Graph Task and Scenario")+
+      scale_fill_manual(values = c(purple,blue),
+                        name = "Scenario",
+                        breaks =c("axis", "longmire"),
+                        labels =c("axis","longmire"))
+      
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_scores <- ggplot(l_scores, aes(x = variable, y=value, color=scenario)) 
+
+MP_scores + 
+  stat_summary(aes(y = value,group=scenario), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Type ", y="Score") +
+  ggtitle("Mean Score by Scenario Order and Graph Type") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("triangular_score" = "triangular", "linear_score" = "linear"))+
+  scale_color_manual(values = c(purple,blue),
+                       name="Scenario",
+                       breaks=c("axis", "longmire"),
+                       labels=c("axis","longmire"))
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_scores <- ggplot(l_scores, aes(x = scenario, y=value, color=variable)) 
+
+MP_scores + 
+  stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scenario  ", y="Score") +
+  ggtitle("Mean Score by Scenario and Graph Type") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("axis" = "axis", "longmire" = "longmire")) +
+  scale_color_manual(values = c(green,red),
+                       name="Graph Type",
+                       breaks=c("linear_score", "triangular_score"),
+                       labels=c("linear","triangular"))
+```
+
+#### (almost) Interaction of GRAPH & ORDER 
+Interaction of Graph and ORDER APPROACHED significance F(1,297) = 3.35, p = 0.06
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = order, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Order", y= "Score (# correct)", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("LMFirst" = "LM-First", "TMFirst" = "TM-First")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Graph Order and Task")+
+      scale_fill_manual(values = c(green,red),
+                        name = "Graph Task",
+                        breaks =c("linear_score", "triangular_score"),
+                        labels =c("linear","triangular"))
+
+
+describeBy(x=df_subjects$triangular_score, group=df_subjects$order)
+
+t.test(triangular_score ~ order, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(triangular_score ~ order, data= df_subjects)
+      
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_scores, aes(x = variable, y=value, color=order)) 
+
+MP_times + 
+  stat_summary(aes(y = value,group=order), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Task ", y="Response Time (minutes)") +
+  ggtitle("Mean Score by Graph Order and Graph Task") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("triangular_score" = "TM", "linear_score" = "LM"))+
+  scale_color_manual(values = c("black","red"),
+                       name="Graph Order ",
+                       breaks=c("TMFirst", "LMFirst"),
+                       labels=c("TM-First","LM-First"))
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_scores, aes(x = order, y=value, color=variable)) 
+
+MP_times + 
+  stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Order ", y="Response Time (minutes)") +
+  ggtitle("Mean Response Time by Order and Graph") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("LMFirst" = "LM-first", "TMFirst" = "TM-first"))+
+  scale_color_manual(values = c(green,red),
+                       name="Graph Type",
+                       breaks=c("linear_score", "triangular_score"),
+                       labels=c("linear","triangular"))
+```
+
+####Interaction of GRAPH & SCAFFOLD & ORDER
+The three-way interaction of graph-type, scaffold condition and graph-order approached significance at F(4,297) = 2.03, p = 0.09
+
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+MP_scores <- ggplot(l_scores, aes(x = condition, y=value, color=variable, shape=variable)) +
+    scale_shape_manual(values=c(15, 17))+
+  scale_colour_manual(values = c(green, red),
+                      breaks = c("triangular_score","linear_score"),
+                      labels = c("triangular","linear"))+
+  scale_x_discrete(labels=c("0" = "none", "1" = "what-text",
+                              "2" = "how-text", "3"="static img", "4"="ix img"))
+
+MP_scores + facet_wrap(~order ,labeller=labeller(order = order_labels) ) +
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  #stat_summary(fun.y = mean, geom = "point") +  #the point
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  stat_summary(fun.y = mean, geom = "point", position=position_dodge(0.2)) +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1,position=position_dodge(0.2)) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Task") +
+  ggtitle("Mean Score by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+MP_scores <- ggplot(l_scores, aes(x = order, y=value, color=variable)) +
+  scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))+
+  scale_x_discrete(labels=c("LMFirst" = "LM-first", "TMFirst" = "TM-first"))
+
+MP_scores + facet_wrap(~condition ,labeller=labeller(condition = condition_lables) ) +
+  stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Type") +
+  ggtitle("Mean Score by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+MP_scores <- ggplot(l_scores, aes(x = variable, y=value, color=variable)) +
+  scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))
+  
+
+MP_scores + facet_grid(~order ~ condition,labeller=labeller(condition = condition_lables) ) +
+  stat_summary(aes(y = value, group = condition), fun.y=mean,  geom="line", color="grey") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  scale_x_discrete(labels=c("triangular_score" = "TM", "linear_score" = "LM"))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Type") +
+  ggtitle("Mean Score by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+
+
+
+### DV: RESPONSE TIME
+
+#####Construct a mixed effects ANOVA on TIME
+> All effects are reported significant at p < .001.  There was a significant main effect of graph-type, F(1,297) = 70.72,  There were significant interaction effects for the graph-type and the scaffold condition, F(4,297) = 3.48, the graph-type and graph-order, F(1,297) = 31.37, and graph-type and scenario, F(1,297) = 10.4.  The three-way interaction of graph-type, scaffold condition and graph-order approached significance at F(4,297) = 2.23, p = 0.06
+
+1. Explore descriptives for each factor 
+```{r echo = FALSE}
+#explore descriptive statistics based on each IV
+#by(l_times$value, list(l_times$condition, l_times$order, l_times$variable), stat.desc, basic=FALSE)
+```
+2. Construct contrasts
+```{r echo = FALSE}
+#construct contrasts for ANOVA model
+lmVStm <-c(-1,1)
+contrasts(l_times$variable) <- cbind(lmVStm)
+expVSrev<-c(-1,1)
+contrasts(l_times$order) <- cbind(lmVStm)
+scaffVSold<-c(1,0,0,0,1)
+contrasts(l_times$condition) <- cbind(scaffVSold)
+```
+3. compute the ANOVA model
+```{r echo = FALSE}
+
+options(contrasts=c("contr.sum","contr.poly"))
+
+#execute the model
+times.mixedModel = ezANOVA(data = l_times,
+                     dv = .(value),
+                     wid = .(subject),
+                     between = .(condition,order,lm_scenarios),
+                     within = .(variable),
+                     type = 3,
+                     detailed = FALSE)
+times.mixedModel
+summary.lm(times.mixedModel)
+
+```
+RESULTS OF MIXED EFFECTS ANOVA ON RESPONSE TIME suggest...
+X significant main-effect of graph task F(1,297) = 70.52, p <.001
+X significant interaction between graph & scaffold F(4,297) = 3.51, p < .001
+X significant interaction between graph and order, F(1,297) = 31.28, p <.001
+X significant interaction between graph and scenario, F(1,297) = 10.37, p <.001
+
+####Main effect of GRAPH
+`Main Effect: Graph Type`
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = variable, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task", y= "Response Time (minutes)", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("TM_T_M" = "Triangular Model", "LM_T_M" = "Linear Model")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Response Time by Graph Task")+
+      scale_fill_manual(values = c(green,red),
+                        breaks =c("LM_T_M", "TM_T_M"),
+                        labels =c("linear","triangular"))
+      
+```
+Across all scaffold conditions, participants spent on average 9.2 minutes on the linear model task, and 10.8 minutes on the triangular model task. The significant main effect of graph type suggests that the full range of scaffold techniques were not effective enough, on the whole, to realize the potential performance gains with the Triangular Model suggested in [CITE QIANG ET AL]. 
+
+####Main Effect of SCAFFOLD 
+...
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = condition, y= value, fill=condition))
+bar + stat_summary(aes(y = value), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Scaffold", y= "Response Time (mins)", fill="Scaffold") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("none", "what-text", "how-text" , "static image", "interactive image")) +
+      scale_fill_manual(values = c(none, text1, text2,img1,img2),
+                      labels = c("none","what-text","how-text","static image", "interactive image"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Time by Scaffold") 
+      
+```
+
+####Main Effect of SCENARIO 
+Scores were significantly lower in the axis scenario than the longmire scenario. 
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = scenario, y= value, fill=scenario))
+bar + stat_summary(aes(y = value), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Scenario", y= "Response Time (mins)", fill="Scenario ") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("axis" = "axis" , "longmire"="longmire")) +
+      theme_bw() +
+      scale_fill_manual(values=c(purple,blue),
+                        breaks=c("longmire","axis"),
+                        labels=c("longmire","axis"))+
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Time by Scenario") 
+      
+```
+
+
+
+
+
+####Interaction of GRAPH and SCAFFOLD
+
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME 
+MP_times <- ggplot(l_times, aes(x = condition, y=value, color=variable)) +
+  scale_colour_manual(values = c(green, red),
+                      breaks = c("TM_T_M", "LM_T_M"),
+                      labels = c("triangular","linear"))+
+  scale_x_discrete(labels=c("0" = "none", "1" = "what-text",
+                              "2" = "how-text", "3"="static image", "4"="interactive image"))
+
+MP_times + 
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point", position=position_dodge(width=0.2)) +  #the point with dodge 
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .2, position=position_dodge(width=0.2)) + #the errorbar with dodge
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Response Time (minutes)", color="Graph Task") +
+  ggtitle("Mean Response Time by Scaffold and Graph Task") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  #stat_summary(fun.y = mean, geom = "point") +  #the point, with no position dodge
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) + #error bars no dodge
+
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_times, aes(x = variable, y=value, color=condition)) 
+
+MP_times + 
+  stat_summary(aes(y = value,group=condition), fun.y=mean,  geom="line") + #, position=position_dodge(width=0.2)) +
+  coord_cartesian(ylim=c(8,13)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  #stat_summary(fun.y = mean, geom = "point", position=position_dodge(width=0.2)) +  #the point with dodge 
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .2, position=position_dodge(width=0.2)) + #the errorbar with dodge
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Task ", y="Response Time (minutes)", color="Scaffold") +
+  ggtitle("Mean Response Time by Scaffold and Graph Task") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("TM_T_M" = "triangular", "LM_T_M" = "linear"))+
+  scale_color_manual(values = c("black",text1,text2,img1,img2),
+                       name="Scaffold ",
+                       breaks=c("0", "1","2","3","4"),
+                       labels=c("none","what-text","how-text","static image","interactive image"))
+
+```
+
+
+####Interaction of GRAPH and ORDER
+There was a significant interaction between graph-type and graph-order, 
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = order, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Order", y= "Response Time (minutes)", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("LMFirst" = "Linear-Triangular", "TMFirst" = "Triangular-Linear")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Response Time by Graph Order and Task")+
+      scale_fill_manual(values = c(green,red),
+                        name = "Graph Task",
+                        breaks =c("LM_T_M", "TM_T_M"),
+                        labels =c("linear","triangular"))
+
+describeBy(x=df_subjects$LM_T_M, group=df_subjects$order)
+
+t.test(LM_T_M ~ order, data=df_subjects, 
+       var.equal=FALSE,
+       conf.level=0.95)
+
+cohen.d(LM_T_M ~ order, data= df_subjects)
+      
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_times, aes(x = variable, y=value, color=order)) 
+
+MP_times + 
+  stat_summary(aes(y = value,group=order), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Task ", y="Response Time (minutes)") +
+  ggtitle("Mean Response Time by Graph Order and Graph Task") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("TM_T_M" = "TM", "LM_T_M" = "LM"))+
+  scale_color_manual(values = c("black","red"),
+                       name="Graph Order ",
+                       breaks=c("TMFirst", "LMFirst"),
+                       labels=c("triangular-first","linear-first"))
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_times, aes(x = order, y=value, color=variable)) 
+
+MP_times + 
+  stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Order ", y="Response Time (minutes)") +
+  ggtitle("Mean Response Time by Graph Order and Graph Type") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("LMFirst" = "linear-first", "TMFirst" = "triangular-first"))+
+  scale_color_manual(values = c(green,red),
+                       name="Graph Type",
+                       breaks=c("LM_T_M", "TM_T_M"),
+                       labels=c("linear","triangular"))
+```
+
+####Interaction of GRAPH and SCENARIO
+There was a significant interaction between graph-type and scenario
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = variable, y= value, fill=scenario))
+bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task", y= "Response Time (minutes)", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("TM_T_M" = "Triangular Model", "LM_T_M" = "Linear Model")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Response Time by Graph Task and Scenario")+
+      scale_fill_manual(values = c(purple,blue),
+                        name = "Scenario",
+                        breaks =c("axis", "longmire"),
+                        labels =c("axis","longmire"))
+      
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_times, aes(x = variable, y=value, color=scenario)) 
+
+MP_times + 
+  stat_summary(aes(y = value,group=lm_scenarios), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Graph Type ", y="Response Time (minutes)") +
+  ggtitle("Mean Response Time by Scenario Order and Graph Type") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("TM_T_M" = "triangular", "LM_T_M" = "linear"))+
+  scale_color_manual(values = c(purple,blue),
+                       name="Scenario Order",
+                       breaks=c("axis", "longmire"),
+                       labels=c("axis","longmire"))
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_times, aes(x = scenario, y=value, color=variable)) 
+
+MP_times + 
+  stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scenario", y="Response Time (minutes)") +
+  ggtitle("Mean Response Time by Scenario and Graph Type") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_x_discrete(labels=c("axis" = "axis", "longmire" = "longmire"))+
+  scale_color_manual(values = c(green,red),
+                       name="Graph Type",
+                       breaks=c("LM_T_M", "TM_T_M"),
+                       labels=c("linear","triangular"))
+```
+
+`IXN Graph Type & Order & Scenario`
+The three-way interaction of graph-type, scaffold condition and graph-order approached significance at F(4,297) = 2.23, p = 0.06.
+
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+MP_times <- ggplot(l_times, aes(x = condition, y=value, color=variable,  shape=variable)) +
+    scale_shape_manual(values=c(15, 17)) +
+  scale_colour_manual(values = c(green, red),
+                      breaks = c("TM_T_M", "LM_T_M"),
+                      labels = c("triangular","linear"))+
+  scale_x_discrete(labels=c("0" = "none", "1" = "what-text",
+                              "2" = "how-text", "3"="static img", "4"="ix img"))
+
+MP_times + facet_wrap(~order ,labeller=labeller(order = order_labels) ) +
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  #stat_summary(fun.y = mean, geom = "point") +  #the point
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  stat_summary(fun.y = mean, geom = "point", position=position_dodge(width=0.2)) +  #the point with dodge 
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .2, position=position_dodge(width=0.2)) + #the errorbar with dodge
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold", y="Response Time (minutes)", color="Graph Type") +
+  ggtitle("Mean Response Time by Graph, Scaffold and Task Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+MP_times <- ggplot(l_times, aes(x = order, y=value, color=variable)) +
+  scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))+
+  scale_x_discrete(labels=c("LMFirst" = "LMFirst", "TMFirst" = "TMFirst"))
+
+MP_times + facet_wrap(~condition ,labeller=labeller(condition = condition_lables) ) +
+  stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Response Time (minutes)", color="Graph Type") +
+  ggtitle("Mean Response Time by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+MP_times <- ggplot(l_times, aes(x = variable, y=value, color=variable)) +
+  scale_colour_manual(values = c(red, green),
+                      labels = c("triangular","linear"))
+  
+
+MP_times + facet_grid(~order ~ condition,labeller=labeller(condition = condition_lables) ) +
+  stat_summary(aes(y = value, group = condition), fun.y=mean,  geom="line", color="grey") +
+  coord_cartesian(ylim=c(0,15)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  scale_x_discrete(labels=c("TM_T_M" = "TM", "LM_T_M" = "LM"))+
+  stat_summary(fun.y = mean, geom = "point") +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Type") +
+  ggtitle("Mean Time by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+
+
+### DV: DRAWING SCORE
+
+```{r echo = FALSE}
+#What were the means and variance of drawing times and scores?
+#stat.desc(w_draw_s)
+#stat.desc(w_draw_t)
+```
+
+#####Construct a mixed effects ANOVA on DRAW SCORE
+> There is a signifant main effect of scaffold on drawing score, F(4)= 2.44, p < 0.05
+
+```{r echo = FALSE}
+#####Construct an ANOVA for drawing score
+#1. Explore descriptives for each factor 
+#explore descriptive statistics based on each IV
+#by(l_draw_s$value, list(l_draw_s$condition, l_draw_s$order, l_draw_s$variable), stat.desc, basic=FALSE)
+
+
+#compute and evaluate difference in response time
+#by(l_draw_s$value, l_draw_s$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+#leveneTest(l_draw_s$value, l_draw_s$condition, center=median)
+
+drawScoreModel <- aov(value~condition*order*lm_scenarios, data = l_draw_s)
+summary(drawScoreModel)
+#summary.lm(drawScoreModel)
+
+```
+There is a signifant main effect of scaffold on drawing score, F(4)= 2.44, p < 0.05
+
+####Main Effect: SCAFFOLD 
+Control group performed significantly worse on drawing task
+```{r echo = FALSE } 
+bar <- ggplot(l_draw_s, aes(x = condition, y= value, fill=condition))
+bar + stat_summary(aes(y = value), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Scaffold", y= "Score", fill="Scaffold") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("none", "what-text", "how-text" , "static image", "interactive image")) +
+      scale_fill_manual(values = c(none, text1, text2,img1,img2),
+                      labels = c("none","what-text","how-text","static image", "interactive image"))+
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Scaffold") 
+      
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### DV: DRAWING TIME
+
+#####Construct a mixed effects ANOVA on DRAW TIME
+There wre no significant effects on drawing time
+```{r echo = FALSE}
+###Construct an ANOVA for drawing time
+#1. Explore descriptives for each factor 
+#explore descriptive statistics based on each IV
+#by(l_draw_t$value, list(l_draw_t$condition, l_draw_t$order, l_draw_t$variable), stat.desc, basic=FALSE)
+
+
+#compute and evaluate difference in response time
+#by(l_draw_t$value, l_draw_t$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+#leveneTest(l_draw_t$value, l_draw_t$condition, center=median)
+
+drawTimeModel <- aov(value~condition*order*lm_scenarios, data = l_draw_t)
+summary(drawTimeModel)
+summary.lm(drawTimeModel)
+
+```
+
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+d_scores <- ggplot(df_subjects, aes(x = condition, y=drawScore)) +
+  scale_colour_manual(values = c(green, red),
+                      breaks = c("triangular_score","linear_score"),
+                      labels = c("triangular","linear"))+
+  scale_x_discrete(labels=c("0" = "none", "1" = "what-text",
+                              "2" = "how-text", "3"="static img", "4"="ix img"))
+
+d_scores + facet_wrap(~order ,labeller=labeller(order = order_labels) ) +
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,20)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  #stat_summary(fun.y = mean, geom = "point") +  #the point
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  stat_summary(fun.y = mean, geom = "bar", position=position_dodge(0.2)) +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1,position=position_dodge(0.2)) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Task") +
+  ggtitle("Mean Drawing Score by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+
+```{r echo = FALSE}
+#construct MEANS PLOT of TASK TIME facet by order
+d_times <- ggplot(df_subjects, aes(x = condition, y=DT_T_M)) +
+  scale_colour_manual(values = c(green, red),
+                      breaks = c("triangular_score","linear_score"),
+                      labels = c("triangular","linear"))+
+  scale_x_discrete(labels=c("0" = "none", "1" = "what-text",
+                              "2" = "how-text", "3"="static img", "4"="ix img"))
+
+d_times + facet_wrap(~order ,labeller=labeller(order = order_labels) ) +
+  #stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,20)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  #stat_summary(fun.y = mean, geom = "point") +  #the point
+  #stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+  stat_summary(fun.y = mean, geom = "bar", position=position_dodge(0.2)) +  #the point
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1,position=position_dodge(0.2)) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  labs(x="Scaffold Condition", y="Score", color="Graph Task") +
+  ggtitle("Mean Drawing Time by Graph, Scaffold and Order") +
+  theme_bw() +
+  theme(strip.background = element_blank())
+```
+
+> Drawing Interpretation 
+
+
+
+
+
+
+
+### DV: DRAW MODEL
+####Draw Model by Scaffold
+> The distribution of models by scaffold was non-random, X(20) = 38.5, p < 0.01
+
+```{r echo = FALSE}
+
+#create contingency table for drawing interpretation
+tbl = table(df_subjects$condition, df_subjects$`Graph Type`)
+tbl
+
+#test_glm <- glm(`Graph Type` ~ condition, data = df_subjects, family = binomial())
+#summary(test_glm)
+```
+```{r results = 'asis', echo = FALSE}
+MODEL <- factor(df_subjects$`Graph Type`)
+CONDITION <- factor(df_subjects$condition)
+
+table <- tabular(  (MODEL+1)~(CONDITION+1),  data = df_subjects)
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+```
+
+####Draw Model by Task Order
+> The distribution of models by order was non-random, X(5) = 14.4, p < 0.05
+
+```{r results = 'asis', echo = FALSE}
+
+#create contingency table for drawing interpretation
+tbl = table(df_subjects$order, df_subjects$`Graph Type`)
+#tbl
+chisq.test(tbl) 
+```
+
+```{r results = 'asis', echo = FALSE}
+MODEL <- factor(df_subjects$`Graph Type`)
+
+table <- tabular(  (MODEL+1)~(ORDER+1),  data = df_subjects)
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+#latex(table)
+```
+
+```{r echo = FALSE}
+#bar chart of graph interpretations
+g <- ggplot(df_subjects, aes(`Graph Type`))
+g + geom_bar() + 
+  ggtitle("Frequency of Graph Types in Drawing Task") + 
+  labs(x="Graph Type in Drawing ", y="Number of Participants") + 
+  coord_cartesian(ylim=c(0,300)) +
+  stat_count(aes(label=..count..), geom="text", position="identity", size=5, vjust = -1)+
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+
+
+
+
+
+
+
+
+
+####Draw Model predicted by TM Score
+
+```{r echo = FALSE}
+INTERPRETATION <- factor(df_subjects$`Graph Type`)
+CONDITION <- factor(df_subjects$condition)
+table <- tabular(  (INTERPRETATION+1)~(Format(digits=3)
+                                    *(Heading("TM Score")*tmPercent)*(1+mean+sd)
+                                   # +(Heading("Time")*TM_T_M)*(mean+sd)
+                                    +(Heading("Draw Score")*drawPercent)*(mean+sd)
+                                  ),  
+                                      data = df_subjects)
+table_options(rowlabeljustification="center", justification="right")
+table
+html(table,options=htmloptions(head=TRUE))
+```
+
+```{r echo = FALSE } 
+# Plot TM scores by scaffold
+bar <- ggplot(df_subjects, aes(x = `Graph Type`, y= tmPercent, fill=`Graph Type`))
+bar + stat_summary(aes(y = tmPercent, group=`Graph Type`), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      stat_summary(aes(label= format(..y.., digits=2)), fun.y=mean, geom="text", size=4, vjust=-6,position = position_dodge(width=0.9))+
+      labs (x = "Drawing Graph Interpretation", y= "Score (% correct)", fill ="Graph") +
+      coord_cartesian(ylim=c(0,100)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean TM Score by Drawing Interpretation") +
+      scale_x_discrete(labels=c("Triangular","Linear Model","Right Angle",  "Asymmetric", "Scatterplot"),
+                       breaks=c("Triangular","Linear Model","Triangular (right angle)", "Triangular (asymmetric)", "Scatterplot"))
+        
+     # scale_fill_manual( values = c(green,red),
+      #                   breaks = c("triangular_score", "linear_score"),
+       #                  labels = c("triangular","linear"))
+```
+
+```{r echo = FALSE}
+t_scores$interpretation <- t_scores$`Graph Type`
+DRAWMODEL <- aov (value ~ interpretation, data=t_scores)
+summary.lm(DRAWMODEL)
+
+tuk<- TukeyHSD(DRAWMODEL)
+tuk
+```
+
+##DISCUSSION
+
+```{r echo = FALSE}
+##construct MEANS PLOT 
+line <- ggplot(df_subjects, aes(df_subjects$condition, df_subjects$ts_n)) 
+line + 
+coord_cartesian(ylim=c(1,5)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Accuracy Score for Triangular Model (learning phase) Task by Scaffold") +
+theme_bw()
+```
+Were there significant differences in learning phase performance?
+```{r echo = FALSE}
+#compute and evaluate difference in response accuracy
+by(df_subjects$ts_n, df_subjects$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(df_subjects$ts_n, df_subjects$condition, center=median)
+
+exp_tmscoreBYconditionModel <- aov(ts_n~condition, data = df_regular)
+summary(exp_tmscoreBYconditionModel)
+summary.lm(exp_tmscoreBYconditionModel)
+#posthoc <- TukeyHSD(x=exp_tmscoreBYconditionModel, 'df_subjects$condition', conf.level=0.95)
+
+TMlearningControl <- subset(df_subjects, condition=="0")
+TMlearning1 <- subset(df_subjects, condition=="1")
+TMlearning2<- subset(df_subjects, condition=="2")
+TMlearning3<- subset(df_subjects, condition=="3")
+TMlearning4<- subset(df_subjects, condition=="4")
+TMlearningScaff <-subset(df_subjects, condition!="0")
+
+svon = t.test(TMlearningScaff$ts_n,TMlearningControl$ts_n)
+svon
+#stat.desc(TMlearning4)
+
+svot = t.test(TMlearningScaff$ts_t,TMlearningControl$ts_t)
+svot
+```
+
+
+What was the variance in TM scores? 
+```{r echo = FALSE}
+boxplot(df_subjects$triangular_score ~ df_subjects$condition)
+
+boxplot(df_subjects$linear_score ~ df_subjects$condition)
+```
+
+
+
+####Effect size of scenario X graph interaction
+
+```{r echo= FALSE}
+Smodel <- aov (value ~ variable*lm_scenarios, data=t_scores)
+#summary(TMMODEL)
+summary.lm(Smodel)
+#plot(TMMODEL)
+#boxplot(value ~ condition, data=t_scores, col=rainbow(5))
+tuk<- TukeyHSD(Smodel)
+tuk
+
+boxplot(value/15*100 ~ condition, data=t_scores)
+```

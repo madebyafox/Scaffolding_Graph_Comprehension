@@ -1,0 +1,235 @@
+---
+title: "Data Exploration"
+output: html_notebook
+---
+```{r echo = FALSE}
+order_labels <- c(experiment = "linear-first", reverse = "triangular-first")
+library(ggplot2)
+library(psych)
+library(pastecs)
+library(gridExtra)
+library(Hmisc)
+library(reshape2)
+
+library(readr)
+ALL_ITEMS <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_items.csv", 
+    col_types = cols(experiment = col_factor(levels = c("experiment", 
+        "reverse")), graph = col_factor(levels = c("linear", 
+        "triangular")), scenario = col_factor(levels = c("axis", 
+        "longmire"))))
+```
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+###TITLE
+**1. TITLE**  
+1. What is the distribution of runtime (for the whole study)?    
+2. What are the min, max, mean & SD?   
+3. Do they follow a normal distribution?  
+
+
+
+
+```{r echo = FALSE}
+#DISPLAY DESCRIPTIVES
+describe(ALL_ITEMS$correct)
+stat.desc(ALL_ITEMS$correct, basic=FALSE, norm = TRUE)
+
+```
+
+**Analysis**  
+<span style="color:#0F5B78">
+</span>
+
+<span style = "color:red">
+</span>
+
+***  
+
+
+
+
+
+
+```{r echo = FALSE}
+#DISPLAY DESCRIPTIVES
+describe(ALL_ITEMS$correct)
+by(data=ALL_ITEMS$correct, INDICES=ALL_ITEMS$condition, FUN=describe)
+```
+
+**Analysis**  
+<span style="color:#0F5B78">
+*The total runtime distributions are similiar for each level of the graph order factor, with the shortest times around 20 minutes and the longest more than 60.*
+</span>  
+
+***  
+**3. LINEAR TASK Runtime by Graph Order**  
+1. What is the distribution of runtime (for just the linear model task) for each level of the graph-order factor?    
+2. What are the min, max, mean & SD?   
+3. Do they follow a normal distribution?  
+
+```{r echo = FALSE}
+LMTimeHist <-ggplot(participantData, aes(LM_T_M))
+LMTimeHist + geom_histogram(binwidth=1) + facet_wrap(~experiment,labeller=labeller(order=order_labels)) + 
+  coord_cartesian(xlim=c(0,30)) +
+  ggtitle("Histogram of Linear Task Runtime") + 
+  labs(x="Time (minutes)", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+```{r echo = FALSE}
+LMTimeBoxplot <-ggplot(participantData, aes(experiment,LM_T_M))
+LMTimeBoxplot + geom_boxplot() +
+  labs(x="Graph Order", y="Time (minutes)")+
+  ggtitle("Boxplot of Linear Task Runtime") +
+  coord_cartesian(ylim=c(0,30)) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())+ 
+  scale_x_discrete(breaks=c("experiment", "reverse"),labels=c("linear-first", "triangular-first"))
+```
+
+```{r echo = FALSE}
+describe(participantData$LM_T_M)
+by(data=participantData$LM_T_M, INDICES=participantData$experiment, FUN=describe)
+```
+
+**Analysis**  
+<span style="color:#0F5B78">
+*...*
+</span>  
+
+***  
+**4. TRIANGULAR TASK Runtime by Graph Order**  
+1. What is the distribution of runtime (for just the triangular model task) for each level of the graph-order factor?    
+2. What are the min, max, mean & SD?   
+3. Do they follow a normal distribution?   
+
+
+
+```{r echo = FALSE}
+TMTimeHist <-ggplot(participantData, aes(TM_T_M))
+TMTimeHist + geom_histogram(binwidth=1) + facet_wrap(~experiment,labeller=labeller(order=order_labels)) + 
+  coord_cartesian(xlim=c(0,30)) +
+  ggtitle("Histogram of Triangular Task Runtime") + 
+  labs(x="Time (minutes)", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+```{r echo = FALSE}
+TMTimeBoxplot <-ggplot(participantData, aes(experiment,TM_T_M))
+TMTimeBoxplot + geom_boxplot() +
+  labs(x="Graph Order", y="Time (minutes)")+
+  ggtitle("Boxplot of Triangular Task Runtime") +
+  coord_cartesian(ylim=c(0,30)) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())+
+  scale_x_discrete(breaks=c("experiment", "reverse"),labels=c("linear-first", "triangular-first"))
+```
+```{r echo = FALSE}
+describe(participantData$TM_T_M)
+by(data=participantData$TM_T_M, INDICES=participantData$experiment, FUN=describe)
+```
+
+
+**Analysis**  
+<span style="color:#0F5B78">
+*...*
+</span>  
+
+***  
+**5. DRAWING TASK Runtime by Graph Order**  
+1. What is the distribution of runtime (for just the linear model task) for each level of the graph-order factor?    
+2. What are the min, max, mean & SD?   
+3. Do they follow a normal distribution?   
+
+```{r echo = FALSE}
+DTimeHist <-ggplot(participantData, aes(D_T_M))
+TMTimeHist + geom_histogram(binwidth=1) + facet_wrap(~experiment,labeller=labeller(order=order_labels)) + 
+  coord_cartesian(xlim=c(0,30)) +
+  ggtitle("Histogram of Drawing Task Runtime") + 
+  labs(x="Time (minutes)", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+
+```{r echo = FALSE}
+TMTimeBoxplot <-ggplot(participantData, aes(experiment,D_T_M))
+TMTimeBoxplot + geom_boxplot() +
+  labs(x="Graph Order", y="Time (minutes)")+
+  ggtitle("Boxplot of Drawing Task Runtime") +
+  coord_cartesian(ylim=c(0,30)) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank()) +
+  scale_x_discrete(breaks=c("experiment", "reverse"),labels=c("linear-first", "triangular-first"))
+```
+```{r echo = FALSE}
+describe(participantData$D_T_M)
+by(data=participantData$D_T_M, INDICES=participantData$experiment, FUN=describe)
+```
+**Analysis**  
+<span style="color:#0F5B78">
+*...*
+</span>  
+
+***  
+
+**6. Runtime distribution among tasks by Person**  
+1. 
+2.
+3. 
+
+
+
+```{r echo = FALSE}
+#CREATE STACKED BAR CHART OF RUNTIMES BY TASK
+#create subset dataframes [wide] of all time variables
+
+#w.exp.times <- subset(participantData, experiment == "experiment", select = c("subject","LM_T_M","TM_T_M","D_T_M"))
+#w.exp.times <-w.exp.times[order(w.exp.times$LM_T_M),]
+
+#m.exp.times <- melt(w.exp.times, id=c("subject"),measured= c("LM_T_M","D_T_M","TM_T_M"))
+
+#ggplot(m.exp.times, aes(x=subject, fill=variable, y=value)) + geom_bar(stat = "identity") + coord_flip() 
+
+
+```
+
+```{r echo = FALSE}
+#LINE GRAPH of MEANS 
+#line <- ggplot(participantData, aes(order, TOTAL_T_M))
+#line + coord_cartesian(ylim=c(0,70)) +
+#theme_bw() + 
+#stat_summary(fun.y = mean, geom = "point") + #the point
+#stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+#stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.1)
+```
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).

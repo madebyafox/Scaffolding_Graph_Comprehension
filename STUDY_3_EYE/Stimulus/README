@@ -1,0 +1,56 @@
+AMY RAE FOX
+amyraefox@gmail.com
+@2017
+
+Experimental Stimuli Codebase for 2YP - Scaffolding Unconventional Graphs - Study 3: Eye Tracking
+
+SAMPLE URL FOR HEROKUAPP:
+
+Notes
+----------
+
+Due to the constraints of the eye tracking software (Mangold Vision), the experimental codebase for Study 3 is substantially different in structure than study 2 (experiment)
+:: owing to the inability to send data from one "item" in an subject run to another, each condition will be contained in a separate codebase with different url
+:: owing to the inability to send data """ each question in the test battery will be accessed via a unique url.
+:: VERY IMPORTANTLY, this has implications for the (lack) of session-level data that can be stored in each database record
+::: Each page (item level question) will be stored in the database as an individual record WITHOUT subject-level information. This relies on the analyst to consolidate records based on the order and timestamps of entry into the database
+
+
+Structure
+-----------
+Condition [0-3] and question [0-14] are set in the querystring
+
+
+Installation & Notes
+------------------
+https://github.com/Tuuleh/jsPsychBackendStart as reference
+0, Requires node.js
+1. After download of files from github, run [ npm update ] to install node_modules
+2. Check app.js file for proper configuration of local vs. hosted db information and server connections
+3. Run local Mongodb    [ mongod in terminal ]
+4. Start application [node app.js]
+5. Navigate to localhost:3000
+6. View database by running viewer (like RoboMongo)
+
+
+Technical Notes
+------------------
+- jsPsych http://docs.jspsych.org/ library for structuring experiment
+- d3 http://d3js.org/ for data visualization stimuli
+- node.js
+- express node runtime framework
+- ejs template engine
+- nodemon for reload
+- Body-parser is middleware for Node.js that allows you to parse key-value data
+- mongoose is a MongoDB driver for the Express framework
+> thanks to https://github.com/Tuuleh/jsPsychBackendStart for boilerplate Mongo-Express-Node stack for db connectivity
+
+Dev Notes
+-------------------
+> configure for local dev (check app.js file and un-comment local dev)
+> for heroku deploy... setup new database on mlab
+> setup new heroku application
+> see https://github.com/Tuuleh/jsPsychBackendStart for reference
+> see https://devcenter.heroku.com/articles/git for reference
+> set mongo path in heroku with
+heroku config:set CONNECTION = [mongolabs uri]

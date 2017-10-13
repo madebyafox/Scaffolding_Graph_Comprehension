@@ -1,0 +1,166 @@
+---
+title: "Assumption Validation"
+output: html_notebook
+---
+
+
+###A. Conventionality of Linear Model 
+The linear model graph is assumed to be a conventional representation of temporal intervals, that students will find relatively easy to understand and therefore facilitate answering questions.  
+
+**1. In the control condition, the mean score for linear model task should be greater than for the triangular model task, and the response times should be shorter. **
+```{r echo = FALSE}
+library(psych)
+library(car)
+
+#create subset of data for the control condition
+w.0 <- subset(participantData, condition == 0 )
+
+#compute and evaluate difference in response time
+stat.desc(w.0$LM_T_M, basic=FALSE, norm = TRUE)
+stat.desc(w.0$TM_T_M, basic=FALSE, norm = TRUE)
+#compute DEPENDENT means T test
+dept.t.test <-t.test(w.0$LM_T_M, w.0$TM_T_M, paired = TRUE)
+dept.t.test
+#compute effect size
+t <-dept.t.test$statistic[[1]]
+df <- dept.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+
+#compute and evaluate difference in score
+stat.desc(w.0$linear_score, basic=FALSE, norm = TRUE)
+stat.desc(w.0$triangular_score, basic=FALSE, norm = TRUE)
+#compute DEPENDENT means T test
+dept.t.test <-t.test(w.0$linear_score, w.0$triangular_score, paired = TRUE)
+dept.t.test
+#compute effect size
+t <-dept.t.test$statistic[[1]]
+df <- dept.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+
+```
+For the entire experiment (across both graph order levels)...   </span>
+
+* the response time for the Linear Model Task (M = 8.62 minutes, SD = 2.12) was significantly shorter than for the Triangular Model Task (M = 11.15 minutes, SD = 3.55), t(60) = -6.92, p < 0.01; a very large effect r = 0.67.
+
+* the comprehension scores (R= 0-15) for the Linear Model task (M = 10.98, SD = 2.33) were significantly greater than for the Triangular Model Task (M = 6.90, SD = 4.51), t(60) = 7.07, p < 0.01; a very large effect r = 0.67.   
+<span style="color:green"> 
+**Therefore, this assumption #1 is confirmed.**
+</span>
+
+***  
+**2. The mean response time for the linear model task should not differ between experimental (scaffold) groups. **
+```{r echo = FALSE}
+
+#create subset of data for the control condition
+#w.1 <- subset(participantData, condition == 1)
+#w.2 <- subset(participantData, condition == 2)
+#w.3 <- subset(participantData, condition == 3)
+#w.4 <- subset(participantData, condition == 4)
+
+#create subsets for each graph order
+w.exp <- subset(participantData, experiment == "experiment")
+w.rev <- subset(participantData, experiment == "reverse")
+```
+
+
+
+
+
+
+
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.lm.times <- subset(participantData, select = c("subject","condition","LM_T_M"))
+s.lm.times <- melt(s.lm.times, id=c("subject","condition"),measured= c("LM_T_M","D_T_M","TM_T_M"))
+
+#construct MEANS PLOT 
+line <- ggplot(df_subjects, aes(df_subjects$condition, df_subjects$LM_T_M)) 
+line + 
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "red", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Mean Response Time for Linear Graph by Scaffold") +
+theme_bw()
+``` 
+```{r echo = FALSE}
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+#LMTimeHist <-ggplot(participantData, aes(LM_T_M))
+#LMTimeHist + geom_histogram(binwidth=1) + facet_wrap(~experiment,labeller=labeller(order=order_labels)) + 
+#  coord_cartesian(xlim=c(0,30)) +
+#  ggtitle("Histogram of Linear Task Runtime :: LM-first Order") + 
+#  labs(x="Time (minutes)", y="Number of Participants") + 
+#  theme_bw() +
+#  theme(strip.background = element_blank())+
+#  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+#  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+#  theme(panel.border = element_blank())
+
+#compute and evaluate difference in response time
+by(participantData$LM_T_M, participantData$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$LM_T_M, participantData$condition, center=median)
+
+exp_lmtimeBYconditionModel <- aov(LM_T_M~condition, data = participantData)
+summary(exp_lmtimeBYconditionModel)
+```
+Mean response times for the linear model task range from a low of 8.61 minutes to 9.80 minutes across the five scaffold conditions. A levene's test for homogeneity of variance was non-significant F(4,333) = 0.96, p = 0.43. The mean response times do not vary significantly between conditions F(1,336) = 0.75, p = 0.73.    
+<span style="color:green"> **Therefore, assumption #2 is confirmed.** </span>
+
+***   
+**3. The mean score for the linear model task should not differ between experimental (scaffold) groups. **
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.lm.scores <- subset(participantData, select = c("subject","condition","linear_score"))
+s.lm.scores <- melt(s.lm.scores, id=c("subject","condition"), measured= c("linear_score"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.lm.scores, aes(s.lm.scores$condition, s.lm.scores$value)) 
+line + 
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="Scaffold Condition", y="(mean) response accuracy (# correct)") +
+ggtitle("Mean Response Accuracy for Linear Model Task by Scaffold") +
+theme_bw()
+
+``` 
+```{r echo = FALSE}
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+#LMScoreHist <-ggplot(participantData, aes(linear_score))
+#LMScoreHist + geom_histogram(binwidth=1) + facet_wrap(~experiment,labeller=labeller(order=order_labels)) + 
+#  coord_cartesian(xlim=c(0,15)) +
+#  ggtitle("Histogram of Linear Task Score") + 
+#  labs(x="Score (# correct)", y="Number of Participants") + 
+#  theme_bw() +
+#  theme(strip.background = element_blank())+
+#  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+#  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+#  theme(panel.border = element_blank())
+
+#compute and evaluate difference in response time
+by(participantData$linear_score, participantData$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$linear_score, participantData$condition, center=median)
+
+exp_lmscoreBYconditionModel <- aov(linear_score~condition, data = participantData)
+summary(exp_lmscoreBYconditionModel)
+```
+
+Mean response scores for the linear model task range from a low of 10.76 minutes to 11.02 minutes across the five scaffold conditions. A levene's test for homogeneity of variance was non-significant F(4,333) = 0.13, p = 0.97. The mean response scores do not vary significantly between conditions F(1,336) = 0.44, p = 0.51.    
+<span style="color:green"> **Therefore, assumption #3 is confirmed.** </span>
+
+***   
+

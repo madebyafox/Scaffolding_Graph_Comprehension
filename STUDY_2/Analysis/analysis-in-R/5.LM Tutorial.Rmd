@@ -1,0 +1,78 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+http://www.bodowinter.com/tutorial/bw_LME_tutorial1.pdf
+
+###A Simple Example: Linear Regression
+```{r}
+#set up a data frame of pitch by sex 
+pitch = c(233,204,242,130,112,142)
+sex = c(rep("female",3),rep("male",3))
+my.df = data.frame(sex,pitch)
+#view the data
+my.df
+```
+```{r}
+#create a linear model that predicts pitch based on sex
+xmdl = lm( pitch ~ sex, my.df)
+
+#summarize the model
+summary(xmdl)
+```
+####Interpreting R-squared and significance
+The Multiple R-squared in the output is the is a measure of "variance explained".  
+_In this case, we can that 92.1% of the variance in pitch is accounted for in our model._ 
+Next, looking at the p-value line, we see the model is statistically significant.  The p-value is a	conditional	probability,	it	is	a	probability	
+under	the	condition	that	the	null	hypothesis	is	true.	In	this	case,	the	null	hypothesis	is	“sex	has	no	effect	on	pitch”.  So we can interpret this as saying that our data would only have 0.2% likelihood of corring if sex does not predict pitch.  
+***We	 constructed	a	linear	model	of	 pitch	as	a	 function	 of	 sex.	This	model	was	significant	(F(1,4)=46.61,	p<0.01).***   
+   
+####Interpreting Coefficients
+The coefficient for the intercept is ~226, and for "sexmale" is~ -98.  What do these mean?  Because of the way the linear model works, the first value, the intercept, is an estimate of the mean of the female category.  This can be verifified by finding the mean pitch for females 
+```{r}
+meanFemale = mean(my.df[my.df$sex=="female",]$pitch)
+meanFemale
+meanMale = mean(my.df[my.df$sex=="male",]$pitch)
+meanMale
+meanMale - meanFemale
+```
+Sure enough, we see that the intercept coefficient is the mean pitch for females, and the coefficient for "sexmale" is the difference between the mean for females and males.  _To	sum	up,	the	estimate	for	“(Intercept)”	is	the	estimate	for	the	female	category,	
+and	 the	 estimate	 for	 “sexmale”	 is	 the	 estimate	 for	 the	 difference	 between	 the	females	 and	 the	 male	 category._
+
+####Interpreting p values for coefficients
+The	p-values	to	 the	 right	 of	 this	 table	 correspond	 to	 tests	 whether	 each	 coefficient	 is	 “nonzero”.
+Obviously,	226.33	Hz	is	different	from	zero,	so	the	intercept	is	“significant”	 with	a	very	low	p-value.	The	slope	-98.33	is	also	different	 from	zero (but	in	 the	negative	direction),	and	so	this	is	significant	as	well.
+
+
+###Centering the Data
+Setup another data set with age and pitch, and create a linear model for it
+```{r}
+age = c(14,23,35,48,52,67)
+pitch = c(252,244,240,233,212,204)
+my.df = data.frame(age,pitch)
+xmdl = lm(pitch ~ age, my.df)
+summary(xmdl)
+```
+In this case, the intercept is not meaningful to us, because it predicts the value of pitch at age 0. Instead, let's "center" the data so that the intercept predicts pitch at the average age of the data set
+
+```{r}
+my.df$age.c = my.df$age - mean(my.df$age)
+xmdl = lm(pitch ~ age.c, my.df)
+summary(xmdl)
+```
+Here, the intercept is a prediction of the pitch at the average age, and the age.c coefficient is how much the prediction changes for each increase in age.  Pitch decreases by -.90 Hz for every year of age. 
+
+###Assumptions
+####(1) Linearity
+It’s called	“linear	model”	for	a	reason; the thing we are predicting has	to	be	the	result	of	a	_linear	combination_	of	our formula.  (predicted variable = bx + b + e(error) If	it	doesn’t,	the	residual	plot	will	indicate	some	kind	of	curve,	or	it	will	indicate	some	other	pattern	(e.g.,	two	lines	if	you	have	categorical	binary	data)
+
+To check this, we can construct a rediduals plot. 
+```{r}
+#plot(fitted(xmdl),residuals(xmdl))
+plot(xmdl)
+```
+Looking at the first plot, the model prediction is the horizonatal line at 0.  We see no obvious pattern emerge.  Alternatively, if the residuals made a curve, or were in stripes, then we would supsect that perhaps the a linear model was not the best fit and we would either need to turn to log transforms for other methods. 
+
+...continue to follow http://www.bodowinter.com/tutorial/bw_LME_tutorial1.pdf for more information on residuals and checking assumptions
+

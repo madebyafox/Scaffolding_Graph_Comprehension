@@ -1,0 +1,125 @@
+<!-- <div class="center"> -->
+<div class="masterdiv">
+
+<div class="top">
+	<div class="bcent">
+		<h1>Drawing Instructions</h1>
+	</div><!--top-->
+</div>
+
+<div class="instructions">
+<div class="vcent">
+
+<p>You are going to help James check his schedule for errors by drawing a graph of his patient scheduling data.</p>
+
+<p>The experimenter has provided you with a pencil and sheet of graph paper.  Using these materials, please draw
+a <b><u>triangular interval graph</b></u>. The triangular interval graph is one of the graphs you used in the previous
+activities (the one with the diagonal grid lines). Please plots each of the appointments listed on the data table on the graph. </p>
+<br>
+
+<!-- <div style="float:left; padding-right:25px"> -->
+		<!-- <table class='boxed'>
+			<thead>
+				<th class='boxed'>Patient #</th>
+				<th class='boxed'>Trial #</th>
+				<th class='boxed'>Start Time</th>
+				<th class='boxed'>End Time</th>
+			</thead>
+			<tbody>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>A1</td>
+					<td class='boxed' data-title='TRIAL #'>1</td>
+					<td class='boxed' data-title='START TIME'>7:00 AM</td>
+					<td class='boxed' data-title='END TIME'>9:00 AM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>D2</td>
+					<td class='boxed' data-title='TRIAL #'>2</td>
+					<td class='boxed' data-title='START TIME'>8:00 AM</td>
+					<td class='boxed' data-title='END TIME'>9:30 AM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>B1</td>
+					<td class='boxed' data-title='TRIAL #'>1</td>
+					<td class='boxed' data-title='START TIME'>9:00 AM</td>
+					<td class='boxed' data-title='END TIME'>11:00 AM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>G3</td>
+					<td class='boxed' data-title='TRIAL #'>3</td>
+					<td class='boxed' data-title='START TIME'>9:00 AM</td>
+					<td class='boxed' data-title='END TIME'>12:00 PM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>I4</td>
+					<td class='boxed' data-title='TRIAL #'>4</td>
+					<td class='boxed' data-title='START TIME'>11:00 AM</td>
+					<td class='boxed' data-title='END TIME'>12:00 PM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>C1</td>
+					<td class='boxed' data-title='TRIAL #'>1</td>
+					<td class='boxed' data-title='START TIME'>12:00 PM</td>
+					<td class='boxed' data-title='END TIME'>3:00 PM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>E2</td>
+					<td class='boxed' data-title='TRIAL #'>2</td>
+					<td class='boxed' data-title='START TIME'>1:00 PM</td>
+					<td class='boxed' data-title='END TIME'>2:30 PM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>F3</td>
+					<td class='boxed' data-title='TRIAL #'>3</td>
+					<td class='boxed' data-title='START TIME'>1:00 PM</td>
+					<td class='boxed' data-title='END TIME'>4:00 PM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>H3</td>
+					<td class='boxed' data-title='TRIAL #'>3</td>
+					<td class='boxed' data-title='START TIME'>3:00 PM</td>
+					<td class='boxed' data-title='END TIME'>6:00 PM</td>
+				</tr>
+
+				<tr>
+					<td class='boxed' data-title='Patient #'>J4</td>
+					<td class='boxed' data-title='TRIAL #'>4</td>
+					<td class='boxed' data-title='START TIME'>4:00 PM</td>
+					<td class='boxed' data-title='END TIME'>5:00 PM</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div> -->
+<div style="padding-top:1px; padding-left:100px">
+<p><b>When you are finished, please check that you have:</b> </p>
+<ul class="fa-ul">
+	<p><input type="checkbox" id="check-name"/>Write <a style="font-weight:bold; color:blue" id="test"/> on the "Code" line </p>
+	<p><input type="checkbox" id="check-sess"/>Write your session on the "Session" line </p>
+	<p><input type="checkbox" id="check-title"/>Put a title on your graph</p>
+	<p><input type="checkbox" id="check-axes" />Put a title on each of the axes </p>
+  <p><input type="checkbox" id="check-tick" />Labelled the tick marks on the axes </p>
+	<p><input type="checkbox" id="check-data" />Labelled each data point (as needed) </p>
+</ul>
+</div>
+</div>
+</div> <!--vcent-->
+</div> <!--instructions-->
+
+<div class = "bottom">
+	<button class="btn" type="button" id="start">DONE</button>
+</div><!--bottom-->
+</div><!--center-->
+
+<script>
+	$('#test').text(sid);
+</script>

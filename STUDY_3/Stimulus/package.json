@@ -1,0 +1,30 @@
+{
+  "name": "2yp_experiment",
+  "version": "1.0.0",
+  "description": "web application for delivery of learning comprehension experiment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madebyafox/2YP-Experiment.git"
+  },
+  "keywords": [
+    "psych",
+    "experiment"
+  ],
+  "author": "Amy Rae Fox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/madebyafox/2YP-Experiment/issues"
+  },
+  "homepage": "https://github.com/madebyafox/2YP-Experiment#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.0",
+    "nodemon": "^1.11.0"
+  }
+}

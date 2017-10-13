@@ -1,0 +1,352 @@
+---
+title: "FOX 2YP Assumptions"
+output: html_notebook
+---
+
+
+###A. Conventionality of Linear Model 
+The linear model graph is assumed to be a conventional representation of temporal intervals, that students will find relatively easy to understand and therefore facilitate answering questions.  
+
+**1. In the control condition, the mean score for linear model task should be greater than for the triangular model task, and the response times should be shorter. **
+```{r echo = FALSE}
+library(psych)
+library(car)
+
+#create subset of data for the control condition
+w.0 <- subset(participantData, condition == 0 )
+
+#compute and evaluate difference in response time
+stat.desc(w.0$LM_T_M, basic=FALSE, norm = TRUE)
+stat.desc(w.0$TM_T_M, basic=FALSE, norm = TRUE)
+#compute DEPENDENT means T test
+dept.t.test <-t.test(w.0$LM_T_M, w.0$TM_T_M, paired = TRUE)
+dept.t.test
+#compute effect size
+t <-dept.t.test$statistic[[1]]
+df <- dept.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+
+#compute and evaluate difference in score
+stat.desc(w.0$linear_score, basic=FALSE, norm = TRUE)
+stat.desc(w.0$triangular_score, basic=FALSE, norm = TRUE)
+#compute DEPENDENT means T test
+dept.t.test <-t.test(w.0$linear_score, w.0$triangular_score, paired = TRUE)
+dept.t.test
+#compute effect size
+t <-dept.t.test$statistic[[1]]
+df <- dept.t.test$parameter[[1]]
+r <- sqrt(t^2/(t^2+df)) 
+round (r,3)
+
+```
+For the entire experiment (across both graph order levels)...   </span>
+
+* the response time for the Linear Model Task (M = 8.62 minutes, SD = 2.12) was significantly shorter than for the Triangular Model Task (M = 11.15 minutes, SD = 3.55), t(60) = -6.92, p < 0.01; a very large effect r = 0.67.
+
+* the comprehension scores (R= 0-15) for the Linear Model task (M = 10.98, SD = 2.33) were significantly greater than for the Triangular Model Task (M = 6.90, SD = 4.51), t(60) = 7.07, p < 0.01; a very large effect r = 0.67.   
+<span style="color:green"> 
+**Therefore, this assumption #1 is confirmed.**
+</span>
+
+***  
+**2. The mean response time for the linear model task should not differ between experimental (scaffold) groups. **
+```{r echo = FALSE}
+
+#create subset of data for the control condition
+#w.1 <- subset(participantData, condition == 1)
+#w.2 <- subset(participantData, condition == 2)
+#w.3 <- subset(participantData, condition == 3)
+#w.4 <- subset(participantData, condition == 4)
+
+#create subsets for each graph order
+w.exp <- subset(participantData, experiment == "experiment")
+w.rev <- subset(participantData, experiment == "reverse")
+```
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.lm.times <- subset(participantData, select = c("subject","condition","LM_T_M"))
+s.lm.times <- melt(s.lm.times, id=c("subject","condition"),measured= c("LM_T_M","D_T_M","TM_T_M"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.lm.times, aes(s.lm.times$condition, s.lm.times$value)) 
+line + 
+coord_cartesian(ylim=c(0,30)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="Scaffold Condition", y="(mean) response time (minutes)") +
+ggtitle("Mean Response Time for Linear Model Task by Scaffold") +
+theme_bw()
+``` 
+```{r echo = FALSE}
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+#LMTimeHist <-ggplot(participantData, aes(LM_T_M))
+#LMTimeHist + geom_histogram(binwidth=1) + facet_wrap(~experiment,labeller=labeller(order=order_labels)) + 
+#  coord_cartesian(xlim=c(0,30)) +
+#  ggtitle("Histogram of Linear Task Runtime :: LM-first Order") + 
+#  labs(x="Time (minutes)", y="Number of Participants") + 
+#  theme_bw() +
+#  theme(strip.background = element_blank())+
+#  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+#  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+#  theme(panel.border = element_blank())
+
+#compute and evaluate difference in response time
+by(participantData$LM_T_M, participantData$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$LM_T_M, participantData$condition, center=median)
+
+exp_lmtimeBYconditionModel <- aov(LM_T_M~condition, data = participantData)
+summary(exp_lmtimeBYconditionModel)
+```
+Mean response times for the linear model task range from a low of 8.61 minutes to 9.80 minutes across the five scaffold conditions. A levene's test for homogeneity of variance was non-significant F(4,333) = 0.96, p = 0.43. The mean response times do not vary significantly between conditions F(1,336) = 0.75, p = 0.73.    
+<span style="color:green"> **Therefore, assumption #2 is confirmed.** </span>
+
+***   
+**3. The mean score for the linear model task should not differ between experimental (scaffold) groups. **
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.lm.scores <- subset(participantData, select = c("subject","condition","linear_score"))
+s.lm.scores <- melt(s.lm.scores, id=c("subject","condition"), measured= c("linear_score"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.lm.scores, aes(s.lm.scores$condition, s.lm.scores$value)) 
+line + 
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="Scaffold Condition", y="(mean) response accuracy (# correct)") +
+ggtitle("Mean Response Accuracy for Linear Model Task by Scaffold") +
+theme_bw()
+
+``` 
+```{r echo = FALSE}
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+#LMScoreHist <-ggplot(participantData, aes(linear_score))
+#LMScoreHist + geom_histogram(binwidth=1) + facet_wrap(~experiment,labeller=labeller(order=order_labels)) + 
+#  coord_cartesian(xlim=c(0,15)) +
+#  ggtitle("Histogram of Linear Task Score") + 
+#  labs(x="Score (# correct)", y="Number of Participants") + 
+#  theme_bw() +
+#  theme(strip.background = element_blank())+
+#  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+#  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+#  theme(panel.border = element_blank())
+
+#compute and evaluate difference in response time
+by(participantData$linear_score, participantData$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$linear_score, participantData$condition, center=median)
+
+exp_lmscoreBYconditionModel <- aov(linear_score~condition, data = participantData)
+summary(exp_lmscoreBYconditionModel)
+```
+
+Mean response scores for the linear model task range from a low of 10.76 minutes to 11.02 minutes across the five scaffold conditions. A levene's test for homogeneity of variance was non-significant F(4,333) = 0.13, p = 0.97. The mean response scores do not vary significantly between conditions F(1,336) = 0.44, p = 0.51.    
+<span style="color:green"> **Therefore, assumption #3 is confirmed.** </span>
+
+***   
+
+###B. Equality of task scenarios
+Two different data analysis scenarios were used in the study. The order of presentation of the scenarios (and therefore whether they were delivered with the linear or triangular model graph) were counterbalanced and randomly assigned.  It is assumed that the scenarios are of equal difficulty.  
+
+**4. Linear model response times for the axis and longmire scenarios should not be significantly different. **
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.lm.times.scenario <- subset(participantData, select = c("subject","lm_scenarios","LM_T_M"))
+s.lm.times.scenario <- melt(s.lm.times.scenario, id=c("subject","lm_scenarios"),measured= c("LM_T_M"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.lm.times.scenario, aes(s.lm.times.scenario$lm_scenarios, s.lm.times.scenario$value)) 
+line + 
+coord_cartesian(ylim=c(0,30)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="Task Scenario", y="(mean) response time (minutes)") +
+ggtitle("Mean Response Time for Linear Model Task by Scenario") +
+theme_bw()
+``` 
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(participantData$LM_T_M, participantData$lm_scenarios, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$LM_T_M, participantData$lm_scenarios, center=median)
+
+lmstimeBYscenarioModel <- aov(LM_T_M~lm_scenarios, data = participantData)
+summary(lmstimeBYscenarioModel)
+
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+LMScoreHist <-ggplot(participantData, aes(LM_T_M))
+LMScoreHist + geom_histogram(binwidth=1) + facet_wrap(~lm_scenarios) + 
+  coord_cartesian(xlim=c(0,15)) +
+  ggtitle("Histogram of Linear Task Response Time") + 
+  labs(x="Response Time", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+ theme(panel.border = element_blank())
+```
+
+Mean response times for the linear model task range from a low of 8.16 minutes to 9.60 minutes across the two task scenarios. A levene's test for homogeneity of variance was non-significant F(1,333) = 0.33, p = 0.57. The mean response times DO vary significantly between scenarios, however F(1,336) = 13.63, p < 0.01.    
+<span style="color:red"> **It seems assumption #4 is violated... but how is this possible when the means are so close, the SD are comparable?.** </span>
+***   
+
+**5. Linear model response scores for the axis and longmire scenarios should not be significantly different. **
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.lm.scores.scenario <- subset(participantData, select = c("subject","lm_scenarios","linear_score"))
+s.lm.scores.scenario <- melt(s.lm.scores.scenario, id=c("subject","lm_scenarios"),measured= c("linear_score"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.lm.scores.scenario, aes(s.lm.scores.scenario$lm_scenarios, s.lm.scores.scenario$value)) 
+line + 
+coord_cartesian(ylim=c(0,30)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="Task Scenario", y="(mean) response time (minutes)") +
+ggtitle("Mean Response Score for Linear Model Task by Scenario") +
+theme_bw()
+``` 
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(participantData$linear_score, participantData$lm_scenarios, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$linear_score, participantData$lm_scenarios, center=median)
+
+lmscoreBYscenarioModel <- aov(linear_score~lm_scenarios, data = participantData)
+summary(lmscoreBYscenarioModel)
+
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+LMScoreHist <-ggplot(participantData, aes(linear_score))
+LMScoreHist + geom_histogram(binwidth=1) + facet_wrap(~lm_scenarios) + 
+  coord_cartesian(xlim=c(0,15)) +
+  ggtitle("Histogram of Linear Task Response Accuracy") + 
+  labs(x="Response Accuracy (# correct)", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+ theme(panel.border = element_blank())
+
+```
+Mean response scores for the linear model task range from a low of 10.8 correct to 10.9 correct across the two task scenarios. A levene's test for homogeneity of variance was non-significant F(1,336) = 1.69, p = 0.20. The mean response scores do not vary significantly between conditions F(1,336) = 0.184, p = 0.67.    
+<span style="color:green"> **Therefore, assumption #5 is confirmed.** </span>
+
+***
+
+**6. Triangular model response times for the axis and longmire scenarios should not be significantly different. **
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.tm.times.scenario <- subset(participantData, select = c("subject","tm_scenarios","TM_T_M"))
+s.tm.times.scenario <- melt(s.tm.times.scenario, id=c("subject","tm_scenarios"),measured= c("TM_T_M"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.tm.times.scenario, aes(s.tm.times.scenario$tm_scenarios, s.tm.times.scenario$value)) 
+line + 
+coord_cartesian(ylim=c(0,30)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="Task Scenario", y="(mean) response time (minutes)") +
+ggtitle("Mean Response Time for Triangular Model Task by Scenario") +
+theme_bw()
+``` 
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(participantData$TM_T_M, participantData$tm_scenarios, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$TM_T_M, participantData$lm_scenarios, center=median)
+
+tmstimeBYscenarioModel <- aov(TM_T_M~tm_scenarios, data = participantData)
+summary(tmstimeBYscenarioModel)
+
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+LMScoreHist <-ggplot(participantData, aes(TM_T_M))
+LMScoreHist + geom_histogram(binwidth=1) + facet_wrap(~tm_scenarios) + 
+  coord_cartesian(xlim=c(0,30)) +
+  ggtitle("Histogram of Linear Task Response Time") + 
+  labs(x="Response Time", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+ theme(panel.border = element_blank())
+```
+
+Mean response times for the triangular model task range from a low of 10.64 minutes to 10.76 minutes across the two task scenarios. A levene's test for homogeneity of variance was non-significant F(1,333) = 0.02, p = 0.89. The mean response times do not vary significantly between scenarios, F(1,336) = 0.11, p < 0.74.    
+<span style="color:green"> **Therefore, assumption #6 is confirmed.** </span>
+***  
+
+**5. Triangular model response scores for the axis and longmire scenarios should not be significantly different. **
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.tm.scores.scenario <- subset(participantData, select = c("subject","tm_scenarios","triangular_score"))
+s.tm.scores.scenario <- melt(s.tm.scores.scenario, id=c("subject","tm_scenarios"),measured= c("triangular_score"))
+
+#construct MEANS PLOT 
+line <- ggplot(s.tm.scores.scenario, aes(s.tm.scores.scenario$tm_scenarios, s.tm.scores.scenario$value)) 
+line + 
+coord_cartesian(ylim=c(0,30)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="Task Scenario", y="(mean) response time (minutes)") +
+ggtitle("Mean Response Score for Linear Model Task by Scenario") +
+theme_bw()
+``` 
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(participantData$triangular_score, participantData$tm_scenarios, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(participantData$triangular_score, participantData$tm_scenarios, center=median)
+
+tmscoreBYscenarioModel <- aov(triangular_score~tm_scenarios, data = participantData)
+summary(tmscoreBYscenarioModel)
+
+#in data exploration we saw that the data reasonably approxiate a normal distribution
+#MScoreHist <-ggplot(participantData, aes(triangular_score))
+#MScoreHist + geom_histogram(binwidth=1) + facet_wrap(~tm_scenarios) + 
+# #coord_cartesian(xlim=c(0,15)) +
+# ggtitle("Histogram of Triangular Task Response Accuracy") + 
+# labs(x="Response Accuracy (# correct)", y="Number of Participants") + 
+# theme_bw() +
+# theme(strip.background = element_blank())+
+# theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+# theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+#theme(panel.border = element_blank())
+
+```
+Mean response scores for the triangular model task range from a low of 7.74 correct to 10.12 correct across the two task scenarios. A levene's test for homogeneity of variance WAS significant F(1,336) = 25.96, p < 0.01. The mean response scores DO vary significantly between scenarios F(1,336) = 25.96, p < 0.01.    
+<span style="color:red"> **Therefore, assumption #6 is NOT confirmed.** </span>

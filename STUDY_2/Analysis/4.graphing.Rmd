@@ -1,0 +1,62 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r echo = FALSE}
+
+
+##construct MEANS PLOT 
+line <- ggplot(df_subjects, aes(x= df_subjects$condition, y=df_subjects$scaled_draw_score) ) 
+line + 
+coord_cartesian(ylim=c(0,20)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="accuracy (# correct)", color="task") +
+ggtitle("Accuracy for Drawing Task by Scaffold") +
+theme_bw()
+``` 
+
+
+
+
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.times <- subset(df_subjects, select = c("subject","condition","LM_T_M","TM_T_M"))
+s.times <- melt(s.times, id=c("subject","condition"),measured= c("LM_T_M","TM_T_M"))
+
+##construct MEANS PLOT 
+line <- ggplot(s.times, aes(x= s.times$condition, y=s.times$value, color=s.times$variable) ) 
+line + 
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (min)", color="task") +
+ggtitle("Response Time for Experimental Tasks by Scaffold") +
+theme_bw()
+``` 
+
+
+```{r echo = FALSE}
+#create stacked subset of times
+s.scores <- subset(df_subjects, select = c("subject","condition","linear_score","triangular_score"))
+s.scores <- melt(s.scores, id=c("subject","condition"),measured= c("linear_score","triangular_score"))
+
+##construct MEANS PLOT 
+line <- ggplot(s.times, aes(x= s.scores$condition, y=s.scores$value, color=s.scores$variable)) + scale_fill_manual(values=c("red", "black"))
+line + 
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="accuracy (# correct)", color="task") +
+ggtitle("Response Score for Experimental Tasks by Scaffold") +
+theme_bw()
+``` 
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).

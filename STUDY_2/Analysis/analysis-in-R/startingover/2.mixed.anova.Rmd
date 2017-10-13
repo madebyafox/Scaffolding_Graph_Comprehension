@@ -1,0 +1,214 @@
+---
+title: "Mixed Effects Analysis"
+output: html_notebook
+---
+*NOTE: Data is imported from all_participants.csv*
+```{r echo = FALSE}
+#SETUP DATA FRAMES
+
+#import libraries
+library(readr) #load csv
+library(dplyr) #data formatting
+library(ggplot2) #graphing
+library(psych)   #statistics
+library(pastecs)
+#library(gridExtra)
+library(Hmisc)
+library(reshape2) #reformatting data
+#library(tables) # pretty tables
+library(ez) #mixed anova
+library(nlme) #multilevel model
+library(lme4) #better mixed model
+library(WRS2) #robust tests
+```
+
+```{r echo = FALSE}
+#LOAD THE PARTICIPANT DATA
+all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+    col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+        `Graph Description (if other)` = col_skip(), 
+        `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+            "Triangular", "Linear Model", 
+            "Scatterplot", "Other", "Triangular (asymmetric)")), 
+        Points = col_skip(), Rater = col_skip(), 
+        `Select each item that is labelled in the graph` = col_skip(), 
+        `X Axis` = col_skip(), `Y Axis` = col_skip(),
+        GENDER = col_factor(levels = c("Male", 
+        "Female","Other")),
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+            "reverse")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip() ))
+#View(all_participants)
+
+#LOAD THE EXPERT DATA
+all_experts <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_experts.csv", 
+    col_types = cols(
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("reverse", 
+            "experiment")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip()))
+
+```
+```{r echo = FALSE}
+#SETUP LABELS AND COLORS FOR GRAPHS
+order_labels <- c(LMFirst = "linear-first", TMFirst = "triangular-first")
+condition_lables <-c( '0' = "no scaffold", '1' = "what-text", '2' = "how-text", '3' = "static image", '4' = "interactive image")
+task_labels <- c("LM_T_M" = "linear graph", "TM_T_M" = "triangular graph")
+
+  red = "#F8766D"
+  green = "#1cc07e"
+  blue = "#59A1FC"
+  purple = "#C680FD"
+  none = "#7E7D7E"
+  text1 = "#071FD5"
+  text2 = "#0C91DF"
+  img1 = "#EF007A"
+  img2 = "#c481d5"
+
+```
+
+```{r echo = FALSE}
+#SETUP DATA FRAMES
+#create copy data of base data frame 
+df_subjects <- cbind(all_participants)
+df_experts <- cbind(all_experts)
+
+#create a new column for order with better name
+df_subjects$order = df_subjects$experiment
+levels(df_subjects$order)[levels(df_subjects$order)=="experiment"] <- "LMFirst"
+levels(df_subjects$order)[levels(df_subjects$order)=="reverse"] <- "TMFirst"
+
+#create a column for the sum of the two graphing tasks (graphScore)
+df_subjects$graphScore = df_subjects$linear_score + df_subjects$triangular_score
+
+#create a column for the sum of the two drawing tasks (graphScore)
+df_subjects$drawScore = df_subjects$points + df_subjects$d_n
+
+#create data subsets
+df_regular <- subset(df_subjects, experiment=="experiment")
+df_reverse <- subset(df_subjects, experiment=="reverse")
+```
+
+
+
+####Mixed Designs Analysis
+The experimental design consists of 1 within-subjects factor (graph) with two levels (linear, triangular), and two between-subjects factors: scaffold condition (5 levels: no scaffold, 'what' text, 'how' text, static image, interactive image) and task order (linear-first, triangular-first). 
+
+```{r echo = FALSE}
+#1. Enter data
+# our data df_subjects is in wide format (repeated measures in different columns), however we need it in long format
+w_times = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "LM_T_M","TM_T_M")) #create a wide form subset 
+l_times <-melt(w_times, id=c("subject","condition", "order", "lm_scenarios"), measured=c("LM_T_M","TM_T_M")) 
+#convert other variables to factors
+l_times$condition <- factor(l_times$condition)
+l_times$order <- factor(l_times$order)
+l_times$lm_scenarios <- factor(l_times$lm_scenarios)
+```
+
+```{r echo = FALSE}
+#2. Explore data
+#create boxplot
+
+#SIMPLE BOXPLOT BY CONDITION
+#mixedPlot_condition <- ggplot(l_times, aes(condition,value, color=variable))+ geom_boxplot() + 
+#  labs(x="scaffold condition", y="time (minutes)") + 
+#  ggtitle("Task Response Time by Scaffold ") +
+#  theme_bw() 
+#mixedPlot_condition
+  
+#BOXPLOT BY CONDITION, FACET WITH ORDER
+mixedPlot_order <- ggplot(l_times, aes(condition,value, fill=variable))+ geom_boxplot() +
+  facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  labs(x="scaffold condition", y="time (minutes)", color="task")+ 
+  ggtitle("Task Response Time by Scaffold & Task Order ") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_fill_manual( values = c(green,red),
+                       name="graphing task",
+                       breaks=c("LM_T_M", "TM_T_M"),
+                       labels=c("linear", "triangular"))
+  #use scale_fill_manual to manually change colors 
+                      
+mixedPlot_order
+
+#BOXPLOT BY CONDITION, FACET WITH ORDER AND SCENARIO
+#mixedPlot_scenario <- ggplot(l_times, aes(condition,value, color=variable))+ geom_boxplot() + 
+#  facet_grid(lm_scenarios~order, labeller=labeller(order = order_labels)) +
+#  theme_bw() +
+#  theme(strip.background = element_blank()) +
+#  labs(x="scaffold condition", y="time (minutes)")+ 
+#  ggtitle("Task Response Time by Scaffold, Task Order and Scenario ") 
+#mixedPlot_scenario
+``` 
+
+```{r echo = FALSE}
+#explore descriptive statistics based on each IV
+#by(l_times$value, list(l_times$condition, l_times$order, l_times$variable), stat.desc, basic=FALSE)
+```
+
+3. Construct contrasts
+```{r echo = FALSE}
+#construct contrasts for ANOVA model
+lmVStm <-c(1,-1)
+contrasts(l_times$variable) <- cbind(lmVStm)
+expVSrev<-c(1,-1)
+contrasts(l_times$order) <- cbind(lmVStm)
+scaffVSold<-c(-4,1,1,1,1)
+contrasts(l_times$condition) <- cbind(scaffVSold)
+```
+4. Compute main model ANOVA
+```{r echo = FALSE}
+
+options(contrasts=c("contr.sum","contr.poly"))
+
+#execute the model
+mixedModel = ezANOVA(data = l_times,
+                     dv = .(value),
+                     wid = .(subject),
+                     between = .(condition,order,lm_scenarios),
+                     within = .(variable),
+                     type = 3,
+                     detailed = FALSE)
+mixedModel
+```
+RESULTS suggest a significant main-effect of graph task, and significant interactions between condition & graph, and order and task and scenario and task.  Main effects of condition and order were not significant. 
+
+4. Compute the Model with GLM
+```{r echo = FALSE}
+#build the baseline model with no predictors other than the intercept
+baseline <- lme(value ~ 1, random = ~1|subject/condition/order/variable, data= l_times, method="ML")
+
+#add expected main effects of CONDITION
+graphModel <- update(baseline, .~. +variable)
+#conditionModel<- update(graphModel, .~. +condition)
+orderModel<- update(graphModel, .~. +order)
+graph_condition <- update(orderModel, .~. +variable:condition)
+condition_order <- update(graph_condition, .~. +condition:order)
+graph_order <- update(condition_order, .~. +variable:order)
+finalModel <- update(graph_order, .~. +variable:lm_scenarios)
+
+anova(baseline, graphModel, conditionModel, orderModel, graph_condition, condition_order, graph_order, finalModel)
+summary(orderModel)
+```
+Condition, GraphXCondition, GraphXOrder, GraphXScenario
+
+
+```{r}
+plot(finalModel)
+
+```
+
+5. Compute contrasts & post-hoc tests

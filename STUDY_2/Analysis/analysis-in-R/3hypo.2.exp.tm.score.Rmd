@@ -1,0 +1,263 @@
+---
+title: "Hypothesis Testing"
+output: html_notebook
+---
+
+##Study 1: Regular Order (Linear Model - then - Triangular Model)
+### H2: The scaffolds function differently, and will significantly change the task accuracy score for unconventional graphs.
+<span style = "color: green"> 
+*Accuracy scores for the triangular model task were signficantly between groups for both the learning and testing phases of the task.  In all cases, the interactive depiction group performed best, and visual element description performed worst among the scaffolds, with the no-scaffold control group yielding the lowest scores.* 
+</span>   
+
+#### a) Do accuracy scores  on the triangular model task differ significantly between scaffold groups? 
+> <span style="color:green"> Response scores for the triangular model task were significantly different between scaffold groups, F(1,163) = 17.3, p < 0.001, r = 0.31 a medium size effect.  The interactive depiction group performed best (M = 10.87, SD = 2.91), followed by the data description group (M = 9.67, SD = 4.54), the static depiction group (M = 9.40, SD = 4.72), visual element description group (M = 8.26, SD = 4.13) and finally the no-scaffold control group (M = 6.83, SD = 4.81). </span>  
+
+```{r echo = FALSE}
+library(psych)
+library(car)
+
+##construct MEANS PLOT 
+line <- ggplot(df_regular, aes(df_regular$condition, df_regular$triangular_score)) 
+line + 
+coord_cartesian(ylim=c(0,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Score for Triangular Model Task by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+TMScoreBoxplot <-ggplot(df_regular, aes(group=condition, x=condition,y=triangular_score))
+TMScoreBoxplot + geom_boxplot() +
+  labs(x="Graph Order", y="Time (minutes)")+
+  ggtitle("Boxplot of Triangular Task Score") +
+  coord_cartesian(ylim=c(0,15)) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response accuracy
+by(df_regular$triangular_score, df_regular$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(df_regular$triangular_score, df_regular$condition, center=median)
+
+exp_tmscoreBYconditionModel <- aov(triangular_score~condition, data = df_regular)
+summary(exp_tmscoreBYconditionModel)
+summary.lm(exp_tmscoreBYconditionModel)
+```
+Levene's IS significant... therefore SHOULD run robust ANOVA...
+...1 way independent ANOVA is signficant at p < 0.001. Multiple R-squared = eta-squared = 0.09597 = r-squared. Effect size r therefore = sqrt(0.0957) = 0.31 a medium effect. 
+
+### reinterpret!!
+Response scores for the triangular model task were significantly different between scaffold groups, F(1,163) = 17.3, p < 0.001, r = 0.31 a medium size effect.  The interactive depiction group performed best (M = 10.87, SD = 2.91), followed by the data description group (M = 9.67, SD = 4.54), the static depiction group (M = 9.40, SD = 4.72), visual element description group (M = 8.26, SD = 4.13) and finally the no-scaffold control group (M = 6.83, SD = 4.81).
+
+
+
+### reinterpret!
+####b) Does reaction time on the triangular model task (learning phase) differ significantly between scaffold groups? 
+> During the triangular model task, participants in experimental groups 1 - 4 saw the graph scaffold while answering the first 5 questions, after which they answered 10 more questions without the scaffold. (Participants in group 0 -- control -- saw no scaffold). If the scaffolds are equally effective, we would expect to see no differences in accuracy score for the learning phase, though scaffold groups should be significantly better than the control group.         
+<span style="color:green">
+Scores on the learning phase of the triangular model task differed significantly by scaffold group, F(1,163) = 7.97, p <.01, r = 0.22, a small effect.  The highest scores were earned by the interactive depictions group (M = 3.64, SD = 1.23), followed by data description (M = 3.23, SD = 1.55), static depiction (M = 2.87, SD = 1.70), the visual element description (M = 2.74, SD = 1.57) with the lowest scores earned by the no-scaffold control group (M = 2.66, SD = 1.54).
+</span>   
+
+```{r echo = FALSE}
+##construct MEANS PLOT 
+line <- ggplot(df_subjects, aes(df_subjects$condition, df_subjects$ts_n)) 
+line + 
+coord_cartesian(ylim=c(1,5)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Accuracy Score for Triangular Model (learning phase) Task by Scaffold") +
+theme_bw()
+```
+Were there significant differences in learning phase performance?
+```{r echo = FALSE}
+#compute and evaluate difference in response accuracy
+by(df_subjects$ts_n, df_subjects$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(df_subjects$ts_n, df_subjects$condition, center=median)
+
+exp_tmscoreBYconditionModel <- aov(ts_n~condition, data = df_regular)
+summary(exp_tmscoreBYconditionModel)
+summary.lm(exp_tmscoreBYconditionModel)
+#posthoc <- TukeyHSD(x=exp_tmscoreBYconditionModel, 'df_subjects$condition', conf.level=0.95)
+
+TMlearningControl <- subset(df_subjects, condition=="0")
+TMlearning1 <- subset(df_subjects, condition=="1")
+TMlearning2<- subset(df_subjects, condition=="2")
+TMlearning3<- subset(df_subjects, condition=="3")
+TMlearning4<- subset(df_subjects, condition=="4")
+TMlearningScaff <-subset(df_subjects, condition!="0")
+
+svo = t.test(TMlearningScaff$ts_n,TMlearningControl$ts_n)
+svo
+#stat.desc(TMlearning4)
+
+```
+
+
+```{r echo = FALSE}
+scoreHist <-ggplot(df_regular, aes(ts_n))
+scoreHist + geom_histogram(binwidth=1) + facet_wrap(~condition) + 
+  coord_cartesian(xlim=c(0,5)) +
+  ggtitle("Histogram of Triangular Task Learning Scores") + 
+  labs(x="score (#correct)", y="Number of Participants") + 
+  theme_bw()+
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=14, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(df_regular$ts_n, df_regular$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(df_regular$ts_n, df_regular$condition, center=median)
+
+exp_tmLearnSCOREBYconditionModel <- aov(ts_n~condition, data = df_regular)
+summary(exp_tmLearnSCOREBYconditionModel)
+summary.lm(exp_tmLearnSCOREBYconditionModel)
+
+```
+Levene's is not signficant so 1 way independent means ANOVA is run. 
+ANOVA is signficant at p < .01, with eta-squared = multiple R-squared = 0.04662. Therefore r effect size = sqrt(0.04662) = 0.22
+
+####c) Does score accuracy on the triangular model task (testing phase) differ significantly between scaffold groups? 
+> After answering the first five questions (learning phase) with scaffolds, participants continued on to answer 10 progressively more complex questions without scaffolds. Without scaffold assistance, the graphs viewed by each group were identical. Although this means the information processing demands are the same across groups, we expect the score for the testing phase will differ significantly based on how well the scaffold facilitated the participant's learning of the graph system.    
+<span style="color:green">
+Accuracy for the testing phase [0,10] of the triangular model task differed significantly between scaffold groups, F(1,163) = 19.07, p < 0.001, r = 0.32, a medium effect. The highest scores were earned by the interactive depiction group (M = 7.22, SD = 2.02), followed by static depiction (M = 6.53, SD = 3.39), data description (M = 6.43, SD = 3.37), visual element description (5.52, SD = 3.03) with the lowest scores earned by the no-scaffold control group (4.17, SD = 3.36).
+</span>   
+
+```{r echo = FALSE}
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$tt_n))
+line + coord_cartesian(ylim=c(0,10)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Accuracy Score for Triangular Model (testing phase) Task by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+scoreHist <-ggplot(w.exp, aes(tt_n))
+scoreHist + geom_histogram(binwidth=1) + facet_wrap(~condition) + 
+  coord_cartesian(xlim=c(0,10)) +
+  ggtitle("Histogram of Triangular Task Testing Scores") + 
+  labs(x="score (#correct)", y="Number of Participants") + 
+  theme_bw()+
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=14, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$tt_n, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$tt_n, w.exp$condition, center=median)
+
+exp_tmTestScoreBYconditionModel <- aov(tt_n~condition, data = w.exp)
+summary(exp_tmTestScoreBYconditionModel)
+summary.lm(exp_tmTestScoreBYconditionModel)
+```
+Levene's is significant therefore should run Robust ANOVA... but anyway...
+1 way independent means ANOVA is significant at p < 0.001. Multiple R-squared = eta-squared = 0.1047, so r effect size = sqrt(0.1047) = 0.32. 
+```{r echo = FALSE}
+##construct scatterplot to visualize correlation between triangular model learning and testing phases 
+p <- ggplot(w.exp, aes(w.exp$ts_n, w.exp$tt_n)) 
+#p + geom_point(position="jitter",aes(colour = factor(condition))) + 
+p + geom_point(alpha = 0.2) + facet_wrap(~condition) + 
+coord_cartesian(ylim=c(0,12), xlim=c(0,5)) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="learning phase score", y="testing phase score") +
+ggtitle("Correlation between learning and testing times in the Triangular Model Task") +
+theme_bw() +
+theme(strip.background = element_blank())
+```
+
+
+#### d) Does drawing score differ significantly between scaffold groups? 
+<span style="color:green"></span>  
+
+```{r echo = FALSE}
+
+##construct MEANS PLOT 
+line <- ggplot(df_regular, aes(df_regular$condition, df_regular$scaled_draw_score)) 
+line + 
+coord_cartesian(ylim=c(0,20)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Score for Drawing Task by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+SDScoreBoxplot <-ggplot(df_regular, aes(group=condition, x=condition,y=scaled_draw_score))
+SDScoreBoxplot + geom_boxplot() +
+  labs(x="Graph Order", y="Score (points)")+
+  ggtitle("Boxplot of Drawing Task Score") +
+  coord_cartesian(ylim=c(0,20)) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response accuracy
+
+by(df_regular_subjects$scaled_draw_score, df_regular_subjects$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(df_regular_subjects$scaled_draw_score, df_regular_subjects$condition, center=median)
+
+exp_sdscoreBYconditionModel <- aov(scaled_draw_score~condition, data = df_regular_subjects)
+summary(exp_sdscoreBYconditionModel)
+summary.lm(exp_sdscoreBYconditionModel)
+```
+
+#### e) Is there a relationship between graph interpretation and graph score?
+```{r echo = FALSE}
+
+##construct MEANS PLOT 
+line <- ggplot(df_regular_subjects, aes(df_regular_subjects$`Graph Type`, df_regular_subjects$scaled_draw_score)) 
+line + 
+coord_cartesian(ylim=c(0,20)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Score for Drawing Task by Graph Interpretation") +
+theme_bw()
+```

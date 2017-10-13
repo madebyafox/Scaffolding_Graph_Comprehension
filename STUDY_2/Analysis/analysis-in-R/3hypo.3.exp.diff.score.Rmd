@@ -1,0 +1,142 @@
+---
+title: "Hypothesis Testing"
+output: html_notebook
+---
+```{r echo = FALSE}
+library(ggplot2)
+library(psych)
+library(pastecs)
+library(gridExtra)
+library(Hmisc)
+library(reshape2)
+```
+
+##Study 1: Regular Order (Linear Model - then - Triangular Model)
+### H3: (replication) The triangular model scores will exceed the linear model scores, because the triangular model is a more efficient representation for reasoning about temporal intervals (Qiang et. al. 2014). 
+<span style = "color: green"> 
+*interpretation* 
+</span>   
+
+#### a) Are the differences between triangular and linear model accuracy scores significantly different between scaffold groups? 
+> <span style="color:green">  In only the interactive depiction group were participants' accuracy on the triangular model task scores superior to their scores on the linear model task (M = 0.02, SD = 6.66).  In the other groups, the linear model scores were higher. These differences in score improvement were significantly different between scaffold conditions, F(1,163) = 21.88, p < 0.001, r = 0.34, with a medium effect.  </span>  
+
+```{r echo = FALSE}
+
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$score_diff)) 
+line + coord_cartesian(ylim=c(-15,15)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("TM Score Improvement by Scaffold Condition") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+DiffScoreBoxplot <-ggplot(w.exp, aes(group=condition, x=condition,y=score_diff))
+DiffScoreBoxplot + geom_boxplot() +
+  coord_cartesian(ylim=c(-15,15)) +
+  labs(x="scaffold condition", y="TM Score Improvement (# more questions correct)")+
+  ggtitle("Boxplot of TM Score Improvement") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$score_diff, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$score_diff, w.exp$condition, center=median)
+
+exp_diffscoreBYconditionModel <- aov(score_diff~condition, data = w.exp)
+summary(exp_diffscoreBYconditionModel)
+summary.lm(exp_diffscoreBYconditionModel)
+```
+Levene's IS significant... therefore SHOULD run robust ANOVA...
+...1 way independent ANOVA is signficant at p < 0.001. F(1,163) = 21.88, p < 0.001. Multiple R-squared = eta-squared = 0.1183 = r-squared. Effect size r therefore = sqrt(0.1183) = 0.34 a medium effect.    In only the interactive depiction group were participants' accuracy on the triangular model task scores superior to their scores on the linear model task (M = 0.02, SD = 6.66).  In the other groups, the linear model scores were higher.  
+
+####b) Is there a score improvement in the learning phase? Does it differ significantly between scaffold groups? 
+> <span style="color:green"> There is not a significant improvement in performance in the learning phase, though the difference in performance between TM and LM differs significantly by scaffold condition F(1,163) = 10.07, p < 0.001 , with eta-squared = multiple R-squared = 0.0582 Therefore r effect size = sqrt(0.0582) = 0.24, a small effect. 
+</span>   
+
+```{r echo = FALSE}
+#create a difference score for the learning phase only
+w.exp$learn_diff <- with(w.exp, ts_n - ls_n)
+
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$learn_diff)) 
+line + 
+coord_cartesian(ylim=c(-5,5)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# more correct)") +
+ggtitle("Mean TM Score Improvement for learning phase by Scaffold") +
+theme_bw()
+```
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$learn_diff, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$learn_diff, w.exp$condition, center=median)
+
+exp_scorediffLearnBYconditionModel <- aov(learn_diff~condition, data = w.exp)
+summary(exp_scorediffLearnBYconditionModel)
+summary.lm(exp_scorediffLearnBYconditionModel)
+
+```
+Levene's is signficant... so a robust ANOVA should be run... but anyhoo...
+ANOVA is signficant: F(1,163) = 10.07, p < 0.001 , with eta-squared = multiple R-squared = 0.0582 Therefore r effect size = sqrt(0.0582) = 0.24, a small effect. 
+
+####c) Does score accuracy on the triangular model task (testing phase) differ significantly between scaffold groups? 
+> <span style="color:green">
+Score improvement for the testing phase was significantly different between scaffold groups, F(1,163) = 20.47, p < 0.001 with a medium effect size, r = 0.33. Only the interactive depiction group saw increased performance from the linear model.
+</span>   
+
+```{r echo = FALSE}
+
+#create a difference score for the learning phase only
+w.exp$test_diff <- with(w.exp, tt_n - lt_n)
+
+##construct MEANS PLOT 
+line <- ggplot(w.exp, aes(w.exp$condition, w.exp$test_diff))
+line + coord_cartesian(ylim=c(-10,10)) +
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.y = mean, geom = "line", aes(group=1), color = "blue", linetype="dashed") + #the grouping line
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Mean Difference in Accuracy for Testing Phases by Scaffold (TM - LM)") +
+theme_bw()
+```
+
+
+```{r echo = FALSE}
+#compute and evaluate difference in response time
+by(w.exp$test_diff, w.exp$condition, stat.desc)
+
+#conduct levene test for homogonaeity of variance (should NOT be significant)
+leveneTest(w.exp$test_diff, w.exp$condition, center=median)
+
+exp_diffTestScoreBYconditionModel <- aov(test_diff~condition, data = w.exp)
+summary(exp_diffTestScoreBYconditionModel)
+summary.lm(exp_diffTestScoreBYconditionModel)
+```
+Levene's is significant therefore should run Robust ANOVA... but anyway...
+1 way independent means ANOVA is significant at p < 0.001. F(1,163) = 20.47, p < 0.001. Multiple R-squared = eta-squared = 0.1116, so r effect size = sqrt(0.1116) = 0.33. 
+
+
+
+

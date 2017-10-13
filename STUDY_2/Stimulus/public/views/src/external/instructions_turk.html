@@ -1,0 +1,66 @@
+<script>
+	//set text of scenario descriptions based on scenario randomization order in main
+  switch(scenarios[0]) {
+    case "longmire":
+      $('#da1').text("Answer 15 questions to help an events manager coordinate a reservation schedule.");
+      $('#da2').text("Answer 15 questions to help a project manager coordinate a task schedule.");
+      break;
+    case "axis":
+      $('#da1').text("Answer 15 questions to help a project manager coordinate a task schedule.");
+      $('#da2').text("Answer 15 questions to help an events manager coordinate a reservation schedule.");
+      break;
+    }
+</script>
+
+<div class="masterdiv">
+<div class="top">
+  <div class="bcent">
+    <h1>Instructions</h1>
+  </div>
+</div><!--top-->
+<div class="instructions">
+  <div class="vcent">
+
+<p>We are developing a learning activity to help children learn about scheduling events in time. By completing this task, you will be helping us to construct the best learning materials for our children! </p>
+
+<p>In this task, you are going to solve a series of problems about scheduling events. To help you solve the problems, we are going to give you
+   a variety of graphs and diagrams. </p>
+
+
+<table cellspacing="0" cellpadding="0" border="0" style="display:block;">
+  <tr>
+    <td width="40" rowspan="2"><a class="fa fa-desktop fa-lg"></td>
+    <td >Scenario 1 [15 minutes]</td>
+  </tr>
+  <tr>
+    <td><a id='da1' class="subheading"> </a></td>
+  </tr>
+	<tr height="15"></tr>
+	<tr>
+    <td rowspan="2"><a class="fa fa-desktop fa-lg"></td>
+    <td>Final Survey [1 minute]</td>
+  </tr>
+  <tr>
+    <td><i>Complete a demographic survey and feedback on your experience.</i></td>
+  </tr>
+</table>
+
+<p><b>To ensure accurate results, please:</b> </p>
+<ul class="fa-ul">
+	<li><i class="fa-li fa fa-check" style="color:green"></i>DO read all instructions <i>carefully</i> </li>
+  <li><i class="fa-li fa fa-check" style="color:green"></i>DO make sure you are completing this activity in Google Chrome </li>
+  <li><i class="fa-li fa fa-check" style="color:green"></i>DO enter FULLSCREEN mode NOW (Chrome>View>Enter FullScreen) </li>
+	<li><i class="fa-li fa fa-close" style="color:#EA4335"></i>DO NOT close this browser window</li>
+	<li><i class="fa-li fa fa-close" style="color:#EA4335"></i>DO NOT try to return to a previous page </li>
+	<li><i class="fa-li fa fa-close" style="color:#EA4335"></i>DO NOT use the back button on the mouse or web browser</li>
+</ul>
+
+<p style="color:blue"><i>The activity will begin on the next page. </i></p>
+</div> <!--vcent-->
+</div> <!--instructions-->
+
+
+<div class = "bottom">
+	<button class="btn" type="button" id="start">BEGIN</button>
+</div><!--bottom-->
+</div><!--masterdiv-->

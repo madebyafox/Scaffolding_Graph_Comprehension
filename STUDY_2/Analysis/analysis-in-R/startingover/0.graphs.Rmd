@@ -1,0 +1,364 @@
+---
+title: "Graphs"
+output: html_notebook
+---
+
+```{r echo = FALSE}
+#import necessary packages
+library(readr) #load csv
+library(pastecs) #stat.desc
+library(tables) # pretty tables
+library(dplyr) #data formatting
+library(ez) #mixed anova
+library(reshape2) #reformatting data
+library(car)   #statistics
+library(ggplot2) #graphs
+
+#LOAD THE PARTICIPANT DATA
+all_participants <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+    col_types = cols(ARF = col_skip(), Comments = col_skip(), 
+        `Graph Description (if other)` = col_skip(), 
+        `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
+            "Triangular", "Linear Model", 
+            "Scatterplot", "Other", "Triangular (asymmetric)")), 
+        Points = col_skip(), Rater = col_skip(), 
+        `Select each item that is labelled in the graph` = col_skip(), 
+        `X Axis` = col_skip(), `Y Axis` = col_skip(),
+        GENDER = col_factor(levels = c("Male", 
+        "Female","Other")),
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("experiment", 
+            "reverse")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip() ))
+
+#LOAD THE EXPERT DATA
+all_experts <- read_csv("~/Sites/RESEARCH/2YP-Analysis/xls-files/master-wrangled-data/all_experts.csv", 
+    col_types = cols(
+        condition = col_factor(levels = c("0", 
+            "1", "2", "3", "4")), d_t = col_skip(), 
+        d_t_2 = col_skip(), experiment = col_factor(levels = c("reverse", 
+            "experiment")), linear_time = col_skip(), 
+        lm_scenarios = col_factor(levels = c("axis", 
+            "longmire")), ls_t = col_skip(), 
+        lt_t = col_skip(), time_diff = col_skip(), 
+        tm_scenarios = col_factor(levels = c("longmire", 
+            "axis")), triangular_time = col_skip(), 
+        ts_t = col_skip(), tt_t = col_skip()))
+
+#SETUP DATA FRAMES
+#create copy data of base data frame 
+df_subjects <- cbind(all_participants)
+df_experts <- cbind(all_experts)
+
+#create a new column for order with better name
+df_subjects$order = df_subjects$experiment
+levels(df_subjects$order)[levels(df_subjects$order)=="experiment"] <- "LMFirst"
+levels(df_subjects$order)[levels(df_subjects$order)=="reverse"] <- "TMFirst"
+
+#create a column for the sum of the two graphing tasks (graphScore)
+df_subjects$graphScore = df_subjects$linear_score + df_subjects$triangular_score
+
+#create a column for the sum of the two drawing tasks (graphScore)
+df_subjects$drawScore = df_subjects$points + df_subjects$d_n
+
+#create data subsets
+df_regular <- subset(df_subjects, experiment=="experiment")
+df_reverse <- subset(df_subjects, experiment=="reverse")
+
+
+
+#create subsets of runtimes
+w_scores = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "tm_scenarios", "linear_score","triangular_score")) #create a wide form subset 
+l_scores <-melt(w_scores, id=c("subject","condition", "order", "lm_scenarios","tm_scenarios"), measured=c("linear_score","triangular_score")) #create a longform version
+
+
+
+#merge scenario to single contextual column
+l_scores$scenario <- l_scores[4:5][cbind(seq_along(l_scores$variable), l_scores$variable)]
+l_times$scenario <- l_scores[4:5][cbind(seq_along(l_scores$variable), l_scores$variable)]
+
+# our data df_subjects is in wide format (repeated measures in different columns), however we need it in long format
+w_times = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios","tm_scenarios", "LM_T_M","TM_T_M")) #create a wide form subset 
+l_times <-melt(w_times, id=c("subject","condition", "order", "lm_scenarios","tm_scenarios"), measured=c("LM_T_M","TM_T_M")) 
+l_times$scenario <- l_times[4:5][cbind(seq_along(l_times$variable), l_times$variable)]
+
+#SETUP LABELS AND COLORS FOR GRAPHS
+order_labels <- c(LMFirst = "linear-first", TMFirst = "triangular-first")
+condition_lables <-c( '0' = "no scaffold", '1' = "what-text", '2' = "how-text", '3' = "static image", '4' = "interactive image")
+task_labels <- c("LM_T_M" = "linear graph", "TM_T_M" = "triangular graph")
+
+  red = "#F8766D"
+  green = "#1cc07e"
+  blue = "#59A1FC"
+  purple = "#C680FD"
+  none = "#7E7D7E"
+  text1 = "#071FD5"
+  text2 = "#0C91DF"
+  img1 = "#EF007A"
+  img2 = "#c481d5"
+
+
+  
+
+
+```
+
+
+###MAIN EFFECT: Graph on SCORE
+>On average, participants scoredsignificantly higher on the linear model task (M = 10.96, SD = 2.13) than on the triangular model (M = 8.78 SD = 4.44), t(316) = -9.4546, p < 0.001, r = 0.47
+
+
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = variable, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task ", y= "Score", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("linear_score" = "Linear Graph (LM)", "triangular_score" = "Triangular Graph (TM)")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Graph Task")+
+      scale_fill_manual(values = c(green,red),
+                        name = "Graph Task",
+                        breaks =c("linear_score", "triangular_score"),
+                        labels =c("linear","triangular"))
+      
+```
+```{r echo = FALSE}
+#CALULCULATE POSTHOC DIFFERENCE & EFFECT SIZE
+mainEffectGraph  <- t.test(value ~ variable, data=l_scores, paired=TRUE)
+mainEffectGraph
+
+t <-mainEffectGraph$statistic[[1]]
+df <-mainEffectGraph$parameter[[1]]
+r <- sqrt(t^2/(t^2+df))
+round(r,3)
+```
+```{r results = 'asis', echo = FALSE}
+aggregate(l_scores[, 6:7], list(l_times$variable), mean)
+aggregate(l_scores[, 6:7], list(l_times$variable), sd)
+
+subjects_total_time <- select(df_subjects, order, condition, linear_score, triangular_score)
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+
+table <- tabular(  ~1*(Format(digits=3)
+                                    *(linear_score+triangular_score)*(mean+sd)),  
+                                      data = subjects_total_time)
+table_options(rowlabeljustification="center", justification="right")
+table
+#html(table,options=htmloptions(head=TRUE))
+#latex(table)
+
+
+```
+
+###MAIN EFFECT OF GRAPH TYPE ON TIME
+>On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.4769, p < 0.001, r = 0.47
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = variable, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task ", y= "Response Time (minutes)", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("LM_T_M" = "Linear Graph (LM)", "TM_T_M" = "Triangular Graph (TM)")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Response Time by Graph Task")+
+      scale_fill_manual(values = c(green,red),
+                        name = "Graph Task",
+                        breaks =c("LM_T_M", "TM_T_M"),
+                        labels =c("linear","triangular"))
+      
+```
+```{r echo = FALSE}
+#CALULCULATE POSTHOC DIFFERENCE & EFFECT SIZE
+mainEffectGraph  <- t.test(value ~ variable, data=l_times, paired=TRUE)
+mainEffectGraph
+
+t <-mainEffectGraph$statistic[[1]]
+df <-mainEffectGraph$parameter[[1]]
+r <- sqrt(t^2/(t^2+df))
+round(r,3)
+```
+```{r results = 'asis', echo = FALSE}
+aggregate(l_times[, 6:7], list(l_times$variable), mean)
+aggregate(l_times[, 6:7], list(l_times$variable), sd)
+
+subjects_total_time <- select(df_subjects, order, condition, LM_T_M, TM_T_M)
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+
+table <- tabular(  ~1*(Format(digits=3)
+                                    *(LM_T_M+TM_T_M)*(mean+sd)),  
+                                      data = subjects_total_time)
+table_options(rowlabeljustification="center", justification="right")
+table
+#html(table,options=htmloptions(head=TRUE))
+#latex(table)
+
+```
+
+####Main & Interaction effects of Scenario
+>When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p < 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)
+
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = scenario, y= value, fill=scenario))
+bar + stat_summary(aes(y = value, group=scenario), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task ", y= "Score", fill="Scenario") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("axis" = "axis", "longmire" = "longmire")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Scenario & Graph")+
+      scale_fill_manual(values = c(blue,purple),
+                        name = "Scenario",
+                        breaks =c("axis", "linear"),
+                        labels =c("axis","linear"))
+      
+```
+
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = scenario, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Graph Task ", y= "Score", fill="Graph Task") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("axis" = "axis", "longmire" = "longmire")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Scenario & Graph")+
+      scale_fill_manual(values = c(green,red),
+                        name = "Graph Task",
+                        breaks =c("linear_score", "triangular_score"),
+                        labels =c("linear (LM)","triangular (TM)"))
+      
+```
+```{r echo = FALSE } 
+bar <- ggplot(l_scores, aes(x = variable, y= value, fill=scenario))
+bar + stat_summary(aes(y = value, group=scenario), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Task Graph ", y= "Score", fill="") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("linear_score" = "linear (LM)", "triangular_score" = "triangular (TM)")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Scenario & Graph")+
+      scale_fill_manual(values = c(blue,purple),
+                        name = "Task Scenario",
+                        breaks =c("axis","longmire"),
+                        labels =c("axis","longmire"))
+      
+```
+
+```{r echo = FALSE } 
+dots <- ggplot(l_scores, aes(x = scenario, y= value, color=variable))
+dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="point", position = position_dodge(width=0.1),width=0.2) +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.1),width=0.2) +
+      stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line", position=position_dodge(width=0.1)) +
+      labs (x = "Task Scenario ", y= "Score", fill="Task Graph") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("axis" = "axis", "longmire" = "longmire")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Score by Scenario & Graph")+
+      scale_color_manual(values = c(green,red),
+                        name = "Task Graph",
+                        breaks =c("linear_score", "triangular_score"),
+                        labels =c("linear (LM)","triangular (TM)"))
+      
+```
+
+```{r echo = FALSE}
+#CALULCULATE POSTHOC DIFFERENCE & EFFECT SIZE
+mainEffectGraph  <- t.test(value ~ scenario, data=l_scores, paired=TRUE)
+mainEffectGraph
+
+t <-mainEffectGraph$statistic[[1]]
+df <-mainEffectGraph$parameter[[1]]
+r <- sqrt(t^2/(t^2+df))
+round(r,3)
+```
+When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p < 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)
+```{r results = 'asis', echo = FALSE}
+aggregate(l_scores[, 7], list(l_scores$scenario), mean)
+aggregate(l_scores[, 7], list(l_scores$scenario), sd)
+
+#subjects_total_time <- select(df_subjects, order, condition, linear_score, triangular_score)
+#ORDER <- factor(df_subjects$order)
+#CONDITION <- factor(df_subjects$condition)
+#
+#table <- tabular(  ~1*(Format(digits=3)
+#                                    *(linear_score+triangular_score)*(mean+sd)),  
+#                                      data = subjects_total_time)
+#table_options(rowlabeljustification="center", justification="right")
+##table
+#html(table,options=htmloptions(head=TRUE))
+#latex(table)
+
+
+```
+
+####Interaction of Graph & Order on Time
+> no main effect of graph order. 
+> summary
+
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = order, y= value, fill=order))
+bar + stat_summary(aes(y = value, group=order), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Task Order ", y= "Response Time (min)", fill="Scenario") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("LMFirst" = "linear-first", "TMFirst" = "triangular-first")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Time by Task Order")+
+      scale_fill_manual(values = c("grey","red"),
+                        name = "Scenario",
+                        breaks =c("LMFirst", "TMFirst"),
+                        labels =c("linear-first","triangular-first"))
+      
+```
+
+```{r echo = FALSE } 
+bar <- ggplot(l_times, aes(x = variable, y= value, fill=order))
+bar + stat_summary(aes(y = value, group=order), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Task Graph ", y= "Response Time (min)", fill="") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("LM_T_M" = "linear (LM)", "TM_T_M" = "triangular (TM)")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Response Time by Graph & Order")+
+      scale_fill_manual(values = c("grey","red"),
+                        name = "Task Scenario",
+                        breaks =c("LMFirst","TMFirst"),
+                        labels =c("linear-first","triangular-first"))
+      
+```
+
+
+```{r echo = FALSE } 
+dots <- ggplot(l_times, aes(x = scenario, y= value, color=variable))
+dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="point",width=0.2) +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar",width=0.2) +
+      stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+      labs (x = "Task Scenario ", y= "Response Time (mins)", fill="Task Graph") +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c("axis" = "axis", "longmire" = "longmire")) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("Mean Response Time by Scenario & Graph")+
+      scale_color_manual(values = c(green,red),
+                        name = "Task Graph",
+                        breaks =c("LM_T_M", "TM_T_M"),
+                        labels =c("linear (LM)","triangular (TM)"))
+      
+```

@@ -1,0 +1,483 @@
+
+###ARCHIVE GRAPHS
+***  
+**1. Explore Task Runtimes**
+```{r echo = FALSE}
+#BOXPLOT BY CONDITION, FACET WITH ORDER
+BP_times <- ggplot(l_times, aes(condition,value, fill=variable))+ 
+  geom_boxplot(outlier.alpha = 0) +
+  geom_point(aes(x=condition,y=value,color=variable))+
+  coord_cartesian(ylim=c(0,32)) +
+  
+  facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  scale_y_continuous(minor_breaks = seq(0 , 30))+
+  labs(x="scaffold condition", y="time (minutes)", color="task")+ 
+  ggtitle("Task Response Time by Scaffold & Task Order ") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_fill_manual(   values = c(green,red,"black"),
+                       name="graphing task",
+                       breaks=c("LM_T_M", "TM_T_M","DT_T_M"),
+                       labels=c("linear", "triangular","drawing")) +
+  scale_color_manual( values = c(green,red,"black"))
+BP_times
+  #use scale_fill_manual to manually change colors 
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_times <- ggplot(l_times, aes(x = condition, y=value, color=variable)) 
+
+MP_times + facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,30)) +
+scale_y_continuous(minor_breaks = seq(0 , 30))+
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Mean Response Time by Scaffold and Order") +
+theme_bw() +
+theme(strip.background = element_blank()) +
+scale_fill_manual(     values = c(red,green,"black"),
+                       name="graphing task",
+                       breaks=c("LM_T_M", "TM_T_M","DT_T_M"),
+                       labels=c("linear","triangular","drawing")) 
+
+
+```
+
+
+
+```{r echo = FALSE}
+#LOOK AT MEAN TASK RESPOSNE TIMES BY SCAFFOLD & TAKS ORDER
+#print("<H1>LINEAR TASK TIME by Scaffold: REGULAR ORDER</H1>")
+#describeBy(df_regular$LM_T_M, df_regular$condition )
+#print("Total Time by Scaffold: REVERSE ORDER")
+#describeBy(df_reverse$LM_T_M, df_reverse$condition)
+#
+##LOOK AT MEAN TASK RESPOSNE TIMES BY SCAFFOLD & TAKS ORDER
+#print("<H1>TRIANGULAR TASK TIME  by Scaffold: REGULAR ORDER</H1>")
+#describeBy(df_regular$TM_T_M, df_regular$condition )
+#print("Total Time by Scaffold: REVERSE ORDER")
+#describeBy(df_reverse$TM_T_M, df_reverse$condition)
+```
+
+```{r echo = FALSE}
+#BOXPLOT BY CONDITION, FACET WITH ORDER
+BP_scores <- ggplot(l_scores, aes(condition,value, fill=variable))+ geom_boxplot() +
+  #  geom_point(aes(x=condition,y=value,color=variable))+
+
+  facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  labs(x="scaffold condition", y="score (# correct)", color="task")+ 
+  ggtitle("Task Accuracy by Scaffold & Task Order ") +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_fill_manual(   values = c(green,red),
+                       name="graphing task",
+                       breaks=c("linear_score", "triangular_score"),
+                       labels=c("linear", "triangular"))+
+  scale_color_manual(   values = c(green,red))
+BP_scores
+  #use scale_fill_manual to manually change colors 
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+MP_scores <- ggplot(l_scores, aes(x = condition, y=value, color=variable)) 
+
+MP_scores + facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  stat_summary(aes(y = value,group=variable), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,25)) +
+scale_y_continuous(minor_breaks = seq(0 , 25))+
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Mean Response Score by Scaffold and Order") +
+theme_bw() +
+theme(strip.background = element_blank()) +
+scale_color_manual(   values = c(green,red,blue),
+                       name="graphing task",
+                       breaks=c("linear_score", "triangular_score","scaled_draw_score"),
+                       labels=c("linear", "triangular","drawing"))
+```
+
+**3. Explore LINEAR TASK Runtime by Graph Order**  
+*What is the distribution of runtime for the linear model task and triangular model task for each level of the graph-order factor? What are the min, max, mean & SD?*
+
+The mean runtime for the linear model task is `r lm_time_m` minutes, with a standard deviation of 2.5 minutes, and values ranging from `r lm_time_min` to `r lm_time_max` minutes. <span style="color:red"> Participant with value of 3.9 minutes is suspicious, review for exclusion. </span>
+
+
+```{r results = 'asis', echo = FALSE}
+subjects_l_time <- select(df_subjects, order, condition, LM_T_M)
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+
+table <- tabular(  (CONDITION+1)~(Format(digits=3)*((Heading("Linear Task")*LM_T_M)*(Heading("mean time")*mean))*(Heading("")*(ORDER+1))), 
+                  data = subjects_l_time)
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+```
+
+
+```{r echo = FALSE}
+LMTimeHist <-ggplot(df_subjects, aes(LM_T_M))
+LMTimeHist + geom_histogram(binwidth=1) + facet_wrap(~order,labeller=labeller(order=order_labels)) + 
+  coord_cartesian(xlim=c(0,30)) +
+  ggtitle("Histogram of Linear Task Runtime") + 
+  labs(x="Time (minutes)", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+
+```{r echo = FALSE}
+describe(df_subjects$LM_T_M)
+stat.desc(df_subjects$LM_T_M, basic=FALSE, norm = TRUE)
+by(data=df_subjects$LM_T_M, INDICES=df_subjects$order, FUN=describe)
+
+lm_time_min = round(descriptives$LM_T_M[4], 2)
+lm_time_max = round(descriptives$LM_T_M[5], 2)
+lm_time_m = round(descriptives$LM_T_M[9], 2)
+
+```
+
+
+***  
+**3. TRIANGULAR TASK Runtime by Graph Order**  
+*What is the distribution of runtime (for just the triangular model task) for each level of the graph-order factor?  What are the min, max, mean & SD?  Do the data follow a normal distribution?*      
+
+The mean runtime for the linear model task is `r tm_time_m` minutes, with a standard deviation of 3.3 minutes, and values ranging from `r tm_time_min` to `r tm_time_max`  minutes. <span style="color:red"> Participant with value of 3.1 minutes is suspicious, review for exclusion. </span>
+
+```{r results = 'asis', echo = FALSE}
+subjects_t_time <- select(df_subjects, order, condition, TM_T_M)
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+
+table <- tabular(  (CONDITION+1)~(Format(digits=3)*((Heading("Triangular Task")*TM_T_M)*(Heading("mean time")*mean))*(Heading("")*(ORDER+1))), 
+                  data = subjects_t_time)
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+```
+
+
+```{r echo = FALSE}
+TMTimeHist <-ggplot(df_subjects, aes(TM_T_M))
+TMTimeHist + geom_histogram(binwidth=1) + facet_wrap(~order,labeller=labeller(order=order_labels)) + 
+  coord_cartesian(xlim=c(0,30)) +
+  ggtitle("Histogram of Triangular Task Runtime") + 
+  labs(x="Time (minutes)", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+```{r echo = FALSE}
+describe(df_subjects$TM_T_M)
+stat.desc(df_subjects$TM_T_M)
+by(data=df_subjects$TM_T_M, INDICES=df_subjects$order, FUN=describe)
+
+tm_time_min = round(descriptives$TM_T_M[4], 2)
+tm_time_max = round(descriptives$TM_T_M[5], 2)
+tm_time_m = round(descriptives$TM_T_M[9], 2)
+
+```
+***
+
+**4. DRAWING TASK Runtime by Graph Order**  
+*What is the distribution of runtime (for just the linear model task) for each level of the graph-order factor? What are the min, max, mean & SD? Do the data follow a normal distribution?*   
+
+The mean runtime for the drawing task is `r dt_time_m` minutes, with a standard deviation of 4.6 minutes, and values ranging from `r dt_time_min` to `r dt_time_max` minutes. <span style="color:red"> Participant with value of 2.2 minutes is suspicious, review for exclusion. </span>
+
+```{r results = 'asis', echo = FALSE}
+subjects_d_time <- select(df_subjects, order, condition, DT_T_M)
+ORDER <- factor(df_subjects$order)
+CONDITION <- factor(df_subjects$condition)
+
+table <- tabular(  (CONDITION+1)~(Format(digits=3)*((Heading("Drawing Task")*DT_T_M)*(Heading("mean time")*mean))*(Heading("")*(ORDER+1))), 
+                  data = subjects_d_time)
+table_options(rowlabeljustification="center", justification="right")
+#table
+html(table,options=htmloptions(head=TRUE))
+```
+```{r echo = FALSE}
+#construct MEANS PLOT of TIME
+d_time <- ggplot(df_subjects, aes(x = condition, y=DT_T_M)) 
+
+d_time + facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  stat_summary(aes(y = DT_T_M), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,25)) +
+scale_y_continuous(minor_breaks = seq(0 , 25))+
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="response time (minutes)") +
+ggtitle("Drawing Task Time  by Scaffold and Order") +
+theme_bw() +
+theme(strip.background = element_blank()) +
+scale_color_manual(   values = c(green,red),
+                       name="graphing task",
+                       breaks=c("linear_score", "triangular_score"),
+                       labels=c("linear", "triangular"))
+```
+
+```{r echo = FALSE}
+DTimeHist <-ggplot(df_subjects, aes(DT_T_M))
+DTimeHist + geom_histogram(binwidth=1) + facet_wrap(~order,labeller=labeller(order=order_labels)) + 
+  coord_cartesian(xlim=c(0,30)) +
+  ggtitle("Histogram of Drawing Task Runtime") + 
+  labs(x="Time (minutes)", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+
+```{r echo = FALSE}
+#DTimeBoxplot <-ggplot(df_subjects, aes(order,DT_T_M))
+#DTimeBoxplot + geom_boxplot() +
+#  labs(x="Graph Order", y="Time (minutes)")+
+#  ggtitle("Boxplot of Drawing Task Runtime") +
+#  coord_cartesian(ylim=c(0,30)) +
+#  theme_bw() +
+#  theme(strip.background = element_blank()) +
+#  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+#  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+#  theme(panel.border = element_blank()) +
+#  scale_x_discrete(breaks=c("regular", "reverse"),labels=c("linear-first", "triangular-first"))
+```
+```{r echo = FALSE}
+describe(df_subjects$DT_T_M)
+stat.desc(df_subjects$DT_T_M)
+by(data=df_subjects$DT_T_M, INDICES=df_subjects$order, FUN=describe)
+
+dt_time_min = round(descriptives$DT_T_M[4], 2)
+dt_time_max = round(descriptives$DT_T_M[5], 2)
+dt_time_m = round(descriptives$DT_T_M[9], 2)
+```
+####Summaries Drawing Score 
+```{r echo = FALSE}
+#construct MEANS PLOT of SCORE
+d_time <- ggplot(df_subjects, aes(x = condition, y=scaled_draw_score)) 
+d_time + facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  stat_summary(aes(y = scaled_draw_score), fun.y=mean,  geom="line") +
+  coord_cartesian(ylim=c(0,20)) +
+scale_y_continuous(minor_breaks = seq(0 , 25))+
+stat_summary(fun.y = mean, geom = "point") +  #the point
+stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .1) +
+theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+labs(x="scaffold condition", y="score (# correct)") +
+ggtitle("Drawing Task Score by Scaffold and Order") +
+theme_bw() +
+theme(strip.background = element_blank()) +
+scale_color_manual(   values = c(green,red),
+                       name="graphing task",
+                       breaks=c("linear_score", "triangular_score"),
+                       labels=c("linear", "triangular"))
+```
+
+####Summaries Runtime By Graph Order
+Regular Order [Linear - Triangular - Drawing Task]
+```{r results = 'asis', echo = FALSE}
+#summarize times for regular graph order
+subjects_time <- select(df_regular, order, condition, LM_T_M, TM_T_M, DT_T_M, TOTAL_T_M)
+ORDER <- factor(df_regular$order)
+CONDITION <- factor(df_regular$condition)
+
+table <- tabular(  (CONDITION+1)~
+                     (Format(digits=3)*
+                        ((Heading("Linear Task")*LM_T_M+Heading("Triangular Task")*TM_T_M+Heading("Drawing Task")*DT_T_M+Heading("Total Task")*TOTAL_T_M) *(Heading("mean time")*mean))), 
+                  data = df_regular)
+table_options(rowlabeljustification="center", justification="right")
+html(table,options=htmloptions(head=TRUE))
+```
+Reverse Order [Linear - Triangular - Drawing Task]
+```{r results = 'asis', echo = FALSE}
+#df_regular <- subset(df_subjects, order=="regular")
+#df_reverse <- subset(df_subjects, order=="reverse")
+
+#summarize times for regular graph order
+subjects_time <- select(df_reverse, order, condition, LM_T_M, TM_T_M, DT_T_M, TOTAL_T_M)
+ORDER <- factor(df_reverse$order)
+CONDITION <- factor(df_reverse$condition)
+
+table <- tabular(  (CONDITION+1)~
+                     (Format(digits=3)*
+                        ((Heading("Linear Task")*LM_T_M+Heading("Triangular Task")*TM_T_M+Heading("Drawing Task")*DT_T_M+Heading("Total Task")*TOTAL_T_M) *(Heading("mean time")*mean))), 
+                  data = df_reverse)
+table_options(rowlabeljustification="center", justification="right")
+html(table,options=htmloptions(head=TRUE))
+```
+
+
+###Summaries Score By Graph Order
+Regular Order [Linear - Triangular - Drawing Task]
+```{r results = 'asis', echo = FALSE}
+#df_regular <- subset(df_subjects, order=="regular")
+#df_reverse <- subset(df_subjects, order=="reverse")
+
+#summarize times for regular graph order
+subjects_score <- select(df_regular, order, condition, linear_score, triangular_score, d_n, points, scaled_draw_score, totalScore)
+ORDER <- factor(df_regular$order)
+CONDITION <- factor(df_regular$condition)
+
+table <- tabular(  (CONDITION+1)~
+                     (Format(digits=3)*
+                        ((Heading("Linear Task")*linear_score+Heading("Triangular Task")*triangular_score+Heading("Drawing Analysis")*d_n+Heading("Drawing Task")*points+Heading("Drawing Total")*scaled_draw_score+Heading("Total")*totalScore) *(Heading("mean score")*mean))), 
+                  data = df_regular)
+table_options(rowlabeljustification="center", justification="right")
+html(table,options=htmloptions(head=TRUE))
+```
+
+Reverse Order [Linear - Triangular - Drawing Task]
+```{r results = 'asis', echo = FALSE}
+#df_regular <- subset(df_subjects, order=="regular")
+#df_reverse <- subset(df_subjects, order=="reverse")
+
+#summarize times for regular graph order
+subjects_score <- select(df_reverse, order, condition, linear_score, triangular_score, d_n, points, scaled_draw_score, totalScore)
+ORDER <- factor(df_reverse$order)
+CONDITION <- factor(df_reverse$condition)
+
+table <- tabular(  (CONDITION+1)~
+                     (Format(digits=3)*
+                        ((Heading("Linear Task")*linear_score+Heading("Triangular Task")*triangular_score+Heading("Drawing Analysis")*d_n+Heading("Drawing Task")*points+Heading("Drawing Total")*scaled_draw_score+Heading("Total")*totalScore) *(Heading("mean score")*mean))), 
+                  data = df_reverse)
+table_options(rowlabeljustification="center", justification="right")
+html(table,options=htmloptions(head=TRUE))
+```
+
+###Summaries Drawing Interpretation 
+COMBINED ORDER 
+
+```{r echo = FALSE}
+ bar_drawing <-ggplot(df_subjects, aes(`Graph Type`))+
+  geom_bar()+
+  facet_wrap(~condition, labeller=labeller(condition = condition_lables)) +
+  coord_cartesian(ylim=c(0,75)) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(axis.text = element_text(family = "Helvetica", color="#666666", face="bold", size=8))
+  theme(panel.border = element_blank())
+bar_drawing
+```  
+```{r echo = FALSE}
+#create contingency table for drawing interpretation
+tbl = table(df_subjects$`Graph Type`)
+tbl
+
+```
+  
+```{r echo = FALSE}  
+#bar chart of graph interpretations
+g <- ggplot(df_subjects, aes(`Graph Type`))
+g + geom_bar() + 
+  coord_cartesian(ylim=c(0,250)) +
+  ggtitle("Frequency of Graph Types in Drawing Task") + 
+  labs(x="Graph Type in Drawing ", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+ theme(panel.border = element_blank())
+###  
+```
+
+
+
+
+
+Regular Order [Linear - Triangular - Drawing Task]
+```{r results = 'asis', echo = FALSE}
+#df_regular <- subset(df_subjects, order=="regular")
+#df_reverse <- subset(df_subjects, order=="reverse")
+
+#create contingency table for drawing interpretation
+tbl = table(df_regular$condition, df_regular$`Graph Type`)
+tbl
+
+chisq.test(tbl) 
+```
+```{r echo = FALSE}
+#bar chart of graph interpretations
+g <- ggplot(df_regular_subjects, aes(`Graph Type`))
+g + geom_bar() + 
+  ggtitle("Frequency of Graph Types in Drawing Task") + 
+  labs(x="Graph Type in Drawing ", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+
+
+```{r echo = FALSE}
+#bar chart of graph interpretations
+g <- ggplot(df_regular_subjects, aes(`Graph Type`))
+g + geom_bar() + 
+  ggtitle("Frequency of Graph Types in Drawing Task") + 
+  labs(x="Graph Type in Drawing ", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+
+
+Reverse Order [Triangular - Linear - Drawing Task]
+```{r results = 'asis', echo = FALSE}
+#df_regular <- subset(df_subjects, order=="regular")
+#df_reverse <- subset(df_subjects, order=="reverse")
+
+#create contingency table for drawing interpretation
+tbl = table(df_reverse$condition, df_reverse$`Graph Type`)
+tbl
+
+chisq.test(tbl) 
+```
+
+```{r echo = FALSE}
+#bar chart of graph interpretations
+g <- ggplot(df_reverse, aes(`Graph Type`))
+g + geom_bar() + 
+  ggtitle("Frequency of Graph Types in Drawing Task") + 
+  labs(x="Graph Type in Drawing ", y="Number of Participants") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+
+###Summaries Drawing Time
+```{r echo = FALSE}
+
+
+g <- ggplot(df_regular_subjects, aes(scaled_draw_score, DT_T_M ))
+g + geom_point() + 
+  ggtitle("Drawing Time and Drawing Score") + 
+  labs(x="Drawing Task Score (points)", y="Drawing Time (minutes)") + 
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=12, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```

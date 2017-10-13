@@ -1,0 +1,37 @@
+---
+output:
+  html_notebook: default
+  html_document: default
+---
+
+_Based on Tutorial by Bodo Winter, available at: http://www.bodowinter.com/tutorial/bw_LME_tutorial2.pdf_
+
+```{r}
+library(lme4) #linear mixed effects models
+```
+
+```{r}
+#load Bodo's sample data
+#politeness=read.csv("http://www.bodowinter.com/tutorial/politeness_data.csv")
+
+#attitude = polite or informatl
+#scenario = the item task
+```
+
+First, let's look at the relationship between politeness and pitch by means of a boxplot. It appears that in both cases, females are higher pitched than males, though there is more overlap in frequency between the two attitutes for men.
+```{r} 
+boxplot(frequency ~ attitude*gender,
+col=c("white","lightgray"),politeness) 
+```
+
+Now, let's create the model.  We want to predict frequency based on the fixed effects of attitute and sex, and the random effects of subject, and scenario
+politeness.model = lmer(frequency ~ attitude + gender (1|subject) + (1|scenario), data=politeness)
+
+```{r}
+politeness.model = lmer(frequency ~ attitude +
+gender + (1|subject) +
+(1|scenario), data=politeness)
+summary(politeness.model)
+
+coef(politeness.model)
+```
