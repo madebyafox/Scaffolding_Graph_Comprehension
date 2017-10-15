@@ -4,11 +4,9 @@ html{
 }
 /*TEXT STYLES*/
 
-
 .centered {
   text-align:center;
 }
-
 
 /*DIV CONTAINERS*/
 div.masterdiv {
@@ -65,7 +63,6 @@ div.jones{
   width: 60%;
   text-align: left;
 }
-
 
 /*.static {
   position: absolute;
@@ -146,9 +143,8 @@ p .legend{
   color:#3498db;
 }
 
-
 .grid  {
-  stroke: black;
+  stroke: grey;
   stroke-opacity: 1;
   shape-rendering: crispEdges;
 }
@@ -158,12 +154,12 @@ p .legend{
   shape-rendering: crispEdges;
 }*/
 .grid  line {
-  stroke: black;
+  stroke: grey;
   stroke-opacity: 1;
   shape-rendering: crispEdges;
 }
 .domain  {
-  stroke-width: 1;
+  stroke-width: 2;
 }
 .checkbox-grid li {
   display: block;
