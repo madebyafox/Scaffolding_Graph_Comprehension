@@ -15,18 +15,15 @@
 <body>
   <div class = "d3container"></div>
 
-  <!-- STATIC IMAGE SCAFFOLDS  ------------------------------------------------------------------>
+  <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
   <img class = "static" id="triangular-acme-impasse" src ="img/overlay.triangular-acme-impasse.png" />
   <img class = "static" id="triangular-acme-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
-
-  <!-- INTERACTIVE IMAGE HINT  ------------------------------------------------------------------>
-
   <div class = "legend" id="hint-interactive" >
     <p>Hint: hover your mouse over the data points for help</p>
   </div> <!-- end legend -->
 
+  <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
   <div class=test>
-   <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
     <div class = "acme" id="acme.start" style ="display:none">
       <p class = "question">Which reservations start at 8:00 AM? </p>
       <ul class="checkbox-grid">
@@ -361,13 +358,6 @@
 
   </div> <!--test questions div end-->
 
-  <!-- Christa Tippet: We're in this ironic, this paradoxical moment - it's full of promise too, I want to keep saying that.
-  In this century we are equipped for the very first time in the history of our species to think and act like a species.
-  We have the technology and
-  the connectedness to do that now. But we're not. In order to rise to that occasion, we have inner work to do.
-  And we hanve't done that. So all of our sophistication and all of our globalization and our technology has thrown us
-  back to reckon with ourselves.  -->
-
   <!-- SUBMIT AND HELP BUTTONS ------------------------------------------------------------------>
   <div class="fixbottom">
     <!-- <div id="helperSwitch" class="onoffswitch" >
@@ -381,8 +371,9 @@
   </div>
 
   <script>
-    // console.log("start of clicked array: "+clicked);
-    // console.log("start of helps array: "+helps);
+    console.log("start of clicked array: "+clicked);
+    console.log("start of hovered string: "+hovered);
+    
     //set correct answers for each question
     var answers = {
       "acme.start" : ["C","D","L"],
@@ -402,19 +393,22 @@
       "acme.starts+finishes" : ["C"],
       "acme.before+duration" : ["C"]
     }
+
+    //define data file for graph based on scenario and impasse condition
     var datafile = "../views/src/data/"+scenario+"_"+impasse+".csv"; //set the datafile based on the scenario
-    //"none", "describe-what", "describe-how", "show-static", "show-interactive"
+
     //display the question based on input values from jsPsych
     document.getElementById(scenario+"."+question).style.display = "block";
+
     //---------SET PROPERTIES OF THE GRAPH -------------//
-  // set the dimensions and margins of the graph
+    // set the dimensions and margins of the graph
     var margin = {top: 25, right: 30, bottom: 55, left: 50},
       width = 600,
       height = 600;
     var intersects = false; //default value for intersects scaffold
     var xAxisTitle, yAxisTitle;
 
-    //-------ONLY DISPLAY INTERSECTS SWITCH IF SCAFFOLD IS ON ---//
+    //---------ENABLE APPROPRIATE SCAFFOLD ELEMENTS BASED ON CONDITION ----------//
     switch(condition) {
       case 10: //control - no impasse
         console.log("11: control - no impasse")
@@ -462,23 +456,10 @@
       .attr("transform",  "translate(" + margin.left + "," + margin.top + ")");
 
     //---------DRAW THE GRAPH  ------------------------//
-    switch(graph){
-      case "triangular":
       xAxisTitle = "START & END TIME (time of day)";
       yAxisTitle = "DURATION (in hours)";
       drawTriangleModel(datafile,scaffold);
-      break;
-      case "linear":
-      xAxisTitle = "START & END TIME (time of day)";
-      if (scenario == "acme"){yAxisTitle = "CONFERENCE ROOM";}
-      if (scenario =="axis"){yAxisTitle = "TASK"}
 
-      drawLinearModel(datafile,scaffold);
-      break;
-      default:
-      $(".d3container").remove();
-      break;
-    }
 </script>
 
 </body>

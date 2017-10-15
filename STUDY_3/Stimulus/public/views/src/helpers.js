@@ -41,7 +41,8 @@ var check_draw = function(elem) {
 
 //evaluate correctness of answer onSubmit
 function checkAnswer() {
-  console.log(clicked);
+  console.log("end clicked: "+clicked);
+  console.log("end hovered: "+hovered);
   var selected = [];
     $ (':checked').not('.onoffswitch-checkbox').each(function() { //check each checkbox except help toggle
     selected.push(""+$(this).attr('value')+"");

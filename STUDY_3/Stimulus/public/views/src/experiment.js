@@ -19,13 +19,14 @@
 //---------------SETUP VARIABLES---------------------------------------
 var graph, scenario, question, scaffold, block, correct ;
 var graph = "triangular";
-var experiment = "experiment"; //overriden by URL
+var experiment = "2YP3"; //overriden by URL
 var session = "default"; //overriden by codes block
 var condition = 0;  //overriden by codes block
 var explicit = 0; //overriden by codes block
 var impasse = 0; //overriden by codes block
-var colorClick = true; //define whether values turn green when clicked
+var colorClick = false; //define whether values turn green when clicked
 var clicked = [["answer","clicked"]]; //populate first row of clicked array with headers
+var hovered = ""; //string for sequence of data points that have been hovered over
 var scaffolds = [
   "none",
   "describe-what",
@@ -52,7 +53,6 @@ var questions = [
   "before+duration"
 ];
 var scenarios = ["acme"]; //determine the order of scenarios by randomly sorting the array
-var helps = 0;
 var sid = jsPsych.randomization.randomID(5);
 sid = sid.toUpperCase();
 console.log(sid);
@@ -220,7 +220,7 @@ var triangular_scaffolded = {
     jsPsych.data.addDataToLastTrial({correct:correct});
     jsPsych.data.addDataToLastTrial({answer:answer});
     jsPsych.data.addDataToLastTrial({clicked:clicked});
-    jsPsych.data.addDataToLastTrial({helps:helps});
+    jsPsych.data.addDataToLastTrial({hovered:hovered});
     jsPsych.data.addDataToLastTrial({block:"triangular_scaffolded"});
     console.log("TS"+(data.trial_index-20));
     console.log("finished: "+data.internal_node_id);
@@ -274,7 +274,7 @@ var triangular_testing = {
     jsPsych.data.addDataToLastTrial({correct:correct});
     jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({answer:answer});
-    jsPsych.data.addDataToLastTrial({helps:helps});
+    jsPsych.data.addDataToLastTrial({hovered:hovered});
     jsPsych.data.addDataToLastTrial({block:"triangular_testing"});
     console.log("TT"+(data.trial_index-25));
     console.log("finished: "+data.internal_node_id);
@@ -373,7 +373,7 @@ jsPsych.init({
   on_trial_start(){
     // console.log("new trial is starting");
     clicked = [["answer","clicked"]]; //reset clicked array
-    helps = 0; //reset number of help click counter
+    hovered = ""; //reset number of help click counter
   },
   on_trial_finish: function() {
     // $.ajax({
