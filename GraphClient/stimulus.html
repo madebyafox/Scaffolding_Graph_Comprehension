@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+
+  <title>GRAPH</title>
+  <!--JAVASCRIPT LIBRARIES -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://use.fontawesome.com/945539d961.js"></script>
+
+  <!-- load the d3.js library -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-drag.v1.min.js"></script>
+  <script src="https://d3js.org/d3-path.v1.min.js"></script>
+  <script src="https://d3js.org/d3-shape.v1.min.js"></script>
+  <script src="https://d3js.org/d3-polygon.v1.min.js"></script>
+  <script src="graphs.js"></script>
+
+
+  <!--STYLE SHEETS -->
+  <link href="css/styles.css" rel="stylesheet" type="text/css"></link>
+
+</head>
+
+<body>
+  <div class = "d3container"></div>
+</body>
+
+  <script>
+
+
+    //define data file for graph based on scenario and impasse condition
+    var datafile = "data.csv"; //set the datafile based on the scenario
+
+    //---------SET PROPERTIES OF THE GRAPH -------------//
+    // set the dimensions and margins of the graph
+    var margin = {top: 25, right: 30, bottom: 55, left: 50},
+      width = 600,
+      height = 600;
+    var intersects = false; //default value for intersects scaffold
+    var xAxisTitle, yAxisTitle;
+
+    var condition = 10;
+    var scaffold = 0;
+    var clicked = [];
+    var hovered ;
+    var colorClick = false;
+    var axis = "diagonal";
+
+    switch(condition) {
+      case 10: //control - no impasse
+        console.log("11: control - no impasse")
+        intersects = false; //intersects off
+        break;
+      case 20:  //text&image - no impasse
+        console.log("20: textimage - no impasse")
+        $('#triangular-acme-nonimpasse').css("display","block"); //display textimage scaffold
+        intersects = false; //intersects off
+        break;
+      case 30:  //interactive - no impasse
+        console.log("30: interactive - no impasse")
+        $('#hint-interactive').css("display","block"); //display scaffold
+        intersects = true; //intersects are true
+        break;
+      case 40:  //diagonal - no impasse
+        console.log("40: diagonal - no impasse")
+        intersects = false; //intersects off
+        break;
+      case 11:  //control - impasse
+        console.log("11: control - impasse")
+        intersects = false; //intersects off
+        break;
+      case 21:  //text&image - impasse
+        console.log("21: textimage - impasse")
+        $('#triangular-acme-impasse').css("visibility","visible"); //display textimage scaffold
+        intersects = false; //intersects off
+        break;
+      case 31:  //interactive - impasse
+        console.log("31: interactive - impasse")
+        $('#hint-interactive').css("display","block"); //display scaffold
+        intersects = true; //intersects are true
+        break;
+      case 41:  //diagonal - impasse
+        console.log("41: diagonal - impasse")
+        intersects = false; //intersects off
+        break;
+        default:
+        break;
+    }
+
+    // //---------CREATE THE SVG  ------------------------//
+    var svg = d3.select(".d3container").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform",  "translate(" + margin.left + "," + margin.top + ")");
+
+    //---------DRAW THE GRAPH  ------------------------//
+      xAxisTitle = "START & END TIME (time of day)";
+      yAxisTitle = "DURATION (in hours)";
+      drawTriangleModel(datafile,scaffold,axis);
+
+</script>
