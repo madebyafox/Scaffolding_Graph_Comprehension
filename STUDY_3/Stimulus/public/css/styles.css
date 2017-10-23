@@ -161,6 +161,31 @@ p .legend{
 .domain  {
   stroke-width: 2;
 }
+
+.tick text{
+  fill:black;
+  font-family:"Helvetica";
+  font-size:12px;
+}
+
+.axisTitle text {
+  fill:black;
+  font-family:"Helvetica";
+  font-size:14px;
+  font-weight:bold;
+}
+
+
+.yaxis line {
+  stroke: black ;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+.ygrid  line {
+  stroke: grey;
+  stroke-opacity: 1;
+  shape-rendering: crispEdges;
+}
 .checkbox-grid li {
   display: block;
   float: left;

@@ -373,7 +373,7 @@
   <script>
     console.log("start of clicked array: "+clicked);
     console.log("start of hovered string: "+hovered);
-    
+
     //set correct answers for each question
     var answers = {
       "acme.start" : ["C","D","L"],
@@ -407,44 +407,53 @@
       height = 600;
     var intersects = false; //default value for intersects scaffold
     var xAxisTitle, yAxisTitle;
+    var axis;
 
     //---------ENABLE APPROPRIATE SCAFFOLD ELEMENTS BASED ON CONDITION ----------//
     switch(condition) {
       case 10: //control - no impasse
         console.log("11: control - no impasse")
         intersects = false; //intersects off
+        axis = "orthogonal";
         break;
       case 20:  //text&image - no impasse
         console.log("20: textimage - no impasse")
         $('#triangular-acme-nonimpasse').css("display","block"); //display textimage scaffold
         intersects = false; //intersects off
+        axis = "orthogonal";
         break;
       case 30:  //interactive - no impasse
         console.log("30: interactive - no impasse")
         $('#hint-interactive').css("display","block"); //display scaffold
         intersects = true; //intersects are true
+        axis = "orthogonal";
         break;
       case 40:  //diagonal - no impasse
         console.log("40: diagonal - no impasse")
         intersects = false; //intersects off
+        axis = "diagonal";
         break;
       case 11:  //control - impasse
         console.log("11: control - impasse")
         intersects = false; //intersects off
+        axis = "orthogonal";
         break;
       case 21:  //text&image - impasse
         console.log("21: textimage - impasse")
         $('#triangular-acme-impasse').css("visibility","visible"); //display textimage scaffold
         intersects = false; //intersects off
+        axis = "orthogonal";
         break;
       case 31:  //interactive - impasse
         console.log("31: interactive - impasse")
         $('#hint-interactive').css("display","block"); //display scaffold
         intersects = true; //intersects are true
+        axis = "orthogonal";
         break;
       case 41:  //diagonal - impasse
         console.log("41: diagonal - impasse")
         intersects = false; //intersects off
+        axis = "diagonal";
         break;
     }
 
@@ -458,7 +467,7 @@
     //---------DRAW THE GRAPH  ------------------------//
       xAxisTitle = "START & END TIME (time of day)";
       yAxisTitle = "DURATION (in hours)";
-      drawTriangleModel(datafile,scaffold);
+      drawTriangleModel(datafile,scaffold,axis);
 
 </script>
 
