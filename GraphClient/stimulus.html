@@ -21,11 +21,55 @@
 
   <!--STYLE SHEETS -->
   <link href="css/styles.css" rel="stylesheet" type="text/css"></link>
+  <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
 
 </head>
 
 <body>
+  <div class = "stimulus">
   <div class = "d3container"></div>
+
+
+    <div class = "userinput">
+      <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
+
+      <img class = "static" id="triangular-acme-impasse" src ="img/overlay.triangular-acme-impasse.png" />
+      <img class = "static" id="triangular-acme-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
+      <div class = "legend" id="hint-interactive" style="display:none" >
+        <p>Hint: hover your mouse over the data points for help</p>
+      </div> <!-- end legend -->
+
+      <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
+      <div class=test>
+        <div class = "acme" id="acme.start" >
+          <p class = "question">THIS IS A PLACEHOLDER QUESTION </p>
+          <ul class="checkbox-grid">
+        <li><input type="checkbox" name="A" value=A />A</li>
+        <li><input type="checkbox" name="B" value=B />B</li>
+        <li><input type="checkbox" name="C" value=C />C</li>
+        <li><input type="checkbox" name="D" value=D />D</li>
+        <li><input type="checkbox" name="E" value=E />E</li>
+        <li><input type="checkbox" name="F" value=F />F</li>
+        <li><input type="checkbox" name="G" value=G />G</li>
+        <li><input type="checkbox" name="H" value=H />H</li>
+        <li><input type="checkbox" name="I" value=I />I</li>
+        <li><input type="checkbox" name="J" value=J />J</li>
+        <li><input type="checkbox" name="K" value=K />K</li>
+        <li><input type="checkbox" name="L" value=L />L</li>
+        <li><input type="checkbox" name="M" value=M />M</li>
+        <li><input type="checkbox" name="N" value=N />N</li>
+        <li><input type="checkbox" name="O" value=O />O</li>
+      </li>
+          <!-- //answer =     "acme.start" : ["C","D","L"]-->
+        </div>
+      </div> <!--test questions div end-->
+
+      <!-- SUBMIT AND HELP BUTTONS ------------------------------------------------------------------>
+      <div class="fixbottom">
+    <button type="button" id="start" class='btn' onclick=checkAnswer()>SUBMIT</button>
+  </div>
+  </div class = "instructions">
+</div> <!--end stimulus container-->
 </body>
 
   <script>
@@ -36,18 +80,18 @@
 
     //---------SET PROPERTIES OF THE GRAPH -------------//
     // set the dimensions and margins of the graph
-    var margin = {top: 25, right: 30, bottom: 55, left: 50},
-      width = 600,
-      height = 600;
+    var margin = {top: 25, right: 30, bottom: 90, left: 100},
+      width = 800,
+      height = 800;
     var intersects = false; //default value for intersects scaffold
     var xAxisTitle, yAxisTitle;
 
-    var condition = 10;
+    var condition = 30;
     var scaffold = 0;
     var clicked = [];
     var hovered ;
     var colorClick = false;
-    var axis = "diagonal"; //VALUES ARE "diagonal" or "orthogonal"
+    var axis = "orthogonal"; //VALUES ARE "diagonal" or "orthogonal"
 
     switch(condition) {
       case 10: //control - no impasse

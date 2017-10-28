@@ -14,7 +14,7 @@ function drawXAxis(xAxis,title,x,y,min,max,range) {
         .attr("class","axisTitle")
         .append("text")
         .attr("x", width/1.5 )
-        .attr("y", margin.bottom -5 )
+        .attr("y", margin.bottom -10 )
         .style("text-anchor", "end")
         .text(title);
 
@@ -45,7 +45,7 @@ function drawXAxis(xAxis,title,x,y,min,max,range) {
 
       svg.selectAll(".xgrid")
         .append("line")
-        .attr("class","grid")
+        .attr("class","rgrid")
         .attr("x1", x(x1))
         .attr("y1", y(0))
         .attr("x2",x(x2))
@@ -62,52 +62,62 @@ function drawXAxis(xAxis,title,x,y,min,max,range) {
 
       svg.selectAll(".xgrid")
         .append("line")
-        .attr("class","grid")
-        // .attr("x1", x(t1-n*i))
+        .attr("class","lgrid")
         .attr("x1", x(x1))
         .attr("y1", y(0))
-        // .attr("x2", x( ((t1-n*i) - (t0)) /2 +t0) )
         .attr("x2",x(x2))
-        // .attr("y2", y( (t1 - (t0+n*i) )))
         .attr("y2",y(y2))
       }
-    }
-function drawOrthogonalYAxis(y,title,graphLabel){
+
+      d3.selectAll(".tick line")
+        .attr("y2", 15) ;
+      d3.selectAll(".tick text")
+        .attr("y", 20) ;
+
+
+
+}
+function drawOrthogonalYAxis(x,y,dmin, dmax, title,graphLabel,range){
 
   //DRAW THE Y AXIS
   var yaxis = svg.append("g")
     .attr("class","yaxis")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y).tickSize(15))
 
     d3.select(".yaxis")
         .append("g")
         .attr("class","axisTitle")
         .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("x", -height/2 + 50)
-    .attr("y", -margin.left/2 -10 )
-    .style("text-anchor", "end")
-    .text(title);
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height/2 + 50)
+        .attr("y", -margin.left/2 -10 )
+        .style("text-anchor", "end")
+        .text(title);
 
-    function make_y_gridlines(y) {
-      return d3.axisLeft(y)
-          .ticks(graphLabel.length)
-    }
 
-    svg.append("g")
-      .attr("class", "ygrid")
-      .call(make_y_gridlines(y)
-        .tickSize(-width)
-        .tickFormat("")
-      )
+    var yGrid = svg.append("g")
+        .attr("class","ygrid");
+
+        for (i=1; i<=range; i++)
+        {
+          console.log(i+" "+range);
+          // dmin.add(30,"minutes");
+          dmax.subtract(30,"minutes");
+          d3.select(".ygrid").append("g")
+              .attr("class", "ygrid")
+              .append("line")
+              .attr("x1",x(dmin))
+              .attr("x2",x(dmax))
+              .attr("y1",y(i))
+              .attr("y2",y(i));
+        }
 }
-function drawDiagonalYAxis(y,x,dmin,dmax,title,graphLabel,range){
-
+function drawDiagonalYAxis(x,y,dmin,dmax,title,graphLabel,range){
   var yAxis = svg.append("g")
       .attr("class","yaxis")
       .append("line")
-      .attr("x1",y(range/2)-15)
-      .attr("x2",0-15)
+      .attr("x1",y(range/2))
+      .attr("x2",0)
       .attr("y1",y(range))
       .attr("y2",y(0));
 
@@ -115,19 +125,15 @@ function drawDiagonalYAxis(y,x,dmin,dmax,title,graphLabel,range){
       .append("g")
       .attr("class","axisTitle")
       .append("text")
-      .attr("transform", "rotate(-62), translate(110,255)")
-      .attr("x", -height/2 + 50)
-      .attr("y", -margin.left/2 -10 )
+      .attr("transform","rotate(-65) translate(-200,280)")
       .style("text-anchor", "end")
       .text(yAxisTitle);
 
   var yGrid = svg.append("g")
       .attr("class","ygrid");
 
-
-
-console.log(range);
-  for (i=1; i<range; i++)
+  console.log(range);
+  for (i=1; i<range+1; i++)
   {
     dmin.add(30,"minutes");
     dmax.subtract(30,"minutes");
@@ -135,53 +141,36 @@ console.log(range);
         .append("g")
         .attr("class", "grid")
         .append("line")
-        .attr("x1",x(dmin)-25)
+        .attr("x1",x(dmin)-20)
         .attr("x2",x(dmax))
         .attr("y1",y(i))
         .attr("y2",y(i));
+
 
     d3.select(".yaxis")
       .append("g")
       .attr("class","tick")
       .append("text")
-      .attr("x",x(dmin)-30)
-      .attr("y",y(i))
+      .attr("x",x(dmin)-35)
+      .attr("y",y(i)+5)
       .text(i);
 
+    d3.select(".yaxis")
+      .append("g")
+      .attr("class","tick")
+      .append("line")
+      .attr("x1",x(dmin)-20)
+      .attr("x2",x(dmin))
+      .attr("y1",y(i))
+      .attr("y2",y(i));
+
   }
-
-
-
-  //  svg.append("text")
-  //   .attr("transform", "rotate(-62), translate(110,255)")
-  //    .attr("x", -height/2 + 50)
-  //    .attr("y", -margin.left/2 -10 )
-  //    .style("font-weight","bold")
-  //    .style("text-anchor", "end")
-  //    .text(yAxisTitle);
-   //
-    //  function make_y_gridlines(y) {
-    //    return d3.axisLeft(y)
-    //        .ticks(graphLabel.length)
-    //  }
-     //
-    //  svg.append("g")
-    //    .attr("class", "ygrid")
-    //    .call(make_y_gridlines(y)
-    //      .tickSize(-width)
-    //      .tickFormat("")
-    //    )
-
 }
 
-
-
-
-
-
-function drawTriangleLeaders(x,y,start,mid,end,dur,min){
-  var leaders = svg.append("g")
-  .attr("class","leaders");
+//-----------DRAW THE INTERACTIVE SCAFFOLD LINES -------------//
+function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
+  // var leaders = svg.append("g")
+  // .attr("class","leaders");
 
   leaders.append ("line")
   .attr("class","starttime")
@@ -191,7 +180,7 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min){
   .attr("y2",y(dur))
 
   leaders.append("line")
-  .attr("class", "enddtime")
+  .attr("class", "endtime")
   .attr("x1",x(end))
   .attr("y1",y(0))
   .attr("x2",x(mid))
@@ -204,7 +193,6 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min){
   .attr("x2",x(mid))
   .attr("y2",y(dur))
 }
-
 
 //-----------ANSWER HELPER FUNCTIONS ------------------------//
 function toggleAnswer(x) {
@@ -234,6 +222,10 @@ function toggleAnswer(x) {
 function drawTriangleModel(datafile, scaffold, axis) {
 
   console.log(axis);
+
+  //---------CREATE LEADERS ELEMENT SO ITS ON THE BOTTOM------//
+  var leaders = svg.append("g")
+  .attr("class","leaders");
 
   //---------CREATE & DRAW DATA  ----------//
   d3.csv(datafile, function(error, data) {
@@ -300,26 +292,13 @@ function drawTriangleModel(datafile, scaffold, axis) {
         .domain([0, range]) //isoceles   (the data)
         .range([height, 0]);        //   (the position)
         // .domain([0, range*2]); //equilateral
-
-    // var y = d3.scaleLinear().clamp(true)
-    //   .range([height, 0])
-    //   // .domain([0, range*2]); //equilateral
-    //   .domain([0, range]); //isoceles
-
-
-// var y = d3.scaleLinear().clamp(true)
-//   .range([height, 0])
-//   // .domain([0, range*2]); //equilateral
-//   .domain([0, range]); //isoceles
-
-
+        //   .domain([0, range]); //isoceles
 
     drawXAxis(xAxis,xAxisTitle,x,y,dmin,dmax,range);
 
     //DRAW THE AXES
-    if (axis == "orthogonal") {drawOrthogonalYAxis(y,yAxisTitle,graphLabel);}
-    if (axis == "diagonal") {drawDiagonalYAxis(y,x,dmin,dmax,yAxisTitle,graphLabel,range)};
-
+    if (axis == "orthogonal") {drawOrthogonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range);}
+    if (axis == "diagonal") {drawDiagonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range)};
 
 
     // draw the data
@@ -339,11 +318,17 @@ function drawTriangleModel(datafile, scaffold, axis) {
       .on("mouseover", function(d) {
         d3.select(this).transition()
            .duration(0);
-          if (intersects){drawTriangleLeaders(x,y,d.startt,d.midpoint,d.endt,d.duration,dmin);}
+           if (intersects){drawTriangleLeaders(x,y,d.startt,d.midpoint,d.endt,d.duration,dmin,leaders);}
         })
       .on("mouseout", function(d) {
-       d3.selectAll(".leaders").remove();
-      })
+        d3.selectAll(".starttime").remove();
+        d3.selectAll(".endtime").remove();
+        d3.selectAll(".duration").remove();
+        var sibling = d3.select(this.nextElementSibling).text();
+        hovered = hovered+"-"+sibling;
+        console.log(hovered);
+        console.log("out");
+       })
       .on("click", function(d) {
         if(colorClick) {
           var status =  d3.select(this).attr("selected");

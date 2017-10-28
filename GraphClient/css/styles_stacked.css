@@ -2,10 +2,6 @@ html{
   height:100%;
   width: 100%;
 }
-
-.static {
-  display: none;
-}
 /*TEXT STYLES*/
 
 .centered {
@@ -68,62 +64,60 @@ div.jones{
   text-align: left;
 }
 
-/*container for d3 stimulus and instructions block*/
-div.stimulus{
-  /*background-color: black;*/
-  width:100%;
-  height:100vh;
-  display:flex;
-  flex-direction: row ;
-  justify-content: center;
-  align-items: center;
-}
+/*.static {
+  position: absolute;
+  align:center;
+  top: -13px;
+  z-index: -1;
+  visibility:hidden;
+}*/
 
-/*container div for d3 -generated svg */
+
 div.d3container{
-  /*background-color: blue;*/
-  text-align:center;
-  float:left;
-  width:60%;
+  /*position:absolute;*/
+  position:fixed;
+  /*left:500px;*/
+  align:center;
+  top:0px;
 }
+.static {
+  position:fixed;
+  /*left:505px;*/
+  align:center;
 
-/*container div for legend, test & fixbottom*/
-div.userinput{
-  /*background-color: white;*/
-  /*width:30%;*/
-  height:100%;
-  display:flex;
-  flex-direction: column ;
-  justify-content: center;
-  align-items: center;
+  top:-21px;
+  z-index: -1;
+  visibility:hidden;
 }
-
-/*hint for interactive scaffold */
 div.legend{
-  /*background-color: orange;*/
+  position:fixed;
+  top:300px;
+  width:400px;
+  right:100px;
+  display:none;
   color:#3498db;
-  text-align: center;
-  justify-content: center;
 }
-
-/*test question*/
 div.test{
-  /*background-color: yellow;*/
+  position:fixed;
+  bottom:200px;
   text-align:center;
-  justify-content: center;
-  padding-bottom: 10px;
 }
-
-/*submit button*/
 div.fixbottom{
-  /*background-color: green;*/
-  height:100px;
-  text-align:center;
-  display:flex;
-  justify-content: center;
-  align-items: center;
+  position:fixed;
+  bottom:100px;
+  align-center;
 }
 
+/*div.legend{
+  background-color: red;
+  height:50%;
+  width:400px;
+  position:absolute;
+  right:100px;
+  padding-top:250px;
+  display:none;
+  color:#3498db;
+}*/
 div.center {
 	background-color:white;
 	position: absolute;
@@ -135,82 +129,67 @@ div.center {
 	width: 60%;
 	height: 100%;
 }
+/*div.box {
+	background-color:white;
+	height:80%;
+	position:relative;
+	padding-left:25px;
+	padding-right:25px;
+	text-align: left;
+}*/
 
 p .legend{
   line-height: 1;
   color:#3498db;
 }
 
-
-.axisTitle text {
-  fill:black;
-  font-family:"Helvetica";
-  font-size:18px;
-  font-weight:bold;
-}
-
-.xaxis .tick line{
-  stroke: black;
+.grid  {
+  stroke: grey;
   stroke-opacity: 1;
-  stroke-width: 2;
   shape-rendering: crispEdges;
 }
-
-.yaxis .tick line{
-  stroke: black ;
+/*.grid  line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}*/
+.grid  line {
+  stroke: grey;
   stroke-opacity: 1;
-  stroke-width: 2;
   shape-rendering: crispEdges;
 }
-.tick text{
-  fill:black;
-  font-family:"Helvetica";
-  font-size:14px;
-}
-
-.xaxis  {
-  stroke-width: 2;
-}
-
 .domain  {
   stroke-width: 2;
 }
 
-.xgrid  {
-  stroke: grey;
-  stroke-opacity: 1;
-  stroke-width: 1;
-  shape-rendering: crispEdges;
+.tick text{
+  fill:black;
+  font-family:"Helvetica";
+  font-size:12px;
 }
 
+.axisTitle text {
+  fill:black;
+  font-family:"Helvetica";
+  font-size:14px;
+  font-weight:bold;
+}
+
+
 .yaxis line {
-  stroke: grey ;
+  stroke: black ;
   stroke-width: 2;
   shape-rendering: crispEdges;
 }
-
 .ygrid  line {
   stroke: grey;
   stroke-opacity: 1;
   shape-rendering: crispEdges;
 }
-
-.data text{
-  fill:black;
-  font-family:"Helvetica";
-  font-size:12px;
-  font-style:normal
-}
-
 .checkbox-grid li {
   display: block;
   float: left;
   width: 20%;
-
-  fill:black;
-  font-family:"Helvetica";
-  font-size:16px;
-  font-style:normal
 }
 .question {
   /*font-style: italic;*/
@@ -219,10 +198,6 @@ p .legend{
   margin-bottom:0;
   /*color:#3498db;*/
   font-weight: bold;
-  fill:black;
-  font-family:"Helvetica";
-  font-size:16px;
-  font-style:normal
 }
 /*.vacationdays {*/
   /*align-content: center;*/
