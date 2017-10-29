@@ -1,7 +1,4 @@
 
-var dmin = moment("08:00","HH:mm");
-var dmax = moment("20:00","HH:mm");
-var range = 12;
 
 //-----------AXIS HELPER FUNCTIONS ---------------------------//
 function drawXAxis(xAxis,title,x,y,min,max,range) {
@@ -104,6 +101,8 @@ function drawOrthogonalYAxis(x,y,dmin, dmax, title,graphLabel,range){
         .text(title);
 
   if (axis == "orthogonal"){
+
+
     var tempMax = dmax;
     var yGrid = svg.append("g")
         .attr("class","ygrid");
@@ -122,22 +121,24 @@ function drawOrthogonalYAxis(x,y,dmin, dmax, title,graphLabel,range){
         }
   }
 
-  if (axis == "full"){
-    function make_y_gridlines(y) {
-      return d3.axisLeft(y)
-          .ticks(graphLabel.length)
-    }
-    svg.append("g")
-      .attr("class", "grid")
-      .call(make_y_gridlines(y)
-        .tickSize(-width)
-        .tickFormat("")
-      )
-  }
-
+  // if (axis == "full"){
+  //   console.log("drawing full Y");
+  //   function make_y_gridlines(y) {
+  //     return d3.axisLeft(y)
+  //         .ticks(graphLabel.length)
+  //   }
+  //   svg.append("g")
+  //     .attr("class", "grid")
+  //     .call(make_y_gridlines(y)
+  //       .tickSize(-width)
+  //       .tickFormat("")
+  //     )
+  // }
 
 }
+
 function drawDiagonalYAxis(x,y,dmin,dmax,title,graphLabel,range){
+
   var yAxis = svg.append("g")
       .attr("class","yaxis")
       .append("line")
@@ -275,9 +276,9 @@ function drawTriangleModel(datafile, scaffold, axis) {
       var count = data.length;
       var backup = [];
       var graphLabel=[[]];
-      // var dmin = moment("11:59","HH:mm");  //create a new dummy xmin set to 11:59
-      // var dmax = moment("00:00","HH:mm");  //create a new dummy xmin set to 00:00
-      // var range = 0; //dummy for time range
+      var dmin = moment("08:00","HH:mm");
+      var dmax = moment("20:00","HH:mm");
+      var range = 12;
 
       //PROCESS RAW DATA
       data.forEach(function(d) {
@@ -301,9 +302,6 @@ function drawTriangleModel(datafile, scaffold, axis) {
         // dmax = moment.max(dmax, d.endt);
         // range = dmax.diff(dmin,'minutes')/60;
 
-        // dmin = moment("08:00","HH:mm");
-        // dmax = moment("20:00","HH:mm");
-        // range = 12;
 
         // console.log("LABEL: "+d.events);
         // console.log("DURATION: "+d.duration);
@@ -342,7 +340,7 @@ function drawTriangleModel(datafile, scaffold, axis) {
       drawXAxis(xAxis,xAxisTitle,x,y,dmin,dmax,range);
 
       //DRAW THE AXES
-      if (axis == "orthogonal" || "full") {drawOrthogonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range);}
+      if (axis == ("orthogonal" || "full")) {console.log("TRIP!"); drawOrthogonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range);}
       if (axis == "diagonal") {
         drawDiagonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range)};
 
