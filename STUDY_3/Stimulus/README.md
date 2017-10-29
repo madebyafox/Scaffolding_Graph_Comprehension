@@ -21,10 +21,8 @@ CONDITION CODE ->
 31: interactive image + impasse
 41: diagonal axis + impasse
 
+MANUALLY SET MIN, MAX AND RANGE IN GRAPHS.JS
 
-Structure
------------
-Condition [0-3] and question [0-14] are set in the querystring
 
 
 Installation & Notes

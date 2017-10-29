@@ -13,17 +13,22 @@
 </head>
 
 <body>
-  <div class = "d3container"></div>
 
-  <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
-  <img class = "static" id="triangular-acme-impasse" src ="img/overlay.triangular-acme-impasse.png" />
-  <img class = "static" id="triangular-acme-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
-  <div class = "legend" id="hint-interactive" >
+  <div class = "stimulus">
+
+
+    <div class = "d3container"></div>
+    <div class = "userinput">
+
+      <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
+      <img class = "static" id="triangular-acme-impasse" src ="img/overlay.triangular-acme-impasse.png" />
+      <img class = "static" id="triangular-acme-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
+      <div class = "legend" id="hint-interactive" style="display:none" >
     <p>Hint: hover your mouse over the data points for help</p>
   </div> <!-- end legend -->
 
-  <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
-  <div class=test>
+      <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
+      <div class=test>
     <div class = "acme" id="acme.start" style ="display:none">
       <p class = "question">Which reservations start at 8:00 AM? </p>
       <ul class="checkbox-grid">
@@ -358,8 +363,8 @@
 
   </div> <!--test questions div end-->
 
-  <!-- SUBMIT AND HELP BUTTONS ------------------------------------------------------------------>
-  <div class="fixbottom">
+      <!-- SUBMIT AND HELP BUTTONS ------------------------------------------------------------------>
+      <div class="fixbottom">
     <!-- <div id="helperSwitch" class="onoffswitch" >
       <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"  >
       <label class="onoffswitch-label" for="myonoffswitch">
@@ -369,8 +374,9 @@
     </div> -->
     <button type="button" id="start" class='btn' onclick=checkAnswer()>SUBMIT</button>
   </div>
-
-  <script>
+    </div> <!-- instructions -->
+  </div> <!--stimulus container-->
+<script>
     console.log("start of clicked array: "+clicked);
     console.log("start of hovered string: "+hovered);
 
@@ -396,15 +402,15 @@
 
     //define data file for graph based on scenario and impasse condition
     var datafile = "../views/src/data/"+scenario+"_"+impasse+".csv"; //set the datafile based on the scenario
-
+    //console.log("../views/src/data/"+scenario+"_"+impasse+".csv");
     //display the question based on input values from jsPsych
     document.getElementById(scenario+"."+question).style.display = "block";
 
     //---------SET PROPERTIES OF THE GRAPH -------------//
     // set the dimensions and margins of the graph
-    var margin = {top: 25, right: 30, bottom: 55, left: 50},
-      width = 600,
-      height = 600;
+    var margin = {top: 25, right: 30, bottom: 90, left: 100},
+      width = 800,
+      height = 800;
     var intersects = false; //default value for intersects scaffold
     var xAxisTitle, yAxisTitle;
     var axis;
