@@ -100,9 +100,7 @@ function drawOrthogonalYAxis(x,y,dmin, dmax, title,graphLabel,range){
         .style("text-anchor", "end")
         .text(title);
 
-  if (axis == "orthogonal"){
-
-
+  if (axis == "partial"){
     var tempMax = dmax;
     var yGrid = svg.append("g")
         .attr("class","ygrid");
@@ -121,19 +119,19 @@ function drawOrthogonalYAxis(x,y,dmin, dmax, title,graphLabel,range){
         }
   }
 
-  // if (axis == "full"){
-  //   console.log("drawing full Y");
-  //   function make_y_gridlines(y) {
-  //     return d3.axisLeft(y)
-  //         .ticks(graphLabel.length)
-  //   }
-  //   svg.append("g")
-  //     .attr("class", "grid")
-  //     .call(make_y_gridlines(y)
-  //       .tickSize(-width)
-  //       .tickFormat("")
-  //     )
-  // }
+  if (axis == "full"){
+    console.log("drawing full Y");
+    function make_y_gridlines(y) {
+      return d3.axisLeft(y)
+          .ticks(graphLabel.length)
+    }
+    svg.append("g")
+      .attr("class", "grid")
+      .call(make_y_gridlines(y)
+        .tickSize(-width)
+        .tickFormat("")
+      )
+  }
 
 }
 
@@ -216,7 +214,7 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
     .attr("x2",x(mid))
     .attr("y2",y(dur))
 
-    if (axis == "orthogonal" || "full") {
+    if (axis == "partial" || axis == "full") {
       leaders.append("line")
       .attr("class","duration")
       .attr("x1",x(min))
@@ -340,7 +338,7 @@ function drawTriangleModel(datafile, scaffold, axis) {
       drawXAxis(xAxis,xAxisTitle,x,y,dmin,dmax,range);
 
       //DRAW THE AXES
-      if (axis == ("orthogonal" || "full")) {console.log("TRIP!"); drawOrthogonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range);}
+      if (axis == "full" || axis == "partial") {drawOrthogonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range);}
       if (axis == "diagonal") {
         drawDiagonalYAxis(x,y,dmin,dmax,yAxisTitle,graphLabel,range)};
 

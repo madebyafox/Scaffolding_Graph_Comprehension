@@ -86,154 +86,53 @@
     var clicked = [];
     var hovered ;
     var colorClick = false;
-    var axis;
-    var condition = 313;
-    var q = 6; //question number, passed from experiment.js
+    var q = 1; //question number, passed from experiment.js
 
     //define data file in experiment.js based on question and condition
-    var datafile = "acme_nonimpasse.csv";
+    var datafile = "";
+
+    var axis = 2; //"diagonal", "partial", "full"
+    var explicit = 3; //"1", "2" , "3"
+    var impasse = 2; //"1", "2"
 
     //explicit: 1 (control), 2(text/image), 3(interactive)
     //implicit: 1 (control), 2(impasse)
     //axis: 1(orthogonal), 2(partial), 3(diagonal)
 
-
-    switch(condition) {
-
-      //FULL GRID CASES - NON IMPASEE
-      case 111: //control - no impasse - full grid
-        console.log("111: control - no impasse - full grid")
-        intersects = false; //intersects off
-        axis = "full"; //full orthgonal axis
-        datafile = "acme_nonimpasse.csv";
-        break;
-      case 211:  //text&image - no impasse - full grid
-        console.log("211: textimage - no impasse - full grid")
-        $('#triangular-nonimpasse').css("display","block"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "full"; //full orthgonal axis
-        datafile = "acme_nonimpasse.csv";
-        break;
-      case 311:  //interactive - no impasse - full grid
-        console.log("311: interactive - no impasse - full grid")
-        $('#hint-interactive').css("display","block"); //display scaffold
-        intersects = true; //intersects are true
-        axis = "full"; //full orthgonal axis
-        datafile = "acme_nonimpasse.csv";
-        break;
-
-      //FULL GRID CASES -  IMPASEE
-      case 121:  //control - impasse - full grid
-        console.log("121: control - impasse - full grid")
-        intersects = false; //intersects off
-        axis = "full"; //full orthgonal axis
-        datafile = "acme_impasse.csv";
-        break;
-      case 221:  //text/image - impasse - full grid
-        console.log("221: text/image - impasse - full grid")
-        $('#triangular-impasse').css("display","block"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "full"; //full orthgonal axis
-        datafile = "acme_impasse.csv";
-        break;
-      case 321:  //interactive - impasse - full grid
-        console.log("321: interactive - impasse - full grid")
-        intersects = true; //intersects off
-        axis = "full"; //full orthgonal axis
-        datafile = "acme_impasse.csv";
-        break;
-
-      //PARTIAL GRID CASES - NON IMPASSE
-      case 112: //control - no impasse - partial grid
-        console.log("112: control - no impasse - partial grid")
-        intersects = false; //intersects off
-        axis = "partial"; //full orthgonal axis
-        datafile = "acme_nonimpasse.csv";
-        break;
-      case 212:  //text&image - no impasse - partial grid
-        console.log("212: textimage - no impasse - partial grid")
-        $('#triangular-nonimpasse').css("display","block"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "partial"; //full orthgonal axis
-        datafile = "acme_nonimpasse.csv";
-        break;
-      case 312:  //interactive - no impasse - partial grid
-        console.log("312: interactive - no impasse - partial grid")
-        $('#hint-interactive').css("display","block"); //display scaffold
-        intersects = true; //intersects are true
-        axis = "partial"; //full orthgonal axis
-        datafile = "acme_nonimpasse.csv";
-        break;
-
-      //PARTIAL GRID CASES - IMPASSE
-      case 122:  //control - impasse - partial grid
-        console.log("122: control - impasse - partial grid")
-        intersects = false; //intersects off
-        axis = "partial"; //full orthgonal axis
-        datafile = "acme_impasse.csv";
-        break;
-      case 222:  //text/image - impasse - partial grid
-        console.log("222: text/image - impasse - partial grid")
-        $('#triangular-impasse').css("display","block"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "partial"; //full orthgonal axis
-        datafile = "acme_impasse.csv";
-        break;
-      case 322:  //interactive - impasse - partial grid
-        console.log("322: interactive - impasse - partial grid")
-        intersects = true; //intersects off
-        axis = "partial"; //full orthgonal axis
-        datafile = "acme_impasse.csv";
-        break;
-
-      //DIAGONAL GRID CASES - NON IMPASSE
-      case 113: //control - no impasse - diagonal grid
-        console.log("113: control - no impasse - diagonal grid")
-        intersects = false; //intersects off
-        axis = "diagonal";
-        datafile = "acme_nonimpasse.csv";
-        break;
-      case 213:  //text&image - no impasse - diagonal grid
-        console.log("213: textimage - no impasse - diagonal grid")
-        $('#triangular-nonimpasse').css("display","block"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "diagonal";
-        datafile = "acme_nonimpasse.csv";
-        break;
-      case 313:  //interactive - no impasse - diagonal grid
-        console.log("313: interactive - no impasse - diagonal grid")
-        $('#hint-interactive').css("display","block"); //display scaffold
-        intersects = true; //intersects are true
-        axis = "diagonal";
-        datafile = "acme_nonimpasse.csv";
-        break;
-
-      //DIAGONAL GRID CASES -  IMPASSE
-      case 123:  //control - impasse - diagonal grid
-        console.log("123: control - impasse - diagonal grid")
-        intersects = false; //intersects off
-        axis = "diagonal";
-        datafile = "acme_impasse.csv";
-        break;
-      case 223:  //text/image - impasse - diagonal grid
-        console.log("223: text/image - impasse - diagonal grid")
-        $('#triangular-impasse').css("display","block"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "diagonal";
-        datafile = "acme_impasse.csv";
-        break;
-      case 323:  //interactive - impasse - diagonal grid
-        console.log("323: interactive - impasse - diagonal grid")
-        intersects = true; //intersects off
-        axis = "diagonal";
-        datafile = "acme_impasse.csv";
-        break;
-      default:
-          axis = "full";
-          intersects = "false";
-        break;
+    // SET AXIS VALUES
+    if (axis == 1){
+      axis = "full";
+    }
+    else if (axis == 2){
+      axis = "partial";
+    }
+    else if (axis ==3){
+      axis = "diagonal";
     }
 
+    // SET EXPLICIT SCAFFOLD FEATURES
+    if (explicit ==2 & impasse ==1){
+      $('#triangular-nonimpasse').css("display","block"); //display textimage scaffold
+      intersects = false;
+    }
+    else if (explicit == 2 && impasse == 2){
+      $('#triangular-impasse').css("display","block"); //display textimage scaffold
+      intersects = false;
+    }
+    else if (explicit == 3){
+      intersects = true;
+    }
+    else {intersects = false;}
+
+    //SET DATA FILE FOR IMPLICIT SCAFFOLD
+    if (impasse == 1){
+      datafile = "acme_nonimpasse.csv";
+    }
+    else if (impasse == 2){
+      datafile = "acme_impasse.csv";
+    }
+
+    //OVERRIDE DATA FILE FOR NON-SCAFFOLD QUESTIONS
     if (q > 5) { //override data file if q# is greater than 5
       datafile = "data_3.csv";
       console.log("override data file");
