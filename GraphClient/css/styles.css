@@ -183,7 +183,7 @@ p .legend{
 }
 
 .yaxis line {
-  stroke: grey ;
+  stroke: black ;
   stroke-width: 2;
   shape-rendering: crispEdges;
 }
