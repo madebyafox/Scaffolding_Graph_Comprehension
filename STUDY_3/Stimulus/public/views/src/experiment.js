@@ -22,17 +22,16 @@ var graph = "triangular";
 var experiment = "2YP3"; //overriden by URL
 var session = "default"; //overriden by codes block
 var condition = 0;  //overriden by codes block
-var explicit = 0; //overriden by codes block
-var impasse = 0; //overriden by codes block
+var explicit = 1; //overriden by codes block
+var impasse = 1; //overriden by codes block
+var axis = 1; //overrridden by codes block
 var colorClick = false; //define whether values turn green when clicked
 var clicked = [["answer","clicked"]]; //populate first row of clicked array with headers
 var hovered = ""; //string for sequence of data points that have been hovered over
 var scaffolds = [
   "none",
-  "describe-what",
-  "describe-how",
-  "show-static",
-  "show-interactive"
+  "text-image",
+  "interactive"
 ];
 var questions = [
   "start",
@@ -52,6 +51,7 @@ var questions = [
   "starts+finishes",
   "before+duration"
 ];
+var q = 0 ; //question number, used for data file override
 var scenarios = ["acme"]; //determine the order of scenarios by randomly sorting the array
 var sid = jsPsych.randomization.randomID(5);
 sid = sid.toUpperCase();
@@ -90,44 +90,12 @@ var codes = {
       session = session.toLowerCase();
       condition = i["Q1"];
       condition = condition.trim();
-      condition = parseInt(condition);
+      // condition = parseInt(condition);
 
-      switch(condition) {
-        case 10:
-          impasse = 0;
-          explicit = 1;
-          break;
-        case 20:
-          impasse = 0;
-          explicit = 2;
-          break;
-        case 30:
-          impasse = 0;
-          explicit = 3;
-          break;
-        case 40:
-          impasse = 0;
-          explicit = 4;
-          break;
-        case 11:
-          impasse = 1;
-          explicit = 1;
-          break;
-        case 21:
-          impasse = 1;
-          explicit = 2;
-          break;
-        case 31:
-          impasse = 1;
-          explicit = 3;
-          break;
-        case 41:
-          impasse = 1;
-          explicit = 4;
-          break;
-      }
+      explicit = parseInt(condition[0]); //first digit of condition is the explicit scaffold
+      impasse = parseInt(condition[1]); //second digit of condition is implicit - impasse
+      axis = parseInt(condition[2]);
 
-      // if (condition != 0 && condition != 1 && condition != 2 && condition !=3 && condition !=4 && condition !=5) {condition = 0;} //default to condition with no scaffold
       console.log("experiment: "+experiment);
       console.log("session: "+session);
       console.log("graph: "+graph);
@@ -216,7 +184,8 @@ var triangular_scaffolded = {
     jsPsych.data.addDataToLastTrial({graph:graph});
     jsPsych.data.addDataToLastTrial({scenario:scenario});
     jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
+    jsPsych.data.addDataToLastTrial({q:q});
+    jsPsych.data.addDataToLastTrial({condition:condition});
     jsPsych.data.addDataToLastTrial({correct:correct});
     jsPsych.data.addDataToLastTrial({answer:answer});
     jsPsych.data.addDataToLastTrial({clicked:clicked});
@@ -229,32 +198,48 @@ var triangular_scaffolded = {
       {on_start: function(){
           graph= "triangular";
           scenario = scenarios[0];
-          scaffold = scaffolds[condition];
           question = questions[0];
+          q = 1;
+          explicit = explicit;
+          impasse = impasse;
+          axis = axis;
+
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[condition];
         question = questions[1];
+        q = 2;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[condition];
         question = questions[2];
+        q = 3;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[condition];
         question = questions[3];
+        q = 4;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[condition];
         question = questions[4];
+        q = 5;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }}
     ]
 }
@@ -270,7 +255,8 @@ var triangular_testing = {
     jsPsych.data.addDataToLastTrial({graph:graph});
     jsPsych.data.addDataToLastTrial({scenario:scenario});
     jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({scaffold:scaffold});
+    jsPsych.data.addDataToLastTrial({q:q});
+    jsPsych.data.addDataToLastTrial({condition:condition});
     jsPsych.data.addDataToLastTrial({correct:correct});
     jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({answer:answer});
@@ -284,65 +270,95 @@ var triangular_testing = {
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[5];
+        q = 6;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[6];
+        q = 7;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[7];
+        q = 8;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[8];
+        q = 9;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[9];
+        q = 10;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[10];
+        q = 11;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[11];
+        q = 12;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[12];
+        q = 13;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
-        scaffold = scaffolds[0];
         question = questions[13];
+        q = 14;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }},
       {on_start: function(){
         graph= "triangular";
         scenario = scenarios[0];
         scaffold = scaffolds[0];
-        question = questions[14];
+        q = 15;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
       }}
   ],
-  randomize_order: true
+  randomize_order: false
 }
 //-------------ESTABLISH THE TIMELINE -----------------------------------
 

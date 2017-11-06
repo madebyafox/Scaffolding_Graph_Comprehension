@@ -21,14 +21,14 @@
     <div class = "userinput">
 
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
-      <img class = "static" id="triangular-acme-impasse" src ="img/overlay.triangular-acme-impasse.png" />
-      <img class = "static" id="triangular-acme-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
+      <img class = "static" id="triangular-impasse" src ="img/overlay.triangular-acme-impasse.png" />
+      <img class = "static" id="triangular-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
       <div class = "legend" id="hint-interactive" style="display:none" >
     <p>Hint: hover your mouse over the data points for help</p>
   </div> <!-- end legend -->
 
       <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
-      <div class=test>
+  <div class=test>
     <div class = "acme" id="acme.start" style ="display:none">
       <p class = "question">Which reservations start at 8:00 AM? </p>
       <ul class="checkbox-grid">
@@ -400,9 +400,6 @@
       "acme.before+duration" : ["C"]
     }
 
-    //define data file for graph based on scenario and impasse condition
-    var datafile = "../views/src/data/"+scenario+"_"+impasse+".csv"; //set the datafile based on the scenario
-    //console.log("../views/src/data/"+scenario+"_"+impasse+".csv");
     //display the question based on input values from jsPsych
     document.getElementById(scenario+"."+question).style.display = "block";
 
@@ -413,54 +410,45 @@
       height = 800;
     var intersects = false; //default value for intersects scaffold
     var xAxisTitle, yAxisTitle;
-    var axis;
+    var datafile ="";
 
-    //---------ENABLE APPROPRIATE SCAFFOLD ELEMENTS BASED ON CONDITION ----------//
-    switch(condition) {
-      case 10: //control - no impasse
-        console.log("11: control - no impasse")
-        intersects = false; //intersects off
-        axis = "orthogonal";
-        break;
-      case 20:  //text&image - no impasse
-        console.log("20: textimage - no impasse")
-        $('#triangular-acme-nonimpasse').css("display","block"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "orthogonal";
-        break;
-      case 30:  //interactive - no impasse
-        console.log("30: interactive - no impasse")
-        $('#hint-interactive').css("display","block"); //display scaffold
-        intersects = true; //intersects are true
-        axis = "orthogonal";
-        break;
-      case 40:  //diagonal - no impasse
-        console.log("40: diagonal - no impasse")
-        intersects = false; //intersects off
-        axis = "diagonal";
-        break;
-      case 11:  //control - impasse
-        console.log("11: control - impasse")
-        intersects = false; //intersects off
-        axis = "orthogonal";
-        break;
-      case 21:  //text&image - impasse
-        console.log("21: textimage - impasse")
-        $('#triangular-acme-impasse').css("visibility","visible"); //display textimage scaffold
-        intersects = false; //intersects off
-        axis = "orthogonal";
-        break;
-      case 31:  //interactive - impasse
-        console.log("31: interactive - impasse")
-        $('#hint-interactive').css("display","block"); //display scaffold
-        intersects = true; //intersects are true
-        axis = "orthogonal";
-        break;
-      case 41:  //diagonal - impasse
-        console.log("41: diagonal - impasse")
-        intersects = false; //intersects off
-        axis = "diagonal";
-        break;
+    // SET AXIS VALUES
+    if (axis == 1){
+      axis = "full";
+    }
+    else if (axis == 2){
+      axis = "partial";
+    }
+    else if (axis ==3){
+      axis = "diagonal";
+    }
+
+    // SET EXPLICIT SCAFFOLD FEATURES
+    if (explicit ==2 & impasse ==1){
+      $('#triangular-nonimpasse').css("display","block"); //display textimage scaffold
+      intersects = false;
+    }
+    else if (explicit == 2 && impasse == 2){
+      $('#triangular-impasse').css("display","block"); //display textimage scaffold
+      intersects = false;
+    }
+    else if (explicit == 3){
+      intersects = true;
+    }
+  
+
+    //SET DATA FILE FOR IMPLICIT SCAFFOLD
+    if (impasse == 1){
+      datafile = "../views/src/data/acme_nonimpasse.csv";
+    }
+    else if (impasse == 2){
+      datafile = "../views/src/data/acme_impasse.csv";
+    }
+
+    //OVERRIDE DATA FILE FOR NON-SCAFFOLD QUESTIONS
+    if (q > 5) { //override data file if q# is greater than 5
+      datafile = "../views/src/data/data_3.csv";
+      console.log("override data file");
     }
 
     // //---------CREATE THE SVG  ------------------------//
@@ -473,7 +461,7 @@
     //---------DRAW THE GRAPH  ------------------------//
       xAxisTitle = "START & END TIME (time of day)";
       yAxisTitle = "DURATION (in hours)";
-      drawTriangleModel(datafile,scaffold,axis);
+      drawTriangleModel(datafile,intersects,axis);
 
 </script>
 
