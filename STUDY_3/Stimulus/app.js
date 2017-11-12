@@ -10,7 +10,7 @@ var app = express();
 var emptySchema = new mongoose.Schema({}, { strict: false }); //schemaless db
 var Entry = mongoose.model('Entry', emptySchema);
 
-// mongoose.connect('mongodb://localhost/S3-2YPDB'); //FOR LOCAL
+// mongoose.connect('mongodb://localhost/local-S3-2YPDB'); //FOR LOCAL
 mongoose.connect(process.env.CONNECTION); //FOR SERVER
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
