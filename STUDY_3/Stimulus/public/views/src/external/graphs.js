@@ -348,7 +348,7 @@ function toggleAnswer(x) {
 }
 
 //-----------GRAPH DRAWING FUNCTIONS ------------------------//
-function drawTriangleModel(datafile, intersects, axis, scaffold) {
+function drawTriangleModel(datafile, intersects, axis, scaffold, q) {
 
   console.log(axis);
 
@@ -516,7 +516,7 @@ function drawTriangleModel(datafile, intersects, axis, scaffold) {
      d3.selectAll(".xaxis").selectAll(".tick text").style("display", function (d, i)
      { return i % 2 ? "none" : "initial" });
 
-     if (scaffold == 2){ //explicit text-image scaffold
+     if (scaffold == 2 && q<6){ //explicit text-image scaffold
        drawStaticLeaders(axis,staticLeaders,x,y);
      }
 
