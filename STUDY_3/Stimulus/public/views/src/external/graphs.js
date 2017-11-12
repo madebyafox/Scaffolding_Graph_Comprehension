@@ -123,16 +123,31 @@ function drawOrthogonalYAxis(x,y,dmin, dmax, title,graphLabel,range){
 
   if (axis == "full"){
     console.log("drawing full Y");
-    function make_y_gridlines(y) {
-      return d3.axisLeft(y)
-          .ticks(graphLabel.length)
+
+    var tempMax = dmax;
+    var yGrid = svg.append("g")
+        .attr("class","ygrid");
+
+    for (i=1; i<=range; i++){
+          d3.select(".ygrid").append("g")
+              .attr("class", "ygrid")
+              .append("line")
+              .attr("x1",x(dmin))
+              .attr("x2",x(dmax))
+              .attr("y1",y(i))
+              .attr("y2",y(i));
     }
-    svg.append("g")
-      .attr("class", "grid")
-      .call(make_y_gridlines(y)
-        .tickSize(-width)
-        .tickFormat("")
-      )
+        // function make_y_gridlines(y) {
+        //   return d3.axisLeft(y)
+        //       .ticks(graphLabel.length)
+        // }
+        // svg.append("g")
+        //   .attr("class", "grid")
+        //   .call(make_y_gridlines(y)
+        //     .tickSize(-width)
+        //     .tickFormat("")
+        //
+
   }
 
 }
@@ -315,8 +330,8 @@ function drawTriangleModel(datafile, intersects, axis) {
       var tall = height * height;
       var pyth = halfbottom + tall;
       var pyth = Math.sqrt(pyth);
-      console.log("pythL "+ pyth);
-      console.log("range"+ range);
+      // console.log("pythL "+ pyth);
+      // console.log("range"+ range);
 
 
       //--DRAW THE X AXIS ---------------------

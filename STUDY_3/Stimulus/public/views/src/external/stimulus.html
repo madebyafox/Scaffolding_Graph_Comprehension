@@ -8,398 +8,440 @@
   <script src="https://d3js.org/d3-shape.v1.min.js"></script>
   <script src="https://d3js.org/d3-polygon.v1.min.js"></script>
   <script src="../views/src/external/graphs.js"></script>
-
-
 </head>
 
 <body>
 
   <div class = "stimulus">
-
-
-    <div class = "d3container"></div>
     <div class = "userinput">
 
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
       <img class = "static" id="triangular-impasse" src ="img/overlay.triangular-acme-impasse.png" />
       <img class = "static" id="triangular-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
       <div class = "legend" id="hint-interactive" style="display:none" >
-    <p>Hint: hover your mouse over the data points for help</p>
-  </div> <!-- end legend -->
+        <p>Hint: hover your mouse over the data points for help</p>
+      </div> <!-- end legend -->
 
       <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
-  <div class=test>
-    <div class = "acme" id="acme.start" style ="display:none">
-      <p class = "question">Which reservations start at 8:00 AM? </p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="A" value=A />A</li>
-        <li><input type="checkbox" name="B" value=B />B</li>
-        <li><input type="checkbox" name="C" value=C />C</li>
-        <li><input type="checkbox" name="D" value=D />D</li>
-        <li><input type="checkbox" name="E" value=E />E</li>
-        <li><input type="checkbox" name="F" value=F />F</li>
-        <li><input type="checkbox" name="G" value=G />G</li>
-        <li><input type="checkbox" name="H" value=H />H</li>
-        <li><input type="checkbox" name="I" value=I />I</li>
-        <li><input type="checkbox" name="J" value=J />J</li>
-        <li><input type="checkbox" name="K" value=K />K</li>
-        <li><input type="checkbox" name="L" value=L />L</li>
-        <li><input type="checkbox" name="M" value=M />M</li>
-        <li><input type="checkbox" name="N" value=N />N</li>
-        <li><input type="checkbox" name="O" value=O />O</li>
-      </li>
-      <!-- //answer =     "acme.start" : ["C","D","L"]-->
-    </div>
-    <div class = "acme" id="acme.end" style ="display:none">
-      <p class = "question">Which room reservations end after 3:00 PM?</p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="A" value=A />A</li>
-        <li><input type="checkbox" name="B" value=B />B</li>
-        <li><input type="checkbox" name="C" value=C />C</li>
-        <li><input type="checkbox" name="D" value=D />D</li>
-        <li><input type="checkbox" name="E" value=E />E</li>
-        <li><input type="checkbox" name="F" value=F />F</li>
-        <li><input type="checkbox" name="G" value=G />G</li>
-        <li><input type="checkbox" name="H" value=H />H</li>
-        <li><input type="checkbox" name="I" value=I />I</li>
-        <li><input type="checkbox" name="J" value=J />J</li>
-        <li><input type="checkbox" name="K" value=K />K</li>
-        <li><input type="checkbox" name="L" value=L />L</li>
-        <li><input type="checkbox" name="M" value=M />M</li>
-        <li><input type="checkbox" name="N" value=N />N</li>
-        <li><input type="checkbox" name="O" value=O />O</li>
-      </li>
-      <!-- //answer "acme.end" : ["H","J","K","L","M","N"]-->
-    </div>
-    <div class = "acme" id="acme.duration" style ="display:none">
-      <p class = "question">Which rooms are reserved for 4 hours?</p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="A" value=A />A</li>
-        <li><input type="checkbox" name="B" value=B />B</li>
-        <li><input type="checkbox" name="C" value=C />C</li>
-        <li><input type="checkbox" name="D" value=D />D</li>
-        <li><input type="checkbox" name="E" value=E />E</li>
-        <li><input type="checkbox" name="F" value=F />F</li>
-        <li><input type="checkbox" name="G" value=G />G</li>
-        <li><input type="checkbox" name="H" value=H />H</li>
-        <li><input type="checkbox" name="I" value=I />I</li>
-        <li><input type="checkbox" name="J" value=J />J</li>
-        <li><input type="checkbox" name="K" value=K />K</li>
-        <li><input type="checkbox" name="L" value=L />L</li>
-        <li><input type="checkbox" name="M" value=M />M</li>
-        <li><input type="checkbox" name="N" value=N />N</li>
-        <li><input type="checkbox" name="O" value=O />O</li>
-      </li>
-      <!-- //answer = "acme.duration" : ["G","O"]-->
-    </div>
-    <div class = "acme" id="acme.midpoint" style ="display:none">
-      <p class = "question">Guests in the room J have requested a snack break midway through their event.</br>
-      At what time do the staff need to have the snacks ready? </p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="6"  value=6  />6</li>
-        <li><input type="checkbox" name="7"  value=7  />7</li>
-        <li><input type="checkbox" name="8"  value=8  />8</li>
-        <li><input type="checkbox" name="9"  value=9  />9</li>
-        <li><input type="checkbox" name="10" value=10 />10</li>
-        <li><input type="checkbox" name="11" value=11 />11</li>
-        <li><input type="checkbox" name="12" value=12 />12</li>
-        <li><input type="checkbox" name="1"  value=1  />1</li>
-        <li><input type="checkbox" name="2"  value=2  />2</li>
-        <li><input type="checkbox" name="3"  value=3  />3</li>
-        <li><input type="checkbox" name="4"  value=4  />4</li>
-        <li><input type="checkbox" name="5"  value=5  />5</li>
-      </li>
-      <!-- //answer = "acme.midpoint" : ["1"]-->
-    </div>
-    <div class = "acme" id="acme.start+overlap" style ="display:none">
-        <p class = "question">What is the earliest reservation that does not overlap with F? </p>
-        <ul class="checkbox-grid">
-          <li><input type="checkbox" name="A" value=A />A</li>
-          <li><input type="checkbox" name="B" value=B />B</li>
-          <li><input type="checkbox" name="C" value=C />C</li>
-          <li><input type="checkbox" name="D" value=D />D</li>
-          <li><input type="checkbox" name="E" value=E />E</li>
-          <li><input type="checkbox" name="F" value=F />F</li>
-          <li><input type="checkbox" name="G" value=G />G</li>
-          <li><input type="checkbox" name="H" value=H />H</li>
-          <li><input type="checkbox" name="I" value=I />I</li>
-          <li><input type="checkbox" name="J" value=J />J</li>
-          <li><input type="checkbox" name="K" value=K />K</li>
-          <li><input type="checkbox" name="L" value=L />L</li>
-          <li><input type="checkbox" name="M" value=M />M</li>
-          <li><input type="checkbox" name="N" value=N />N</li>
-          <li><input type="checkbox" name="O" value=O />O</li>
-        </li>
-        <!-- "acme.startNOverlap" : ["A"]-->
-      </div>
-    <div class = "acme" id="acme.start+duration" style ="display:none">
-        <p class = "question">Reservations that start before noon and last 3 hours or less are eligible </br>
-          for a discounted rate.  Which rooms are eligible?</p>
-        <ul class="checkbox-grid">
-          <li><input type="checkbox" name="A" value=A />A</li>
-          <li><input type="checkbox" name="B" value=B />B</li>
-          <li><input type="checkbox" name="C" value=C />C</li>
-          <li><input type="checkbox" name="D" value=D />D</li>
-          <li><input type="checkbox" name="E" value=E />E</li>
-          <li><input type="checkbox" name="F" value=F />F</li>
-          <li><input type="checkbox" name="G" value=G />G</li>
-          <li><input type="checkbox" name="H" value=H />H</li>
-          <li><input type="checkbox" name="I" value=I />I</li>
-          <li><input type="checkbox" name="J" value=J />J</li>
-          <li><input type="checkbox" name="K" value=K />K</li>
-          <li><input type="checkbox" name="L" value=L />L</li>
-          <li><input type="checkbox" name="M" value=M />M</li>
-          <li><input type="checkbox" name="N" value=N />N</li>
-          <li><input type="checkbox" name="O" value=O />O</li>
-        </li>
-        <!-- //answer = "acme.start+Duration" : ["A","B","D","F"]-->
-    </div>
-    <div class = "acme" id="acme.before+overlap" style ="display:none">
-        <p class = "question">Which reservations are before N and do not overlap with H?</p>
-        <ul class="checkbox-grid">
-          <li><input type="checkbox" name="A" value=A />A</li>
-          <li><input type="checkbox" name="B" value=B />B</li>
-          <li><input type="checkbox" name="C" value=C />C</li>
-          <li><input type="checkbox" name="D" value=D />D</li>
-          <li><input type="checkbox" name="E" value=E />E</li>
-          <li><input type="checkbox" name="F" value=F />F</li>
-          <li><input type="checkbox" name="G" value=G />G</li>
-          <li><input type="checkbox" name="H" value=H />H</li>
-          <li><input type="checkbox" name="I" value=I />I</li>
-          <li><input type="checkbox" name="J" value=J />J</li>
-          <li><input type="checkbox" name="K" value=K />K</li>
-          <li><input type="checkbox" name="L" value=L />L</li>
-          <li><input type="checkbox" name="M" value=M />M</li>
-          <li><input type="checkbox" name="N" value=N />N</li>
-          <li><input type="checkbox" name="O" value=O />O</li>
-        </li>
-        <!-- //answer = "acme.before+Overlap" : ["A","B","C","D","F","I"]-->
-    </div>
-    <div class = "acme" id="acme.overlap+overlap" style ="display:none">
-        <p class = "question">Which reservations do not overlap with D or H?</p>
-        <ul class="checkbox-grid">
-          <li><input type="checkbox" name="A" value=A />A</li>
-          <li><input type="checkbox" name="B" value=B />B</li>
-          <li><input type="checkbox" name="C" value=C />C</li>
-          <li><input type="checkbox" name="D" value=D />D</li>
-          <li><input type="checkbox" name="E" value=E />E</li>
-          <li><input type="checkbox" name="F" value=F />F</li>
-          <li><input type="checkbox" name="G" value=G />G</li>
-          <li><input type="checkbox" name="H" value=H />H</li>
-          <li><input type="checkbox" name="I" value=I />I</li>
-          <li><input type="checkbox" name="J" value=J />J</li>
-          <li><input type="checkbox" name="K" value=K />K</li>
-          <li><input type="checkbox" name="L" value=L />L</li>
-          <li><input type="checkbox" name="M" value=M />M</li>
-          <li><input type="checkbox" name="N" value=N />N</li>
-          <li><input type="checkbox" name="O" value=O />O</li>
-        </li>
-        <!-- //answer = "acme.before+Overlap" : ["A","B","C","D","F","I"]-->
-      </div>
-    <div class = "acme" id="acme.during+overlap" style ="display:none">
-        <p class = "question">Which rooms are reserved for the whole time that room H is reserved, and also overlaps with room D? </p>
-        <ul class="checkbox-grid">
-          <li><input type="checkbox" name="A" value=A />A</li>
-          <li><input type="checkbox" name="B" value=B />B</li>
-          <li><input type="checkbox" name="C" value=C />C</li>
-          <li><input type="checkbox" name="D" value=D />D</li>
-          <li><input type="checkbox" name="E" value=E />E</li>
-          <li><input type="checkbox" name="F" value=F />F</li>
-          <li><input type="checkbox" name="G" value=G />G</li>
-          <li><input type="checkbox" name="H" value=H />H</li>
-          <li><input type="checkbox" name="I" value=I />I</li>
-          <li><input type="checkbox" name="J" value=J />J</li>
-          <li><input type="checkbox" name="K" value=K />K</li>
-          <li><input type="checkbox" name="L" value=L />L</li>
-          <li><input type="checkbox" name="M" value=M />M</li>
-          <li><input type="checkbox" name="N" value=N />N</li>
-          <li><input type="checkbox" name="O" value=O />O</li>
-        </li>
-        <!-- //answer = "acme.before+Overlap" : ["A","B","C","D","F","I"]-->
-      </div>
-    <div class = "acme" id="acme.contain+duration" style ="display:none">
-        <p class = "question">Which 2 rooms are reserved for the same number of hours, and are entirely </br>
-          contained by the time that room J is reserved?</p>
-        <ul class="checkbox-grid">
-          <li><input type="checkbox" name="A" value=A />A</li>
-          <li><input type="checkbox" name="B" value=B />B</li>
-          <li><input type="checkbox" name="C" value=C />C</li>
-          <li><input type="checkbox" name="D" value=D />D</li>
-          <li><input type="checkbox" name="E" value=E />E</li>
-          <li><input type="checkbox" name="F" value=F />F</li>
-          <li><input type="checkbox" name="G" value=G />G</li>
-          <li><input type="checkbox" name="H" value=H />H</li>
-          <li><input type="checkbox" name="I" value=I />I</li>
-          <li><input type="checkbox" name="J" value=J />J</li>
-          <li><input type="checkbox" name="K" value=K />K</li>
-          <li><input type="checkbox" name="L" value=L />L</li>
-          <li><input type="checkbox" name="M" value=M />M</li>
-          <li><input type="checkbox" name="N" value=N />N</li>
-          <li><input type="checkbox" name="O" value=O />O</li>
-        </li>
-        <!-- //answer = "acme.before+Overlap" : ["A","B","C","D","F","I"]-->
-      </div>
-    <div class = "acme" id="acme.starts" style ="display:none">
-      <p class = "question">When three or more reservations START at the same time, Teresa needs to get help from the </br>
-        housekeeping staff to prepare the rooms.  For what reservation times does Teresa need extra staff?</p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="6" value=6 />6 AM</li>
-        <li><input type="checkbox" name="7" value=7 />7 AM</li>
-        <li><input type="checkbox" name="8" value=8 />8 AM</li>
-        <li><input type="checkbox" name="9" value=9 />9 AM</li>
-        <li><input type="checkbox" name="1" value=1 />1 PM</li>
-        <li><input type="checkbox" name="2" value=2 />2 PM</li>
-        <li><input type="checkbox" name="3" value=3 />3 PM</li>
-        <li><input type="checkbox" name="4" value=4 />4 PM</li>
-        <li><input type="checkbox" name="5" value=5 />5 PM</li>
-        <li><input type="checkbox" name="6" value=6 />6 PM</li>
-
-      </li>
-      <!-- //answer  "acme.starts" : ["6","8"]-->
-    </div>
-    <div class = "acme" id="acme.finishes" style ="display:none">
-      <p class = "question">When three or more reservations END at the same time, Teresa needs to get help from the <br>
-        housekeeping staff to prepare the rooms.  For what reservation times does Teresa need extra staff?</p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="6" value=6 />6 AM</li>
-        <li><input type="checkbox" name="7" value=7 />7 AM</li>
-        <li><input type="checkbox" name="8" value=8 />8 AM</li>
-        <li><input type="checkbox" name="9" value=9 />9 AM</li>
-        <li><input type="checkbox" name="1" value=1 />1 PM</li>
-        <li><input type="checkbox" name="2" value=2 />2 PM</li>
-        <li><input type="checkbox" name="3" value=3 />3 PM</li>
-        <li><input type="checkbox" name="4" value=4 />4 PM</li>
-        <li><input type="checkbox" name="5" value=5 />5 PM</li>
-        <li><input type="checkbox" name="6" value=6 />6 PM</li>
-      </li>
-      <!-- //answer  "acme.finishes" : ["4","5"]-->
-    </div>
-    <div class = "acme" id="acme.during" style ="display:none">
-      <p class = "question">Teresa’s event manager Liam is personally attending to the reservation in conference room E for a high priority client. <br/>
-         Which reservations can Liam not be responsible for seting up and taking down while he is attending to room E?</p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="A" value=A />A</li>
-        <li><input type="checkbox" name="B" value=B />B</li>
-        <li><input type="checkbox" name="C" value=C />C</li>
-        <li><input type="checkbox" name="D" value=D />D</li>
-        <li><input type="checkbox" name="E" value=E />E</li>
-        <li><input type="checkbox" name="F" value=F />F</li>
-        <li><input type="checkbox" name="G" value=G />G</li>
-        <li><input type="checkbox" name="H" value=H />H</li>
-        <li><input type="checkbox" name="I" value=I />I</li>
-        <li><input type="checkbox" name="J" value=J />J</li>
-        <li><input type="checkbox" name="K" value=K />K</li>
-        <li><input type="checkbox" name="L" value=L />L</li>
-        <li><input type="checkbox" name="M" value=M />M</li>
-        <li><input type="checkbox" name="N" value=N />N</li>
-        <li><input type="checkbox" name="O" value=O />O</li>
-      </li>
-      <!-- //answer = "acme.during" : ["B","C","D","F","G"] -->
-    </div>
-    <div class = "acme" id="acme.meets" style ="display:none">
-      <p class = "question">The company reserving conference room F have also reserved a second room.  </br>
-        Immediately after they finish with room F, to which room will they relocate? </p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="A" value=A />A</li>
-        <li><input type="checkbox" name="B" value=B />B</li>
-        <li><input type="checkbox" name="C" value=C />C</li>
-        <li><input type="checkbox" name="D" value=D />D</li>
-        <li><input type="checkbox" name="E" value=E />E</li>
-        <li><input type="checkbox" name="F" value=F />F</li>
-        <li><input type="checkbox" name="G" value=G />G</li>
-        <li><input type="checkbox" name="H" value=H />H</li>
-        <li><input type="checkbox" name="I" value=I />I</li>
-        <li><input type="checkbox" name="J" value=J />J</li>
-        <li><input type="checkbox" name="K" value=K />K</li>
-        <li><input type="checkbox" name="L" value=L />L</li>
-        <li><input type="checkbox" name="M" value=M />M</li>
-        <li><input type="checkbox" name="N" value=N />N</li>
-        <li><input type="checkbox" name="O" value=O />O</li>
-      </li>
-      <!-- //answer = O -->
-    </div>
-    <div class = "acme" id="acme.starts+finishes" style ="display:none">
-      <p class = "question">Which room starts with D and ends with I?</p>
-      <ul class="checkbox-grid">
-        <li><input type="checkbox" name="A" value=A />A</li>
-        <li><input type="checkbox" name="B" value=B />B</li>
-        <li><input type="checkbox" name="C" value=C />C</li>
-        <li><input type="checkbox" name="D" value=D />D</li>
-        <li><input type="checkbox" name="E" value=E />E</li>
-        <li><input type="checkbox" name="F" value=F />F</li>
-        <li><input type="checkbox" name="G" value=G />G</li>
-        <li><input type="checkbox" name="H" value=H />H</li>
-        <li><input type="checkbox" name="I" value=I />I</li>
-        <li><input type="checkbox" name="J" value=J />J</li>
-        <li><input type="checkbox" name="K" value=K />K</li>
-        <li><input type="checkbox" name="L" value=L />L</li>
-        <li><input type="checkbox" name="M" value=M />M</li>
-        <li><input type="checkbox" name="N" value=N />N</li>
-        <li><input type="checkbox" name="O" value=O />O</li>
-      </li>
-      <!-- //answer = "axis.meets" : ["C"]-->
-    </div>
-    <div class = "acme" id="acme.before+duration" style ="display:none">
-        <p class = "question">Which reservation starts before room J and is one hour shorter?</p>
-        <ul class="checkbox-grid">
-          <li><input type="checkbox" name="A" value=A />A</li>
-          <li><input type="checkbox" name="B" value=B />B</li>
-          <li><input type="checkbox" name="C" value=C />C</li>
-          <li><input type="checkbox" name="D" value=D />D</li>
-          <li><input type="checkbox" name="E" value=E />E</li>
-          <li><input type="checkbox" name="F" value=F />F</li>
-          <li><input type="checkbox" name="G" value=G />G</li>
-          <li><input type="checkbox" name="H" value=H />H</li>
-          <li><input type="checkbox" name="I" value=I />I</li>
-          <li><input type="checkbox" name="J" value=J />J</li>
-          <li><input type="checkbox" name="K" value=K />K</li>
-          <li><input type="checkbox" name="L" value=L />L</li>
-          <li><input type="checkbox" name="M" value=M />M</li>
-          <li><input type="checkbox" name="N" value=N />N</li>
-          <li><input type="checkbox" name="O" value=O />O</li>
-        </li>
-        <!-- //answer = O -->
-      </div>
-
-  </div> <!--test questions div end-->
+      <div class=test>
+        <div class = "acme" id="acme.starttime" style ="display:none">
+          <p class = "question">Which shift(s) start at 11 am? </p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="U" value=U />U</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+          </ul>
+        </div>
+        <div class = "acme" id="acme.starts" style ="display:none">
+          <p class = "question">Which shift(s) start with D?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="U" value=U />U</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+          </ul>
+        </div>
+        <div class = "acme" id="acme.meets" style ="display:none">
+          <p class = "question">Which shift(s) begin when C ends?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="U" value=U />U</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+          </ul>
+        </div>
+        <div class = "acme" id="acme.endtime" style ="display:none">
+          <p class = "question">  Which shift(s) end at 4 pm?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="U" value=U />U</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+          </ul>
+        </div>
+        <div class = "acme" id="acme.midpoint" style ="display:none">
+          <p class = "question">Coffee breaks happen halfway through a shift.</br> Which shift(s) share a break with I?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="U" value=U />U</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.duration" style ="display:none">
+          <p class = "question">Which shifts are six hours long?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.duration+starts" style ="display:none">
+          <p class = "question">Which 2 shifts less than 5 hours long start at the same time?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.duration+contained" style ="display:none">
+          <p class = "question">Which shift under 7 hours long starts before B and ends after X?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.starttime+before+endtime+during" style ="display:none">
+          <p class = "question">Which shift begins before J and ends during B?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.ends" style ="display:none">
+          <p class = "question">Which shift ends with F?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.starttime" style ="display:none">
+          <p class = "question">Which shifts start at 12pm?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.starts" style ="display:none">
+          <p class = "question">Which shift starts with F?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.meets" style ="display:none">
+          <p class = "question">Which 2 shifts end when Z begins?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.endtime" style ="display:none">
+          <p class = "question">Which shift ends at 3pm?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+        <div class = "bigset" id="bigset.midpoint" style ="display:none">
+          <p class = "question">Coffee breaks happen halfway through a shift. </br>Which 2 shifts share a break at 2pm?</p>
+          <ul class="checkbox-grid">
+            <li><input type="checkbox" name="I" value=I />I</li>
+            <li><input type="checkbox" name="J" value=J />J</li>
+            <li><input type="checkbox" name="E" value=E />E</li>
+            <li><input type="checkbox" name="F" value=F />F</li>
+            <li><input type="checkbox" name="B" value=B />B</li>
+            <li><input type="checkbox" name="M" value=M />M</li>
+            <li><input type="checkbox" name="A" value=A />A</li>
+            <li><input type="checkbox" name="G" value=G />G</li>
+            <li><input type="checkbox" name="C" value=C />C</li>
+            <li><input type="checkbox" name="K" value=K />K</li>
+            <li><input type="checkbox" name="X" value=X />X</li>
+            <li><input type="checkbox" name="O" value=O />O</li>
+            <li><input type="checkbox" name="P" value=P />P</li>
+            <li><input type="checkbox" name="L" value=L />L</li>
+            <li><input type="checkbox" name="H" value=H />H</li>
+            <li><input type="checkbox" name="Z" value=Z />Z</li>
+            <li><input type="checkbox" name="N" value=N />N</li>
+            <li><input type="checkbox" name="D" value=D />D</li>
+          </ul>
+        </div>
+      </div> <!--test questions div end-->
 
       <!-- SUBMIT AND HELP BUTTONS ------------------------------------------------------------------>
       <div class="fixbottom">
-    <!-- <div id="helperSwitch" class="onoffswitch" >
-      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"  >
-      <label class="onoffswitch-label" for="myonoffswitch">
-          <span class="onoffswitch-inner"></span>
-          <span class="onoffswitch-switch"></span>
-      </label>
-    </div> -->
-    <button type="button" id="start" class='btn' onclick=checkAnswer()>SUBMIT</button>
-  </div>
+        <button type="button" id="start" class='btn' onclick=checkTriangularAnswer()>SUBMIT</button>
+      </div>
     </div> <!-- instructions -->
+    <div class = "d3container"></div>
   </div> <!--stimulus container-->
 <script>
-    console.log("start of clicked array: "+clicked);
-    console.log("start of hovered string: "+hovered);
+    // console.log("start of clicked array: "+clicked);
+    // console.log("start of hovered string: "+hovered);
 
     //set correct answers for each question
-    var answers = {
-      "acme.start" : ["C","D","L"],
-      "acme.end" : ["H","J","K","L","M","N","O"],
-      "acme.duration" : ["G","O"],
-      "acme.midpoint" : ["1"],
-      "acme.start+overlap" : ["A"],
-      "acme.start+duration" : ["A","B","D","F"],
-      "acme.before+overlap" : ["A","B","C","D","F","I"],
-      "acme.overlap+overlap" : ["A","M","N"],
-      "acme.during+overlap" : ["K","L"],
-      "acme.contain+duration" : ["G","O"],
-      "acme.starts" : ["6","8"],
-      "acme.finishes" : ["4","5"],
-      "acme.during" : ["B","C","D","F","G"],
-      "acme.meets" : ["O"],
-      "acme.starts+finishes" : ["C"],
-      "acme.before+duration" : ["C"]
-    }
+    var triangular_answers = {
+      "acme.starttime.1" : ["F"],
+      "acme.starts.1" : ["K"],
+      "acme.meets.1" : ["F"],
+      "acme.endtime.1" : ["H"],
+      "acme.midpoint.1" : ["O"],
 
+      "acme.starttime.2" : ["F"],
+      "acme.starts.2" : ["K"],
+      "acme.meets.2" : ["F"],
+      "acme.endtime.2" : ["H"],
+      "acme.midpoint.2" : ["A"],
+
+      "bigset.duration.1" : ["E","G"],
+      "bigset.duration+starts.1" : ["X","O"],
+      "bigset.duration+contained.1" : ["G"],
+      "bigset.starttime+before+endtime+during.1": ["I"],
+      "bigset.ends.1" : ["E"],
+
+      "bigset.duration.2" : ["E","G"],
+      "bigset.duration+starts.2" : ["X","O"],
+      "bigset.duration+contained.2" : ["G"],
+      "bigset.starttime+before+endtime+during.2":["I"],
+      "bigset.ends.2" : ["E"],
+
+      "bigset.starttime.1" : ["M","L"],
+      "bigset.starts.1" : ["G"],
+      "bigset.meets.1" : ["E","F"],
+      "bigset.endtime.1" : ["X"],
+      "bigset.midpoint.1" : ["K","X"],
+
+      "bigset.starttime.2" : ["M","L"],
+      "bigset.starts.2" : ["G"],
+      "bigset.meets.2" : ["E","F"],
+      "bigset.endtime.2" : ["X"],
+      "bigset.midpoint.2" : ["K","X"]
+    }
+    var orthogonal_answers = {
+      "acme.starttime.1" : ["A"],
+      "acme.starts.1" : ["E"],
+      "acme.meets.1" : ["Z"],
+      "acme.endtime.1" : ["U"],
+      "acme.midpoint.1" : ["U"],
+
+      "acme.starttime.2" : ["0"],
+      "acme.starts.2" : ["0"],
+      "acme.meets.2" : ["0"],
+      "acme.endtime.2" : ["0"],
+      "acme.midpoint.2" : ["0"],
+
+      "bigset.duration.1" : ["E","G"],
+      "bigset.duration+starts.1" : ["F","B"],
+      "bigset.duration+contained.1" : ["E"],
+      "bigset.starttime+before+endtime+during.1": ["I"],
+      "bigset.ends.1" : ["X"],
+
+      "bigset.duration.2" : ["E","G"],
+      "bigset.duration+starts.2" : ["F","B"],
+      "bigset.duration+contained.2" : ["E"],
+      "bigset.starttime+before+endtime+during.2":["I"],
+      "bigset.ends.2" : ["X"],
+
+      "bigset.starttime.1" : ["F","B"],
+      "bigset.starts.1" : ["B"],
+      "bigset.meets.1" : ["F","X"],
+      "bigset.endtime.1" : ["B"],
+      "bigset.midpoint.1" : ["E","F"],
+
+      "bigset.starttime.2" : ["F","B"],
+      "bigset.starts.2" : ["B"],
+      "bigset.meets.2" : ["F","X"],
+      "bigset.endtime.2" : ["B"],
+      "bigset.midpoint.2" : ["E","F"]
+    }
     //display the question based on input values from jsPsych
     document.getElementById(scenario+"."+question).style.display = "block";
 
@@ -435,7 +477,7 @@
     else if (explicit == 3){
       intersects = true;
     }
-  
+
 
     //SET DATA FILE FOR IMPLICIT SCAFFOLD
     if (impasse == 1){
@@ -447,7 +489,7 @@
 
     //OVERRIDE DATA FILE FOR NON-SCAFFOLD QUESTIONS
     if (q > 5) { //override data file if q# is greater than 5
-      datafile = "../views/src/data/data_3.csv";
+      datafile = "../views/src/data/bigset.csv";
       console.log("override data file");
     }
 

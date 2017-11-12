@@ -40,19 +40,39 @@ var check_draw = function(elem) {
 
 
 //evaluate correctness of answer onSubmit
-function checkAnswer() {
+function checkTriangularAnswer() {
   console.log("end clicked: "+clicked);
   console.log("end hovered: "+hovered);
   var selected = [];
     $ (':checked').not('.onoffswitch-checkbox').each(function() { //check each checkbox except help toggle
     selected.push(""+$(this).attr('value')+"");
   });
-  var index = scenario+"."+question;
-  if ( _.isEqual(selected, answers[index])) {
+  var index = scenario+"."+question+"."+impasse;
+  if ( _.isEqual(selected, triangular_answers[index])) {
      correct = 1; }
   else {
     correct = 0;
   }
   console.log("selected: "+selected);
   answer = selected;
+  // console.log("triangle_correct"+correct);
+  checkOrthogonalAnswer();
+}
+
+function checkOrthogonalAnswer(){
+  console.log("end clicked: "+clicked);
+  console.log("end hovered: "+hovered);
+  var selected = [];
+    $ (':checked').not('.onoffswitch-checkbox').each(function() { //check each checkbox except help toggle
+    selected.push(""+$(this).attr('value')+"");
+  });
+  var index = scenario+"."+question+"."+impasse;
+  if ( _.isEqual(selected, orthogonal_answers[index])) {
+    orth_correct = 1; }
+  else {
+    orth_correct = 0;
+  }
+  console.log("selected: "+selected);
+  answer = selected;
+  // console.log("orthogonal_correct"+orth_correct);
 }

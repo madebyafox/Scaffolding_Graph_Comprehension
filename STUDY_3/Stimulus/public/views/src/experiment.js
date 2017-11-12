@@ -17,7 +17,7 @@
 
 
 //---------------SETUP VARIABLES---------------------------------------
-var graph, scenario, question, scaffold, block, correct ;
+var graph, scenario, question, scaffold, block, correct, orth_correct ;
 var graph = "triangular";
 var experiment = "2YP3"; //overriden by URL
 var session = "default"; //overriden by codes block
@@ -34,25 +34,24 @@ var scaffolds = [
   "interactive"
 ];
 var questions = [
-  "start",
-  "end",
-  "duration",
-  "midpoint",
-  "start+overlap",
-  "start+duration",
-  "before+overlap",
-  "overlap+overlap",
-  "during+overlap",
-  "contain+duration",
+  "starttime",
   "starts",
-  "finishes",
-  "during",
   "meets",
-  "starts+finishes",
-  "before+duration"
+  "endtime",
+  "midpoint",
+  "duration",
+  "duration+starts",
+  "duration+contained",
+  "starttime+before+endtime+during",
+  "ends",
+  "starttime",
+  "starts",
+  "meets",
+  "endtime",
+  "midpoint"
 ];
 var q = 0 ; //question number, used for data file override
-var scenarios = ["acme"]; //determine the order of scenarios by randomly sorting the array
+var scenarios = ["acme","bigset"]; //determine the order of scenarios by randomly sorting the array
 var sid = jsPsych.randomization.randomID(5);
 sid = sid.toUpperCase();
 console.log(sid);
@@ -179,21 +178,24 @@ var triangular_scaffolded = {
   cont_btn: "start",
   data : {},
   on_finish: function(data) {
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
+    // console.log("finished: "+data.internal_node_id);
+    // console.log("correct? "+correct);
     jsPsych.data.addDataToLastTrial({graph:graph});
     jsPsych.data.addDataToLastTrial({scenario:scenario});
     jsPsych.data.addDataToLastTrial({question:question});
     jsPsych.data.addDataToLastTrial({q:q});
     jsPsych.data.addDataToLastTrial({condition:condition});
     jsPsych.data.addDataToLastTrial({correct:correct});
+    jsPsych.data.addDataToLastTrial({orth_correct:orth_correct});
     jsPsych.data.addDataToLastTrial({answer:answer});
     jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({hovered:hovered});
     jsPsych.data.addDataToLastTrial({block:"triangular_scaffolded"});
     console.log("TS"+(data.trial_index-20));
     console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);  },
+    console.log("tri_correct? "+correct);
+    console.log("orth_correct? "+orth_correct);
+  },
   timeline: [
       {on_start: function(){
           graph= "triangular";
@@ -250,26 +252,28 @@ var triangular_testing = {
   cont_btn: "start",
   data : {},
   on_finish: function(data) {
-    console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
+    // console.log("finished: "+data.internal_node_id);
+    // console.log("correct? "+correct);
     jsPsych.data.addDataToLastTrial({graph:graph});
     jsPsych.data.addDataToLastTrial({scenario:scenario});
     jsPsych.data.addDataToLastTrial({question:question});
     jsPsych.data.addDataToLastTrial({q:q});
     jsPsych.data.addDataToLastTrial({condition:condition});
     jsPsych.data.addDataToLastTrial({correct:correct});
+    jsPsych.data.addDataToLastTrial({orth_correct:orth_correct});
     jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({answer:answer});
     jsPsych.data.addDataToLastTrial({hovered:hovered});
     jsPsych.data.addDataToLastTrial({block:"triangular_testing"});
     console.log("TT"+(data.trial_index-25));
     console.log("finished: "+data.internal_node_id);
-    console.log("correct? "+correct);
+    console.log("tri_correct? "+correct);
+    console.log("orth_correct? "+orth_correct);
   },
   timeline: [
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[5];
         q = 6;
         explicit = explicit;
@@ -278,7 +282,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[6];
         q = 7;
         explicit = explicit;
@@ -287,7 +291,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[7];
         q = 8;
         explicit = explicit;
@@ -296,7 +300,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[8];
         q = 9;
         explicit = explicit;
@@ -305,7 +309,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[9];
         q = 10;
         explicit = explicit;
@@ -314,7 +318,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[10];
         q = 11;
         explicit = explicit;
@@ -323,7 +327,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[11];
         q = 12;
         explicit = explicit;
@@ -332,7 +336,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[12];
         q = 13;
         explicit = explicit;
@@ -341,7 +345,7 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
+        scenario = scenarios[1];
         question = questions[13];
         q = 14;
         explicit = explicit;
@@ -350,8 +354,8 @@ var triangular_testing = {
       }},
       {on_start: function(){
         graph= "triangular";
-        scenario = scenarios[0];
-        scaffold = scaffolds[0];
+        scenario = scenarios[1];
+        question = questions[14];
         q = 15;
         explicit = explicit;
         impasse = impasse;
