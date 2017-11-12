@@ -32,8 +32,6 @@
 
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
 
-      <img class = "static" id="orthogonal-image" style="display:none" src ="img/orthogonal-image.png" />
-      <img class = "static" id="diagonal-image" style="display:none" src ="img/diagonal-image.png" />
       <div class = "legend" id="hint-interactive" style="display:none" >
         <p>Hint: hover your mouse over the data points for help</p>
       </div> <!-- end legend -->
@@ -69,6 +67,8 @@
   </div>
   </div class = "instructions">
 <div class = "d3container"></div>
+<img class = "static" id="orthogonal-image" style="display:none" src ="img/orthogonal-image.png" />
+<img class = "static" id="diagonal-image" style="display:none" src ="img/diagonal-image.png" />
 
 </div> <!--end stimulus container-->
 </body>
@@ -93,9 +93,9 @@
     //define data file in experiment.js based on question and condition
     var datafile = "";
 
-    var axis = 3; //"full, "partial", ,diagonal"
-    var explicit = 3; //"1", "2" , "3"
-    var impasse = 2 ; //"1", "2"
+    var axis = 2; //"full, "partial", ,diagonal"
+    var explicit = 2; //"1", "2" , "3"
+    var impasse = 1; //"1", "2"
 
     //explicit: 1 (control), 2(text/image), 3(interactive)
     //implicit: 1 (control), 2(impasse)
@@ -114,11 +114,15 @@
 
     // SET EXPLICIT SCAFFOLD FEATURES
     if (explicit ==2 && axis != "diagonal"){
-      $('#orthogonal-image').css("display","block"); //display textimage scaffold
+      // $('#orthogonal-image').css("display","block"); //display textimage scaffold
+      // drawStaticLeaders(axis);
+      scaffold = 2;
       intersects = false;
     }
     else if (explicit == 2 && axis == "diagonal"){
-      $('#diagonal-image').css("display","block"); //display textimage scaffold
+      // $('#diagonal-image').css("display","block"); //display textimage scaffold
+      // drawStaticLeaders(axis);
+      scaffold = 2;
       intersects = false;
     }
     else if (explicit == 3){
@@ -156,6 +160,7 @@
       xAxisTitle = "START & END TIME (time of day)";
       yAxisTitle = "DURATION (in hours)";
       drawTriangleModel(datafile,scaffold,axis);
+
 
 </script>
 

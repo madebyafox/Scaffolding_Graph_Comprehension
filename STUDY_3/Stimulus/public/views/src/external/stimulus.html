@@ -17,8 +17,6 @@
     <div class = "userinput">
 
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
-      <img class = "static" id="orthogonal-image" style="display:none" src ="img/orthogonal-image.png" />
-      <img class = "static" id="diagonal-image" style="display:none" src ="img/diagonal-image.png" />
       <div class = "legend" id="hint-interactive" style="display:none" >
         <p>Hint: hover your mouse over the data points for help</p>
       </div> <!-- end legend -->
@@ -471,11 +469,11 @@
 
     // SET EXPLICIT SCAFFOLD FEATURES
     if (explicit ==2 && axis != "diagonal"){
-      $('#orthogonal-image').css("display","block"); //display textimage scaffold
+      scaffold = 2;
       intersects = false;
     }
     else if (explicit == 2 && axis == "diagonal"){
-      $('#diagonal-image').css("display","block"); //display textimage scaffold
+      scaffold = 2;
       intersects = false;
     }
     else if (explicit == 3){
@@ -512,7 +510,7 @@
     //---------DRAW THE GRAPH  ------------------------//
       xAxisTitle = "START & END TIME (time of day)";
       yAxisTitle = "DURATION (in hours)";
-      drawTriangleModel(datafile,intersects,axis);
+      drawTriangleModel(datafile,intersects,axis,scaffold);
 
 </script>
 

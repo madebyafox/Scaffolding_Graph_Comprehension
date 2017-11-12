@@ -249,6 +249,79 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
     }
 
 }
+function drawStaticLeaders(axis,staticLeaders,x,y){
+  /*NOTE: NEED TO MANUALLY SET MINIMUM HERE TOO -- FIX THIS*/
+  var exampleMin = moment("12:00","HH:mm");
+  var exampleMax = moment("17:00","HH:mm");
+  var exampleMid = moment("14:30","HH:mm");
+  var diagMid = moment("10:30","HH:mm");
+  var min = moment("8:00","HH:mm");
+  var dur = 5;
+
+  staticLeaders.append ("line")
+  .attr("class","starttime")
+  .attr("x1",x(exampleMin))
+  .attr("y1",y(0))
+  .attr("x2",x(exampleMid))
+  .attr("y2",y(dur));
+
+  staticLeaders.append("circle")
+  .attr("class","scaffCircle")
+  .attr("cx", x(exampleMin))
+  .attr("cy", y(0)+22);
+
+  staticLeaders.append("text")
+  .attr("class","scaffText")
+  .attr("x",x(exampleMin)-50)
+  .attr("y",y(0)+50)
+  .text("start");
+
+  staticLeaders.append("line")
+  .attr("class", "endtime")
+  .attr("x1",x(exampleMax))
+  .attr("y1",y(0))
+  .attr("x2",x(exampleMid))
+  .attr("y2",y(dur))
+
+  staticLeaders.append("circle")
+  .attr("class","scaffCircle")
+  .attr("cx", x(exampleMax))
+  .attr("cy", y(0)+22);
+
+  staticLeaders.append("text")
+  .attr("class","scaffText")
+  .attr("x",x(exampleMax)+15)
+  .attr("y",y(0)+50)
+  .text("end");
+
+  if (axis == "partial" || axis == "full") {
+    staticLeaders.append("line")
+    .attr("class","duration")
+    .attr("x1",x(exampleMid))
+    .attr("y1",y(dur))
+    .attr("x2",x(min))
+    .attr("y2",y(dur));
+
+    staticLeaders.append("circle")
+    .attr("class","scaffCircle")
+    .attr("cx", x(min)-10)
+    .attr("cy", y(dur));
+  }
+
+  if (axis == "diagonal"){
+    staticLeaders.append("line")
+    .attr("class","duration")
+    .attr("x1",x(diagMid))
+    .attr("y1",y(dur))
+    .attr("x2",x(exampleMid))
+    .attr("y2",y(dur))
+
+    staticLeaders.append("circle")
+    .attr("class","scaffCircle")
+    .attr("cx", x(diagMid)-22)
+    .attr("cy", y(dur));
+  }
+}
 
 //-----------ANSWER HELPER FUNCTIONS ------------------------//
 function toggleAnswer(x) {
@@ -275,13 +348,16 @@ function toggleAnswer(x) {
 }
 
 //-----------GRAPH DRAWING FUNCTIONS ------------------------//
-function drawTriangleModel(datafile, intersects, axis) {
+function drawTriangleModel(datafile, intersects, axis, scaffold) {
 
   console.log(axis);
 
   //---------CREATE LEADERS ELEMENT SO ITS ON THE BOTTOM------//
   var leaders = svg.append("g")
   .attr("class","leaders");
+
+  var staticLeaders = svg.append("g")
+    .attr("class","static-scaffold");
 
   //---------CREATE & DRAW DATA  ----------//
   d3.csv(datafile, function(error, data) {
@@ -439,6 +515,10 @@ function drawTriangleModel(datafile, intersects, axis) {
      //remove every other tick label on x axis
      d3.selectAll(".xaxis").selectAll(".tick text").style("display", function (d, i)
      { return i % 2 ? "none" : "initial" });
+
+     if (scaffold == 2){ //explicit text-image scaffold
+       drawStaticLeaders(axis,staticLeaders,x,y);
+     }
 
   }); //END D3.CSV
 

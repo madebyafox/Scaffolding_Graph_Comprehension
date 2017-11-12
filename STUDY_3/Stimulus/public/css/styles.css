@@ -249,6 +249,30 @@ p .legend{
   stroke-linecap:round;
   stroke-dasharray:8,15;
 }
+.static-scaffold {
+  stroke-width:5px;
+  stroke:#3498db;
+  opacity:0.75;
+  stroke-linecap:round;
+  stroke-dasharray:8,15;
+}
+.scaffCircle {
+  stroke:#3498db;
+  stroke-width:3;
+  fill:none;
+  r: 22;
+  opacity:1;
+  stroke-dasharray:1;
+}
+.static-scaffold text{
+  fill:#3498db;
+  font-family:"Helvetica";
+  font-size:16px;
+  font-style:normal;
+  stroke-width:0px;
+  opacity:1;
+}
+
 .segment {
   stroke:black;
   stroke-width:5;
