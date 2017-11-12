@@ -11,15 +11,20 @@ Notes
 Experimental Design:
 Random assignment via condition condition code
 SESSION CODE -> alphanumeric string chose by experimenter to indicate data collection SESSION
-CONDITION CODE ->
-10: control - no scaffold - no impasse
-20: text & image
-30: interactive image
-40: diagonal axis
-11: control - no scaffold + impasse
-21: text & image + impasse
-31: interactive image + impasse
-41: diagonal axis + impasse
+CONDITION CODE -> 3 digits
+first digit: explicit scaffold
+1 - control
+2 - text/image
+3 - interactive
+
+second digit: implicit scaffold
+1 - control
+2 - impasse
+
+third digit: grid format
+1 - full orthogonal
+2 - partial orthogonal
+3 - diagonal
 
 MANUALLY SET MIN, MAX AND RANGE IN GRAPHS.JS
 
