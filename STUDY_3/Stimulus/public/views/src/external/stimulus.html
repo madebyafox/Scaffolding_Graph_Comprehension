@@ -16,8 +16,8 @@
     <div class = "userinput">
 
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
-      <img class = "static" id="triangular-impasse" src ="img/overlay.triangular-acme-impasse.png" />
-      <img class = "static" id="triangular-nonimpasse" src ="img/overlay.triangular-acme-nonimpasse.png" />
+      <img class = "static" id="orthogonal-image" style="display:none" src ="img/orthogonal-image.png" />
+      <img class = "static" id="diagonal-image" style="display:none" src ="img/diagonal-image.png" />
       <div class = "legend" id="hint-interactive" style="display:none" >
         <p>Hint: hover your mouse over the data points for help</p>
       </div> <!-- end legend -->
@@ -466,15 +466,16 @@
     }
 
     // SET EXPLICIT SCAFFOLD FEATURES
-    if (explicit ==2 & impasse ==1){
-      $('#triangular-nonimpasse').css("display","block"); //display textimage scaffold
+    if (explicit ==2 && axis != "diagonal"){
+      $('#orthogonal-image').css("display","block"); //display textimage scaffold
       intersects = false;
     }
-    else if (explicit == 2 && impasse == 2){
-      $('#triangular-impasse').css("display","block"); //display textimage scaffold
+    else if (explicit == 2 && axis == "diagonal"){
+      $('#diagonal-image').css("display","block"); //display textimage scaffold
       intersects = false;
     }
     else if (explicit == 3){
+      $('#hint-interactive').css("display","block"); //display textimage scaffold
       intersects = true;
     }
 
@@ -491,7 +492,11 @@
     if (q > 5) { //override data file if q# is greater than 5
       datafile = "../views/src/data/bigset.csv";
       console.log("override data file");
-    }
+      $('#orthogonal-image').css("display","none"); //display textimage scaffold
+      $('#diagonal-image').css("display","none"); //display textimage scaffold
+      $('#hint-interactive').css("display","none"); //display textimage scaffold
+      intersects = false;
+    }  
 
     // //---------CREATE THE SVG  ------------------------//
     var svg = d3.select(".d3container").append("svg")

@@ -142,14 +142,12 @@ var text_questions = ["What is your age?",
 var choice_questions = ["What is your first language?",
                         "What is your year in school?",
                         "What is your major area of study?",
-                        "What is your gender?",
-                        "Which of the graphs in the study did you find easier to use?"];
+                        "What is your gender?"];
 var lang_options = [ "English", "Spanish", "Mandarin or Cantonese", "Other"];
 var year_options = ["First", "Second","Third","Fourth","Fifth","Graduate","Other"];
 var major_options = ["Math or Computer Sciences","Social Sciences (incl. CogSci)", "Biomedical & Health Sciences",
                       "Natural Sciences","Engineering","Humanities","Fine Arts"];
 var gender_options = ["Male","Female","Other"];
-var graph_options = ["the first one (linear", "the second one (triangular)"]
 var text_survey = {
     type: 'survey-text',
     questions: text_questions,
@@ -160,8 +158,8 @@ var text_survey = {
 var choice_survey = {
     type: 'survey-multi-choice',
     questions: choice_questions,
-    options: [lang_options, year_options,major_options,gender_options,graph_options],  // need one scale for every question on a page
-    required: [true, true,true,true,true],   // set whether questions are required
+    options: [lang_options, year_options,major_options,gender_options],  // need one scale for every question on a page
+    required: [true, true,true,true],   // set whether questions are required
     horizontal: true , // centres questions and makes options display horizontally
     data: {
       block: "demo-2"
@@ -185,6 +183,9 @@ var triangular_scaffolded = {
     jsPsych.data.addDataToLastTrial({question:question});
     jsPsych.data.addDataToLastTrial({q:q});
     jsPsych.data.addDataToLastTrial({condition:condition});
+    jsPsych.data.addDataToLastTrial({explicit:explicit});
+    jsPsych.data.addDataToLastTrial({impasse:impasse});
+    jsPsych.data.addDataToLastTrial({axis:axis});
     jsPsych.data.addDataToLastTrial({correct:correct});
     jsPsych.data.addDataToLastTrial({orth_correct:orth_correct});
     jsPsych.data.addDataToLastTrial({answer:answer});
@@ -259,10 +260,13 @@ var triangular_testing = {
     jsPsych.data.addDataToLastTrial({question:question});
     jsPsych.data.addDataToLastTrial({q:q});
     jsPsych.data.addDataToLastTrial({condition:condition});
+    jsPsych.data.addDataToLastTrial({explicit:explicit});
+    jsPsych.data.addDataToLastTrial({impasse:impasse});
+    jsPsych.data.addDataToLastTrial({axis:axis});
     jsPsych.data.addDataToLastTrial({correct:correct});
     jsPsych.data.addDataToLastTrial({orth_correct:orth_correct});
-    jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({answer:answer});
+    jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({hovered:hovered});
     jsPsych.data.addDataToLastTrial({block:"triangular_testing"});
     console.log("TT"+(data.trial_index-25));
