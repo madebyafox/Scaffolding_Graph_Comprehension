@@ -4,7 +4,11 @@ html{
 }
 
 .static {
-  display: none;
+  /*background-color: blue;*/
+  /*opacity:.20;*/
+  position:fixed;
+  bottom: 0;
+  right:0 ;
 }
 /*TEXT STYLES*/
 
@@ -104,6 +108,9 @@ div.legend{
   color:#3498db;
   text-align: center;
   justify-content: center;
+  font-family:"Helvetica";
+  font-size:18px;
+  font-style: italic;
 }
 
 /*test question*/

@@ -29,7 +29,6 @@ third digit: grid format
 MANUALLY SET MIN, MAX AND RANGE IN GRAPHS.JS
 
 
-
 Installation & Notes
 ------------------
 https://github.com/Tuuleh/jsPsychBackendStart as reference
@@ -64,3 +63,5 @@ Dev Notes
 > see https://devcenter.heroku.com/articles/git for reference
 > set mongo path in heroku with
 heroku config:set CONNECTION = [mongolabs uri]
+> heroku for deploy
+> mlabs for db 
