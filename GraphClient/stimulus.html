@@ -17,7 +17,7 @@
   <script src="https://d3js.org/d3-shape.v1.min.js"></script>
   <script src="https://d3js.org/d3-polygon.v1.min.js"></script>
   <script src="graphs.js"></script>
-
+  <script>var sid = "subjectID"; </script>
 
   <!--STYLE SHEETS -->
   <link href="css/styles.css" rel="stylesheet" type="text/css"></link>
@@ -27,7 +27,9 @@
 
 <body>
   <div class = "stimulus">
-  <div class = "userinput">
+    <p class = "userid" id="userid"></p>
+    <div class = "userinput">
+
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
 
       <img class = "static" id="orthogonal-image" style="display:none" src ="img/orthogonal-image.png" />
@@ -73,6 +75,7 @@
 
   <script>
 
+  $('.userid').html(sid);
 
     //---------SET PROPERTIES OF THE GRAPH -------------//
     // set the dimensions and margins of the graph
@@ -165,8 +168,8 @@ mouseLog.push("{x:"+xwidth+",y:"+xheight+",t:"+"0};")
 
 document.onmousemove = function(e){
   var pageCoords = "{x:" + e.pageX + ",y:"+ e.pageY +",t:"+ Date.now()+ "};" ;
-  console.log(pageCoords);
-  mouseLog.push(pageCoords)
+  mouseLog.push(pageCoords);
+  // console.log(pageCoords);
 };
 
 </script>

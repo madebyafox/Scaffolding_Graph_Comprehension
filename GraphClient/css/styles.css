@@ -3,6 +3,14 @@ html{
   width: 100%;
 }
 
+p.userid {
+  position: fixed;
+  bottom: 0;
+  left: 10px;
+  color:grey;
+  font-family:"Helvetica";
+  font-size:12px;
+}
 .static {
   /*background-color: blue;*/
   /*opacity:.20;*/
