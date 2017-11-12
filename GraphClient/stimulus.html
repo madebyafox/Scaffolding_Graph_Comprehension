@@ -155,3 +155,18 @@
       drawTriangleModel(datafile,scaffold,axis);
 
 </script>
+
+<script>
+var mouseLog = []
+var xwidth = $(document).width();
+var xheight = $(document).width();
+mouseLog.push("{x:"+xwidth+",y:"+xheight+",t:"+"0};")
+
+
+document.onmousemove = function(e){
+  var pageCoords = "{x:" + e.pageX + ",y:"+ e.pageY +",t:"+ Date.now()+ "};" ;
+  console.log(pageCoords);
+  mouseLog.push(pageCoords)
+};
+
+</script>
