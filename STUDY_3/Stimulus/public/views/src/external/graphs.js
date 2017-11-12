@@ -223,6 +223,11 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
     .attr("x2",x(mid))
     .attr("y2",y(dur))
 
+    leaders.append("circle")
+    .attr("class","circle")
+    .attr("cx", x(start))
+    .attr("cy", y(0)+22);
+
     leaders.append("line")
     .attr("class", "endtime")
     .attr("x1",x(end))
@@ -230,13 +235,23 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
     .attr("x2",x(mid))
     .attr("y2",y(dur))
 
+    leaders.append("circle")
+    .attr("class","circle")
+    .attr("cx", x(end))
+    .attr("cy", y(0)+22);
+
     if (axis == "partial" || axis == "full") {
       leaders.append("line")
       .attr("class","duration")
       .attr("x1",x(min))
       .attr("y1",y(dur))
       .attr("x2",x(mid))
-      .attr("y2",y(dur))
+      .attr("y2",y(dur));
+
+      leaders.append("circle")
+      .attr("class","circle")
+      .attr("cx", x(min)-10)
+      .attr("cy", y(dur));
     }
 
     if (axis == "diagonal"){
@@ -245,7 +260,12 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
       .attr("x1",x(actual))
       .attr("y1",y(dur))
       .attr("x2",x(mid))
-      .attr("y2",y(dur))
+      .attr("y2",y(dur));
+
+      leaders.append("circle")
+      .attr("class","circle")
+      .attr("cx", x(actual)-22)
+      .attr("cy", y(dur));
     }
 
 }
@@ -259,7 +279,7 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
   var dur = 5;
 
   staticLeaders.append ("line")
-  .attr("class","starttime")
+  .attr("class","scaffStarttime")
   .attr("x1",x(exampleMin))
   .attr("y1",y(0))
   .attr("x2",x(exampleMid))
@@ -277,7 +297,7 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
   .text("start");
 
   staticLeaders.append("line")
-  .attr("class", "endtime")
+  .attr("class", "scaffEndtime")
   .attr("x1",x(exampleMax))
   .attr("y1",y(0))
   .attr("x2",x(exampleMid))
@@ -296,7 +316,7 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
 
   if (axis == "partial" || axis == "full") {
     staticLeaders.append("line")
-    .attr("class","duration")
+    .attr("class","scaffDuration")
     .attr("x1",x(exampleMid))
     .attr("y1",y(dur))
     .attr("x2",x(min))
@@ -310,7 +330,7 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
 
   if (axis == "diagonal"){
     staticLeaders.append("line")
-    .attr("class","duration")
+    .attr("class","scaffDuration")
     .attr("x1",x(diagMid))
     .attr("y1",y(dur))
     .attr("x2",x(exampleMid))
@@ -322,6 +342,7 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
     .attr("cy", y(dur));
   }
 }
+
 
 //-----------ANSWER HELPER FUNCTIONS ------------------------//
 function toggleAnswer(x) {
@@ -464,6 +485,7 @@ function drawTriangleModel(datafile, intersects, axis, scaffold, q) {
         d3.selectAll(".starttime").remove();
         d3.selectAll(".endtime").remove();
         d3.selectAll(".duration").remove();
+        d3.selectAll(".circle").remove();
         var sibling = d3.select(this.nextElementSibling).text();
         hovered = hovered+"-"+sibling;
         console.log(hovered);

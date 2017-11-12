@@ -272,6 +272,14 @@ p .legend{
   stroke-width:0px;
   opacity:1;
 }
+.circle {
+  stroke:#3498db;
+  stroke-width:3;
+  fill:none;
+  r: 22;
+  opacity:1;
+  stroke-dasharray:1;
+}
 
 .segment {
   stroke:black;
