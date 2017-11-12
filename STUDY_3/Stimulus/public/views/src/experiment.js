@@ -192,10 +192,12 @@ var triangular_scaffolded = {
     jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({hovered:hovered});
     jsPsych.data.addDataToLastTrial({block:"triangular_scaffolded"});
+    jsPsych.data.addDataToLastTrial({mouseLog:mouseLog});
     console.log("TS"+(data.trial_index-20));
     console.log("finished: "+data.internal_node_id);
     console.log("tri_correct? "+correct);
     console.log("orth_correct? "+orth_correct);
+    console.log("PRINT MOUSE LOG "+mouseLog);
   },
   timeline: [
       {on_start: function(){
@@ -206,6 +208,7 @@ var triangular_scaffolded = {
           explicit = explicit;
           impasse = impasse;
           axis = axis;
+          sid = sid;
 
       }},
       {on_start: function(){
@@ -216,6 +219,7 @@ var triangular_scaffolded = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        sid = sid;
       }},
       {on_start: function(){
         graph= "triangular";
@@ -269,10 +273,12 @@ var triangular_testing = {
     jsPsych.data.addDataToLastTrial({clicked:clicked});
     jsPsych.data.addDataToLastTrial({hovered:hovered});
     jsPsych.data.addDataToLastTrial({block:"triangular_testing"});
+    jsPsych.data.addDataToLastTrial({mouseLog:mouseLog});
     console.log("TT"+(data.trial_index-25));
     console.log("finished: "+data.internal_node_id);
     console.log("tri_correct? "+correct);
     console.log("orth_correct? "+orth_correct);
+    console.log("PRINT MOUSE LOG "+mouseLog);
   },
   timeline: [
       {on_start: function(){

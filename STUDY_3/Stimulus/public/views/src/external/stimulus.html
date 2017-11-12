@@ -13,6 +13,7 @@
 <body>
 
   <div class = "stimulus">
+    <p class = "userid" id="userid"></p>
     <div class = "userinput">
 
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
@@ -364,6 +365,9 @@
     <div class = "d3container"></div>
   </div> <!--stimulus container-->
 <script>
+
+    $('.userid').html(sid);
+
     // console.log("start of clicked array: "+clicked);
     // console.log("start of hovered string: "+hovered);
 
@@ -496,7 +500,7 @@
       $('#diagonal-image').css("display","none"); //display textimage scaffold
       $('#hint-interactive').css("display","none"); //display textimage scaffold
       intersects = false;
-    }  
+    }
 
     // //---------CREATE THE SVG  ------------------------//
     var svg = d3.select(".d3container").append("svg")
@@ -513,3 +517,19 @@
 </script>
 
 </body>
+
+
+<script>
+//MOUSE LOGGING SCRIPT
+var mouseLog = []
+var xwidth = $(document).width();
+var xheight = $(document).width();
+mouseLog.push("{x:"+xwidth+",y:"+xheight+",t:"+"0};")
+
+document.onmousemove = function(e){
+  var pageCoords = "{x:" + e.pageX + ",y:"+ e.pageY +",t:"+ Date.now()+ "};" ;
+  mouseLog.push(pageCoords);
+  // console.log(pageCoords);
+};
+
+</script>
