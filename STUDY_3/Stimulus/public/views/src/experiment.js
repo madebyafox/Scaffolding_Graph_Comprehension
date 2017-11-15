@@ -65,7 +65,7 @@ var phone = {
       block:"phone"
     },
     on_start: function(data){
-      window._mfq.push(["newPageView", "/phones"]);
+
     }
 };
 var consent = {
@@ -121,7 +121,6 @@ var instructions_lab = {
     "cont_btn": "start",
     on_start: function(){
       scenarios=scenarios;
-      window._mfq.push(["newPageView", "/instructions"]);
     },
     data: {
       block:"instructions_lab"
@@ -136,7 +135,6 @@ var scenario = {
       block: "scenario"
     },
     on_start: function(data){
-      window._mfq.push(["newPageView", "/scenario"]);
     }
 }
 var debrief = {
@@ -148,7 +146,6 @@ var debrief = {
       block: "debrief"
     },
     on_start: function(data){
-      window._mfq.push(["newPageView", "/debrief"]);
     }
 };
 
@@ -214,6 +211,10 @@ var triangular_scaffolded = {
     console.log("tri_correct? "+correct);
     console.log("orth_correct? "+orth_correct);
     console.log("PRINT MOUSE LOG "+mouseLog);
+    window._mfq.push(["setVariable", "SID", sid]);
+    window._mfq.push(["setVariable", "CONDITION", condition]);
+    window._mfq.push(["setVariable", "TRI_CORRECT", correct]);
+    window._mfq.push(["setVariable", "ORTH_CORRECT", orth_correct]);
   },
   timeline: [
       {on_start: function(){
@@ -299,6 +300,10 @@ var triangular_testing = {
     console.log("tri_correct? "+correct);
     console.log("orth_correct? "+orth_correct);
     console.log("PRINT MOUSE LOG "+mouseLog);
+    window._mfq.push(["setVariable", "SID", sid]);
+    window._mfq.push(["setVariable", "CONDITION", condition]);
+    window._mfq.push(["setVariable", "TRI_CORRECT", correct]);
+    window._mfq.push(["setVariable", "ORTH_CORRECT", orth_correct]);
   },
   timeline: [
       {on_start: function(){
