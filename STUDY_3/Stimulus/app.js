@@ -24,7 +24,10 @@ app.use(express.static(__dirname + '/public'));
 // app.use('/jsPsych', express.static(__dirname + "/jsPsych"));
 
 // --- BODY PARSING MIDDLEWARE
-app.use(body_parser.json());
+// app.use(body_parser.json());
+
+app.use(body_parser.json({limit: '500mb'}));
+
 
 
 // --- VIEW LOCATION, SET UP SERVING STATIC HTML
