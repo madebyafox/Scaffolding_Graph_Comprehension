@@ -63,6 +63,9 @@ var phone = {
     choices: [13, 32],
     data: {
       block:"phone"
+    },
+    on_start: function(data){
+      window._mfq.push(["newPageView", "/phones"]);
     }
 };
 var consent = {
@@ -71,6 +74,9 @@ var consent = {
     "url": "../views/src/external/consent.html",
     "cont_btn": "start",
     "check_fn": check_consent,
+    on_start: function(data){
+      window._mfq.push(["newPageView", "/consent"]);
+    },
     data: {
       block:"consent"
     }
@@ -79,6 +85,9 @@ var codes = {
     type: 'survey-text',
     preamble: "<p>Please enter the following information from your participant card</p>",
     questions: ["Session code: ", "Condition code: "],
+    on_start: function(data){
+      window._mfq.push(["newPageView", "/codes"]);
+    },
     data: {
       block:"codes"
     },
@@ -112,6 +121,7 @@ var instructions_lab = {
     "cont_btn": "start",
     on_start: function(){
       scenarios=scenarios;
+      window._mfq.push(["newPageView", "/instructions"]);
     },
     data: {
       block:"instructions_lab"
@@ -124,6 +134,9 @@ var scenario = {
     prompt: '<p style="font-style:italic;">Press enter to continue</p>',
     data: {
       block: "scenario"
+    },
+    on_start: function(data){
+      window._mfq.push(["newPageView", "/scenario"]);
     }
 }
 var debrief = {
@@ -133,6 +146,9 @@ var debrief = {
     "cont_btn": "start",
     data: {
       block: "debrief"
+    },
+    on_start: function(data){
+      window._mfq.push(["newPageView", "/debrief"]);
     }
 };
 
@@ -209,7 +225,7 @@ var triangular_scaffolded = {
           impasse = impasse;
           axis = axis;
           sid = sid;
-
+          window._mfq.push(["newPageView", "/1"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -220,6 +236,7 @@ var triangular_scaffolded = {
         impasse = impasse;
         axis = axis;
         sid = sid;
+        window._mfq.push(["newPageView", "/2"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -229,6 +246,7 @@ var triangular_scaffolded = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/3"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -238,6 +256,7 @@ var triangular_scaffolded = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/4"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -247,6 +266,7 @@ var triangular_scaffolded = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/5"]);
       }}
     ]
 }
@@ -289,6 +309,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/6"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -298,6 +319,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/7"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -307,6 +329,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/8"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -316,6 +339,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/9"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -325,6 +349,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/10"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -334,6 +359,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/11"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -343,6 +369,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/12"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -352,6 +379,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/13"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -361,6 +389,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/14"]);
       }},
       {on_start: function(){
         graph= "triangular";
@@ -370,6 +399,7 @@ var triangular_testing = {
         explicit = explicit;
         impasse = impasse;
         axis = axis;
+        window._mfq.push(["newPageView", "/15"]);
       }}
   ],
   randomize_order: false
