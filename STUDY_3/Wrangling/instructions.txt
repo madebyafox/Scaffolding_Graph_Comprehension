@@ -33,31 +33,7 @@ levels of analysis
 
 
 
-STEP THREE: EXTRACT DATA FROM MONGODB
-> start roboMongo
-> access relevant data analysis script (ie. master_session.js)
-> manually edit master_session.js to address the session data you wish to extract from the DB, then run
-> convert final extracted records from .json to .csv using https://json-csv.com/
 
 STEP FOUR: manually construct master spss / R data sets
 > in each _participants.xls file created, manually split demographics fields into separate columns by ','delimiter
 > create _min (or _m) translations for each time field (recorded in miliseconds)
-> filter out exception cases that we don't want to process in R
-> MUST EXCLUDE CONDITION 4 IN DELTA SESSION & BELOW (before interactive instructions were added)
-
---NO LONGER RELEVANT, DOING MONGOWRANGLING INSTEAD //STEP THREE: EXTRACT FILES from server into CSV file based on session
---NO LONGER RELEVANT, DOING MONGOWRANGLING INSTEAD // //mongoexport -h ds161159.mlab.com:61159 -d 2ypdbh -c entries -u expadmin -p secondyear --type csv --query '{"data.session":"purple"}' --fieldFile pilot_fields.txt --out purple.csv
---NO LONGER RELEVANT -- ADD contents of (cleaned) session file to master.json
---NO LONGER RELEVANT -- mongoimport -d LABS -c x_all_documents --file master.json
-
-
-MASTER DATA WRANGLING
-In the all.xls, the raw tab contains all data
-> the all tab contains all data with flags
-> the wrangled tab contains final data set without removed rows, reorganized and with addition of time in minutes
-
-all.participants
-> remove 20 participants who were in condition 4 BEFORE the interactive condition instructions were added
-
-
-DATABASE BACKUPS
