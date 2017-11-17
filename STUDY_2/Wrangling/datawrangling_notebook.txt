@@ -1,5 +1,4 @@
 
-
 STEP ONE: EXPORT DATA FROM DB SERVER TO LOCAL
 //for each session, export the records into a json file for the session from the server
 mongoexport -h ds161159.mlab.com:61159 -d 2ypdbh -c entries -u expadmin -p secondyear --out purple2.json
@@ -37,3 +36,8 @@ In the all.xls, the raw tab contains all data
 
 all.participants
 > remove 20 participants who were in condition 4 BEFORE the interactive condition instructions were added
+
+
+DATABASE BACKUPS
+mongodump --db LABS
+exports the LABS database (running on default local) to bson files to /dump in current directory
