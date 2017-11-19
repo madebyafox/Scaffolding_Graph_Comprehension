@@ -77,6 +77,14 @@
 
   $('.userid').html(sid);
 
+
+  //---------SET CONDITIONS -------------//
+  var q = 1; //question number [less than 5 gives scaffold, more than five does not]
+  var axis = 2; //"1 = full, "2 = partial", ,3 = diagonal"
+  var explicit = 3; //"1 = none", "2=image" , "3=interactive"
+  var impasse = 1; //"1=nonimpasse", "2=impasse"
+
+
     //---------SET PROPERTIES OF THE GRAPH -------------//
     // set the dimensions and margins of the graph
     var margin = {top: 25, right: 30, bottom: 90, left: 100},
@@ -88,18 +96,10 @@
     var clicked = [];
     var hovered ;
     var colorClick = false;
-    var q = 1; //question number, passed from experiment.js
 
     //define data file in experiment.js based on question and condition
     var datafile = "";
 
-    var axis = 2; //"full, "partial", ,diagonal"
-    var explicit = 3; //"1", "2" , "3"
-    var impasse = 1; //"1", "2"
-
-    //explicit: 1 (control), 2(text/image), 3(interactive)
-    //implicit: 1 (control), 2(impasse)
-    //axis: 1(orthogonal), 2(partial), 3(diagonal)
 
     // SET AXIS VALUES
     if (axis == 1){
@@ -133,15 +133,15 @@
 
     //SET DATA FILE FOR IMPLICIT SCAFFOLD
     if (impasse == 1){
-      datafile = "acme_nonimpasse.csv";
+      datafile = "data/acme_nonimpasse.csv";
     }
     else if (impasse == 2){
-      datafile = "acme_impasse.csv";
+      datafile = "data/acme_impasse.csv";
     }
 
     //OVERRIDE DATA FILE FOR NON-SCAFFOLD QUESTIONS
     if (q > 5) { //override data file if q# is greater than 5
-      datafile = "data_3.csv";
+      datafile = "data/data_3.csv";
       console.log("override data file");
       $('#orthogonal-image').css("display","none"); //display textimage scaffold
       $('#diagonal-image').css("display","none"); //display textimage scaffold
