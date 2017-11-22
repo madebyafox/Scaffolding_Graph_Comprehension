@@ -1,0 +1,61 @@
+---
+title: "Exploration"
+output: 
+  html_document:
+    toc: true
+    theme: flatly
+  
+
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#IMPORT LIBRARIES
+library("jsonlite")
+library(tables) # pretty tables
+
+#Create data frame for participant file
+participant_file <- "data/final_participants.json"
+df_participants <- fromJSON(participant_file)
+#names(df_participants) #print names of each column in the data frame
+
+#Create factor vectors
+EXPLICIT <- factor(df_participants$explicit)
+IMPASSE  <- factor(df_participants$impasse)
+AXIS  <- factor(df_participants$axis)
+
+num_participants <- nrow(df_participants)
+```
+
+## Participant Conditions
+
+We ran **`r num_participants` subjects** in this 3 (explicit scaffold: none, text/image, interactive) X 2 (implicit scaffold: none, impasse) design.   
+
+```{r results = 'asis', echo = FALSE}
+#create table of participants by factors (explicit X impasse) 
+table <- tabular( (IMPASSE+1)~(EXPLICIT+1), data = df_participants )
+table_options(rowlabeljustification="center", justification="right")
+html(table,options=htmloptions(head=TRUE))
+```   
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
