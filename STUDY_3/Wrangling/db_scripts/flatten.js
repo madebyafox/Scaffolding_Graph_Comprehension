@@ -3,6 +3,8 @@
 //CREATE A COLLECTION OF ALL SESSIONS
 db.createCollection("all_sessions");
 db.alfa.copyTo("all_sessions");
+db.delta.copyTo("all_sessions");
+db.echo.copyTo("all_sessions");
 //add each session file as they come in
 
 
@@ -86,6 +88,9 @@ db.getCollection('all_blocks').aggregate([
        subject:1,
        block:1,
        condition:1,
+       axis : 1,
+       impasse: 1,
+       explicit: 1,
        session:1,
        time_elapsed :1,
        ts_n: { $cond: { if: {$eq: ['$block', 'triangular_scaffolded']} , then: "$correct", else: null } },
@@ -102,6 +107,9 @@ db.getCollection('all_blocks').aggregate([
        _id:"$subject",
        session: {$first:"$session"},
        condition: {$first:"$condition"},
+       axis: {$first:"$axis"},
+       impasse: {$first:"$impasse"},
+       explicit: {$first:"$explicit"},
        demos: {$addToSet: "$demos"},
        ts_n: {$sum: "$ts_n"},
        tt_n: {$sum: "$tt_n"},
@@ -116,6 +124,9 @@ db.getCollection('all_blocks').aggregate([
       subject:"$_id",
       session: 1,
       condition: 1,
+      axis : 1,
+      impasse: 1,
+      explicit: 1,
       ts_n: 1,
       tt_n: 1,
       ts_t: 1,
@@ -160,5 +171,6 @@ db.getCollection('all_test_blocks').aggregate([
 //CREATE A COLLECTION OF ALL VALID test blocks with mouse-----------> x_final_blocks_mouse FOR ANALYSIS
 db.getCollection('all_test_blocks_mouse').aggregate([
     {$match: { "subject": {$nin: lazies }}},
+    {$project: { _id : 0 } },
     {$out: "x_mouse_blocks"}
 ]);
