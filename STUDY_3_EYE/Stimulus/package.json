@@ -1,5 +1,5 @@
 {
-  "name": "2yp_experiment_part3",
+  "name": "2yp_experiment",
   "version": "1.0.0",
   "description": "web application for delivery of learning comprehension experiment",
   "main": "app.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/madebyafox/2YP-Study3-EyeTracking.git"
+    "url": "git+https://github.com/madebyafox/2YP-Experiment.git"
   },
   "keywords": [
     "psych",
@@ -17,9 +17,9 @@
   "author": "Amy Rae Fox",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/madebyafox/2YP-Study3-EyeTracking.git/issues"
+    "url": "https://github.com/madebyafox/2YP-Experiment/issues"
   },
-  "homepage": "https://github.com/madebyafox/2YP-Study3-EyeTracking.git#readme",
+  "homepage": "https://github.com/madebyafox/2YP-Experiment#readme",
   "dependencies": {
     "body-parser": "^1.16.0",
     "ejs": "^2.5.5",

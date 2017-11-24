@@ -8,30 +8,39 @@ SAMPLE URL FOR HEROKUAPP:
 
 Notes
 ----------
+Experimental Design:
+Random assignment via condition condition code
+SESSION CODE -> alphanumeric string chose by experimenter to indicate data collection SESSION
+CONDITION CODE -> 3 digits
+first digit: explicit scaffold
+1 - control
+2 - text/image
+3 - interactive
 
-Due to the constraints of the eye tracking software (Mangold Vision), the experimental codebase for Study 3 is substantially different in structure than study 2 (experiment)
-:: owing to the inability to send data from one "item" in an subject run to another, each condition will be contained in a separate codebase with different url
-:: owing to the inability to send data """ each question in the test battery will be accessed via a unique url.
-:: VERY IMPORTANTLY, this has implications for the (lack) of session-level data that can be stored in each database record
-::: Each page (item level question) will be stored in the database as an individual record WITHOUT subject-level information. This relies on the analyst to consolidate records based on the order and timestamps of entry into the database
+second digit: implicit scaffold
+1 - control
+2 - impasse
 
+third digit: grid format
+1 - full orthogonal
+2 - partial orthogonal
+3 - diagonal
 
-Structure
------------
-Condition [0-3] and question [0-14] are set in the querystring
+MANUALLY SET MIN, MAX AND RANGE IN GRAPHS.JS
 
 
 Installation & Notes
 ------------------
 https://github.com/Tuuleh/jsPsychBackendStart as reference
-0, Requires node.js
+0 Requires node.js
+------------------ RUNNING LOCAL ------------------
 1. After download of files from github, run [ npm update ] to install node_modules
 2. Check app.js file for proper configuration of local vs. hosted db information and server connections
 3. Run local Mongodb    [ mongod in terminal ]
 4. Start application [node app.js]
 5. Navigate to localhost:3000
 6. View database by running viewer (like RoboMongo)
-
+------------------
 
 Technical Notes
 ------------------
@@ -43,6 +52,7 @@ Technical Notes
 - nodemon for reload
 - Body-parser is middleware for Node.js that allows you to parse key-value data
 - mongoose is a MongoDB driver for the Express framework
+- use https://www.npmjs.com/package/append-query for appending to query string
 > thanks to https://github.com/Tuuleh/jsPsychBackendStart for boilerplate Mongo-Express-Node stack for db connectivity
 
 Dev Notes
@@ -54,3 +64,5 @@ Dev Notes
 > see https://devcenter.heroku.com/articles/git for reference
 > set mongo path in heroku with
 heroku config:set CONNECTION = [mongolabs uri]
+> heroku for deploy
+> mlabs for db
