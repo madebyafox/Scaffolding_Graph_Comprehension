@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(jsonlite)
 library(tables) # pretty tables
 library(pastecs) #stat.desc
-
+library(ggplot2) #graphs
 
 #Create data frame for participant file
 participant_file <- "data/final_participants.json"
@@ -26,15 +26,20 @@ IMPASSE  <- factor(df_subjects$impasse, levels = c(1,2), labels = c("none", "imp
 AXIS  <- factor(df_subjects$axis)
 
 df_subjects$tt_min <- df_subjects$triangular_time / 1000 / 60
+
+#Count number of participants
+nSubjects <- nrow(df_subjects)
+nFemale <-sum(df_subjects$sex == "Female")
 ```
 
-###Introduction
+#Introduction
 The purpose of this study is to compare the relative efficacy of *explicit* (ie. visually-salient text or images that serve instructional purpose) and *implicit* (ie. task and question structure) scaffolding for an unconventional statistical graph.  We hypothesize that implicit techniques---specifically presenting a task that forms a **mental impasse** for the reader---will be more supportive of correct graph interpretation than explicit graph-reading instructions.  We base this hypothesis on prior observation and experimental work (Fox & Hollan, *in preparation*) which revealed that when presented with an unconventional graph with structural elements (ie. axes and grid) that resembled conventional graphs, learners did not always realize they did not understand how the graph was meant to be read. We propose that prior knoweldge of conventional graph systems acts as a form of "graphical fixedness", that learners must overcome to form correct mental models for new representational systems. 
+<br>
 
-
-###Methods
-####Design
+#Methods
+##Design
 We utilized a 3 (explicit scaffold: none, text/image, interactive) X 2 (implicit scaffold: none, impasse) between-subjects factorial design, with response time and score (max = 15) as dependent variables.   
+<br>
 ```{r results = 'asis', echo = FALSE}
 #create table of participants by factors (explicit X impasse) 
 # table <- tabular( (IMPASSE+1)~(EXPLICIT+1), data = df_subjects )
@@ -43,21 +48,39 @@ We utilized a 3 (explicit scaffold: none, text/image, interactive) X 2 (implicit
 ```   
 
 
+##Participants
 
-####Participants
-  
-```{r results = 'asis', echo = FALSE}
-#Cout number of participants
-nSubjects <- nrow(df_subjects)
-nFemale <-sum(df_subjects$sex == "Female")
-```     
 **`r nSubjects` students ** (``r round(nFemale/nSubjects,digits = 2) * 100`` % female) registered as STEM majors at a public university in the United States participated in exchange for course credit (age: ``r min(df_subjects$age)`` - ``r max(df_subjects$age)`` years).
+<br><br>
 
-####Measures
+##Measures
 ```{r echo = FALSE}
-# descriptives<-stat.desc(df_subjects)
+#EXPLORE SAMPLE STATISTICS
+
+#describe the sample
+describe_score<-stat.desc(df_subjects$triangular_score) 
+describe_time<-stat.desc(df_subjects$tt_min) 
+
+time_min = round(describe_time[4], 0)
+time_max = round(describe_time[5], 0)
+time_m = round(describe_time[9], 0)
+time_sd = round(describe_time[10], 2)
+ 
+score_min = round(describe_score[4], 0)
+score_max = round(describe_score[5], 0)
+score_m = round(describe_score[9], 0)
+score_sd = round(describe_score[10], 2)
+
+#tests for normalcy
+score_normal <- shapiro.test(df_subjects$triangular_score)
+time_normal <- shapiro.test(df_subjects$tt_min)
+
 ```
-#####Response Accuracy
+
+###Response Accuracy   
+The mean response accuracy across the entire sample was approximately `r score_m` points (out of 15), with a standard deviation of `r score_sd` , with values ranging from `r score_min` to `r score_max`  points.    
+<br>
+
 ```{r results = 'asis', echo = FALSE}
 #Create a tables of means for task scores 
 table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
@@ -67,9 +90,30 @@ table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
                             data=df_subjects)
 html(table,options=htmloptions(head=TRUE))
 #latex(table)
-```
 
-#####Response Latency
+#SCORE HISTOGRAM
+TimeHist <-ggplot(df_subjects, aes(triangular_score)) 
+TimeHist + geom_histogram(binwidth=1) + 
+  coord_cartesian(xlim=c(0,15)) +
+  ggtitle("Total Score") + 
+  labs(x="Score (points)", y="Number of Participants") + 
+  theme_bw()+
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=14, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
+```
+<br>
+<span style="color:red"> 
+A Shapiro-Wilk test for normality yielded a value of ```r score_normal[1]```, p = ```r score_normal[2]``` suggesting that the distibution is significantly non-normal.    
+</span>    
+<br>
+
+
+###Response Latency
+The mean total runtime was approximately `r time_m` minutes, with a standard deviation of `r time_sd` minutes, with values ranging from `r time_min` to `r time_max`  minutes. 
+<br>
+
 ```{r results = 'asis', echo = FALSE}
 #Create a tables of means for task runtime 
 table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
@@ -79,9 +123,26 @@ table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
                             data=df_subjects)
 html(table,options=htmloptions(head=TRUE))
 #latex(table)
+
+
+#SCORE HISTOGRAM
+ScoreHist <-ggplot(df_subjects, aes(tt_min)) 
+ScoreHist + geom_histogram(binwidth=1) + 
+  coord_cartesian(xlim=c(0,15)) +
+  ggtitle("Response Time") + 
+  labs(x="Time (min)", y="Number of Participants") + 
+  theme_bw()+
+  theme(strip.background = element_blank())+
+  theme(plot.title = element_text(family = "Helvetica", color="#666666", face="bold", size=14, hjust=0.5)) + 
+  theme(axis.title = element_text(family = "Helvetica", color="#666666", face="bold", size=10)) +
+  theme(panel.border = element_blank())
 ```
 
-
+<br>
+<span style="color:red"> 
+A Shapiro-Wilk test for normality yielded a value of ```r time_normal[1]```, p = ```r time_normal[2]``` suggesting that the data are from a normally-distributed population. 
+</span>    
+<br>
 
 
 
