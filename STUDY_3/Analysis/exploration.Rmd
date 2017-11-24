@@ -4,58 +4,84 @@ output:
   html_document:
     toc: true
     theme: flatly
-  
-
-
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 #IMPORT LIBRARIES
-library("jsonlite")
+library(jsonlite)
 library(tables) # pretty tables
+library(pastecs) #stat.desc
+
 
 #Create data frame for participant file
 participant_file <- "data/final_participants.json"
-df_participants <- fromJSON(participant_file)
-#names(df_participants) #print names of each column in the data frame
+df_subjects <- fromJSON(participant_file)
+#names(df_subjects) #print names of each column in the data frame
 
 #Create factor vectors
-EXPLICIT <- factor(df_participants$explicit)
-IMPASSE  <- factor(df_participants$impasse)
-AXIS  <- factor(df_participants$axis)
+EXPLICIT <- factor(df_subjects$explicit, levels = c(1,2,3), labels = c("none", "text/image", "interactive"))
+IMPASSE  <- factor(df_subjects$impasse, levels = c(1,2), labels = c("none", "impasse"))
+AXIS  <- factor(df_subjects$axis)
 
-num_participants <- nrow(df_participants)
+df_subjects$tt_min <- df_subjects$triangular_time / 1000 / 60
 ```
 
-## Participant Conditions
+###Introduction
+The purpose of this study is to compare the relative efficacy of *explicit* (ie. visually-salient text or images that serve instructional purpose) and *implicit* (ie. task and question structure) scaffolding for an unconventional statistical graph.  We hypothesize that implicit techniques---specifically presenting a task that forms a **mental impasse** for the reader---will be more supportive of correct graph interpretation than explicit graph-reading instructions.  We base this hypothesis on prior observation and experimental work (Fox & Hollan, *in preparation*) which revealed that when presented with an unconventional graph with structural elements (ie. axes and grid) that resembled conventional graphs, learners did not always realize they did not understand how the graph was meant to be read. We propose that prior knoweldge of conventional graph systems acts as a form of "graphical fixedness", that learners must overcome to form correct mental models for new representational systems. 
 
-We ran **`r num_participants` subjects** in this 3 (explicit scaffold: none, text/image, interactive) X 2 (implicit scaffold: none, impasse) design.   
 
+###Methods
+####Design
+We utilized a 3 (explicit scaffold: none, text/image, interactive) X 2 (implicit scaffold: none, impasse) between-subjects factorial design, with response time and score (max = 15) as dependent variables.   
 ```{r results = 'asis', echo = FALSE}
 #create table of participants by factors (explicit X impasse) 
-table <- tabular( (IMPASSE+1)~(EXPLICIT+1), data = df_participants )
-table_options(rowlabeljustification="center", justification="right")
-html(table,options=htmloptions(head=TRUE))
+# table <- tabular( (IMPASSE+1)~(EXPLICIT+1), data = df_subjects )
+# table_options(rowlabeljustification="center", justification="right")
+# html(table,options=htmloptions(head=TRUE))
 ```   
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+####Participants
+  
+```{r results = 'asis', echo = FALSE}
+#Cout number of participants
+nSubjects <- nrow(df_subjects)
+nFemale <-sum(df_subjects$sex == "Female")
+```     
+**`r nSubjects` students ** (``r round(nFemale/nSubjects,digits = 2) * 100`` % female) registered as STEM majors at a public university in the United States participated in exchange for course credit (age: ``r min(df_subjects$age)`` - ``r max(df_subjects$age)`` years).
 
-```{r cars}
-summary(cars)
+####Measures
+```{r echo = FALSE}
+# descriptives<-stat.desc(df_subjects)
+```
+#####Response Accuracy
+```{r results = 'asis', echo = FALSE}
+#Create a tables of means for task scores 
+table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
+                            *(Heading("")*triangular_score) 
+                            *(mean+sd)
+                            *Format(digits=2),
+                            data=df_subjects)
+html(table,options=htmloptions(head=TRUE))
+#latex(table)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+#####Response Latency
+```{r results = 'asis', echo = FALSE}
+#Create a tables of means for task runtime 
+table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
+                            *(Heading("")*tt_min) 
+                            *(mean + sd)
+                            *Format(digits=2), 
+                            data=df_subjects)
+html(table,options=htmloptions(head=TRUE))
+#latex(table)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
