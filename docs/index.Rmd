@@ -1,0 +1,31 @@
+---
+title: "Scaffolding Comprehension of Unconventional Graphs"
+author:  "Amy Rae Fox, 11/24/17"
+output:
+  html_document:
+    fig_width: 1
+---
+
+----
+
+**How do you make sense of a graph that you have never seen before?**   
+As powerful as graphics may be in their communicative efficiency, they needn’t be immediately easy to understand. In fact, there are often real tradeoffs between a representation’s discoverability and efficiency. Peebles & Cheng (2003) demonstrated that even for informationally equivalent graphs, the computational efficiency (operationalized in terms of the number of steps to retrieve information) of a less conventional representation may outweigh its ease of use to the untrained reader.  It is this fact that underlies much modern research in Information Visualization: developing sophisticated information interfaces for highly skilled workers performing complex and specialized tasks.  Sometimes this work results in novel, unconventional representations that are computationally suited to a particular set of data and analytical task, but that present a graph-reading challenge to the lay reader.  Most work in remediating errors in graph comprehension has focused on “second order” readings: characterizing the trend or relationships between data points in a graph. In the case of time interval graphs this would involve generalizations like, “most events occur late in the day”, or “longer events start earlier in the day”. We tend to accept a priori that well-designed graphs readily afford first-order readings: operations for extracting data from the graph. In fact, it is the seeming effortlessness of these readings that make graphs so desirable as external representations. In this project, we use a simple but unconventional graph - The Triangular Model (TM) of Interval Relations (Qiang et. al. 2014)  to explore how individuals make use of prior knowledge when reading unconventional graphs.  
+
+
+In <a href="Study1.html">**Study 1**</a> we observe learner's solving problems with the TM graph, and challenge them to design instructional aids.    
+In <a href="Study2.html">**Study 2**</a> we design four scaffolding techniques and test their efficacy with both LM and TM graphs.    
+In <a href="Study3.html">**Study 3**</a> we compare the effectiveness of explicit and implicit (impasse problems) for the TM graph.    
+
+----
+
+**Researchers**   
+Amy Rae Fox, MA. MEd.   
+James Hollan, PhD   
+Research Assistants:Evan Barosay, Kai-yu Chang, Hazel Leung   
+
+----   
+
+**References**   
+1. Peebles, D., & Cheng, P. C.-H. (2003). Modeling the effect of task and graphical representation on response latency in a graph reading task. Human Factors, 45(1), 28–46. https://doi.org/10.1518/hfes.45.1.28.27225   
+2. Qiang, Y., Valcke, M., De Maeyer, P., & Van de Weghe, N. (2014). Representing time intervals in a two-dimensional space: An empirical study. Journal of Visual Languages and Computing, 25(4), 466–480. https://doi.org/10.1016/j.jvlc.2014.01.001   
+

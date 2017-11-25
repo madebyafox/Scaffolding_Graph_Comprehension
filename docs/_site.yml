@@ -1,0 +1,17 @@
+name: "Scaffolding Graph Comprehension"
+navbar:
+  title: "MAIN"
+  left:
+    - text: "Study 1"
+      href: Study1.html
+    - text: "Study 2"
+      href: Study2.html
+    - text: "Study 3"
+      href: Study3.html
+output_dir: "."
+output:
+  html_document:
+    theme: yeti
+    highlight: textmate
+    include:
+      after_body: _footer.html

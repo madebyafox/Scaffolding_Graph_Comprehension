@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Study 2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">MAIN</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Study1.html">Study 1</a>
+</li>
+<li>
+  <a href="Study2.html">Study 2</a>
+</li>
+<li>
+  <a href="Study3.html">Study 3</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Study 2</h1>
+
+</div>
+
+
+<div id="evaluating-scaffolds-for-an-unconventional-statistical-graph" class="section level1 tabset tabset-fade tabset-pills">
+<h1>Evaluating scaffolds for an unconventional statistical graph</h1>
+<p><br></p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p><br> In Study Two we examine if scaffolding is effective in aiding untrained students to understand the Triangular Model (TM) graph. We know that students are unlikely to construct the correct interpretation of the TM without assistance. Guided by the results of the Study One Design Task, we created four scaffolds. We test the effectiveness of these scaffolds by seeking to replicate the Qiang et.al (2014) finding that after 20 minutes of video training, students perform faster and more accurately with the unconventional TM than the conventional Linear Model (LM). Will our participants show similar performance on the TM with scaffolds rather than formal instruction? Further, will engagement with the TM in a reading task be sufficient for students to reproduce the graph in a subsequent drawing task?<br />
+<br></p>
+<div id="hypotheses" class="section level3">
+<h3>Hypotheses</h3>
+<ol style="list-style-type: decimal">
+<li>Learners without scaffolding (control) will perform better with the LM than TM<br />
+</li>
+<li>Learners with (any form of) scaffolding will perform better with the TM than LM (replication of [12]).<br />
+</li>
+<li>Based on observations in Study One we expect that graph-order will act as a scaffold. Learners who solve problems with the LM graph first will perform better on the TM (relative to TM-first learners) as their attention will be drawn to the salient differences between the graphs.<br />
+<br></li>
+</ol>
+<hr />
+<p><strong>To try the study yourself: </strong> visit <a href="http://morning-gorge-17056.herokuapp.com/" class="uri">http://morning-gorge-17056.herokuapp.com/</a><br />
+<em>Enter “github” as your session code, and number of the condition you wish to test</em><br />
+0 = control (no-scaffold), 1 = “what-text”, 2 = “how-text”, 3 = “static-image”, 4 = “interactive-image”<br />
+<br> <br></p>
+</div>
+</div>
+<div id="methods" class="section level2">
+<h2>Methods</h2>
+<div id="design" class="section level3">
+<h3>Design</h3>
+<p>We employed a 5 (scaffold: none-control, what-text, how-text, static image, interactive image) x 2 (graph: LM, TM) mixed design, with scaffold as a between-subjects variable and graph as a within-subject variable. To test our hypothesis that exposure to the conventional LM acts as a scaffold for the TM, we counterbalanced the order of graph-reading tasks (order: LM-first, TM-first). For each task we measured response accuracy and time. For the follow-up graph-drawing task, a team of raters coded the type of graph produced by each participant.<br />
+<br></p>
+</div>
+<div id="participants" class="section level3">
+<h3>Participants</h3>
+<p>316 (69% female) students aged 17 to 33 at a public American univeristy participated in the study. All participants completed three activities: two graph reading tasks (with both the linear model (LM) and triangular model (TM) graphs) followed by a drawing task. In some cases (linear-first), participants (n = 154) completed the graph reading task with the LM graph, followed by the task with the TM graph. An additional (n= 162) subjects completed the graph reading tasks in reverse order. Each particiant was randomly assigned to one of five conditions which determined what additional information (scaffold) they received while solving the first five problems with each graph: no-scaffold (control), ‘what’ text, ‘how’-text, static-image, and interactive-image. The runtime of the entire study ranged from 22 to 66 minutes (m = 40, sd = 0.48). <br> <br></p>
+</div>
+<div id="materials" class="section level3">
+<h3>Materials</h3>
+<div id="scaffolds" class="section level4">
+<h4>Scaffolds</h4>
+<p>For the first five questions of each graph-reading task, participants saw their assigned scaffold along with the designated graph. On the following ten questions, the scaffold was not present. Examples of each scaffold-condition for the TM and LM graphs are shown below. <br> <br></p>
+<p>
+<table style="width:100%">
+  <tr>
+    <th>Scaffold Condition</th>
+    <th>Linear Model (LM)</th>
+    <th>Triangular Model (LM)</th> 
+  </tr>
+  <tr>
+    <td>none-control</td>
+    <td><img src="images/study2/0-LM.png" height="200" width="350" ></td> 
+    <td><img src="images/study2/0-TM.png" height="200" width="350" ></td> 
+  </tr>
+  <tr>
+    <td>"what-text"</td>
+    <td><img src="Study2_files/figure-html/1-LM.png" height="200" width="350"></td> 
+    <td><img src="Study2_files/figure-html/1-TM.png" height="200" width="350"></td> 
+  </tr>
+  <tr>
+    <td>"how-text"</td>
+    <td><img src="Study2_files/figure-html/2-LM.png" height="200" width="350" ></td> 
+    <td><img src="Study2_files/figure-html/2-TM.png" height="200" width="350" ></td> 
+  </tr>
+  <tr>
+    <td>"static-image"</td>
+    <td><img src="Study2_files/figure-html/3-LM.png" height="200" width="350"></td> 
+    <td><img src="Study2_files/figure-html/3-TM.png" height="200" width="350"></td> 
+  </tr>
+  <tr>
+    <td>"interactive-image"</td>
+    <td><img src="Study2_files/figure-html/4-LM.png" height="200" width="350"></td> 
+    <td><img src="Study2_files/figure-html/4-TM.png" height="200" width="350"></td> 
+    <td></td>
+  </tr>  
+</table>
+ <br> <br></p>
+</div>
+<div id="the-graph-reading-task" class="section level4">
+<h4>The Graph Reading Task</h4>
+<p>Each graph reading task consisted of a graph (LM or TM) and 15 multiple choice questions (used in Study One). Questions were presented one at a time, and participants did not receive feedback as to the accuracy of their response before proceeding to the next question. The order of the first five (scaffolded) questions was the same for each participant, while the order of the remaining 10 were randomized. For each question, the stimulus software recorded the participant’s response accuracy (correct, incorrect) and latency (time from page-load to “submit” button press). As each participant completed the reading task once with each graph, we developed two matched scenarios: a project manager scheduling tasks (scenario A), and an events manager scheduling reservations (scenario B). In each scenario, an equivalent question can be identified in the other pertaining to the same interval property or relation. For the LM graphs, intervals were sorted in order of duration, with the longest intervals appearing at the top of the graph.A pilot study on Amazon Mechanical Turk using the LM graph revealed no significant differences in difficulty between the scenarios. The four graphs constructed for the study are shown below.</p>
+<p><a href="Study2_files/questions.html"> <strong>The full list of questions and correct answers can be found here</strong> </a>.</p>
+<p><br> <br> 
+<table style="width:100%">
+  <tr>
+    <th>Task Scheduling (Scenario A)</th>
+    <th>Event Scheduling (Scenario B)</th> 
+  </tr>
+  <tr>
+    <td><img src="Study2_files/figure-html/axis.png" height="200" width="350" ></td> 
+    <td><img src="Study2_files/figure-html/longmire.png" height="200" width="350" ></td> 
+  </tr>
+  <tr>
+    <td><img src="Study2_files/figure-html/0-LM.png" height="200" width="350" ></td> 
+    <td><img src="Study2_files/figure-html/5-LM.png" height="200" width="350" ></td> 
+  </tr>
+  <tr>
+    <td><img src="Study2_files/figure-html/0-TM.png" height="200" width="350"></td> 
+    <td><img src="Study2_files/figure-html/5-TM.png" height="200" width="350"></td> 
+  </tr>
+</table>
+ <br> <br></p>
+</div>
+<div id="the-graph-drawing-task" class="section level4">
+<h4>The Graph Drawing Task</h4>
+<p>In the <a href="../Study2_files/drawing_task.pdf">graph drawing task</a> participants were given a sheet of isometric dot paper and a table containing a set of 10 time intervals. Isometric dot paper equally supports the construction of lines at 0, 45 and 90 degrees, thus minimizing any biasing effects of the paper on the type of graph the participants chose to draw.  Participants were directed to draw a triangular graph of the data (“like the triangle graph you saw in the previous task”), using the pencil, eraser and ruler provided. <br> <br></p>
+</div>
+</div>
+<div id="procedure" class="section level3">
+<h3>Procedure</h3>
+<p>Participants completed the study individually in a computer lab. After a short introduction they continued to the first of two graph reading tasks (graph order counterbalanced). After completing the first graph reading task, they were introduced to the second scenario, and completed the second graph reading task with the remaining graph. Finally, participants completed the graph drawing task. They finished the study by completing a short demographic survey, and reading the debriefing text. <br> <br></p>
+</div>
+</div>
+<div id="results-score" class="section level2">
+<h2>Results (Score)</h2>
+<div id="explore-the-data" class="section level4">
+<h4>Explore the data</h4>
+<p><em>We see a large variance in TM scores across Graph-Orders</em></p>
+<pre class="r"><code>#EXPLORE THE DATA
+#create boxplot
+
+#SIMPLE BOXPLOT BY CONDITION
+# mixedPlot_condition &lt;- ggplot(l_scores, aes(condition,value, color=variable))+ geom_boxplot() +
+#  labs(x=&quot;scaffold condition&quot;, y=&quot;score (max = 15)&quot;) +
+#  ggtitle(&quot;Task Score by Scaffold &quot;) +
+#  theme_bw()
+# mixedPlot_condition
+  
+#BOXPLOT BY CONDITION, FACET WITH ORDER
+mixedPlot_order &lt;- ggplot(l_scores, aes(condition,value, fill=variable))+ geom_boxplot() +
+  facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  labs(x=&quot;scaffold condition&quot;, y=&quot;score (max = 15)&quot;, color=&quot;task&quot;)+ 
+  labs(title=&quot;Task Score by Scaffold &amp; Graph-Order &quot;) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_fill_manual( values = c(green,red),
+                       name=&quot;graphing task&quot;,
+                       breaks=c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
+                       labels=c(&quot;linear&quot;, &quot;triangular&quot;)) 
+mixedPlot_order</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>#BOXPLOT BY CONDITION, FACET WITH ORDER AND SCENARIO
+mixedPlot_scenario &lt;- ggplot(l_scores, aes(condition,value, fill=variable))+ geom_boxplot() +
+ facet_grid(lm_scenarios~order, labeller=labeller(order = order_labels)) +
+ labs(x=&quot;scaffold condition&quot;, y=&quot;score (max = 15)&quot;)+
+ ggtitle(&quot;Task Score by Scaffold, Task Order and Scenario &quot;) +
+ theme_bw() +
+ theme(strip.background = element_blank()) +
+ scale_fill_manual( values = c(green,red),
+                       name=&quot;graphing task&quot;,
+                       breaks=c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
+                       labels=c(&quot;linear&quot;, &quot;triangular&quot;))
+  #use scale_fill_manual to manually change colors 
+mixedPlot_scenario</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+</div>
+<div id="hypothesis-testing" class="section level4">
+<h4>Hypothesis Testing</h4>
+<p><em>Compute mixed effects ANOVA on Response Score</em><br />
+Significant main effect of Graph F(1,297) = 97.67, p &lt; .001<br />
+Significant main effect of Scaffold F(4,297) = 4.24, p &lt; .01<br />
+Significant main effect of Scenario F(1,297) = 22.29, p &lt; .001<br />
+Significant interaction of Scaffold and Graph F(4,297) = 9.99, p &lt;.001<br />
+Significant interaction of Graph and Scenario F(1,297) = 34.80, p &lt;.001</p>
+<pre class="r"><code>#construct contrasts for ANOVA model
+options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
+
+#execute the model
+mixedModel = ezANOVA(data = l_scores,
+                     dv = .(value),
+                     wid = .(subject),
+                     between = .(condition,order,lm_scenarios),
+                     within = .(variable),
+                     type = 3,
+                     detailed = TRUE)</code></pre>
+<pre><code>## Warning: Converting &quot;subject&quot; to factor for ANOVA.</code></pre>
+<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified
+## a well-considered value for the type argument to ezANOVA().</code></pre>
+<pre class="r"><code>mixedModel</code></pre>
+<pre><code>## $ANOVA
+##                                   Effect DFn DFd          SSn      SSd
+## 1                            (Intercept)   1 296 6.032444e+04 4314.409
+## 2                              condition   4 296 2.474212e+02 4314.409
+## 3                                  order   1 296 1.070270e+01 4314.409
+## 4                           lm_scenarios   1 296 3.243464e+02 4314.409
+## 9                               variable   1 296 6.708253e+02 2053.170
+## 5                        condition:order   4 296 3.979850e+01 4314.409
+## 6                 condition:lm_scenarios   4 296 7.450472e+01 4314.409
+## 7                     order:lm_scenarios   1 296 6.306627e-01 4314.409
+## 10                    condition:variable   4 296 2.785593e+02 2053.170
+## 11                        order:variable   1 296 2.378837e+01 2053.170
+## 12                 lm_scenarios:variable   1 296 2.382161e+02 2053.170
+## 8           condition:order:lm_scenarios   4 296 2.393475e+01 4314.409
+## 13              condition:order:variable   4 296 5.603432e+01 2053.170
+## 14       condition:lm_scenarios:variable   4 296 2.757067e+01 2053.170
+## 15           order:lm_scenarios:variable   1 296 1.699674e+00 2053.170
+## 16 condition:order:lm_scenarios:variable   4 296 8.360845e+00 2053.170
+##               F             p p&lt;.05          ges
+## 1  4.138698e+03 4.967248e-176     * 9.045226e-01
+## 2  4.243727e+00  2.351329e-03     * 3.740306e-02
+## 3  7.342835e-01  3.921915e-01       1.677991e-03
+## 4  2.225254e+01  3.689436e-06     * 4.846832e-02
+## 9  9.671109e+01  6.226124e-20     * 9.530930e-02
+## 5  6.826171e-01  6.044789e-01       6.211356e-03
+## 6  1.277892e+00  2.786863e-01       1.156531e-02
+## 7  4.326807e-02  8.353644e-01       9.903297e-05
+## 10 1.003979e+01  1.241419e-07     * 4.191296e-02
+## 11 3.429505e+00  6.503691e-02       3.721953e-03
+## 12 3.434297e+01  1.230461e-08     * 3.606168e-02
+## 8  4.105247e-01  8.010291e-01       3.744770e-03
+## 13 2.019580e+00  9.169296e-02       8.723179e-03
+## 14 9.936975e-01  4.112221e-01       4.311185e-03
+## 15 2.450374e-01  6.209585e-01       2.668550e-04
+## 16 3.013402e-01  8.769499e-01       1.311312e-03</code></pre>
+<pre class="r"><code>#summary(mixedModel)</code></pre>
+</div>
+<div id="main-effect-graph-on-score" class="section level4">
+<h4>MAIN EFFECT: Graph on SCORE</h4>
+<p>On average, participants scored significantly higher on the linear model task (M = 10.96, SD = 2.13) than on the triangular model (M = 8.78 SD = 4.44), t(316) = 9.41, p &lt; 0.001, r = 0.47</p>
+<pre class="r"><code>bar &lt;- ggplot(l_scores, aes(x = variable, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
+      stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
+      labs (x = &quot;Graph Task &quot;, y= &quot;Score&quot;, fill=&quot;Graph Task&quot;) +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c(&quot;linear_score&quot; = &quot;Linear Graph (LM)&quot;, &quot;triangular_score&quot; = &quot;Triangular Graph (TM)&quot;)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle(&quot;Mean Score by Graph Task&quot;)+
+      scale_fill_manual(values = c(green,red),
+                        name = &quot;Graph Task&quot;,
+                        breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
+                        labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>#CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
+mainEffectGraph  &lt;- t.test(value ~ variable, data=l_scores, paired=TRUE)
+mainEffectGraph</code></pre>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  value by variable
+## t = 9.4141, df = 315, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  1.722182 2.632249
+## sample estimates:
+## mean of the differences 
+##                2.177215</code></pre>
+<pre class="r"><code>t &lt;-mainEffectGraph$statistic[[1]]
+df &lt;-mainEffectGraph$parameter[[1]]
+r &lt;- sqrt(t^2/(t^2+df))
+round(r,3)</code></pre>
+<pre><code>## [1] 0.469</code></pre>
+</div>
+<div id="main-effect-scaffold-on-score" class="section level4">
+<h4>MAIN EFFECT: Scaffold on SCORE</h4>
+</div>
+<div id="main-effect-scenario-on-score" class="section level4">
+<h4>MAIN EFFECT: Scenario on SCORE</h4>
+<p>When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p &lt; 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)</p>
+<pre class="r"><code>bar &lt;- ggplot(l_scores, aes(x = variable, y= value, fill=lm_scenarios))
+bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
+      stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
+      labs (x = &quot;Graph Task&quot;, y= &quot;Score&quot;, fill=&quot;&quot;) +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c(&quot;linear_score&quot; = &quot;linear (LM)&quot;, &quot;triangular_score&quot; = &quot;triangular (TM)&quot;)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle(&quot;Mean Score by Scenario &amp; Graph&quot;)+
+      scale_fill_manual(values = c(blue,purple),
+                        name = &quot;Task Scenario&quot;,
+                        breaks =c(&quot;axis&quot;,&quot;longmire&quot;),
+                        labels =c(&quot;axis&quot;,&quot;longmire&quot;))</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>dots &lt;- ggplot(l_scores, aes(x = lm_scenarios, y= value, color=variable))
+dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;point&quot;, position = position_dodge(width=0.1),width=0.2) +
+      stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.1),width=0.2) +
+      stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;line&quot;, position=position_dodge(width=0.1)) +
+      labs (x = &quot;Task Scenario &quot;, y= &quot;Score&quot;, fill=&quot;Task Graph&quot;) +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c(&quot;axis&quot; = &quot;axis&quot;, &quot;longmire&quot; = &quot;longmire&quot;)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle(&quot;Mean Score by Scenario &amp; Graph&quot;)+
+      scale_color_manual(values = c(green,red),
+                        name = &quot;Task Graph&quot;,
+                        breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
+                        labels =c(&quot;linear (LM)&quot;,&quot;triangular (TM)&quot;))</code></pre>
+<pre><code>## Warning: Ignoring unknown parameters: width</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="interaction-scaffold-graph" class="section level4">
+<h4>INTERACTION: Scaffold &amp; Graph</h4>
+</div>
+<div id="interaction-scenario-graph" class="section level4">
+<h4>INTERACTION: Scenario &amp; Graph</h4>
+</div>
+</div>
+<div id="results-time" class="section level2">
+<h2>Results (Time)</h2>
+<div id="explore-the-data-1" class="section level4">
+<h4>Explore the data</h4>
+<p><em>We see comparable response times for LM and TM graphs when the LM graph is solved first. However, when the TM graph is solved first, the TM graph-reading task seems to take much longer.</em></p>
+<pre class="r"><code>#EXPLORE THE DATA
+
+#SIMPLE BOXPLOT BY CONDITION
+# mixedPlot_condition &lt;- ggplot(l_times, aes(condition,value, color=variable))+ geom_boxplot() +
+#  labs(x=&quot;scaffold condition&quot;, y=&quot;time (mins)&quot;) +
+#  ggtitle(&quot;Response Time by Scaffold &quot;) +
+#  theme_bw()
+# mixedPlot_condition
+  
+#BOXPLOT BY CONDITION, FACET WITH ORDER
+mixedPlot_order &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom_boxplot() +
+  facet_wrap(~order, labeller=labeller(order = order_labels)) +
+  labs(x=&quot;scaffold condition&quot;, y=&quot;time (mins)&quot;, color=&quot;task&quot;)+ 
+  labs(title=&quot;Response Time by Scaffold &amp; Graph-Order &quot;) +
+  theme_bw() +
+  theme(strip.background = element_blank()) +
+  scale_fill_manual( values = c(green,red),
+                       name=&quot;graphing task&quot;,
+                       breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
+                       labels=c(&quot;linear&quot;, &quot;triangular&quot;)) 
+mixedPlot_order</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>#BOXPLOT BY CONDITION, FACET WITH ORDER AND SCENARIO
+mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom_boxplot() +
+ facet_grid(lm_scenarios~order, labeller=labeller(order = order_labels)) +
+ labs(x=&quot;scaffold condition&quot;, y=&quot;time (mins)&quot;)+
+ ggtitle(&quot;Response Time by Scaffold, Task Order and Scenario &quot;) +
+ theme_bw() +
+ theme(strip.background = element_blank()) +
+ scale_fill_manual( values = c(green,red),
+                       name=&quot;graphing task&quot;,
+                       breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
+                       labels=c(&quot;linear&quot;, &quot;triangular&quot;))
+mixedPlot_scenario</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+</div>
+<div id="hypothesis-testing-1" class="section level4">
+<h4>Hypothesis Testing</h4>
+<p><em>Compute mixed effects ANOVA on Response Time</em><br />
+Significant main-effect of Graph F(1,297) = 109.71, p &lt;.001<br />
+Significant interaction between Graph &amp; Scaffold F(4,297) = 3.51, p &lt; .01<br />
+Significant interaction between Graph and Scenario, F(1,297) = 8.35, p &lt;.01<br />
+Significant interaction between Graph and Graph-Order, F(1,297) = 44.24, p &lt;.001</p>
+<pre class="r"><code>#construct contrasts for ANOVA model
+options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
+
+#execute the model
+mixedModel = ezANOVA(data = l_times,
+                     dv = .(value),
+                     wid = .(subject),
+                     between = .(condition,order,lm_scenarios),
+                     within = .(variable),
+                     type = 3,
+                     detailed = TRUE)</code></pre>
+<pre><code>## Warning: Converting &quot;subject&quot; to factor for ANOVA.</code></pre>
+<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified
+## a well-considered value for the type argument to ezANOVA().</code></pre>
+<pre class="r"><code>mixedModel</code></pre>
+<pre><code>## $ANOVA
+##                                   Effect DFn DFd          SSn      SSd
+## 1                            (Intercept)   1 296 6.152673e+04 3625.023
+## 2                              condition   4 296 5.451453e+01 3625.023
+## 3                                  order   1 296 5.412868e-01 3625.023
+## 4                           lm_scenarios   1 296 3.302950e+01 3625.023
+## 9                               variable   1 296 4.245147e+02 1145.391
+## 5                        condition:order   4 296 3.644702e+01 3625.023
+## 6                 condition:lm_scenarios   4 296 8.098356e+01 3625.023
+## 7                     order:lm_scenarios   1 296 1.703814e+01 3625.023
+## 10                    condition:variable   4 296 5.436523e+01 1145.391
+## 11                        order:variable   1 296 1.711826e+02 1145.391
+## 12                 lm_scenarios:variable   1 296 3.232806e+01 1145.391
+## 8           condition:order:lm_scenarios   4 296 3.690296e+01 3625.023
+## 13              condition:order:variable   4 296 3.440708e+01 1145.391
+## 14       condition:lm_scenarios:variable   4 296 2.334054e+01 1145.391
+## 15           order:lm_scenarios:variable   1 296 2.473067e-01 1145.391
+## 16 condition:order:lm_scenarios:variable   4 296 2.271490e+01 1145.391
+##               F             p p&lt;.05          ges
+## 1  5.023944e+03 9.890040e-188     * 9.280450e-01
+## 2  1.112841e+00  3.505529e-01       1.129852e-02
+## 3  4.419859e-02  8.336292e-01       1.134546e-04
+## 4  2.697013e+00  1.015984e-01       6.876213e-03
+## 9  1.097060e+02  4.807775e-22     * 8.171713e-02
+## 5  7.440173e-01  5.626588e-01       7.582291e-03
+## 6  1.653171e+00  1.609305e-01       1.669283e-02
+## 7  1.391244e+00  2.391423e-01       3.558916e-03
+## 10 3.512361e+00  8.058308e-03     * 1.126792e-02
+## 11 4.423822e+01  1.402607e-10     * 3.464116e-02
+## 12 8.354442e+00  4.132080e-03     * 6.731167e-03
+## 8  7.533247e-01  5.564595e-01       7.676416e-03
+## 13 2.222929e+00  6.656133e-02       7.160949e-03
+## 14 1.507956e+00  1.997993e-01       4.868948e-03
+## 15 6.391074e-02  8.005938e-01       5.183909e-05
+## 16 1.467536e+00  2.120297e-01       4.739055e-03</code></pre>
+<pre class="r"><code>#summary(mixedModel)</code></pre>
+</div>
+<div id="main-effect-graph-on-time" class="section level4">
+<h4>MAIN EFFECT: Graph on TIME</h4>
+<p>On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  value by variable
+## t = -9.458, df = 315, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.984566 -1.301067
+## sample estimates:
+## mean of the differences 
+##               -1.642816</code></pre>
+<pre><code>## [1] 0.47</code></pre>
+</div>
+<div id="interaction-scaffold-graph-1" class="section level4">
+<h4>INTERACTION: Scaffold &amp; Graph</h4>
+</div>
+<div id="interaction-scenario-graph-1" class="section level4">
+<h4>INTERACTION: Scenario &amp; Graph</h4>
+</div>
+<div id="interaction-order-graph" class="section level4">
+<h4>INTERACTION: Order &amp; Graph</h4>
+</div>
+</div>
+<div id="results-graph-drawing" class="section level2">
+<h2>Results (Graph Drawing)</h2>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Qiang, Y., Valcke, M., De Maeyer, P., &amp; Van de Weghe, N. (2014). Representing time intervals in a two-dimensional space: An empirical study. Journal of Visual Languages and Computing, 25(4), 466–480.</p>
+</div>
+</div>
+
+<br>
+<hr>
+<p>Copyright &copy; 2017 Amy Rae Fox. All rights reserved.</p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

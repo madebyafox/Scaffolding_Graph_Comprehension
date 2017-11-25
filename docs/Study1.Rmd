@@ -1,0 +1,45 @@
+---
+title: "Study 1" 
+output:
+  html_document: 
+    code_folding: hide  
+    fig_caption: true
+  # :
+  #   toc: true
+  #   toc_float: true
+  #   toc_depth: 3
+---
+
+# Observing learning of an unconventional statistical graph {.tabset .tabset-fade .tabset-pills}  
+<br> 
+
+## Introduction    
+<br>   
+
+## Methods   
+
+### Design
+<br>   
+
+### Participants   
+<br>    
+
+### Materials   
+
+#### Part A: Graph Reading Task   
+<br> <br>   
+
+#### Post-Task Interview   
+<br> <br>   
+
+#### Part B: Scaffold Design Task   
+<br> <br>   
+
+### Procedure
+<br> <br>
+
+
+## Results (Graph Reading Task)   
+## Results (Scaffold Design Task)   
+## References   
+
