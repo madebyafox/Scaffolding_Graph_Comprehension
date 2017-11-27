@@ -29,6 +29,8 @@ suppressPackageStartupMessages({
   library(lme4) #better mixed model
   library(WRS2) #robust tests
   library(multcomp) # post-hoc tests on repeated-measures anova
+  library(rcompanion) # chi square post hocs
+
 
 })
 ```
@@ -404,7 +406,8 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="bar", posi
 ```
 
 ### Hypothesis 3: Learners with (any form of) scaffolding will perform better with the TM than LM (replication of Qiang et al  (2014)). 
-If we compare LM and TM scores in each scaffold condition (2-4) we will find that TM scores are higher than LM scores. 
+If we compare LM and TM scores in each scaffold condition (2-4) we expect to find that TM scores are higher than LM scores. 
+Instead, we find that TM scores are on average lower than LM scores in every condition.   
 
 ```{r collapse=TRUE}
 #explore descriptive statistics based on each IV
@@ -428,7 +431,6 @@ bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom="bar"
       scale_x_discrete(labels=c( "0" = "none-control", "1" = "what-text", "2"="how-text", "3"="static-img", "4"="ix img")) 
 ```
 
-
 ```{r collapse = TRUE}
 #REPEATED MEASURES ANOVA ON score by scaffold condition
 
@@ -451,15 +453,9 @@ pairwise.t.test(df_subjects$score_diff, df_subjects$condition,  p.adjust.method=
 
 ```
 
-Shows that differences are significant between 
-control-interactive
-tex1 - interactive, 
-text-2 interactive
-image-interactive
+Instead, we find that only in the interactive-image condition yields TM scores significantly higher than the no-scaffold control.  
 
-
-
-####Hypothesis Testing
+###MIXED EFFECTS MODEL
 
 *Compute mixed effects ANOVA on Response Score*   
 Significant main effect of Graph     F(1,297) = 97.67, p < .001   
@@ -517,12 +513,6 @@ r <- sqrt(t^2/(t^2+df))
 round(r,3)
 ```
 
-
-
-
-
-
-
 ####MAIN EFFECT: Scaffold on SCORE
 ####MAIN EFFECT: Scenario on SCORE
 
@@ -573,17 +563,6 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="point", p
 # r <- sqrt(t^2/(t^2+df))
 # round(r,3)
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ####INTERACTION: Scaffold & Graph   
 ####INTERACTION: Scenario & Graph   
@@ -711,6 +690,85 @@ round(r,3)
 ####INTERACTION: Order & Graph   
 
 ## Results (Graph Drawing) 
+
+```{r collapse=TRUE}
+#explore independence of graph drawing by condition
+table(df_subjects$`Graph Type`, df_subjects$condition)
+chisq.test(df_subjects$`Graph Type`, df_subjects$condition, correct=TRUE) 
+fisher.test(df_subjects$`Graph Type`, df_subjects$condition) 
+
+Input =("
+Interpretation control  whattext howtext static interactive
+'Right angle'    17  6  9 10  2
+'Triangular'    34 50 48 41 57
+'Linear'        6  0  3  7  1
+'Scatterplot'      0  0  0  0  0
+'Asymmetric'      3  3  5  4  7
+")
+
+Matriz = as.matrix(read.table(textConnection(Input),
+                   header=TRUE, 
+                   row.names=1))
+
+Matriz
+
+chisq.test(Matriz)
+
+pairwiseNominalIndependence(Matriz,
+                            fisher = FALSE,
+                            gtest  = FALSE,
+                            chisq  = TRUE,
+                            method = "fdr")
+
+
+FUN = function(i,j){     
+      chisq.test(matrix(c(Matriz[i,1], Matriz[i,2],
+                          Matriz[j,1], Matriz[j,2]),
+                 nrow=2,
+                 byrow=TRUE))$ p.value
+                }
+      
+pairwise.table(FUN,
+               rownames(Matriz),
+               p.adjust.method="none")
+
+```
+
+```{r collapse = TRUE}
+#explore independence of graph drawing by order
+table(df_subjects$`Graph Type`, df_subjects$order)
+chisq.test(df_subjects$`Graph Type`, df_subjects$order, correct=TRUE) 
+fisher.test(df_subjects$`Graph Type`, df_subjects$order) 
+# ftable(bigTable)
+```
+
+The cell sizes are too heterogeneous to look for correlations in TM score and drawing type, but we can directly compare the TM scores for the two triangular interpretations: the right-angle triangle and asymetric triangle.
+
+```{r collapse = TRUE}
+
+#SETUP DATA FOR RESPONSE ACCURACY ANALYSIS
+df_small_draw <- subset(df_subjects, df_subjects$`Graph Type`%in% c("Triangular (asymmetric)","Triangular (right angle)"))
+ 
+#LM SCORES BY SCAFFOLD
+desc_control <- by(df_small_draw$triangular_score, df_small_draw$`Graph Type`, stat.desc, basic=FALSE)
+desc_control
+
+right_mean = desc_control$`Triangular (right angle)`[2]
+right_SD = desc_control$`Triangular (right angle)`[6]
+asy_mean = desc_control$`Triangular (asymmetric)`[2]
+asy_SD = desc_control$`Triangular (asymmetric)`[6]
+
+# #CALULCULATE POSTHOC DIFFERENCE & EFFECT SIZE
+mainEffectGraph  <- t.test(triangular_score ~ `Graph Type`, data=df_small_draw, na.rm=TRUE)
+mainEffectGraph
+
+t <-mainEffectGraph$statistic[[1]]
+df <-mainEffectGraph$parameter[[1]]
+r <- sqrt(t^2/(t^2+df))
+round(r,3)
+```
+
+TM scores for participants who drew "right-angle" graphs were significantly lower (M = `r round(right_mean,2)`, SD = `r round(right_SD,2)`) than for participants who drew "asymmetric triangle" graphs (M = `r round(asy_mean,2)`, SD = `r round(asy_SD,2)`), t(`r df`) = `r t`, p = `r p[[1]]` , r = `r r`. 
 
 ## References
 

@@ -331,8 +331,8 @@ $(document).ready(function () {
 </div>
 <div id="results-score" class="section level2">
 <h2>Results (Score)</h2>
-<div id="explore-the-data" class="section level4">
-<h4>Explore the data</h4>
+<div id="explore-the-data" class="section level3">
+<h3>Explore the data</h3>
 <p><em>We see a large variance in TM scores across Graph-Orders</em></p>
 <pre class="r"><code>#EXPLORE THE DATA
 #create boxplot
@@ -371,8 +371,9 @@ mixedPlot_scenario &lt;- ggplot(l_scores, aes(condition,value, fill=variable))+ 
   #use scale_fill_manual to manually change colors 
 mixedPlot_scenario</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
-<div id="hypothesis-1-scaffold-conditon-and-graph-order-will-not-affect-performance-on-the-lm-graph-because-it-is-conventional-and-relatively-easy-to-read" class="section level5">
-<h5>Hypothesis 1: Scaffold conditon and graph-order will not affect performance on the LM graph, because it is conventional and relatively easy to read</h5>
+</div>
+<div id="hypothesis-1-scaffold-conditon-and-graph-order-will-not-affect-performance-on-the-lm-graph-because-it-is-conventional-and-relatively-easy-to-read" class="section level3">
+<h3>Hypothesis 1: Scaffold conditon and graph-order will not affect performance on the LM graph, because it is conventional and relatively easy to read</h3>
 <p>When we compare LM scores both graph-orders and scaffold-conditions (and scenarios), we do not find significant differences</p>
 <pre class="r"><code>#explore descriptive statistics based on each IV
 
@@ -498,8 +499,8 @@ simpleModel
 ##   DFn DFd      SSn      SSd        F        p p&lt;.05
 ## 1   1 314 2.707298 499.6598 1.701341 0.193068</code></pre>
 </div>
-<div id="hypothesis-2-learners-without-scaffolding-control-will-perform-better-with-the-lm-than-tm." class="section level5">
-<h5>Hypothesis 2: Learners without scaffolding (control) will perform better with the LM than TM.</h5>
+<div id="hypothesis-2-learners-without-scaffolding-control-will-perform-better-with-the-lm-than-tm." class="section level3">
+<h3>Hypothesis 2: Learners without scaffolding (control) will perform better with the LM than TM.</h3>
 <pre class="r"><code>#explore descriptive statistics based on each IV
 desc_control &lt;- by(l_scores_control$value, list(l_scores_control$variable), stat.desc, basic=FALSE)
 desc_control
@@ -558,9 +559,101 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
                         labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
+<div id="hypothesis-3-learners-with-any-form-of-scaffolding-will-perform-better-with-the-tm-than-lm-replication-of-qiang-et-al-2014." class="section level3">
+<h3>Hypothesis 3: Learners with (any form of) scaffolding will perform better with the TM than LM (replication of Qiang et al (2014)).</h3>
+<p>If we compare LM and TM scores in each scaffold condition (2-4) we expect to find that TM scores are higher than LM scores. Instead, we find that TM scores are on average lower than LM scores in every condition.</p>
+<pre class="r"><code>#explore descriptive statistics based on each IV
+desc &lt;- by(df_subjects$score_diff, list(df_subjects$condition), stat.desc, basic=FALSE)
+desc
+## : 0
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   -4.0000000   -4.0819672    0.5774899    1.1551518   20.3431694 
+##      std.dev     coef.var 
+##    4.5103403   -1.1049428 
+## -------------------------------------------------------- 
+## : 1
+##       median         mean      SE.mean CI.mean.0.95          var 
+##    -2.000000    -2.254237     0.511466     1.023810    15.434249 
+##      std.dev     coef.var 
+##     3.928645    -1.742782 
+## -------------------------------------------------------- 
+## : 2
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   -2.0000000   -2.1969697    0.4943597    0.9873044   16.1298368 
+##      std.dev     coef.var 
+##    4.0161968   -1.8280620 
+## -------------------------------------------------------- 
+## : 3
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   -1.0000000   -2.3548387    0.5085711    1.0169507   16.0359598 
+##      std.dev     coef.var 
+##    4.0044925   -1.7005379 
+## -------------------------------------------------------- 
+## : 4
+##       median         mean      SE.mean CI.mean.0.95          var 
+##    0.5000000   -0.2205882    0.3913269    0.7810919   10.4133011 
+##      std.dev     coef.var 
+##    3.2269647  -14.6289066
+# LM_mean = desc_control$linear_score[2]
+# LM_SD = desc_control$linear_score[6]
+# TM_mean = desc_control$triangular_score[2]
+# TM_SD = desc_control$triangular_score[6]</code></pre>
+<pre class="r"><code>bar &lt;- ggplot(df_subjects, aes(x = condition, y= score_diff))
+bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
+      stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
+      labs (x = &quot;Scaffold&quot;, y= &quot;Score Difference (TM-LM)&quot;) +
+      coord_cartesian(ylim=c(-15,15)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle(&quot;Score Difference by Scaffold&quot;) +
+      scale_x_discrete(labels=c( &quot;0&quot; = &quot;none-control&quot;, &quot;1&quot; = &quot;what-text&quot;, &quot;2&quot;=&quot;how-text&quot;, &quot;3&quot;=&quot;static-img&quot;, &quot;4&quot;=&quot;ix img&quot;)) </code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>#REPEATED MEASURES ANOVA ON score by scaffold condition
+
+#One way to look at this is an ANOVA on the difference score by scaffold condition
+#construct contrasts for ANOVA model
+options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
+
+simpleModel = ezANOVA(data = df_subjects,
+                     dv = .(score_diff),
+                     wid = .(subject),
+                     between = .(condition),
+                     type = 3,
+                     detailed = TRUE)
+## Warning: Converting &quot;subject&quot; to factor for ANOVA.
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified
+## a well-considered value for the type argument to ezANOVA().
+simpleModel
+## $ANOVA
+##        Effect DFn DFd       SSn      SSd        F            p p&lt;.05
+## 1 (Intercept)   1 311 1555.5595 4840.101 99.95226 1.373019e-20     *
+## 2   condition   4 311  483.9752 4840.101  7.77444 5.544654e-06     *
+##          ges
+## 1 0.24322110
+## 2 0.09090314
+## 
+## $`Levene&#39;s Test for Homogeneity of Variance`
+##   DFn DFd      SSn      SSd        F          p p&lt;.05
+## 1   4 311 65.26842 1928.592 2.631256 0.03443319     *
+
+
+pairwise.t.test(df_subjects$score_diff, df_subjects$condition,  p.adjust.method=&quot;bonferroni&quot;) 
+## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  df_subjects$score_diff and df_subjects$condition 
+## 
+##   0       1     2     3    
+## 1 0.117   -     -     -    
+## 2 0.075   1.000 -     -    
+## 3 0.158   1.000 1.000 -    
+## 4 6.1e-07 0.040 0.040 0.022
+## 
+## P value adjustment method: bonferroni</code></pre>
+<p>Instead, we find that only in the interactive-image condition yields TM scores significantly higher than the no-scaffold control.</p>
 </div>
-<div id="hypothesis-testing" class="section level4">
-<h4>Hypothesis Testing</h4>
+<div id="mixed-effects-model" class="section level3">
+<h3>MIXED EFFECTS MODEL</h3>
 <p><em>Compute mixed effects ANOVA on Response Score</em><br />
 Significant main effect of Graph F(1,297) = 97.67, p &lt; .001<br />
 Significant main effect of Scaffold F(4,297) = 4.24, p &lt; .01<br />
@@ -618,7 +711,6 @@ mixedModel = ezANOVA(data = l_scores,
 ## 15 2.450374e-01  6.209585e-01       2.668550e-04
 ## 16 3.013402e-01  8.769499e-01       1.311312e-03</code></pre>
 <pre class="r"><code>#summary(mixedModel)</code></pre>
-</div>
 <div id="main-effect-graph-on-score" class="section level4">
 <h4>MAIN EFFECT: Graph on SCORE</h4>
 <p>On average, participants scored significantly higher on the linear model task (M = 10.96, SD = 2.13) than on the triangular model (M = 8.78 SD = 4.44), t(316) = 9.41, p &lt; 0.001, r = 0.47</p>
@@ -635,7 +727,7 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
                         name = &quot;Graph Task&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>#CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
 mainEffectGraph  &lt;- t.test(value ~ variable, data=l_scores, paired=TRUE)
 mainEffectGraph</code></pre>
@@ -675,7 +767,7 @@ bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom=&quot;b
                         name = &quot;Task Scenario&quot;,
                         breaks =c(&quot;axis&quot;,&quot;longmire&quot;),
                         labels =c(&quot;axis&quot;,&quot;longmire&quot;))</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre class="r"><code>dots &lt;- ggplot(l_scores, aes(x = lm_scenarios, y= value, color=variable))
 dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;point&quot;, position = position_dodge(width=0.1),width=0.2) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.1),width=0.2) +
@@ -691,13 +783,14 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;poin
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear (LM)&quot;,&quot;triangular (TM)&quot;))</code></pre>
 <pre><code>## Warning: Ignoring unknown parameters: width</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
 <div id="interaction-scaffold-graph" class="section level4">
 <h4>INTERACTION: Scaffold &amp; Graph</h4>
 </div>
 <div id="interaction-scenario-graph" class="section level4">
 <h4>INTERACTION: Scenario &amp; Graph</h4>
+</div>
 </div>
 </div>
 <div id="results-time" class="section level2">
@@ -726,7 +819,7 @@ mixedPlot_order &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom
                        breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
                        labels=c(&quot;linear&quot;, &quot;triangular&quot;)) 
 mixedPlot_order</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <pre class="r"><code>#BOXPLOT BY CONDITION, FACET WITH ORDER AND SCENARIO
 mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom_boxplot() +
  facet_grid(lm_scenarios~order, labeller=labeller(order = order_labels)) +
@@ -739,9 +832,9 @@ mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ g
                        breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
                        labels=c(&quot;linear&quot;, &quot;triangular&quot;))
 mixedPlot_scenario</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
 </div>
-<div id="hypothesis-testing-1" class="section level4">
+<div id="hypothesis-testing" class="section level4">
 <h4>Hypothesis Testing</h4>
 <p><em>Compute mixed effects ANOVA on Response Time</em><br />
 Significant main-effect of Graph F(1,297) = 109.71, p &lt;.001<br />
@@ -803,7 +896,7 @@ mixedModel = ezANOVA(data = l_times,
 <div id="main-effect-graph-on-time" class="section level4">
 <h4>MAIN EFFECT: Graph on TIME</h4>
 <p>On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
-<p><img src="Study2_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -829,6 +922,230 @@ mixedModel = ezANOVA(data = l_times,
 </div>
 <div id="results-graph-drawing" class="section level2">
 <h2>Results (Graph Drawing)</h2>
+<pre class="r"><code>#explore independence of graph drawing by condition
+table(df_subjects$`Graph Type`, df_subjects$condition)
+##                           
+##                             0  1  2  3  4
+##   Triangular (right angle) 17  6  9 10  2
+##   Triangular               34 50 48 41 57
+##   Linear Model              6  0  3  7  1
+##   Scatterplot               1  0  1  0  1
+##   Other                     0  0  0  0  0
+##   Triangular (asymmetric)   3  3  5  4  7
+chisq.test(df_subjects$`Graph Type`, df_subjects$condition, correct=TRUE) 
+## Warning in chisq.test(df_subjects$`Graph Type`, df_subjects$condition,
+## correct = TRUE): Chi-squared approximation may be incorrect
+## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  df_subjects$`Graph Type` and df_subjects$condition
+## X-squared = 35.487, df = 16, p-value = 0.003407
+fisher.test(df_subjects$`Graph Type`, df_subjects$condition) 
+## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  df_subjects$`Graph Type` and df_subjects$condition
+## p-value = 1
+## alternative hypothesis: two.sided
+
+Input =(&quot;
+Interpretation control  whattext howtext static interactive
+&#39;Right angle&#39;    17  6  9 10  2
+&#39;Triangular&#39;    34 50 48 41 57
+&#39;Linear&#39;        6  0  3  7  1
+&#39;Scatterplot&#39;      0  0  0  0  0
+&#39;Asymmetric&#39;      3  3  5  4  7
+&quot;)
+
+Matriz = as.matrix(read.table(textConnection(Input),
+                   header=TRUE, 
+                   row.names=1))
+
+Matriz
+##             control whattext howtext static interactive
+## Right angle      17        6       9     10           2
+## Triangular       34       50      48     41          57
+## Linear            6        0       3      7           1
+## Scatterplot       0        0       0      0           0
+## Asymmetric        3        3       5      4           7
+
+chisq.test(Matriz)
+## Warning in chisq.test(Matriz): Chi-squared approximation may be incorrect
+## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  Matriz
+## X-squared = NaN, df = 16, p-value = NA
+
+pairwiseNominalIndependence(Matriz,
+                            fisher = FALSE,
+                            gtest  = FALSE,
+                            chisq  = TRUE,
+                            method = &quot;fdr&quot;)
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
+## incorrect
+##                   Comparison  p.Chisq p.adj.Chisq
+## 1   Right angle : Triangular 0.000504     0.00302
+## 2       Right angle : Linear 0.413000     0.49600
+## 3  Right angle : Scatterplot      NaN         NaN
+## 4   Right angle : Asymmetric 0.024400     0.04880
+## 5        Triangular : Linear 0.005280     0.01580
+## 6   Triangular : Scatterplot      NaN         NaN
+## 7    Triangular : Asymmetric 0.899000     0.89900
+## 8       Linear : Scatterplot      NaN         NaN
+## 9        Linear : Asymmetric 0.053300     0.07990
+## 10  Scatterplot : Asymmetric      NaN         NaN
+
+
+FUN = function(i,j){     
+      chisq.test(matrix(c(Matriz[i,1], Matriz[i,2],
+                          Matriz[j,1], Matriz[j,2]),
+                 nrow=2,
+                 byrow=TRUE))$ p.value
+                }
+      
+pairwise.table(FUN,
+               rownames(Matriz),
+               p.adjust.method=&quot;none&quot;)
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
+## Chi-squared approximation may be incorrect
+##             Right angle Triangular    Linear Scatterplot
+## Triangular  0.009076978         NA        NA          NA
+## Linear      0.401473200 0.01597337        NA          NA
+## Scatterplot         NaN        NaN       NaN          NA
+## Asymmetric  0.527312842 0.97716142 0.1824224         NaN</code></pre>
+<pre class="r"><code>#explore independence of graph drawing by order
+table(df_subjects$`Graph Type`, df_subjects$order)
+##                           
+##                            LMFirst TMFirst
+##   Triangular (right angle)      21      23
+##   Triangular                   122     108
+##   Linear Model                   3      14
+##   Scatterplot                    0       3
+##   Other                          0       0
+##   Triangular (asymmetric)        8      14
+chisq.test(df_subjects$`Graph Type`, df_subjects$order, correct=TRUE) 
+## Warning in chisq.test(df_subjects$`Graph Type`, df_subjects$order, correct
+## = TRUE): Chi-squared approximation may be incorrect
+## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  df_subjects$`Graph Type` and df_subjects$order
+## X-squared = 12.503, df = 4, p-value = 0.01398
+fisher.test(df_subjects$`Graph Type`, df_subjects$order) 
+## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  df_subjects$`Graph Type` and df_subjects$order
+## p-value = 0.01117
+## alternative hypothesis: two.sided
+# ftable(bigTable)</code></pre>
+<p>The cell sizes are too heterogeneous to look for correlations in TM score and drawing type, but we can directly compare the TM scores for the two triangular interpretations: the right-angle triangle and asymetric triangle.</p>
+<pre class="r"><code>
+#SETUP DATA FOR RESPONSE ACCURACY ANALYSIS
+df_small_draw &lt;- subset(df_subjects, df_subjects$`Graph Type`%in% c(&quot;Triangular (asymmetric)&quot;,&quot;Triangular (right angle)&quot;))
+ 
+#LM SCORES BY SCAFFOLD
+desc_control &lt;- by(df_small_draw$triangular_score, df_small_draw$`Graph Type`, stat.desc, basic=FALSE)
+desc_control
+## df_small_draw$`Graph Type`: Triangular (right angle)
+##       median         mean      SE.mean CI.mean.0.95          var 
+##    2.0000000    2.2954545    0.2990110    0.6030131    3.9339323 
+##      std.dev     coef.var 
+##    1.9834143    0.8640617 
+## -------------------------------------------------------- 
+## df_small_draw$`Graph Type`: Triangular
+## NULL
+## -------------------------------------------------------- 
+## df_small_draw$`Graph Type`: Linear Model
+## NULL
+## -------------------------------------------------------- 
+## df_small_draw$`Graph Type`: Scatterplot
+## NULL
+## -------------------------------------------------------- 
+## df_small_draw$`Graph Type`: Other
+## NULL
+## -------------------------------------------------------- 
+## df_small_draw$`Graph Type`: Triangular (asymmetric)
+##       median         mean      SE.mean CI.mean.0.95          var 
+##    9.0000000    8.5454545    0.7942632    1.6517607   13.8787879 
+##      std.dev     coef.var 
+##    3.7254245    0.4359539
+
+right_mean = desc_control$`Triangular (right angle)`[2]
+right_SD = desc_control$`Triangular (right angle)`[6]
+asy_mean = desc_control$`Triangular (asymmetric)`[2]
+asy_SD = desc_control$`Triangular (asymmetric)`[6]
+
+# #CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
+mainEffectGraph  &lt;- t.test(triangular_score ~ `Graph Type`, data=df_small_draw, na.rm=TRUE)
+mainEffectGraph
+## 
+##  Welch Two Sample t-test
+## 
+## data:  triangular_score by Graph Type
+## t = -7.3644, df = 27.108, p-value = 6.223e-08
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -7.991027 -4.508973
+## sample estimates:
+## mean in group Triangular (right angle) 
+##                               2.295455 
+##  mean in group Triangular (asymmetric) 
+##                               8.545455
+
+t &lt;-mainEffectGraph$statistic[[1]]
+df &lt;-mainEffectGraph$parameter[[1]]
+r &lt;- sqrt(t^2/(t^2+df))
+round(r,3)
+## [1] 0.817</code></pre>
+<p>TM scores for participants who drew “right-angle” graphs were significantly lower (M = 2.3, SD = 1.98) than for participants who drew “asymmetric triangle” graphs (M = 8.55, SD = 3.73), t(27.1083223) = -7.3643582, p = 1.911696710^{-9} , r = 0.8165396.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
