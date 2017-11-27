@@ -371,6 +371,193 @@ mixedPlot_scenario &lt;- ggplot(l_scores, aes(condition,value, fill=variable))+ 
   #use scale_fill_manual to manually change colors 
 mixedPlot_scenario</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<div id="hypothesis-1-scaffold-conditon-and-graph-order-will-not-affect-performance-on-the-lm-graph-because-it-is-conventional-and-relatively-easy-to-read" class="section level5">
+<h5>Hypothesis 1: Scaffold conditon and graph-order will not affect performance on the LM graph, because it is conventional and relatively easy to read</h5>
+<p>When we compare LM scores both graph-orders and scaffold-conditions (and scenarios), we do not find significant differences</p>
+<pre class="r"><code>#explore descriptive statistics based on each IV
+
+#LM SCORES BY SCAFFOLD
+desc_control &lt;- by(w_scores$linear_score, list(w_scores$condition), stat.desc, basic=FALSE)
+desc_control
+## : 0
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   10.9836066    0.2979821    0.5960530    5.4163934 
+##      std.dev     coef.var 
+##    2.3273146    0.2118898 
+## -------------------------------------------------------- 
+## : 1
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   11.0677966    0.2848856    0.5702604    4.7884278 
+##      std.dev     coef.var 
+##    2.1882477    0.1977130 
+## -------------------------------------------------------- 
+## : 2
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   10.8939394    0.2618998    0.5230500    4.5270396 
+##      std.dev     coef.var 
+##    2.1276841    0.1953090 
+## -------------------------------------------------------- 
+## : 3
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   10.9193548    0.2790958    0.5580865    4.8294553 
+##      std.dev     coef.var 
+##    2.1976022    0.2012575 
+## -------------------------------------------------------- 
+## : 4
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   10.8970588    0.2286922    0.4564716    3.5564091 
+##      std.dev     coef.var 
+##    1.8858444    0.1730599
+
+#LM SCORES BY GRAPH-ORDER
+desc_control &lt;- by(w_scores$linear_score, list(w_scores$order), stat.desc, basic=FALSE)
+desc_control
+## : LMFirst
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   10.8636364    0.1767556    0.3491966    4.8113488 
+##      std.dev     coef.var 
+##    2.1934787    0.2019102 
+## -------------------------------------------------------- 
+## : TMFirst
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   11.0308642    0.1629851    0.3218642    4.3033893 
+##      std.dev     coef.var 
+##    2.0744612    0.1880597
+
+#ONE WAY ANOVA ON LM_SCORE BY SCAFFOLD
+#construct contrasts for ANOVA model
+options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
+
+simpleModel = ezANOVA(data = w_scores,
+                     dv = .(linear_score),
+                     wid = .(subject),
+                     between = .(condition),
+                     type = 3,
+                     detailed = TRUE)
+## Warning: Converting &quot;subject&quot; to factor for ANOVA.
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified
+## a well-considered value for the type argument to ezANOVA().
+simpleModel
+## $ANOVA
+##        Effect DFn DFd          SSn      SSd            F             p
+## 1 (Intercept)   1 311 37802.682529 1429.846 8.222307e+03 9.970330e-226
+## 2   condition   4 311     1.343692 1429.846 7.306522e-02  9.902577e-01
+##   p&lt;.05          ges
+## 1     * 0.9635545750
+## 2       0.0009388633
+## 
+## $`Levene&#39;s Test for Homogeneity of Variance`
+##   DFn DFd      SSn     SSd         F        p p&lt;.05
+## 1   4 311 2.502129 499.865 0.3891861 0.816348
+
+#ONE WAY ANOVA ON LM_SCORE BY GRAPH-ORDER
+simpleModel = ezANOVA(data = w_scores,
+                     dv = .(linear_score),
+                     wid = .(subject),
+                     between = .(order),
+                     type = 3,
+                     detailed = TRUE)
+## Warning: Converting &quot;subject&quot; to factor for ANOVA.
+
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified
+## a well-considered value for the type argument to ezANOVA().
+simpleModel
+## $ANOVA
+##        Effect DFn DFd          SSn      SSd            F             p
+## 1 (Intercept)   1 314 37845.891375 1428.982 8316.1366183 5.300368e-228
+## 2       order   1 314     2.207831 1428.982    0.4851418  4.866178e-01
+##   p&lt;.05         ges
+## 1     * 0.963615871
+## 2       0.001542654
+## 
+## $`Levene&#39;s Test for Homogeneity of Variance`
+##   DFn DFd         SSn      SSd           F         p p&lt;.05
+## 1   1 314 0.009384583 502.3577 0.005865858 0.9389994
+
+#ONE WAY ANOVA ON LM_SCORE BY SCENARIO
+simpleModel = ezANOVA(data = w_scores,
+                     dv = .(linear_score),
+                     wid = .(subject),
+                     between = .(lm_scenarios),
+                     type = 3,
+                     detailed = TRUE)
+## Warning: Converting &quot;subject&quot; to factor for ANOVA.
+
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified
+## a well-considered value for the type argument to ezANOVA().
+simpleModel
+## $ANOVA
+##         Effect DFn DFd          SSn      SSd            F             p
+## 1  (Intercept)   1 314 37714.168900 1428.553 8289.6834729 8.583230e-228
+## 2 lm_scenarios   1 314     2.637255 1428.553    0.5796762  4.470107e-01
+##   p&lt;.05         ges
+## 1     * 0.963504004
+## 2       0.001842701
+## 
+## $`Levene&#39;s Test for Homogeneity of Variance`
+##   DFn DFd      SSn      SSd        F        p p&lt;.05
+## 1   1 314 2.707298 499.6598 1.701341 0.193068</code></pre>
+</div>
+<div id="hypothesis-2-learners-without-scaffolding-control-will-perform-better-with-the-lm-than-tm." class="section level5">
+<h5>Hypothesis 2: Learners without scaffolding (control) will perform better with the LM than TM.</h5>
+<pre class="r"><code>#explore descriptive statistics based on each IV
+desc_control &lt;- by(l_scores_control$value, list(l_scores_control$variable), stat.desc, basic=FALSE)
+desc_control
+## : linear_score
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   10.9836066    0.2979821    0.5960530    5.4163934 
+##      std.dev     coef.var 
+##    2.3273146    0.2118898 
+## -------------------------------------------------------- 
+## : triangular_score
+##       median         mean      SE.mean CI.mean.0.95          var 
+##    6.0000000    6.9016393    0.5772106    1.1545931   20.3234973 
+##      std.dev     coef.var 
+##    4.5081590    0.6532012
+LM_mean = desc_control$linear_score[2]
+LM_SD = desc_control$linear_score[6]
+TM_mean = desc_control$triangular_score[2]
+TM_SD = desc_control$triangular_score[6]</code></pre>
+<p>If we compare LM and TM scores (across both graph-orders) for the participants in the control condition, we expect their LM scores will be significantly higer than the TM scores.</p>
+<pre class="r"><code>#CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
+mainEffectGraph  &lt;- t.test(value ~ variable, data=l_scores_control, paired=TRUE)
+mainEffectGraph
+## 
+##  Paired t-test
+## 
+## data:  value by variable
+## t = 7.0685, df = 60, p-value = 1.912e-09
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.926815 5.237119
+## sample estimates:
+## mean of the differences 
+##                4.081967
+
+t &lt;-mainEffectGraph$statistic[[1]]
+t &lt;-round(t,2)
+df &lt;-mainEffectGraph$parameter[[1]]
+p &lt;-mainEffectGraph[3] 
+r &lt;- sqrt(t^2/(t^2+df))
+r &lt;-round(r,2)
+r
+## [1] 0.67</code></pre>
+<p>Across all factors, we see that LM scores (M = 10.98, SD = 2.33) are significantly higher than TM scores (M = 6.9, SD = 4.51), t(60) = 7.07, p = 1.911696710^{-9} , r = 0.67.</p>
+<pre class="r"><code>bar &lt;- ggplot(l_scores_control, aes(x = variable, y= value, fill=variable))
+bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
+      stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
+      labs (x = &quot;Graph Task &quot;, y= &quot;Score&quot;, fill=&quot;Graph Task&quot;) +
+      coord_cartesian(ylim=c(0,15)) +
+      scale_x_discrete(labels=c(&quot;linear_score&quot; = &quot;Linear Graph (LM)&quot;, &quot;triangular_score&quot; = &quot;Triangular Graph (TM)&quot;)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle(&quot;Mean Score by Graph Task&quot;)+
+      scale_fill_manual(values = c(green,red),
+                        name = &quot;Graph Task&quot;,
+                        breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
+                        labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
 </div>
 <div id="hypothesis-testing" class="section level4">
 <h4>Hypothesis Testing</h4>
@@ -448,7 +635,7 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
                         name = &quot;Graph Task&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>#CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
 mainEffectGraph  &lt;- t.test(value ~ variable, data=l_scores, paired=TRUE)
 mainEffectGraph</code></pre>
@@ -488,7 +675,7 @@ bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom=&quot;b
                         name = &quot;Task Scenario&quot;,
                         breaks =c(&quot;axis&quot;,&quot;longmire&quot;),
                         labels =c(&quot;axis&quot;,&quot;longmire&quot;))</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <pre class="r"><code>dots &lt;- ggplot(l_scores, aes(x = lm_scenarios, y= value, color=variable))
 dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;point&quot;, position = position_dodge(width=0.1),width=0.2) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.1),width=0.2) +
@@ -504,7 +691,7 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;poin
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear (LM)&quot;,&quot;triangular (TM)&quot;))</code></pre>
 <pre><code>## Warning: Ignoring unknown parameters: width</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="interaction-scaffold-graph" class="section level4">
 <h4>INTERACTION: Scaffold &amp; Graph</h4>
@@ -539,7 +726,7 @@ mixedPlot_order &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom
                        breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
                        labels=c(&quot;linear&quot;, &quot;triangular&quot;)) 
 mixedPlot_order</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>#BOXPLOT BY CONDITION, FACET WITH ORDER AND SCENARIO
 mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom_boxplot() +
  facet_grid(lm_scenarios~order, labeller=labeller(order = order_labels)) +
@@ -552,7 +739,7 @@ mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ g
                        breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
                        labels=c(&quot;linear&quot;, &quot;triangular&quot;))
 mixedPlot_scenario</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
 </div>
 <div id="hypothesis-testing-1" class="section level4">
 <h4>Hypothesis Testing</h4>
@@ -616,7 +803,7 @@ mixedModel = ezANOVA(data = l_times,
 <div id="main-effect-graph-on-time" class="section level4">
 <h4>MAIN EFFECT: Graph on TIME</h4>
 <p>On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
-<p><img src="Study2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <pre><code>## 
 ##  Paired t-test
 ## 
