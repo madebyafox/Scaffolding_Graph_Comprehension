@@ -5,6 +5,7 @@ db.createCollection("all_sessions");
 db.alfa.copyTo("all_sessions");
 db.delta.copyTo("all_sessions");
 db.echo.copyTo("all_sessions");
+db.foxtrot.copyTo("all_sessions");
 //add each session file as they come in
 
 

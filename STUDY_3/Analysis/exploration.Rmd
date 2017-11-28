@@ -3,6 +3,8 @@ title: "Exploration"
 output: 
   html_document:
     toc: true
+    code_folding: hide
+    fig_caption: yes
     theme: flatly
 ---
 

@@ -20,6 +20,7 @@ mongoimport -d STUDY3 -c alfa-bravo-charlie --file alfa-bravo-charlie.json
 STEP THREE: EXTRACT DATA FROM LOCAL db
 // start (visual) DB GUI (roboMongo)
 // access relevant data analysis script (ie. flatten.js)
+// add copyTo line for new session data file
 // generate final data files for each level of desired analysis
 // WRANGLE (with regex) the output .js files to .json format --> grumble
 -------------------------------------------------------------

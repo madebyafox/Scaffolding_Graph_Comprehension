@@ -1,551 +1,105 @@
 [
 {
 
-    "session" : "echo",
-    "condition" : "211",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 2,
-    "ts_n" : 1,
-    "tt_n" : 1,
-    "orthogonal_score" : 0,
-    "ts_t" : 285532,
-    "tt_t" : 471115,
-    "totalTime" : 1116415,
-    "attn_check" : 1,
-    "subject" : "W7WZ4",
-    "triangular_score" : 2,
-    "triangular_time" : 756647,
-    "demo1" : "{\"Q0\":\"Spanish\",\"Q1\":\"Fourth\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"24\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "echo",
+    "session" : "foxtrot",
     "condition" : "311",
     "axis" : "full",
     "impasse" : 1,
     "explicit" : 3,
-    "ts_n" : 2,
-    "tt_n" : 4,
-    "orthogonal_score" : 0,
-    "ts_t" : 410119,
-    "tt_t" : 226667,
-    "totalTime" : 1031009,
-    "attn_check" : 1,
-    "subject" : "W2WL2",
-    "triangular_score" : 6,
-    "triangular_time" : 636786,
-    "demo1" : "{\"Q0\":\"Spanish\",\"Q1\":\"Fourth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"25\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "echo",
-    "condition" : "221",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 2,
     "ts_n" : 5,
     "tt_n" : 9,
     "orthogonal_score" : 0,
-    "ts_t" : 153607,
-    "tt_t" : 365851,
-    "totalTime" : 956118,
+    "ts_t" : 398875,
+    "tt_t" : 360275,
+    "totalTime" : 1075462,
     "attn_check" : 1,
-    "subject" : "SOGCE",
+    "subject" : "J39G9",
     "triangular_score" : 14,
-    "triangular_time" : 519458,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"First\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"18\",\"Q1\":\"United States\"}"
+    "triangular_time" : 759150,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "19",
+    "country" : "United States"
 }
 
 ,
 {
 
-    "session" : "echo",
+    "session" : "foxtrot",
     "condition" : "111",
     "axis" : "full",
     "impasse" : 1,
     "explicit" : 1,
     "ts_n" : 0,
-    "tt_n" : 1,
-    "orthogonal_score" : 0,
-    "ts_t" : 214997,
-    "tt_t" : 220062,
-    "totalTime" : 745133,
-    "attn_check" : 1,
-    "subject" : "EN7PB",
-    "triangular_score" : 1,
-    "triangular_time" : 435059,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Third\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"USA\"}"
-}
-
-,
-{
-
-    "session" : "echo",
-    "condition" : "211",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 2,
-    "ts_n" : 1,
-    "tt_n" : 1,
-    "orthogonal_score" : 0,
-    "ts_t" : 140855,
-    "tt_t" : 203014,
-    "totalTime" : 683174,
-    "attn_check" : 1,
-    "subject" : "P1BZ9",
-    "triangular_score" : 2,
-    "triangular_time" : 343869,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Second\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"u.s.\\n\"}"
-}
-
-,
-{
-
-    "session" : "delta",
-    "condition" : "221",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 2,
-    "ts_n" : 5,
-    "tt_n" : 10,
-    "orthogonal_score" : 0,
-    "ts_t" : 133795,
-    "tt_t" : 225381,
-    "totalTime" : 652377,
-    "attn_check" : 1,
-    "subject" : "987KZ",
-    "triangular_score" : 15,
-    "triangular_time" : 359176,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Second\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "311",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 3,
-    "ts_n" : 3,
-    "tt_n" : 10,
-    "orthogonal_score" : 0,
-    "ts_t" : 314089,
-    "tt_t" : 313634,
-    "totalTime" : 872742,
-    "attn_check" : 1,
-    "subject" : "5FETT",
-    "triangular_score" : 13,
-    "triangular_time" : 627723,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Second\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"China\"}"
-}
-
-,
-{
-
-    "session" : "echo",
-    "condition" : "121",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 1,
-    "ts_n" : 1,
-    "tt_n" : 2,
-    "orthogonal_score" : 0,
-    "ts_t" : 200108,
-    "tt_t" : 472471,
-    "totalTime" : 852185,
-    "attn_check" : 1,
-    "subject" : "KBQPW",
-    "triangular_score" : 3,
-    "triangular_time" : 672579,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fifth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"27\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "311",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 3,
-    "ts_n" : 4,
-    "tt_n" : 6,
-    "orthogonal_score" : 0,
-    "ts_t" : 215286,
-    "tt_t" : 304022,
-    "totalTime" : 710189,
-    "attn_check" : 1,
-    "subject" : "F66QO",
-    "triangular_score" : 10,
-    "triangular_time" : 519308,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Third\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"20\",\"Q1\":\"USA\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "121",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 1,
-    "ts_n" : 1,
     "tt_n" : 3,
     "orthogonal_score" : 0,
-    "ts_t" : 216055,
-    "tt_t" : 238132,
-    "totalTime" : 641507,
+    "ts_t" : 374312,
+    "tt_t" : 298357,
+    "totalTime" : 965014,
     "attn_check" : 1,
-    "subject" : "HKSU4",
-    "triangular_score" : 4,
-    "triangular_time" : 454187,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Second\",\"Q2\":\"Natural Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"USA\"}"
+    "subject" : "YGEAY",
+    "triangular_score" : 3,
+    "triangular_time" : 672669,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Natural Sciences",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "United States of America"
 }
 
 ,
 {
 
-    "session" : "echo",
-    "condition" : "321",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 3,
-    "ts_n" : 3,
-    "tt_n" : 9,
-    "orthogonal_score" : 0,
-    "ts_t" : 138517,
-    "tt_t" : 337644,
-    "totalTime" : 791210,
-    "attn_check" : 1,
-    "subject" : "1EKS2",
-    "triangular_score" : 12,
-    "triangular_time" : 476161,
-    "demo1" : "{\"Q0\":\"Other\",\"Q1\":\"Third\",\"Q2\":\"Math or Computer Sciences\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"20\",\"Q1\":\"Canada\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "321",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 3,
-    "ts_n" : 4,
-    "tt_n" : 8,
-    "orthogonal_score" : 0,
-    "ts_t" : 189852,
-    "tt_t" : 248323,
-    "totalTime" : 609438,
-    "attn_check" : 1,
-    "subject" : "YF1HS",
-    "triangular_score" : 12,
-    "triangular_time" : 438175,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fourth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
+    "session" : "foxtrot",
     "condition" : "221",
     "axis" : "full",
     "impasse" : 2,
     "explicit" : 2,
-    "ts_n" : 2,
-    "tt_n" : 4,
-    "orthogonal_score" : 0,
-    "ts_t" : 137952,
-    "tt_t" : 251174,
-    "totalTime" : 566687,
-    "attn_check" : 1,
-    "subject" : "J9XH8",
-    "triangular_score" : 6,
-    "triangular_time" : 389126,
-    "demo1" : "{\"Q0\":\"Other\",\"Q1\":\"Fourth\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"23\",\"Q1\":\"Baghdad\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "311",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 3,
-    "ts_n" : 5,
-    "tt_n" : 9,
-    "orthogonal_score" : 0,
-    "ts_t" : 111601,
-    "tt_t" : 211252,
-    "totalTime" : 552996,
-    "attn_check" : 1,
-    "subject" : "6NY13",
-    "triangular_score" : 14,
-    "triangular_time" : 322853,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fourth\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"US\"}"
-}
-
-,
-{
-
-    "session" : "delta",
-    "condition" : "311",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 3,
-    "ts_n" : 5,
-    "tt_n" : 9,
-    "orthogonal_score" : 0,
-    "ts_t" : 87468,
-    "tt_t" : 241735,
-    "totalTime" : 786057,
-    "attn_check" : 1,
-    "subject" : "D2B1E",
-    "triangular_score" : 14,
-    "triangular_time" : 329203,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"First\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"18\",\"Q1\":\"South Korea\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "221",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 2,
-    "ts_n" : 5,
-    "tt_n" : 9,
-    "orthogonal_score" : 0,
-    "ts_t" : 82115,
-    "tt_t" : 256936,
-    "totalTime" : 531519,
-    "attn_check" : 1,
-    "subject" : "DXES9",
-    "triangular_score" : 14,
-    "triangular_time" : 339051,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"First\",\"Q2\":\"Engineering\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"18\",\"Q1\":\"USA\"}"
-}
-
-,
-{
-
-    "session" : "echo",
-    "condition" : "321",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 3,
-    "ts_n" : 5,
-    "tt_n" : 10,
-    "orthogonal_score" : 0,
-    "ts_t" : 201502,
-    "tt_t" : 234844,
-    "totalTime" : 786587,
-    "attn_check" : 1,
-    "subject" : "QX48K",
-    "triangular_score" : 15,
-    "triangular_time" : 436346,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Second\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "delta",
-    "condition" : "121",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 1,
     "ts_n" : 3,
-    "tt_n" : 8,
-    "orthogonal_score" : 0,
-    "ts_t" : 249470,
-    "tt_t" : 269977,
-    "totalTime" : 826354,
-    "attn_check" : 1,
-    "subject" : "FUV6R",
-    "triangular_score" : 11,
-    "triangular_time" : 519447,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Second\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "bravo",
-    "condition" : "321",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 3,
-    "ts_n" : 5,
-    "tt_n" : 10,
-    "orthogonal_score" : 0,
-    "ts_t" : 184329,
-    "tt_t" : 225274,
-    "totalTime" : 791733,
-    "attn_check" : 1,
-    "subject" : "18BB6",
-    "triangular_score" : 15,
-    "triangular_time" : 409603,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Third\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"20\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "bravo",
-    "condition" : "321",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 3,
-    "ts_n" : 4,
-    "tt_n" : 10,
-    "orthogonal_score" : 0,
-    "ts_t" : 157923,
-    "tt_t" : 387465,
-    "totalTime" : 906967,
-    "attn_check" : 1,
-    "subject" : "137NC",
-    "triangular_score" : 14,
-    "triangular_time" : 545388,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fourth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"United States\"}"
-}
-
-,
-{
-
-    "session" : "delta",
-    "condition" : "111",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 1,
-    "ts_n" : 0,
-    "tt_n" : 2,
-    "orthogonal_score" : 0,
-    "ts_t" : 275159,
-    "tt_t" : 247899,
-    "totalTime" : 856349,
-    "attn_check" : 1,
-    "subject" : "4GSTQ",
-    "triangular_score" : 2,
-    "triangular_time" : 523058,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fifth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"22\",\"Q1\":\"United States of America\"}"
-}
-
-,
-{
-
-    "session" : "bravo",
-    "condition" : "321",
-    "axis" : "full",
-    "impasse" : 2,
-    "explicit" : 3,
-    "ts_n" : 4,
-    "tt_n" : 9,
-    "orthogonal_score" : 0,
-    "ts_t" : 225589,
-    "tt_t" : 267713,
-    "totalTime" : 1073694,
-    "attn_check" : 1,
-    "subject" : "SZH6M",
-    "triangular_score" : 13,
-    "triangular_time" : 493302,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fifth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"23\",\"Q1\":\"United States of America\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "211",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 2,
-    "ts_n" : 2,
-    "tt_n" : 8,
-    "orthogonal_score" : 0,
-    "ts_t" : 164541,
-    "tt_t" : 260757,
-    "totalTime" : 683736,
-    "attn_check" : 1,
-    "subject" : "SMXP5",
-    "triangular_score" : 10,
-    "triangular_time" : 425298,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fourth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"United States \"}"
-}
-
-,
-{
-
-    "session" : "delta",
-    "condition" : "111",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 1,
-    "ts_n" : 5,
-    "tt_n" : 10,
-    "orthogonal_score" : 0,
-    "ts_t" : 284048,
-    "tt_t" : 335667,
-    "totalTime" : 1004077,
-    "attn_check" : 1,
-    "subject" : "7WCYU",
-    "triangular_score" : 15,
-    "triangular_time" : 619715,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fourth\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"US\"}"
-}
-
-,
-{
-
-    "session" : "charlie",
-    "condition" : "211",
-    "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 2,
-    "ts_n" : 2,
     "tt_n" : 5,
     "orthogonal_score" : 0,
-    "ts_t" : 123295,
-    "tt_t" : 346285,
-    "totalTime" : 645816,
+    "ts_t" : 182281,
+    "tt_t" : 325913,
+    "totalTime" : 713638,
     "attn_check" : 1,
-    "subject" : "HUGFJ",
-    "triangular_score" : 7,
-    "triangular_time" : 469580,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"First\",\"Q2\":\"Math or Computer Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"18\",\"Q1\":\"China\"}"
+    "subject" : "GNFRF",
+    "triangular_score" : 8,
+    "triangular_time" : 508194,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "foxtrot",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 4,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 123922,
+    "tt_t" : 249643,
+    "totalTime" : 564555,
+    "attn_check" : 1,
+    "subject" : "0W2TN",
+    "triangular_score" : 13,
+    "triangular_time" : 373565,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "america"
 }
 
 ,
@@ -566,30 +120,90 @@
     "subject" : "O577M",
     "triangular_score" : 11,
     "triangular_time" : 311332,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fifth\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"23\",\"Q1\":\"USA\"}"
+    "native_language" : "English",
+    "year" : "Fifth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "23",
+    "country" : "USA"
 }
 
 ,
 {
 
-    "session" : "delta",
+    "session" : "echo",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 1,
+    "tt_n" : 1,
+    "orthogonal_score" : 0,
+    "ts_t" : 285532,
+    "tt_t" : 471115,
+    "totalTime" : 1116415,
+    "attn_check" : 1,
+    "subject" : "W7WZ4",
+    "triangular_score" : 2,
+    "triangular_time" : 756647,
+    "native_language" : "Spanish",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "24",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "echo",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 2,
+    "tt_n" : 4,
+    "orthogonal_score" : 0,
+    "ts_t" : 410119,
+    "tt_t" : 226667,
+    "totalTime" : 1031009,
+    "attn_check" : 1,
+    "subject" : "W2WL2",
+    "triangular_score" : 6,
+    "triangular_time" : 636786,
+    "native_language" : "Spanish",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "25",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "foxtrot",
     "condition" : "221",
     "axis" : "full",
     "impasse" : 2,
     "explicit" : 2,
-    "ts_n" : 5,
+    "ts_n" : 4,
     "tt_n" : 10,
     "orthogonal_score" : 0,
-    "ts_t" : 148479,
-    "tt_t" : 284546,
-    "totalTime" : 736766,
+    "ts_t" : 115665,
+    "tt_t" : 335476,
+    "totalTime" : 762700,
     "attn_check" : 1,
-    "subject" : "7EAJ1",
-    "triangular_score" : 15,
-    "triangular_time" : 433025,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fourth\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"United States\\n\"}"
+    "subject" : "EW5F7",
+    "triangular_score" : 14,
+    "triangular_time" : 451141,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "United States"
 }
 
 ,
@@ -610,52 +224,272 @@
     "subject" : "3QO3J",
     "triangular_score" : 4,
     "triangular_time" : 226248,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"First\",\"Q2\":\"Humanities\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"18\",\"Q1\":\"USA\"}"
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Humanities",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "USA"
 }
 
 ,
 {
 
-    "session" : "bravo",
-    "condition" : "121",
+    "session" : "echo",
+    "condition" : "221",
     "axis" : "full",
     "impasse" : 2,
-    "explicit" : 1,
-    "ts_n" : 4,
+    "explicit" : 2,
+    "ts_n" : 5,
     "tt_n" : 9,
     "orthogonal_score" : 0,
-    "ts_t" : 158069,
-    "tt_t" : 243941,
-    "totalTime" : 641936,
+    "ts_t" : 153607,
+    "tt_t" : 365851,
+    "totalTime" : 956118,
     "attn_check" : 1,
-    "subject" : "M675E",
-    "triangular_score" : 13,
-    "triangular_time" : 402010,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Third\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"US\"}"
+    "subject" : "SOGCE",
+    "triangular_score" : 14,
+    "triangular_time" : 519458,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "delta",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 275159,
+    "tt_t" : 247899,
+    "totalTime" : 856349,
+    "attn_check" : 1,
+    "subject" : "4GSTQ",
+    "triangular_score" : 2,
+    "triangular_time" : 523058,
+    "native_language" : "English",
+    "year" : "Fifth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "22",
+    "country" : "United States of America"
+}
+
+,
+{
+
+    "session" : "foxtrot",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 195628,
+    "tt_t" : 176754,
+    "totalTime" : 574382,
+    "attn_check" : 1,
+    "subject" : "T4UDR",
+    "triangular_score" : 14,
+    "triangular_time" : 372382,
+    "native_language" : "Spanish",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "echo",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 1,
+    "orthogonal_score" : 0,
+    "ts_t" : 214997,
+    "tt_t" : 220062,
+    "totalTime" : 745133,
+    "attn_check" : 1,
+    "subject" : "EN7PB",
+    "triangular_score" : 1,
+    "triangular_time" : 435059,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "echo",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 1,
+    "tt_n" : 1,
+    "orthogonal_score" : 0,
+    "ts_t" : 140855,
+    "tt_t" : 203014,
+    "totalTime" : 683174,
+    "attn_check" : 1,
+    "subject" : "P1BZ9",
+    "triangular_score" : 2,
+    "triangular_time" : 343869,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "u.s.\\n"
+}
+
+,
+{
+
+    "session" : "delta",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 133795,
+    "tt_t" : 225381,
+    "totalTime" : 652377,
+    "attn_check" : 1,
+    "subject" : "987KZ",
+    "triangular_score" : 15,
+    "triangular_time" : 359176,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
 }
 
 ,
 {
 
     "session" : "charlie",
-    "condition" : "211",
+    "condition" : "311",
     "axis" : "full",
     "impasse" : 1,
-    "explicit" : 2,
-    "ts_n" : 0,
-    "tt_n" : 5,
+    "explicit" : 3,
+    "ts_n" : 3,
+    "tt_n" : 10,
     "orthogonal_score" : 0,
-    "ts_t" : 217559,
-    "tt_t" : 294938,
-    "totalTime" : 715104,
+    "ts_t" : 314089,
+    "tt_t" : 313634,
+    "totalTime" : 872742,
     "attn_check" : 1,
-    "subject" : "4K1DG",
-    "triangular_score" : 5,
-    "triangular_time" : 512497,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Third\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"24\",\"Q1\":\"USA\"}"
+    "subject" : "5FETT",
+    "triangular_score" : 13,
+    "triangular_time" : 627723,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "China"
+}
+
+,
+{
+
+    "session" : "echo",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 1,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 200108,
+    "tt_t" : 472471,
+    "totalTime" : 852185,
+    "attn_check" : 1,
+    "subject" : "KBQPW",
+    "triangular_score" : 3,
+    "triangular_time" : 672579,
+    "native_language" : "English",
+    "year" : "Fifth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "27",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 4,
+    "tt_n" : 6,
+    "orthogonal_score" : 0,
+    "ts_t" : 215286,
+    "tt_t" : 304022,
+    "totalTime" : 710189,
+    "attn_check" : 1,
+    "subject" : "F66QO",
+    "triangular_score" : 10,
+    "triangular_time" : 519308,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 1,
+    "tt_n" : 3,
+    "orthogonal_score" : 0,
+    "ts_t" : 216055,
+    "tt_t" : 238132,
+    "totalTime" : 641507,
+    "attn_check" : 1,
+    "subject" : "HKSU4",
+    "triangular_score" : 4,
+    "triangular_time" : 454187,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Natural Sciences",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
 }
 
 ,
@@ -666,40 +500,48 @@
     "axis" : "full",
     "impasse" : 2,
     "explicit" : 3,
-    "ts_n" : 5,
-    "tt_n" : 10,
+    "ts_n" : 3,
+    "tt_n" : 9,
     "orthogonal_score" : 0,
-    "ts_t" : 156906,
-    "tt_t" : 289375,
-    "totalTime" : 849986,
+    "ts_t" : 138517,
+    "tt_t" : 337644,
+    "totalTime" : 791210,
     "attn_check" : 1,
-    "subject" : "KAK9U",
-    "triangular_score" : 15,
-    "triangular_time" : 446281,
-    "demo1" : "{\"Q0\":\"Other\",\"Q1\":\"Second\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"18\",\"Q1\":\"India\"}"
+    "subject" : "1EKS2",
+    "triangular_score" : 12,
+    "triangular_time" : 476161,
+    "native_language" : "Other",
+    "year" : "Third",
+    "major" : "Math or Computer Sciences",
+    "sex" : "Male",
+    "age" : "20",
+    "country" : "Canada"
 }
 
 ,
 {
 
-    "session" : "bravo",
-    "condition" : "111",
+    "session" : "charlie",
+    "condition" : "321",
     "axis" : "full",
-    "impasse" : 1,
-    "explicit" : 1,
-    "ts_n" : 0,
-    "tt_n" : 2,
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 4,
+    "tt_n" : 8,
     "orthogonal_score" : 0,
-    "ts_t" : 388455,
-    "tt_t" : 378566,
-    "totalTime" : 1067031,
+    "ts_t" : 189852,
+    "tt_t" : 248323,
+    "totalTime" : 609438,
     "attn_check" : 1,
-    "subject" : "JFFAY",
-    "triangular_score" : 2,
-    "triangular_time" : 767021,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"First\",\"Q2\":\"Engineering\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"18\",\"Q1\":\"United States\"}"
+    "subject" : "YF1HS",
+    "triangular_score" : 12,
+    "triangular_time" : 438175,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "United States"
 }
 
 ,
@@ -710,18 +552,100 @@
     "axis" : "full",
     "impasse" : 2,
     "explicit" : 2,
+    "ts_n" : 2,
+    "tt_n" : 4,
+    "orthogonal_score" : 0,
+    "ts_t" : 137952,
+    "tt_t" : 251174,
+    "totalTime" : 566687,
+    "attn_check" : 1,
+    "subject" : "J9XH8",
+    "triangular_score" : 6,
+    "triangular_time" : 389126,
+    "native_language" : "Other",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "23",
+    "country" : "Baghdad"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
     "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 111601,
+    "tt_t" : 211252,
+    "totalTime" : 552996,
+    "attn_check" : 1,
+    "subject" : "6NY13",
+    "triangular_score" : 14,
+    "triangular_time" : 322853,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "US"
+}
+
+,
+{
+
+    "session" : "delta",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 87468,
+    "tt_t" : 241735,
+    "totalTime" : 786057,
+    "attn_check" : 1,
+    "subject" : "D2B1E",
+    "triangular_score" : 14,
+    "triangular_time" : 329203,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "South Korea"
+}
+
+,
+{
+
+    "session" : "foxtrot",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 2,
     "tt_n" : 10,
     "orthogonal_score" : 0,
-    "ts_t" : 230688,
-    "tt_t" : 311513,
-    "totalTime" : 853897,
+    "ts_t" : 306182,
+    "tt_t" : 288114,
+    "totalTime" : 924898,
     "attn_check" : 1,
-    "subject" : "RYVXA",
-    "triangular_score" : 15,
-    "triangular_time" : 542201,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Fifth\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"23\",\"Q1\":\"United States\"}"
+    "subject" : "9GVF0",
+    "triangular_score" : 12,
+    "triangular_time" : 594296,
+    "native_language" : "Spanish",
+    "year" : "First",
+    "major" : "Engineering",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "United States"
 }
 
 ,
@@ -742,8 +666,428 @@
     "subject" : "R8PM2",
     "triangular_score" : 2,
     "triangular_time" : 362278,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Third\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"20\",\"Q1\":\"US\"}"
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "US"
+}
+
+,
+{
+
+    "session" : "delta",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 148479,
+    "tt_t" : 284546,
+    "totalTime" : 736766,
+    "attn_check" : 1,
+    "subject" : "7EAJ1",
+    "triangular_score" : 15,
+    "triangular_time" : 433025,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "United States\\n"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 82115,
+    "tt_t" : 256936,
+    "totalTime" : 531519,
+    "attn_check" : 1,
+    "subject" : "DXES9",
+    "triangular_score" : 14,
+    "triangular_time" : 339051,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Engineering",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "echo",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 201502,
+    "tt_t" : 234844,
+    "totalTime" : 786587,
+    "attn_check" : 1,
+    "subject" : "QX48K",
+    "triangular_score" : 15,
+    "triangular_time" : 436346,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "delta",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 3,
+    "tt_n" : 8,
+    "orthogonal_score" : 0,
+    "ts_t" : 249470,
+    "tt_t" : 269977,
+    "totalTime" : 826354,
+    "attn_check" : 1,
+    "subject" : "FUV6R",
+    "triangular_score" : 11,
+    "triangular_time" : 519447,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "echo",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 156906,
+    "tt_t" : 289375,
+    "totalTime" : 849986,
+    "attn_check" : 1,
+    "subject" : "KAK9U",
+    "triangular_score" : 15,
+    "triangular_time" : 446281,
+    "native_language" : "Other",
+    "year" : "Second",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "India"
+}
+
+,
+{
+
+    "session" : "bravo",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 184329,
+    "tt_t" : 225274,
+    "totalTime" : 791733,
+    "attn_check" : 1,
+    "subject" : "18BB6",
+    "triangular_score" : 15,
+    "triangular_time" : 409603,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "foxtrot",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 4,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 349495,
+    "tt_t" : 286097,
+    "totalTime" : 996112,
+    "attn_check" : 1,
+    "subject" : "LJTDL",
+    "triangular_score" : 13,
+    "triangular_time" : 635592,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Engineering",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "bravo",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 4,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 157923,
+    "tt_t" : 387465,
+    "totalTime" : 906967,
+    "attn_check" : 1,
+    "subject" : "137NC",
+    "triangular_score" : 14,
+    "triangular_time" : 545388,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 0,
+    "tt_n" : 5,
+    "orthogonal_score" : 0,
+    "ts_t" : 217559,
+    "tt_t" : 294938,
+    "totalTime" : 715104,
+    "attn_check" : 1,
+    "subject" : "4K1DG",
+    "triangular_score" : 5,
+    "triangular_time" : 512497,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "24",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "bravo",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 4,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 225589,
+    "tt_t" : 267713,
+    "totalTime" : 1073694,
+    "attn_check" : 1,
+    "subject" : "SZH6M",
+    "triangular_score" : 13,
+    "triangular_time" : 493302,
+    "native_language" : "English",
+    "year" : "Fifth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "23",
+    "country" : "United States of America"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 2,
+    "tt_n" : 8,
+    "orthogonal_score" : 0,
+    "ts_t" : 164541,
+    "tt_t" : 260757,
+    "totalTime" : 683736,
+    "attn_check" : 1,
+    "subject" : "SMXP5",
+    "triangular_score" : 10,
+    "triangular_time" : 425298,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "United States "
+}
+
+,
+{
+
+    "session" : "delta",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 284048,
+    "tt_t" : 335667,
+    "totalTime" : 1004077,
+    "attn_check" : 1,
+    "subject" : "7WCYU",
+    "triangular_score" : 15,
+    "triangular_time" : 619715,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "21",
+    "country" : "US"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 2,
+    "tt_n" : 5,
+    "orthogonal_score" : 0,
+    "ts_t" : 123295,
+    "tt_t" : 346285,
+    "totalTime" : 645816,
+    "attn_check" : 1,
+    "subject" : "HUGFJ",
+    "triangular_score" : 7,
+    "triangular_time" : 469580,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Math or Computer Sciences",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "China"
+}
+
+,
+{
+
+    "session" : "bravo",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 4,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 158069,
+    "tt_t" : 243941,
+    "totalTime" : 641936,
+    "attn_check" : 1,
+    "subject" : "M675E",
+    "triangular_score" : 13,
+    "triangular_time" : 402010,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "US"
+}
+
+,
+{
+
+    "session" : "bravo",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 388455,
+    "tt_t" : 378566,
+    "totalTime" : 1067031,
+    "attn_check" : 1,
+    "subject" : "JFFAY",
+    "triangular_score" : 2,
+    "triangular_time" : 767021,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Engineering",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "charlie",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 230688,
+    "tt_t" : 311513,
+    "totalTime" : 853897,
+    "attn_check" : 1,
+    "subject" : "RYVXA",
+    "triangular_score" : 15,
+    "triangular_time" : 542201,
+    "native_language" : "English",
+    "year" : "Fifth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "23",
+    "country" : "United States"
 }
 
 ,
@@ -764,8 +1108,12 @@
     "subject" : "HK4RU",
     "triangular_score" : 15,
     "triangular_time" : 684020,
-    "demo1" : "{\"Q0\":\"Mandarin or Cantonese\",\"Q1\":\"Second\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"USA\"}"
+    "native_language" : "Mandarin or Cantonese",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
 }
 
 ,
@@ -786,8 +1134,12 @@
     "subject" : "A57EU",
     "triangular_score" : 12,
     "triangular_time" : 421256,
-    "demo1" : "{\"Q0\":\"Mandarin or Cantonese\",\"Q1\":\"Fourth\",\"Q2\":\"Biomedical & Health Sciences\",\"Q3\":\"Female\"}",
-    "demo2" : "{\"Q0\":\"21\",\"Q1\":\"US\"}"
+    "native_language" : "Mandarin or Cantonese",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "US"
 }
 
 ,
@@ -808,7 +1160,10 @@
     "subject" : "AHBMC",
     "triangular_score" : 13,
     "triangular_time" : 362624,
-    "demo1" : "{\"Q0\":\"English\",\"Q1\":\"Second\",\"Q2\":\"Social Sciences (incl. CogSci)\",\"Q3\":\"Male\"}",
-    "demo2" : "{\"Q0\":\"19\",\"Q1\":\"North America\"}"
-}
-]
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "19",
+    "country" : "North America"
+}]
