@@ -1,6 +1,448 @@
 [
 {
 
+    "session" : "hotel",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 270227,
+    "tt_t" : 333944,
+    "totalTime" : 917063,
+    "attn_check" : 1,
+    "subject" : "ZZYXF",
+    "triangular_score" : 2,
+    "triangular_time" : 604171,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Humanities",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "usa"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 1,
+    "orthogonal_score" : 0,
+    "ts_t" : 226529,
+    "tt_t" : 297255,
+    "totalTime" : 902327,
+    "attn_check" : 1,
+    "subject" : "8V51R",
+    "triangular_score" : 1,
+    "triangular_time" : 523784,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 4,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 260069,
+    "tt_t" : 252412,
+    "totalTime" : 964969,
+    "attn_check" : 1,
+    "subject" : "68W24",
+    "triangular_score" : 14,
+    "triangular_time" : 512481,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 7,
+    "orthogonal_score" : 0,
+    "ts_t" : 256455,
+    "tt_t" : 294405,
+    "totalTime" : 831758,
+    "attn_check" : 1,
+    "subject" : "B3OKB",
+    "triangular_score" : 7,
+    "triangular_time" : 550860,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Engineering",
+    "sex" : "Male",
+    "age" : "19",
+    "country" : "India"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 2,
+    "tt_n" : 8,
+    "orthogonal_score" : 0,
+    "ts_t" : 144818,
+    "tt_t" : 304014,
+    "totalTime" : 835551,
+    "attn_check" : 1,
+    "subject" : "FTCQC",
+    "triangular_score" : 10,
+    "triangular_time" : 448832,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "20",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 216996,
+    "tt_t" : 254661,
+    "totalTime" : 783182,
+    "attn_check" : 1,
+    "subject" : "H7T38",
+    "triangular_score" : 15,
+    "triangular_time" : 471657,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Natural Sciences",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 1,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 186201,
+    "tt_t" : 284527,
+    "totalTime" : 770664,
+    "attn_check" : 1,
+    "subject" : "QB8G8",
+    "triangular_score" : 3,
+    "triangular_time" : 470728,
+    "native_language" : "Mandarin or Cantonese",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 161111,
+    "tt_t" : 247620,
+    "totalTime" : 746107,
+    "attn_check" : 1,
+    "subject" : "DDGO8",
+    "triangular_score" : 14,
+    "triangular_time" : 408731,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "US"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 204444,
+    "tt_t" : 178491,
+    "totalTime" : 734562,
+    "attn_check" : 1,
+    "subject" : "8DU2W",
+    "triangular_score" : 14,
+    "triangular_time" : 382935,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 4,
+    "tt_n" : 8,
+    "orthogonal_score" : 0,
+    "ts_t" : 155425,
+    "tt_t" : 221692,
+    "totalTime" : 679241,
+    "attn_check" : 1,
+    "subject" : "G7CFM",
+    "triangular_score" : 12,
+    "triangular_time" : 377117,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "22",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 4,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 97696,
+    "tt_t" : 214377,
+    "totalTime" : 676206,
+    "attn_check" : 1,
+    "subject" : "ZSBDA",
+    "triangular_score" : 13,
+    "triangular_time" : 312073,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "21",
+    "country" : "United States of America"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 3,
+    "tt_n" : 8,
+    "orthogonal_score" : 0,
+    "ts_t" : 95312,
+    "tt_t" : 132464,
+    "totalTime" : 510155,
+    "attn_check" : 1,
+    "subject" : "VLTVY",
+    "triangular_score" : 11,
+    "triangular_time" : 227776,
+    "native_language" : "Mandarin or Cantonese",
+    "year" : "Second",
+    "major" : "Natural Sciences",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "golf",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 2,
+    "tt_n" : 5,
+    "orthogonal_score" : 0,
+    "ts_t" : 332661,
+    "tt_t" : 288716,
+    "totalTime" : 935664,
+    "attn_check" : 1,
+    "subject" : "OTVZR",
+    "triangular_score" : 7,
+    "triangular_time" : 621377,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 198447,
+    "tt_t" : 189854,
+    "totalTime" : 662904,
+    "attn_check" : 1,
+    "subject" : "LST9D",
+    "triangular_score" : 2,
+    "triangular_time" : 388301,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Math or Computer Sciences",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "United States of America"
+}
+
+,
+{
+
+    "session" : "golf",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 1,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 239714,
+    "tt_t" : 297815,
+    "totalTime" : 866498,
+    "attn_check" : 1,
+    "subject" : "HP71D",
+    "triangular_score" : 3,
+    "triangular_time" : 537529,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "India"
+}
+
+,
+{
+
+    "session" : "golf",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 4,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 284326,
+    "tt_t" : 371811,
+    "totalTime" : 957209,
+    "attn_check" : 1,
+    "subject" : "AJZV2",
+    "triangular_score" : 14,
+    "triangular_time" : 656137,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "golf",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 199368,
+    "tt_t" : 292924,
+    "totalTime" : 788081,
+    "attn_check" : 1,
+    "subject" : "3W8J9",
+    "triangular_score" : 2,
+    "triangular_time" : 492292,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
     "session" : "foxtrot",
     "condition" : "311",
     "axis" : "full",
@@ -22,6 +464,32 @@
     "sex" : "Male",
     "age" : "19",
     "country" : "United States"
+}
+
+,
+{
+
+    "session" : "golf",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 2,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 275242,
+    "tt_t" : 182275,
+    "totalTime" : 671254,
+    "attn_check" : 1,
+    "subject" : "DON7Q",
+    "triangular_score" : 11,
+    "triangular_time" : 457517,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "Korea"
 }
 
 ,
@@ -365,6 +833,58 @@
 ,
 {
 
+    "session" : "hotel",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 3,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 158427,
+    "tt_t" : 227580,
+    "totalTime" : 656483,
+    "attn_check" : 1,
+    "subject" : "DF15K",
+    "triangular_score" : 13,
+    "triangular_time" : 386007,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 99061,
+    "tt_t" : 252683,
+    "totalTime" : 641748,
+    "attn_check" : 1,
+    "subject" : "XY7JT",
+    "triangular_score" : 14,
+    "triangular_time" : 351744,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Math or Computer Sciences",
+    "sex" : "Male",
+    "age" : "20",
+    "country" : "Malaysia"
+}
+
+,
+{
+
     "session" : "delta",
     "condition" : "221",
     "axis" : "full",
@@ -469,6 +989,32 @@
 ,
 {
 
+    "session" : "golf",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 279611,
+    "tt_t" : 444025,
+    "totalTime" : 1031437,
+    "attn_check" : 1,
+    "subject" : "KLYG7",
+    "triangular_score" : 2,
+    "triangular_time" : 723636,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Fine Arts",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "Vietnam "
+}
+
+,
+{
+
     "session" : "charlie",
     "condition" : "121",
     "axis" : "full",
@@ -542,6 +1088,32 @@
     "sex" : "Female",
     "age" : "21",
     "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 299297,
+    "tt_t" : 300056,
+    "totalTime" : 850552,
+    "attn_check" : 1,
+    "subject" : "7L4J4",
+    "triangular_score" : 2,
+    "triangular_time" : 599353,
+    "native_language" : "Other",
+    "year" : "Third",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "USA"
 }
 
 ,
@@ -963,6 +1535,32 @@
 ,
 {
 
+    "session" : "hotel",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 178504,
+    "tt_t" : 221638,
+    "totalTime" : 707511,
+    "attn_check" : 1,
+    "subject" : "3OTEP",
+    "triangular_score" : 14,
+    "triangular_time" : 400142,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Natural Sciences",
+    "sex" : "Male",
+    "age" : "21",
+    "country" : "United States of America"
+}
+
+,
+{
+
     "session" : "delta",
     "condition" : "111",
     "axis" : "full",
@@ -984,6 +1582,58 @@
     "sex" : "Male",
     "age" : "21",
     "country" : "US"
+}
+
+,
+{
+
+    "session" : "golf",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 113475,
+    "tt_t" : 185634,
+    "totalTime" : 531125,
+    "attn_check" : 1,
+    "subject" : "LSRUK",
+    "triangular_score" : 15,
+    "triangular_time" : 299109,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 239382,
+    "tt_t" : 221554,
+    "totalTime" : 751510,
+    "attn_check" : 1,
+    "subject" : "HH4FP",
+    "triangular_score" : 2,
+    "triangular_time" : 460936,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "USA"
 }
 
 ,
@@ -1067,6 +1717,58 @@
 ,
 {
 
+    "session" : "hotel",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 134892,
+    "tt_t" : 288652,
+    "totalTime" : 725633,
+    "attn_check" : 1,
+    "subject" : "VARPG",
+    "triangular_score" : 14,
+    "triangular_time" : 423544,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "321",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 153440,
+    "tt_t" : 172488,
+    "totalTime" : 555194,
+    "attn_check" : 1,
+    "subject" : "AZ6AR",
+    "triangular_score" : 15,
+    "triangular_time" : 325928,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
+}
+
+,
+{
+
     "session" : "charlie",
     "condition" : "221",
     "axis" : "full",
@@ -1113,6 +1815,32 @@
     "major" : "Social Sciences (incl. CogSci)",
     "sex" : "Female",
     "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "hotel",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 5,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 108296,
+    "tt_t" : 124641,
+    "totalTime" : 657132,
+    "attn_check" : 1,
+    "subject" : "WDOR4",
+    "triangular_score" : 14,
+    "triangular_time" : 232937,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "20",
     "country" : "USA"
 }
 
