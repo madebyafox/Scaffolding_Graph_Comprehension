@@ -22,7 +22,21 @@ library(car) #ANOVA
 #Create data frame for participant file
 participant_file <- "../STUDY_3/Analysis/data/final_participants.json"
 df_subjects <- fromJSON(participant_file)
-#names(df_subjects) #print names of each column in the data frame
+
+#set condition levels as factors
+levels(df_subjects$impasse)<- c("1","2")
+levels(df_subjects$explicit)<- c("1","2","3")
+
+df_subjects$explicit<-factor(df_subjects$explicit)
+df_subjects$impasse<-factor(df_subjects$impasse)
+
+#Create subset df for each condition
+df_1 <- subset(df_subjects, explicit==1)
+df_2 <- subset(df_subjects, explicit==2)
+df_3 <- subset(df_subjects, explicit==3)
+
+levels(df_1$impasse)<- c("1","2")
+levels(df_1$explicit)<- c("1","2","3")
 
 #Create factor vectors
 EXPLICIT <- factor(df_subjects$explicit, levels = c(1,2,3), labels = c("none", "text/image", "interactive"))
@@ -50,6 +64,16 @@ table <- tabular( (IMPASSE+1)~(EXPLICIT+1), data = df_subjects )
 table_options(rowlabeljustification="center", justification="right")
 html(table,options=htmloptions(head=TRUE))
 ```   
+<br><br>
+
+###Hypotheses
+Based on the results from Study 2 we predict ...   
+(1) No significant differences will be found the static explicit scaffolds (control, text/image) when no implicit scaffold is present.   
+(2) Significant differences will be found between the interactive and all other explicit scaffolds.   
+Based on our hypotheses, we predict...   
+(3) A significant interaction between implicit & explicit scaffold (implicit scaffold will be equally effective across all types of explicit scaffold)   
+(4) The implicit scaffold will be more effective than any of the explicit scaffolds ( explicit[none]implicit[impasse] will be significantly better than all of the explicit[]implicit[none] conditions)   
+
 
 ##Methods
 ###Design
@@ -172,7 +196,7 @@ QP_time
 ```
 
 ##Results
-####Response Accuracy
+###Response Accuracy
 ```{r results = 'asis', echo = FALSE}
 #Create a tables of means for task scores 
 table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
@@ -184,10 +208,26 @@ html(table,options=htmloptions(head=TRUE))
 #latex(table)
 ```
 <br><br><br>
-```{r echo = FALSE}
-model = lm(triangular_score ~ explicit + impasse + explicit:impasse,
-           data = df_subjects)
-Anova(model,type = "II")
+
+#####STATISTICAL MODEL: Factorial ANOVA (explicit scaffold X impasse)  on SCORE
+
+(Expected Results)
+<!--html_preserve-->
+<img src="Study3_files/figure-html/expected_results.png" height="200" width="350" > 
+<!--/html_preserve-->
+
+
+```{r collapse=TRUE}
+#FACTORIAL ANOVA ON LM OF 
+# model = lm(triangular_score ~ explicit + impasse + explicit:impasse,
+#            data = df_subjects)
+# Anova(model,type = "II")
+
+ aov.out = aov(triangular_score ~ explicit * impasse, data=df_subjects)
+options(show.signif.stars=T)
+ summary(aov.out)
+options(show.signif.stars=T)
+        TukeyHSD(aov.out, show.signif.stars=T)
 ```
 <br><br><br>
 ```{r echo = FALSE}
@@ -204,7 +244,57 @@ ggplot(df_subjects)+
   ylab("Score")
 ```
 
-####Response Time
+
+####HYPOTHESIS 1: The formation of a question as a mental impasse will significantly improve performance on the problems
+
+##### A) Perform pairwise comparison of impasse vs. non-impasse within each explicit scaffold condition
+
+```{r collapse=TRUE}
+#CALULCULATE PAIRWISE DIFFERENCE & EFFECT SIZE (independent sample t-test with numeric y and binary x)
+mainEffectGraph  <- t.test(triangular_score ~ impasse, data=df_1)
+mainEffectGraph
+
+t <-mainEffectGraph$statistic[[1]]
+t <-round(t,2)
+df <-round(mainEffectGraph$parameter[[1]],0)
+p <-mainEffectGraph[3] 
+r <- sqrt(t^2/(t^2+df))
+r <-round(r,2)
+r
+
+#explore descriptive statistics based on each IV
+desc_control <- by(df_1$triangular_score, list(df_1$impasse), stat.desc, basic=FALSE)
+desc_control
+nonimpasse_mean = desc_control$`1`[2]
+nonimpasse_SD = desc_control$`1`[6]
+impasse_mean = desc_control$`2`[2]
+impasse_SD = desc_control$`2`[6]
+```
+
+For participants in the no-scaffold control condition, we see that we see participants presented with non-impasse questions (M = `r round(nonimpasse_mean,2)`, SD = `r round(nonimpasse_SD)`) are significantly *lower* than those with impasse questions (M = `r round(impasse_mean,2)`, SD = `r round(impasse_SD)`), t(`r df`) = `r t`, p = `r p[[1]]` , r = `r r`. 
+
+```{r} 
+# bar <- ggplot(df_1, aes(x = impasse, y= triangular_score)) 
+# bar + stat_summary(aes(y = triangular_score, group=impasse), fun.y=mean,  geom="bar", position="dodge") +
+#       stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+#       labs (x = "Graph Task ", y= "Score", fill="Graph Task") +
+#       coord_cartesian(ylim=c(0,15)) +
+#       scale_x_discrete(labels=c("non-impasse" = "impasse"))+ 
+#       theme_bw() +
+#       theme(strip.background = element_blank()) +
+#       ggtitle("Mean Score for no-scaffold by Impasse Structure")
+```
+
+
+
+##### A) Examine enter question set (only first 5 are scaffolded)
+##### B) Examine scaffolded phase only 
+
+
+
+
+
+###Response Time
 
 ```{r results = 'asis', echo = FALSE}
 #Create a tables of means for task runtime 
