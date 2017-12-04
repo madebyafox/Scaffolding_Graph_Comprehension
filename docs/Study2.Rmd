@@ -518,6 +518,20 @@ round(r,3)
 
 When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p < 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)
 
+```{r collapse = TRUE}
+#RUN ANCOVA ON tm_score with lm_score as covariate
+# model.1=aov(triangular_score~linear_score+condition, data=df_subjects)
+# 
+# Anova(model.1, type="III") 
+#ANCOVA PRECONDITIONS
+#1. linear relationship between covariate and dependent variable
+#2. all treatment (condition) regression lines have same slope 
+test<-lm(formula = triangular_score ~ linear_score + condition,  data = df_subjects)
+summary(test)
+```
+
+
+
 ```{r} 
 bar <- ggplot(l_scores, aes(x = variable, y= value, fill=lm_scenarios))
 bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom="bar", position="dodge") +
