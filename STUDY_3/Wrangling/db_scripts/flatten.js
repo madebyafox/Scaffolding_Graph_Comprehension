@@ -9,6 +9,7 @@ db.foxtrot.copyTo("all_sessions");
 db.golf.copyTo("all_sessions");
 db.hotel.copyTo("all_sessions");
 db.indiaJulietKiloLima.copyTo("all_sessions");
+db.mike.copyTo("all_sessions");
 
 
 //add each session file as they come in

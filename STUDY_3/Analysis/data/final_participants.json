@@ -1,6 +1,188 @@
 [
 {
 
+    "session" : "mike",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 4,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 531905,
+    "tt_t" : 402823,
+    "totalTime" : 1282183,
+    "attn_check" : 1,
+    "subject" : "3B1TL",
+    "triangular_score" : 14,
+    "triangular_time" : 934728,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Humanities",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 597908,
+    "tt_t" : 321982,
+    "totalTime" : 1152170,
+    "attn_check" : 1,
+    "subject" : "5WPCV",
+    "triangular_score" : 2,
+    "triangular_time" : 919890,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "United States of America"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 181417,
+    "tt_t" : 232378,
+    "totalTime" : 702347,
+    "attn_check" : 1,
+    "subject" : "0ZCT1",
+    "triangular_score" : 15,
+    "triangular_time" : 413795,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Humanities",
+    "sex" : "Male",
+    "age" : "19",
+    "country" : "US"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 4,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 172255,
+    "tt_t" : 241802,
+    "totalTime" : 744378,
+    "attn_check" : 1,
+    "subject" : "7WP84",
+    "triangular_score" : 14,
+    "triangular_time" : 414057,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "25",
+    "country" : "united states"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 281738,
+    "tt_t" : 198841,
+    "totalTime" : 709717,
+    "attn_check" : 1,
+    "subject" : "1THJX",
+    "triangular_score" : 2,
+    "triangular_time" : 480579,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "20",
+    "country" : "US"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 4,
+    "tt_n" : 7,
+    "orthogonal_score" : 0,
+    "ts_t" : 99758,
+    "tt_t" : 223352,
+    "totalTime" : 597594,
+    "attn_check" : 1,
+    "subject" : "YA9CN",
+    "triangular_score" : 11,
+    "triangular_time" : 323110,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "20",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 2,
+    "tt_n" : 9,
+    "orthogonal_score" : 0,
+    "ts_t" : 123871,
+    "tt_t" : 171631,
+    "totalTime" : 556583,
+    "attn_check" : 1,
+    "subject" : "61C10",
+    "triangular_score" : 11,
+    "triangular_time" : 295502,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
     "session" : "lima",
     "condition" : "211",
     "axis" : "full",
@@ -74,6 +256,32 @@
     "sex" : "Female",
     "age" : "20",
     "country" : "united states"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 2,
+    "tt_n" : 3,
+    "orthogonal_score" : 0,
+    "ts_t" : 325095,
+    "tt_t" : 872144,
+    "totalTime" : 1546621,
+    "attn_check" : 1,
+    "subject" : "2JRT6",
+    "triangular_score" : 5,
+    "triangular_time" : 1197239,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "United States"
 }
 
 ,
@@ -157,6 +365,32 @@
 ,
 {
 
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 274632,
+    "tt_t" : 332262,
+    "totalTime" : 908712,
+    "attn_check" : 1,
+    "subject" : "B50YA",
+    "triangular_score" : 2,
+    "triangular_time" : 606894,
+    "native_language" : "English",
+    "year" : "Fifth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "22",
+    "country" : "England"
+}
+
+,
+{
+
     "session" : "lima",
     "condition" : "221",
     "axis" : "full",
@@ -178,6 +412,32 @@
     "sex" : "Male",
     "age" : "21",
     "country" : "USA"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "111",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 268419,
+    "tt_t" : 236407,
+    "totalTime" : 810222,
+    "attn_check" : 1,
+    "subject" : "X0PRP",
+    "triangular_score" : 2,
+    "triangular_time" : 504826,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "20",
+    "country" : "United States"
 }
 
 ,
@@ -651,6 +911,32 @@
 ,
 {
 
+    "session" : "mike",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 5,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 276547,
+    "tt_t" : 395335,
+    "totalTime" : 879830,
+    "attn_check" : 1,
+    "subject" : "WJ5M4",
+    "triangular_score" : 15,
+    "triangular_time" : 671882,
+    "native_language" : "Other",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "21",
+    "country" : "Italy"
+}
+
+,
+{
+
     "session" : "kilo",
     "condition" : "311",
     "axis" : "full",
@@ -724,6 +1010,32 @@
     "sex" : "Female",
     "age" : "33",
     "country" : "U.A.E"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 3,
+    "tt_n" : 8,
+    "orthogonal_score" : 0,
+    "ts_t" : 255493,
+    "tt_t" : 255116,
+    "totalTime" : 739532,
+    "attn_check" : 1,
+    "subject" : "VT3ZX",
+    "triangular_score" : 11,
+    "triangular_time" : 510609,
+    "native_language" : "Other",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "19",
+    "country" : "USA"
 }
 
 ,
@@ -1062,6 +1374,32 @@
     "sex" : "Female",
     "age" : "19",
     "country" : "China"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 4,
+    "tt_n" : 7,
+    "orthogonal_score" : 0,
+    "ts_t" : 344941,
+    "tt_t" : 218029,
+    "totalTime" : 855806,
+    "attn_check" : 1,
+    "subject" : "F49JC",
+    "triangular_score" : 11,
+    "triangular_time" : 562970,
+    "native_language" : "Mandarin or Cantonese",
+    "year" : "First",
+    "major" : "Math or Computer Sciences",
+    "sex" : "Male",
+    "age" : "18",
+    "country" : "Taiwan"
 }
 
 ,
@@ -1450,6 +1788,32 @@
     "year" : "Fourth",
     "major" : "Biomedical & Health Sciences",
     "sex" : "Female",
+    "age" : "21",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 2,
+    "tt_n" : 6,
+    "orthogonal_score" : 0,
+    "ts_t" : 146816,
+    "tt_t" : 295088,
+    "totalTime" : 671396,
+    "attn_check" : 1,
+    "subject" : "H9B17",
+    "triangular_score" : 8,
+    "triangular_time" : 441904,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
     "age" : "21",
     "country" : "United States"
 }
@@ -1847,6 +2211,32 @@
 ,
 {
 
+    "session" : "mike",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 2,
+    "tt_n" : 8,
+    "orthogonal_score" : 0,
+    "ts_t" : 207223,
+    "tt_t" : 321125,
+    "totalTime" : 818077,
+    "attn_check" : 1,
+    "subject" : "5LHA4",
+    "triangular_score" : 10,
+    "triangular_time" : 528348,
+    "native_language" : "English",
+    "year" : "Third",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "20",
+    "country" : "America"
+}
+
+,
+{
+
     "session" : "india",
     "condition" : "311",
     "axis" : "full",
@@ -1919,6 +2309,32 @@
     "major" : "Natural Sciences",
     "sex" : "Female",
     "age" : "19",
+    "country" : "USA"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "211",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 2,
+    "ts_n" : 3,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 110455,
+    "tt_t" : 226950,
+    "totalTime" : 593122,
+    "attn_check" : 1,
+    "subject" : "3ZLSF",
+    "triangular_score" : 13,
+    "triangular_time" : 337405,
+    "native_language" : "Mandarin or Cantonese",
+    "year" : "Second",
+    "major" : "Engineering",
+    "sex" : "Male",
+    "age" : "20",
     "country" : "USA"
 }
 
@@ -2861,6 +3277,32 @@
 ,
 {
 
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 0,
+    "tt_n" : 2,
+    "orthogonal_score" : 0,
+    "ts_t" : 175310,
+    "tt_t" : 220122,
+    "totalTime" : 634272,
+    "attn_check" : 1,
+    "subject" : "5EWM2",
+    "triangular_score" : 2,
+    "triangular_time" : 395432,
+    "native_language" : "English",
+    "year" : "Fifth",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "25",
+    "country" : "United States"
+}
+
+,
+{
+
     "session" : "delta",
     "condition" : "121",
     "axis" : "full",
@@ -3037,6 +3479,32 @@
     "major" : "Biomedical & Health Sciences",
     "sex" : "Female",
     "age" : "21",
+    "country" : "United States"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "121",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 1,
+    "ts_n" : 4,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 159499,
+    "tt_t" : 186007,
+    "totalTime" : 602135,
+    "attn_check" : 1,
+    "subject" : "KUHF1",
+    "triangular_score" : 14,
+    "triangular_time" : 345506,
+    "native_language" : "English",
+    "year" : "First",
+    "major" : "Biomedical & Health Sciences",
+    "sex" : "Male",
+    "age" : "19",
     "country" : "United States"
 }
 
@@ -3589,6 +4057,32 @@
 ,
 {
 
+    "session" : "mike",
+    "condition" : "311",
+    "axis" : "full",
+    "impasse" : 1,
+    "explicit" : 3,
+    "ts_n" : 4,
+    "tt_n" : 10,
+    "orthogonal_score" : 0,
+    "ts_t" : 190424,
+    "tt_t" : 263028,
+    "totalTime" : 716736,
+    "attn_check" : 1,
+    "subject" : "9PGJL",
+    "triangular_score" : 14,
+    "triangular_time" : 453452,
+    "native_language" : "English",
+    "year" : "Second",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Female",
+    "age" : "18",
+    "country" : "United States"
+}
+
+,
+{
+
     "session" : "echo",
     "condition" : "321",
     "axis" : "full",
@@ -3818,6 +4312,32 @@
     "sex" : "Male",
     "age" : "21",
     "country" : "US"
+}
+
+,
+{
+
+    "session" : "mike",
+    "condition" : "221",
+    "axis" : "full",
+    "impasse" : 2,
+    "explicit" : 2,
+    "ts_n" : 3,
+    "tt_n" : 7,
+    "orthogonal_score" : 0,
+    "ts_t" : 107417,
+    "tt_t" : 342483,
+    "totalTime" : 676075,
+    "attn_check" : 1,
+    "subject" : "0NZH6",
+    "triangular_score" : 10,
+    "triangular_time" : 449900,
+    "native_language" : "English",
+    "year" : "Fourth",
+    "major" : "Social Sciences (incl. CogSci)",
+    "sex" : "Male",
+    "age" : "21",
+    "country" : "USA"
 }
 
 ,
