@@ -754,6 +754,37 @@ round(r,3)</code></pre>
 <div id="main-effect-scenario-on-score" class="section level4">
 <h4>MAIN EFFECT: Scenario on SCORE</h4>
 <p>When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p &lt; 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)</p>
+<pre class="r"><code>#RUN ANCOVA ON tm_score with lm_score as covariate
+# model.1=aov(triangular_score~linear_score+condition, data=df_subjects)
+# 
+# Anova(model.1, type=&quot;III&quot;) 
+#ANCOVA PRECONDITIONS
+#1. linear relationship between covariate and dependent variable
+#2. all treatment (condition) regression lines have same slope 
+test&lt;-lm(formula = triangular_score ~ linear_score + condition,  data = df_subjects)
+summary(test)
+## 
+## Call:
+## lm(formula = triangular_score ~ linear_score + condition, data = df_subjects)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.4165  -2.4270   0.5835   2.7139   8.3945 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.33157    1.16079  -0.286    0.775    
+## linear_score  0.82742    0.10404   7.953 3.43e-14 ***
+## condition1   -1.85485    0.44871  -4.134 4.60e-05 ***
+## condition2   -0.01259    0.45457  -0.028    0.978    
+## condition3    0.01467    0.43570   0.034    0.973    
+## condition4   -0.13881    0.44597  -0.311    0.756    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.934 on 310 degrees of freedom
+## Multiple R-squared:  0.2311, Adjusted R-squared:  0.2187 
+## F-statistic: 18.64 on 5 and 310 DF,  p-value: 3.427e-16</code></pre>
 <pre class="r"><code>bar &lt;- ggplot(l_scores, aes(x = variable, y= value, fill=lm_scenarios))
 bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
@@ -767,7 +798,7 @@ bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom=&quot;b
                         name = &quot;Task Scenario&quot;,
                         breaks =c(&quot;axis&quot;,&quot;longmire&quot;),
                         labels =c(&quot;axis&quot;,&quot;longmire&quot;))</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>dots &lt;- ggplot(l_scores, aes(x = lm_scenarios, y= value, color=variable))
 dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;point&quot;, position = position_dodge(width=0.1),width=0.2) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.1),width=0.2) +
@@ -783,7 +814,7 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;poin
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear (LM)&quot;,&quot;triangular (TM)&quot;))</code></pre>
 <pre><code>## Warning: Ignoring unknown parameters: width</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </div>
 <div id="interaction-scaffold-graph" class="section level4">
 <h4>INTERACTION: Scaffold &amp; Graph</h4>
@@ -819,7 +850,7 @@ mixedPlot_order &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom
                        breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
                        labels=c(&quot;linear&quot;, &quot;triangular&quot;)) 
 mixedPlot_order</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <pre class="r"><code>#BOXPLOT BY CONDITION, FACET WITH ORDER AND SCENARIO
 mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ geom_boxplot() +
  facet_grid(lm_scenarios~order, labeller=labeller(order = order_labels)) +
@@ -832,7 +863,7 @@ mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ g
                        breaks=c(&quot;LM_T_M&quot;, &quot;TM_T_M&quot;),
                        labels=c(&quot;linear&quot;, &quot;triangular&quot;))
 mixedPlot_scenario</code></pre>
-<p><img src="Study2_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
 </div>
 <div id="hypothesis-testing" class="section level4">
 <h4>Hypothesis Testing</h4>
@@ -896,7 +927,7 @@ mixedModel = ezANOVA(data = l_times,
 <div id="main-effect-graph-on-time" class="section level4">
 <h4>MAIN EFFECT: Graph on TIME</h4>
 <p>On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
-<p><img src="Study2_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="Study2_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <pre><code>## 
 ##  Paired t-test
 ## 
