@@ -784,6 +784,9 @@ round(r,3)
 
 TM scores for participants who drew "right-angle" graphs were significantly lower (M = `r round(right_mean,2)`, SD = `r round(right_SD,2)`) than for participants who drew "asymmetric triangle" graphs (M = `r round(asy_mean,2)`, SD = `r round(asy_SD,2)`), t(`r df`) = `r t`, p = `r p[[1]]` , r = `r r`. 
 
+<!--html_preserve--><a href="gallery/analysis.html">See GALLERY of all images here</a><!--/html_preserve-->
+
+
 ## References
 
 Qiang, Y., Valcke, M., De Maeyer, P., & Van de Weghe, N. (2014). Representing time intervals in a two-dimensional space: An empirical study. Journal of Visual Languages and Computing, 25(4), 466–480. 

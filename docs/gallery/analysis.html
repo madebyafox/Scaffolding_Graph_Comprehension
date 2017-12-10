@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Results Gallery</title>
+  <meta name="author" content="Amy Rae Fox">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="gallery.js"></script>
+
+</head>
+
+<body>
+  <script>
+        $(function() {
+        		var selectedClass = "";
+        		$(".fil-cat").click(function(){
+        		selectedClass = $(this).attr("data-rel");
+             $("#portfolio").fadeTo(100, 0.1);
+        		$("#portfolio div").not("."+selectedClass).fadeOut().removeClass('scale-anm');
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn().addClass('scale-anm');
+              $("#portfolio").fadeTo(300, 1);
+            }, 300);
+        	});
+        });
+
+        var folder = "drawings/";
+        $.ajax({
+            url : folder,
+            success: function (data) {
+                $(data).find("a").attr("href", function (i, val) {
+        						var name = val;
+                    var condition = name.match(/\d/g);
+                    condition = condition[0];
+                    var classes = name.match(/_(\w+)./g);
+        						classes = classes[0].replace(".", "");
+        						classes = classes.split("_");
+        						classes.shift();
+                    console.log(val);
+        						console.log(classes);
+                    if( val.match(/\.(jpe?g|png|gif)$/) ) {
+                        $("#portfolio").append( "<div id="+i+"/>");
+        								$("#"+i+"").append( "<img id='"+val+"'src='"+ folder + val +"'>" );
+        								$("#"+i+"").addClass("all");
+                        $("#"+i+"").addClass(""+condition+"");
+        								$("#"+i+"").addClass("tile");
+        								$("#"+i+"").addClass("scale-anm");
+        								for (n=0;n<classes.length;n++) {
+        									$("#"+i+"").addClass(classes[n]);
+        								}
+                    }
+                });
+            }
+        });
+
+  </script>
+
+  <div class="toolbar mb2 mt2">
+    <button class="btn fil-cat" href=""       data-rel="all">All</button>
+    <!-- <button class="btn fil-cat"     data-rel="0">no-scaffold</button>
+    <button class="btn fil-cat"     data-rel="1">what-text</button>
+    <button class="btn fil-cat"     data-rel="2">how-text</button>
+    <button class="btn fil-cat"     data-rel="3">static-image</button>
+    <button class="btn fil-cat"     data-rel="4">interactive-image</button> -->
+    <button class="btn fil-cat"     data-rel="TRI">correct triangular</button>
+    <button class="btn fil-cat"     data-rel="LIN">linear</button>
+    <button class="btn fil-cat"     data-rel="SCA">scatterplot</button>
+    <button class="btn fil-cat"     data-rel="ASM">asymmetric triangular</button>
+    <button class="btn fil-cat"     data-rel="RAT">right triangular</button>
+    <!-- <button class="btn fil-cat"     data-rel="e">order: LM-first</button>
+    <button class="btn fil-cat"     data-rel="r">order: TM-first</button> -->
+
+
+  </div>
+
+  <div style="clear:both;"></div>
+  <div id="portfolio">
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+</body>
+</html>
