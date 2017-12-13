@@ -455,6 +455,7 @@ pairwise.t.test(df_subjects$score_diff, df_subjects$condition,  p.adjust.method=
 
 Instead, we find that only in the interactive-image condition yields TM scores significantly higher than the no-scaffold control.  
 
+
 ###MIXED EFFECTS MODEL
 
 *Compute mixed effects ANOVA on Response Score*   
