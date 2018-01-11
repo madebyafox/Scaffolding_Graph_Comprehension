@@ -26,6 +26,7 @@ df_subjects_3 <- fromJSON(participant_file)
 #set condition levels as factors
 levels(df_subjects_3$impasse)<- c("1","2")
 levels(df_subjects_3$explicit)<- c("1","2","3")
+levels(df_subjects_3$condition)<- c("111","121","211","221","311","321")
 
 df_subjects_3$explicit<-factor(df_subjects_3$explicit)
 df_subjects_3$impasse<-factor(df_subjects_3$impasse)
@@ -34,6 +35,7 @@ df_subjects_3$impasse<-factor(df_subjects_3$impasse)
 EXPLICIT <- factor(df_subjects_3$explicit, levels = c(1,2,3), labels = c("none", "text/image", "interactive"))
 IMPASSE  <- factor(df_subjects_3$impasse, levels = c(1,2), labels = c("none", "impasse"))
 AXIS  <- factor(df_subjects_3$axis)
+CONDITION <-factor(df_subjects_3$condition)
 
 df_subjects_3$tt_min <- df_subjects_3$triangular_time / 1000 / 60
 
@@ -194,27 +196,16 @@ QP_time <- qplot(sample = df_subjects_3$tt_min, main="Q-Q Plot: TIME") + theme_b
 QP_time
 ```
 
+
 ##Results: Response Accuracy
 
-###EXPECTED RESULTS 
+####EXPECTED RESULTS 
 <!--html_preserve-->
-<img src="Study3_files/figure-html/expected_results_bar.png" height="500" width="500" > 
+<img src="Study3_files/figure-html/expected_results_bar.png" height="800" width="800" > 
 <!--/html_preserve-->
 <br> 
 
-###ACTUAL RESULTS 
-
-```{r results = 'asis', echo = FALSE}
-#Create a tables of means for task scores 
-table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
-                            *(Heading("")*triangular_score) 
-                            *(mean+sd)
-                            *Format(digits=2),
-                            data=df_subjects_3)
-html(table,options=htmloptions(head=TRUE))
-#latex(table)
-```
-<br><br>
+####ACTUAL RESULTS 
 
 ```{r}
 #BAR CHART OF SCORE RESULTS
@@ -236,51 +227,92 @@ bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom
 
 ```{r}
 #SCATTERPLOT OF SCORE RESULTS
-scatter <- ggplot(df_subjects_3, aes(x = explicit, y= triangular_score, color=impasse, shape=impasse))
-scatter + geom_jitter()+
-      coord_cartesian(ylim=c(0,15)) +
-      theme_bw() +
-      theme(strip.background = element_blank()) +
-      labs (x = "Scaffold Condition ", y= "Score", fill="Condition") +
-      scale_x_discrete(breaks=c(1,2,3),
-                       labels=c("none","text/image","interactive"))+
-      scale_color_manual( values = c(red,green),
-                       name="Impasse",
-                       breaks=c(1,2),
-                       labels=c("none","impasse")) +
-      scale_shape_manual( values = c(19,17),
-                       name="Impasse",
-                       breaks=c(1,2),
-                       labels=c("none","impasse")) +
-      labs(title = "Score by implicit and explicit scaffold",
-      subtitle = " ") 
+#scatter <- ggplot(df_subjects_3, aes(x = explicit, y= triangular_score, color=impasse, shape=impasse))
+#scatter + geom_jitter()+
+#      coord_cartesian(ylim=c(0,15)) +
+#      theme_bw() +
+#      theme(strip.background = element_blank()) +
+#      labs (x = "Scaffold Condition ", y= "Score", fill="Condition") +
+#      scale_x_discrete(breaks=c(1,2,3),
+#                       labels=c("none","text/image","interactive"))+
+#      scale_color_manual( values = c(red,green),
+#                       name="Impasse",
+#                       breaks=c(1,2),
+#                       labels=c("none","impasse")) +
+#      scale_shape_manual( values = c(19,17),
+#                       name="Impasse",
+#                       breaks=c(1,2),
+#                       labels=c("none","impasse")) +
+#      labs(title = "Score by implicit and explicit scaffold",
+#      subtitle = " ") 
 ```
 <br>
 
 ```{r}
 #SCATTERPLOT OF SCORE RESULTS
-scatter <- ggplot(df_subjects_3, aes(x = impasse, y= triangular_score, color=explicit, shape=explicit))
-scatter + geom_jitter()+
-      coord_cartesian(ylim=c(0,15)) +
-      theme_bw() +
-      theme(strip.background = element_blank()) +
-      labs (x = "Scaffold Condition ", y= "Score", fill="Condition") +
-      scale_x_discrete(breaks=c(1,2),
-                       labels=c("none","impasse"))+
-      scale_color_manual( values = c(red,blue,green),
-                       name="Explicit",
-                       breaks=c(1,2,3),
-                       labels=c("none","text/image","interactive"))+
-      scale_shape_manual( values = c(19,17,15),
-                       name="Explicit",
-                       breaks=c(1,2,3),
-                       labels=c("none","text/image","interactive"))+
-      labs(title = "Score by implicit and explicit scaffold",
-      subtitle = " ") 
+#scatter <- ggplot(df_subjects_3, aes(x = impasse, y= triangular_score, color=explicit, shape=explicit))
+#scatter + geom_jitter()+
+#      coord_cartesian(ylim=c(0,15)) +
+#      theme_bw() +
+#      theme(strip.background = element_blank()) +
+#      labs (x = "Scaffold Condition ", y= "Score", fill="Condition") +
+#      scale_x_discrete(breaks=c(1,2),
+#                       labels=c("none","impasse"))+
+#      scale_color_manual( values = c(red,blue,green),
+#                       name="Explicit",
+#                       breaks=c(1,2,3),
+#                       labels=c("none","text/image","interactive"))+
+#      scale_shape_manual( values = c(19,17,15),
+#                       name="Explicit",
+#                       breaks=c(1,2,3),
+#                       labels=c("none","text/image","interactive"))+
+#      labs(title = "Score by implicit and explicit scaffold",
+#      subtitle = " ") 
 ```
 
 
-###EXPLORATION
+####DESCRIPTIVE STATISTICS
+
+The mean score across the entire sample was approximately `r score_m` points (out of 15), with a standard deviation of `r score_sd` , and values ranging from `r score_min` to `r score_max`  points.    
+<br> 
+
+```{r results = 'asis', echo = FALSE}
+#Create a tables of means for task scores 
+table<- tabular( (IMPASSE) ~ (Heading("EXPLICIT Scaffold")*EXPLICIT)
+                            *(Heading("")*triangular_score) 
+                            *(mean+sd)
+                            *Format(digits=2),
+                            data=df_subjects_3)
+html(table,options=htmloptions(head=TRUE))
+#latex(table)
+```
+<br><br>
+
+```{r results = 'asis', echo = FALSE}
+#Create a tables of means for task scores 
+table<- tabular( (IMPASSE * EXPLICIT) ~ (Heading("Orthogonal Response")*orthogonal_score + Heading("Triangular Response")*triangular_score)
+                            *(mean+sd)
+                            *Format(digits=0),
+                            data=df_subjects_3)
+html(table,options=htmloptions(head=TRUE))
+#latex(table)
+```
+<br><br>
+
+
+####HYPOTHESIS TESTING
+
+##### H1. Equality of control & text/image explicit scaffold 
+Replicating results from Study 2, we predicted that no significant differences would be found between the control (no explicit scaffold) and text/image explicit scaffold condition (with non-impasse problems)
+
+##### H2. Superiority of interactive explicit scaffold
+Replicating results from Study 2, we predicted that the interactive explicit condition would yield significantly higher accuracy scores than either the text/image or control conditions  (with non-impasse problems)
+
+##### H3. Interaction between implicit and explicit scaffolds
+We predict a signficant interaction between implicit and explicit scaffold conditions.  We predict that in the implicit-control (non-impasse) condition, the explicit scaffolds will be perform consistent with the findings of study 2.  Conversely, under the implicit scaffold condition (impasse problem), the three explicit scaffolds will perform equally well, at performance ceiling. 
+
+
+####EXPLORATION
 
 ####Factorial ANOVA :: SCORE by EXPLICIT*IMPLICIT    
 
@@ -422,7 +454,9 @@ The main effect of impasse in the factorial ANOVA support this claim. Additional
 ##### A) Examine enter question set (only first 5 are scaffolded)
 ##### B) Examine scaffolded phase only 
 
-##Results: Response Time
+
+
+## Results: Response Time
 
 ```{r results = 'asis', echo = FALSE}
 #Create a tables of means for task runtime 
@@ -458,6 +492,9 @@ ggplot(df_subjects_3)+
 
 
 ##Post-Hoc Analyses
+##Item Analyses
+
+
 
 ###Alternative Answers
 

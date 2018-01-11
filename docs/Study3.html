@@ -305,10 +305,10 @@ none
 30
 </td>
 <td>
-27
+30
 </td>
 <td>
-87
+90
 </td>
 </tr>
 <tr class="right">
@@ -316,16 +316,16 @@ none
 impasse
 </th>
 <td>
-29
+30
 </td>
 <td>
 30
 </td>
 <td>
-29
+30
 </td>
 <td>
-88
+90
 </td>
 </tr>
 <tr class="right">
@@ -333,16 +333,16 @@ impasse
 All
 </th>
 <td>
-59
+60
 </td>
 <td>
 60
 </td>
 <td>
-56
+60
 </td>
 <td>
-175
+180
 </td>
 </tr>
 </tbody>
@@ -351,15 +351,15 @@ All
 </div>
 <div id="participants" class="section level3">
 <h3>Participants</h3>
-<p><strong>175 students </strong> (<code>59</code> % female) registered as STEM majors at a public university in the United States participated in exchange for course credit (age: <code>18</code> - <code>33</code> years). <br><br></p>
+<p><strong>180 students </strong> (<code>59</code> % female) registered as STEM majors at a public university in the United States participated in exchange for course credit (age: <code>18</code> - <code>33</code> years). <br><br></p>
 </div>
 <div id="measures" class="section level3">
 <h3>Measures</h3>
 <div id="response-accuracy" class="section level4">
 <h4>Response Accuracy</h4>
-<p>The mean score across the entire sample was approximately 10 points (out of 15), with a standard deviation of 0.38 , and values ranging from 1 to 15 points.<br />
+<p>The mean score across the entire sample was approximately 10 points (out of 15), with a standard deviation of 0.37 , and values ranging from 1 to 15 points.<br />
 <br> <br> <br> <img src="Study3_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p><br><br> <span style="color:red"> A Shapiro-Wilk test for normality yielded a value of <code>0.8064857</code>, p = <code>5.8537426\times 10^{-14}</code> suggesting that the distibution is significantly non-normal.<br />
+<p><br><br> <span style="color:red"> A Shapiro-Wilk test for normality yielded a value of <code>0.8070485</code>, p = <code>3.7191719\times 10^{-14}</code> suggesting that the distibution is significantly non-normal.<br />
 </span><br />
 <br><br></p>
 <p><img src="Study3_files/figure-html/unnamed-chunk-5-1.png" width="672" /> <br> <br> <br> <img src="Study3_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
@@ -367,7 +367,7 @@ All
 <div id="response-latency" class="section level4">
 <h4>Response Latency</h4>
 <p>The mean total runtime across the sample was approximately 8 minutes, with a standard deviation of 0.17 minutes, and values ranging from 4 to 20 minutes. <br><br><br> <img src="Study3_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p><br><br> <span style="color:red"> A Shapiro-Wilk test for normality yielded a value of <code>0.9184718</code>, p = <code>2.5949359\times 10^{-8}</code> suggesting that the data are from a non-normally-distributed population. </span><br />
+<p><br><br> <span style="color:red"> A Shapiro-Wilk test for normality yielded a value of <code>0.9214032</code>, p = <code>2.9053715\times 10^{-8}</code> suggesting that the data are from a non-normally-distributed population. </span><br />
 <br><br></p>
 <p><img src="Study3_files/figure-html/unnamed-chunk-8-1.png" width="672" /> <br> <br> <br> <img src="Study3_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
@@ -375,14 +375,14 @@ All
 </div>
 <div id="results-response-accuracy" class="section level2">
 <h2>Results: Response Accuracy</h2>
-<div id="expected-results" class="section level3">
-<h3>EXPECTED RESULTS</h3>
+<div id="expected-results" class="section level4">
+<h4>EXPECTED RESULTS</h4>
 <p>
-<img src="Study3_files/figure-html/expected_results_bar.png" height="500" width="500" > 
+<img src="Study3_files/figure-html/expected_results_bar.png" height="800" width="800" > 
  <br></p>
 </div>
-<div id="actual-results" class="section level3">
-<h3>ACTUAL RESULTS</h3>
+<div id="actual-results" class="section level4">
+<h4>ACTUAL RESULTS</h4>
 <pre class="r"><code>#BAR CHART OF SCORE RESULTS
 bar &lt;- ggplot(df_subjects_3, aes(x = condition, y= triangular_score, fill=explicit))
 bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
@@ -399,45 +399,49 @@ bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom
       ggtitle(&quot;Mean Score by Explicit &amp; Implicit Scaffolds&quot;)</code></pre>
 <p><img src="Study3_files/figure-html/unnamed-chunk-10-1.png" width="672" /> <br><br></p>
 <pre class="r"><code>#SCATTERPLOT OF SCORE RESULTS
-scatter &lt;- ggplot(df_subjects_3, aes(x = explicit, y= triangular_score, color=impasse, shape=impasse))
-scatter + geom_jitter()+
-      coord_cartesian(ylim=c(0,15)) +
-      theme_bw() +
-      theme(strip.background = element_blank()) +
-      labs (x = &quot;Scaffold Condition &quot;, y= &quot;Score&quot;, fill=&quot;Condition&quot;) +
-      scale_x_discrete(breaks=c(1,2,3),
-                       labels=c(&quot;none&quot;,&quot;text/image&quot;,&quot;interactive&quot;))+
-      scale_color_manual( values = c(red,green),
-                       name=&quot;Impasse&quot;,
-                       breaks=c(1,2),
-                       labels=c(&quot;none&quot;,&quot;impasse&quot;)) +
-      scale_shape_manual( values = c(19,17),
-                       name=&quot;Impasse&quot;,
-                       breaks=c(1,2),
-                       labels=c(&quot;none&quot;,&quot;impasse&quot;)) +
-      labs(title = &quot;Score by implicit and explicit scaffold&quot;,
-      subtitle = &quot; &quot;) </code></pre>
-<p><img src="Study3_files/figure-html/unnamed-chunk-11-1.png" width="672" /> <br></p>
+#scatter &lt;- ggplot(df_subjects_3, aes(x = explicit, y= triangular_score, color=impasse, shape=impasse))
+#scatter + geom_jitter()+
+#      coord_cartesian(ylim=c(0,15)) +
+#      theme_bw() +
+#      theme(strip.background = element_blank()) +
+#      labs (x = &quot;Scaffold Condition &quot;, y= &quot;Score&quot;, fill=&quot;Condition&quot;) +
+#      scale_x_discrete(breaks=c(1,2,3),
+#                       labels=c(&quot;none&quot;,&quot;text/image&quot;,&quot;interactive&quot;))+
+#      scale_color_manual( values = c(red,green),
+#                       name=&quot;Impasse&quot;,
+#                       breaks=c(1,2),
+#                       labels=c(&quot;none&quot;,&quot;impasse&quot;)) +
+#      scale_shape_manual( values = c(19,17),
+#                       name=&quot;Impasse&quot;,
+#                       breaks=c(1,2),
+#                       labels=c(&quot;none&quot;,&quot;impasse&quot;)) +
+#      labs(title = &quot;Score by implicit and explicit scaffold&quot;,
+#      subtitle = &quot; &quot;) </code></pre>
+<p><br></p>
 <pre class="r"><code>#SCATTERPLOT OF SCORE RESULTS
-scatter &lt;- ggplot(df_subjects_3, aes(x = impasse, y= triangular_score, color=explicit, shape=explicit))
-scatter + geom_jitter()+
-      coord_cartesian(ylim=c(0,15)) +
-      theme_bw() +
-      theme(strip.background = element_blank()) +
-      labs (x = &quot;Scaffold Condition &quot;, y= &quot;Score&quot;, fill=&quot;Condition&quot;) +
-      scale_x_discrete(breaks=c(1,2),
-                       labels=c(&quot;none&quot;,&quot;impasse&quot;))+
-      scale_color_manual( values = c(red,blue,green),
-                       name=&quot;Impasse&quot;,
-                       breaks=c(1,2,3),
-                       labels=c(&quot;none&quot;,&quot;text/image&quot;,&quot;interactive&quot;))+
-      scale_shape_manual( values = c(19,17,15),
-                       name=&quot;Impasse&quot;,
-                       breaks=c(1,2,3),
-                       labels=c(&quot;none&quot;,&quot;text/image&quot;,&quot;interactive&quot;))+
-      labs(title = &quot;Score by implicit and explicit scaffold&quot;,
-      subtitle = &quot; &quot;) </code></pre>
-<p><img src="Study3_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+#scatter &lt;- ggplot(df_subjects_3, aes(x = impasse, y= triangular_score, color=explicit, shape=explicit))
+#scatter + geom_jitter()+
+#      coord_cartesian(ylim=c(0,15)) +
+#      theme_bw() +
+#      theme(strip.background = element_blank()) +
+#      labs (x = &quot;Scaffold Condition &quot;, y= &quot;Score&quot;, fill=&quot;Condition&quot;) +
+#      scale_x_discrete(breaks=c(1,2),
+#                       labels=c(&quot;none&quot;,&quot;impasse&quot;))+
+#      scale_color_manual( values = c(red,blue,green),
+#                       name=&quot;Explicit&quot;,
+#                       breaks=c(1,2,3),
+#                       labels=c(&quot;none&quot;,&quot;text/image&quot;,&quot;interactive&quot;))+
+#      scale_shape_manual( values = c(19,17,15),
+#                       name=&quot;Explicit&quot;,
+#                       breaks=c(1,2,3),
+#                       labels=c(&quot;none&quot;,&quot;text/image&quot;,&quot;interactive&quot;))+
+#      labs(title = &quot;Score by implicit and explicit scaffold&quot;,
+#      subtitle = &quot; &quot;) </code></pre>
+</div>
+<div id="descriptive-statistics" class="section level4">
+<h4>DESCRIPTIVE STATISTICS</h4>
+<p>The mean score across the entire sample was approximately 10 points (out of 15), with a standard deviation of 0.37 , and values ranging from 1 to 15 points.<br />
+<br></p>
 <!DOCTYPE html>
 <html>
 <head>
@@ -545,7 +549,7 @@ none
 13.0
 </td>
 <td>
-2.8
+2.7
 </td>
 </tr>
 <tr class="right">
@@ -553,7 +557,7 @@ none
 impasse
 </th>
 <td>
-7.2
+7.0
 </td>
 <td>
 5.1
@@ -565,7 +569,7 @@ impasse
 3.6
 </td>
 <td>
-13.5
+13.4
 </td>
 <td>
 1.5
@@ -574,9 +578,210 @@ impasse
 </tbody>
 </table>
 <p><br><br></p>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+.Rtable thead, .Rtable .even {
+  background-color: inherit;
+}
+.left   { text-align:left; }
+.center { text-align:center; }
+.right  { text-align:right; }
+.Rtable, .Rtable thead { 
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: medium 0;
+  border-color: inherit;
+}
+.Rtable th, .Rtable td {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border-width: 0;
+}
+</style>
+<body>
+<table class="Rtable">
+<thead>
+<tr class="right">
+<th>
+ 
+</th>
+<th>
+ 
+</th>
+<th colspan="2">
+Orthogonal Response
+</th>
+<th colspan="2">
+Triangular Response
+</th>
+</tr>
+<tr class="right">
+<th>
+IMPASSE
+</th>
+<th>
+EXPLICIT
+</th>
+<th>
+mean
+</th>
+<th>
+sd
+</th>
+<th>
+mean
+</th>
+<th>
+sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="right">
+<th class="center">
+none
+</th>
+<th class="center">
+none
+</th>
+<td>
+10
+</td>
+<td>
+5
+</td>
+<td>
+5
+</td>
+<td>
+5
+</td>
+</tr>
+<tr class="right">
+<th class="center">
+ 
+</th>
+<th class="center">
+text/image
+</th>
+<td>
+5
+</td>
+<td>
+3
+</td>
+<td>
+10
+</td>
+<td>
+4
+</td>
+</tr>
+<tr class="right">
+<th class="center">
+ 
+</th>
+<th class="center">
+interactive
+</th>
+<td>
+2
+</td>
+<td>
+2
+</td>
+<td>
+13
+</td>
+<td>
+3
+</td>
+</tr>
+<tr class="right">
+<th class="center">
+impasse
+</th>
+<th class="center">
+none
+</th>
+<td>
+5
+</td>
+<td>
+4
+</td>
+<td>
+7
+</td>
+<td>
+5
+</td>
+</tr>
+<tr class="right">
+<th class="center">
+ 
+</th>
+<th class="center">
+text/image
+</th>
+<td>
+2
+</td>
+<td>
+2
+</td>
+<td>
+12
+</td>
+<td>
+4
+</td>
+</tr>
+<tr class="right">
+<th class="center">
+ 
+</th>
+<th class="center">
+interactive
+</th>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+13
+</td>
+<td>
+2
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
 </div>
-<div id="exploration" class="section level3">
-<h3>EXPLORATION</h3>
+<div id="hypothesis-testing" class="section level4">
+<h4>HYPOTHESIS TESTING</h4>
+<div id="h1.-equality-of-control-textimage-explicit-scaffold" class="section level5">
+<h5>H1. Equality of control &amp; text/image explicit scaffold</h5>
+<p>Replicating results from Study 2, we predicted that no significant differences would be found between the control (no explicit scaffold) and text/image explicit scaffold condition (with non-impasse problems)</p>
+</div>
+<div id="h2.-superiority-of-interactive-explicit-scaffold" class="section level5">
+<h5>H2. Superiority of interactive explicit scaffold</h5>
+<p>Replicating results from Study 2, we predicted that the interactive explicit condition would yield significantly higher accuracy scores than either the text/image or control conditions (with non-impasse problems)</p>
+</div>
+<div id="h3.-interaction-between-implicit-and-explicit-scaffolds" class="section level5">
+<h5>H3. Interaction between implicit and explicit scaffolds</h5>
+<p>We predict a signficant interaction between implicit and explicit scaffold conditions. We predict that in the implicit-control (non-impasse) condition, the explicit scaffolds will be perform consistent with the findings of study 2. Conversely, under the implicit scaffold condition (impasse problem), the three explicit scaffolds will perform equally well, at performance ceiling.</p>
+</div>
+</div>
+<div id="exploration" class="section level4">
+<h4>EXPLORATION</h4>
+</div>
 <div id="factorial-anova-score-by-explicitimplicit" class="section level4">
 <h4>Factorial ANOVA :: SCORE by EXPLICIT*IMPLICIT</h4>
 <div id="model-pre-requisites" class="section level5">
@@ -594,12 +799,12 @@ impasse
 <pre class="r"><code>#3. Equality of variance between groups
 tapply(df_subjects_3$triangular_score, INDEX=df_subjects_3$condition, FUN=var)  
 ##       111       121       211       221       311       321 
-## 23.385057 26.455665 18.672414 13.205747  7.883191  2.115764
+## 23.385057 26.447126 18.672414 13.205747  7.412644  2.254023
 
 #3. Balance design
 tapply(df_subjects_3$triangular_score, INDEX=df_subjects_3$condition, FUN=length)  
 ## 111 121 211 221 311 321 
-##  30  29  30  30  27  29</code></pre>
+##  30  30  30  30  30  30</code></pre>
 </div>
 <div id="expected-results-1" class="section level5">
 <h5>Expected Results</h5>
@@ -614,11 +819,11 @@ tapply(df_subjects_3$triangular_score, INDEX=df_subjects_3$condition, FUN=length
 aov.out = aov(triangular_score ~ explicit * impasse, data=df_subjects_3)
 options(show.signif.stars=T)
 summary(aov.out)
-##                   Df Sum Sq Mean Sq F value Pr(&gt;F)    
-## explicit           2 1566.0   783.0  50.746 &lt;2e-16 ***
-## impasse            1  124.3   124.3   8.054 0.0051 ** 
-## explicit:impasse   2   30.3    15.2   0.982 0.3767    
-## Residuals        169 2607.6    15.4                   
+##                   Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+## explicit           2 1624.1   812.1  53.322 &lt; 2e-16 ***
+## impasse            1  115.2   115.2   7.564 0.00658 ** 
+## explicit:impasse   2   28.9    14.5   0.950 0.38877    
+## Residuals        174 2649.9    15.2                    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 options(show.signif.stars=T)
@@ -630,35 +835,35 @@ options(show.signif.stars=T)
 ## 
 ## $explicit
 ##         diff       lwr      upr     p adj
-## 2-1 4.566667 2.8637374 6.269596 0.0000000
-## 3-1 7.285714 5.5528935 9.018535 0.0000000
-## 3-2 2.719048 0.9932729 4.444822 0.0007727
+## 2-1 4.633333 2.9490338 6.317633 0.0000000
+## 3-1 7.266667 5.5823672 8.950966 0.0000000
+## 3-2 2.633333 0.9490338 4.317633 0.0008529
 ## 
 ## $impasse
-##         diff       lwr      upr     p adj
-## 2-1 1.684953 0.5125845 2.857321 0.0051079
+##     diff       lwr      upr     p adj
+## 2-1  1.6 0.4518045 2.748196 0.0065833
 ## 
 ## $`explicit:impasse`
 ##               diff        lwr        upr     p adj
-## 2:1-1:1  4.6666667  1.7429837  7.5903496 0.0001186
-## 3:1-1:1  8.2037037  5.1999050 11.2075024 0.0000000
-## 1:2-1:1  2.3735632 -0.5752162  5.3223426 0.1916933
-## 2:2-1:1  6.8000000  3.8763171  9.7236829 0.0000000
-## 3:2-1:1  8.6839080  5.7351286 11.6326874 0.0000000
-## 3:1-2:1  3.5370370  0.5332384  6.5408357 0.0109090
-## 1:2-2:1 -2.2931034 -5.2418828  0.6556759 0.2244351
-## 2:2-2:1  2.1333333 -0.7903496  5.0570163 0.2905214
-## 3:2-2:1  4.0172414  1.0684620  6.9660208 0.0017176
-## 1:2-3:1 -5.8301405 -8.8583717 -2.8019092 0.0000016
-## 2:2-3:1 -1.4037037 -4.4075024  1.6000950 0.7582001
-## 3:2-3:1  0.4802043 -2.5480269  3.5084356 0.9974622
-## 2:2-1:2  4.4264368  1.4776574  7.3752162 0.0003665
-## 3:2-1:2  6.3103448  3.3366808  9.2840089 0.0000001
-## 3:2-2:2  1.8839080 -1.0648714  4.8326874 0.4419876
+## 2:1-1:1  4.6666667  1.7629616  7.5703717 0.0001026
+## 3:1-1:1  8.1333333  5.2296283 11.0370384 0.0000000
+## 1:2-1:1  2.2000000 -0.7037050  5.1037050 0.2508542
+## 2:2-1:1  6.8000000  3.8962950  9.7037050 0.0000000
+## 3:2-1:1  8.6000000  5.6962950 11.5037050 0.0000000
+## 3:1-2:1  3.4666667  0.5629616  6.3703717 0.0093415
+## 1:2-2:1 -2.4666667 -5.3703717  0.4370384 0.1458318
+## 2:2-2:1  2.1333333 -0.7703717  5.0370384 0.2833156
+## 3:2-2:1  3.9333333  1.0296283  6.8370384 0.0018568
+## 1:2-3:1 -5.9333333 -8.8370384 -3.0296283 0.0000003
+## 2:2-3:1 -1.3333333 -4.2370384  1.5703717 0.7718043
+## 3:2-3:1  0.4666667 -2.4370384  3.3703717 0.9973007
+## 2:2-1:2  4.6000000  1.6962950  7.5037050 0.0001357
+## 3:2-1:2  6.4000000  3.4962950  9.3037050 0.0000000
+## 3:2-2:2  1.8000000 -1.1037050  4.7037050 0.4772205
        
 # library(phia)  
 # plot(interactionMeans(aov.out))  </code></pre>
-<p><br><br> <img src="Study3_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><br><br> <img src="Study3_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 </div>
 <div id="one-way-anova-score-by-condition" class="section level4">
@@ -688,8 +893,8 @@ options(show.signif.stars=T)
 options(show.signif.stars=T)
 summary(aov.out)
 ##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
-## condition     5   1721   344.1    22.3 &lt;2e-16 ***
-## Residuals   169   2608    15.4                   
+## condition     5   1768   353.7   23.22 &lt;2e-16 ***
+## Residuals   174   2650    15.2                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 options(show.signif.stars=T)
@@ -701,21 +906,21 @@ options(show.signif.stars=T)
 ## 
 ## $condition
 ##              diff        lwr       upr     p adj
-## 121-111 2.3735632 -0.5752162  5.322343 0.1916933
-## 211-111 4.6666667  1.7429837  7.590350 0.0001186
-## 221-111 6.8000000  3.8763171  9.723683 0.0000000
-## 311-111 8.2037037  5.1999050 11.207502 0.0000000
-## 321-111 8.6839080  5.7351286 11.632687 0.0000000
-## 211-121 2.2931034 -0.6556759  5.241883 0.2244351
-## 221-121 4.4264368  1.4776574  7.375216 0.0003665
-## 311-121 5.8301405  2.8019092  8.858372 0.0000016
-## 321-121 6.3103448  3.3366808  9.284009 0.0000001
-## 221-211 2.1333333 -0.7903496  5.057016 0.2905214
-## 311-211 3.5370370  0.5332384  6.540836 0.0109090
-## 321-211 4.0172414  1.0684620  6.966021 0.0017176
-## 311-221 1.4037037 -1.6000950  4.407502 0.7582001
-## 321-221 1.8839080 -1.0648714  4.832687 0.4419876
-## 321-311 0.4802043 -2.5480269  3.508436 0.9974622</code></pre>
+## 121-111 2.2000000 -0.7037050  5.103705 0.2508542
+## 211-111 4.6666667  1.7629616  7.570372 0.0001026
+## 221-111 6.8000000  3.8962950  9.703705 0.0000000
+## 311-111 8.1333333  5.2296283 11.037038 0.0000000
+## 321-111 8.6000000  5.6962950 11.503705 0.0000000
+## 211-121 2.4666667 -0.4370384  5.370372 0.1458318
+## 221-121 4.6000000  1.6962950  7.503705 0.0001357
+## 311-121 5.9333333  3.0296283  8.837038 0.0000003
+## 321-121 6.4000000  3.4962950  9.303705 0.0000000
+## 221-211 2.1333333 -0.7703717  5.037038 0.2833156
+## 311-211 3.4666667  0.5629616  6.370372 0.0093415
+## 321-211 3.9333333  1.0296283  6.837038 0.0018568
+## 311-221 1.3333333 -1.5703717  4.237038 0.7718043
+## 321-221 1.8000000 -1.1037050  4.703705 0.4772205
+## 321-311 0.4666667 -2.4370384  3.370372 0.9973007</code></pre>
 </div>
 <div id="hypothesis-1-the-formation-of-a-question-as-a-mental-impasse-will-significantly-improve-performance-on-the-problems" class="section level4">
 <h4>HYPOTHESIS 1: The formation of a question as a mental impasse will significantly improve performance on the problems</h4>
@@ -726,13 +931,13 @@ mainEffectGraph
 ##  Welch Two Sample t-test
 ## 
 ## data:  triangular_score by impasse
-## t = -2.4278, df = 168.65, p-value = 0.01624
+## t = -2.183, df = 174.98, p-value = 0.03037
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -3.2762360 -0.3376616
+##  -3.0465439 -0.1534561
 ## sample estimates:
 ## mean in group 1 mean in group 2 
-##        8.988506       10.795455
+##             9.1            10.7
 
 t &lt;-mainEffectGraph$statistic[[1]]
 t &lt;-round(t,2)
@@ -741,33 +946,32 @@ p &lt;-mainEffectGraph[3]
 r &lt;- sqrt(t^2/(t^2+df))
 r &lt;-round(r,2)
 r
-## [1] 0.18
+## [1] 0.16
 
 #explore descriptive statistics based on each IV
 desc_control &lt;- by(df_subjects_3$triangular_score, list(df_subjects_3$impasse), stat.desc, basic=FALSE)
 desc_control
 ## : 1
 ##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000    8.9885057    0.5655376    1.1242515   27.8254477 
+##   11.0000000    9.1000000    0.5512555    1.0953330   27.3494382 
 ##      std.dev     coef.var 
-##    5.2749832    0.5868587 
+##    5.2296690    0.5746889 
 ## -------------------------------------------------------- 
 ## : 2
 ##       median         mean      SE.mean CI.mean.0.95          var 
-##   13.0000000   10.7954545    0.4838454    0.9616951   20.6013584 
+##   13.0000000   10.7000000    0.4830330    0.9597762   20.9988764 
 ##      std.dev     coef.var 
-##    4.5388719    0.4204429
+##    4.5824531    0.4282666
 nonimpasse_mean = desc_control$`1`[2]
 nonimpasse_SD = desc_control$`1`[6]
 impasse_mean = desc_control$`2`[2]
 impasse_SD = desc_control$`2`[6]</code></pre>
-<p>The main effect of impasse in the factorial ANOVA support this claim. Additionally, a post-hoc independent samples t-test reveals that participants (in any scaffold condition) presented with non-impasse questions (M = 8.99, SD = 5) are significantly <em>lower</em> than those with impasse questions (M = 10.8, SD = 5), t(169) = -2.43, p = 0.0162418 , r = 0.18.</p>
+<p>The main effect of impasse in the factorial ANOVA support this claim. Additionally, a post-hoc independent samples t-test reveals that participants (in any scaffold condition) presented with non-impasse questions (M = 9.1, SD = 5) are significantly <em>lower</em> than those with impasse questions (M = 10.7, SD = 5), t(175) = -2.18, p = 0.0303687 , r = 0.16.</p>
 <div id="a-examine-enter-question-set-only-first-5-are-scaffolded" class="section level5">
 <h5>A) Examine enter question set (only first 5 are scaffolded)</h5>
 </div>
 <div id="b-examine-scaffolded-phase-only" class="section level5">
 <h5>B) Examine scaffolded phase only</h5>
-</div>
 </div>
 </div>
 </div>
@@ -877,10 +1081,10 @@ none
 1.9
 </td>
 <td>
-7.7
+7.6
 </td>
 <td>
-2.3
+2.2
 </td>
 </tr>
 <tr class="right">
@@ -900,10 +1104,10 @@ impasse
 1.5
 </td>
 <td>
-6.9
+7.1
 </td>
 <td>
-1.5
+1.8
 </td>
 </tr>
 </tbody>
@@ -913,16 +1117,19 @@ impasse
 ## 
 ## Response: tt_min
 ##                  Sum Sq  Df F value    Pr(&gt;F)    
-## explicit         105.60   2 11.4171 2.235e-05 ***
-## impasse           20.17   1  4.3607   0.03828 *  
-## explicit:impasse   0.18   2  0.0197   0.98054    
-## Residuals        781.54 169                      
+## explicit         104.90   2 11.1288 2.831e-05 ***
+## impasse           15.82   1  3.3557   0.06868 .  
+## explicit:impasse   0.13   2  0.0141   0.98596    
+## Residuals        820.09 174                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p><br><br><br> <img src="Study3_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><br><br><br> <img src="Study3_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 <div id="post-hoc-analyses" class="section level2">
 <h2>Post-Hoc Analyses</h2>
+</div>
+<div id="item-analyses" class="section level2">
+<h2>Item Analyses</h2>
 <div id="alternative-answers" class="section level3">
 <h3>Alternative Answers</h3>
 <p>Mean scores for explicit(control)+impasse are significantly higher than for explicit(control)+non-impasse. However, the variance is also high, suggesting that while some learners were given pause to re-evaluate their interpretation, others persisted with incorrect answers.</p>
