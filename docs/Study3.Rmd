@@ -270,6 +270,7 @@ bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom
 #      subtitle = " ") 
 ```
 
+***
 
 ####DESCRIPTIVE STATISTICS
 
@@ -299,22 +300,11 @@ html(table,options=htmloptions(head=TRUE))
 ```
 <br><br>
 
+***
 
 ####HYPOTHESIS TESTING
 
-##### H1. Equality of control & text/image explicit scaffold 
-Replicating results from Study 2, we predicted that no significant differences would be found between the control (no explicit scaffold) and text/image explicit scaffold condition (with non-impasse problems)
-
-##### H2. Superiority of interactive explicit scaffold
-Replicating results from Study 2, we predicted that the interactive explicit condition would yield significantly higher accuracy scores than either the text/image or control conditions  (with non-impasse problems)
-
-##### H3. Interaction between implicit and explicit scaffolds
-We predict a signficant interaction between implicit and explicit scaffold conditions.  We predict that in the implicit-control (non-impasse) condition, the explicit scaffolds will be perform consistent with the findings of study 2.  Conversely, under the implicit scaffold condition (impasse problem), the three explicit scaffolds will perform equally well, at performance ceiling. 
-
-
-####EXPLORATION
-
-####Factorial ANOVA :: SCORE by EXPLICIT*IMPLICIT    
+#####STATISTICAL MODEL :: Factorial ANOVA :: SCORE by EXPLICIT*IMPLICIT    
 
 #####Model Pre-requisites   
 1. Data Independence --> YES   
@@ -338,8 +328,6 @@ tapply(df_subjects_3$triangular_score, INDEX=df_subjects_3$condition, FUN=length
 <br> 
 
 #####Model Results
-The results of a 3 (explicit-scaffold) X 2 (implicit-scaffold) factorial ANOVA reveal significant main effects of explicit-scaffold and (F = 50.75, p < 0.001) implicit-scaffold (F = 8.1, p = 0.005). The interaction between explicit & implict scaffolds was non-significant (F = 0.98, p = 0.38).
-
 ```{r collapse=TRUE}
 #FACTORIAL ANOVA ON SCORE 
 aov.out = aov(triangular_score ~ explicit * impasse, data=df_subjects_3)
@@ -350,9 +338,8 @@ options(show.signif.stars=T)
        
 # library(phia)  
 # plot(interactionMeans(aov.out))  
+```        
 
-```
-<br><br>
 ```{r echo = FALSE}
 #INTERACTION PLOT FOR SCORE
 ggplot(df_subjects_3)+
@@ -370,6 +357,31 @@ ggplot(df_subjects_3)+
                        breaks=c(1,2,3),
                        labels=c("none","text/image","interactive")) 
 ```
+
+<br><br>
+
+The results of a 3 (explicit-scaffold) X 2 (implicit-scaffold) factorial ANOVA reveal significant main effects of explicit-scaffold and (F = 50.75, p < 0.001) implicit-scaffold (F = 8.1, p = 0.005). The interaction between explicit & implict scaffolds was non-significant (F = 0.98, p = 0.38).
+<br>    
+
+##### H1. Equality of control & text/image explicit scaffold 
+Replicating results from Study 2, we predicted that no significant differences would be found between the control (no explicit scaffold) and text/image explicit scaffold condition (with non-impasse problems)
+<br>    
+
+##### H2. Superiority of interactive explicit scaffold
+Replicating results from Study 2, we predicted that the interactive explicit condition would yield significantly higher accuracy scores than either the text/image or control conditions  (with non-impasse problems)
+<br>    
+
+##### H3. Interaction between implicit and explicit scaffolds
+We predict a signficant interaction between implicit and explicit scaffold conditions.  We predict that in the implicit-control (non-impasse) condition, the explicit scaffolds will be perform consistent with the findings of study 2.  Conversely, under the implicit scaffold condition (impasse problem), the three explicit scaffolds will perform equally well, at performance ceiling. 
+<br> 
+
+***
+
+####EXPLORATION
+
+
+
+
 
 
 

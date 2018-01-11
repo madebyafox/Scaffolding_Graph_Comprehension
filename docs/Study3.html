@@ -437,6 +437,7 @@ bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom
 #                       labels=c(&quot;none&quot;,&quot;text/image&quot;,&quot;interactive&quot;))+
 #      labs(title = &quot;Score by implicit and explicit scaffold&quot;,
 #      subtitle = &quot; &quot;) </code></pre>
+<hr />
 </div>
 <div id="descriptive-statistics" class="section level4">
 <h4>DESCRIPTIVE STATISTICS</h4>
@@ -763,27 +764,13 @@ interactive
 </tbody>
 </table>
 <p><br><br></p>
+<hr />
 </div>
 <div id="hypothesis-testing" class="section level4">
 <h4>HYPOTHESIS TESTING</h4>
-<div id="h1.-equality-of-control-textimage-explicit-scaffold" class="section level5">
-<h5>H1. Equality of control &amp; text/image explicit scaffold</h5>
-<p>Replicating results from Study 2, we predicted that no significant differences would be found between the control (no explicit scaffold) and text/image explicit scaffold condition (with non-impasse problems)</p>
+<div id="statistical-model-factorial-anova-score-by-explicitimplicit" class="section level5">
+<h5>STATISTICAL MODEL :: Factorial ANOVA :: SCORE by EXPLICIT*IMPLICIT</h5>
 </div>
-<div id="h2.-superiority-of-interactive-explicit-scaffold" class="section level5">
-<h5>H2. Superiority of interactive explicit scaffold</h5>
-<p>Replicating results from Study 2, we predicted that the interactive explicit condition would yield significantly higher accuracy scores than either the text/image or control conditions (with non-impasse problems)</p>
-</div>
-<div id="h3.-interaction-between-implicit-and-explicit-scaffolds" class="section level5">
-<h5>H3. Interaction between implicit and explicit scaffolds</h5>
-<p>We predict a signficant interaction between implicit and explicit scaffold conditions. We predict that in the implicit-control (non-impasse) condition, the explicit scaffolds will be perform consistent with the findings of study 2. Conversely, under the implicit scaffold condition (impasse problem), the three explicit scaffolds will perform equally well, at performance ceiling.</p>
-</div>
-</div>
-<div id="exploration" class="section level4">
-<h4>EXPLORATION</h4>
-</div>
-<div id="factorial-anova-score-by-explicitimplicit" class="section level4">
-<h4>Factorial ANOVA :: SCORE by EXPLICIT*IMPLICIT</h4>
 <div id="model-pre-requisites" class="section level5">
 <h5>Model Pre-requisites</h5>
 <ol style="list-style-type: decimal">
@@ -814,7 +801,6 @@ tapply(df_subjects_3$triangular_score, INDEX=df_subjects_3$condition, FUN=length
 </div>
 <div id="model-results" class="section level5">
 <h5>Model Results</h5>
-<p>The results of a 3 (explicit-scaffold) X 2 (implicit-scaffold) factorial ANOVA reveal significant main effects of explicit-scaffold and (F = 50.75, p &lt; 0.001) implicit-scaffold (F = 8.1, p = 0.005). The interaction between explicit &amp; implict scaffolds was non-significant (F = 0.98, p = 0.38).</p>
 <pre class="r"><code>#FACTORIAL ANOVA ON SCORE 
 aov.out = aov(triangular_score ~ explicit * impasse, data=df_subjects_3)
 options(show.signif.stars=T)
@@ -863,8 +849,26 @@ options(show.signif.stars=T)
        
 # library(phia)  
 # plot(interactionMeans(aov.out))  </code></pre>
-<p><br><br> <img src="Study3_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="Study3_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><br><br></p>
+<p>The results of a 3 (explicit-scaffold) X 2 (implicit-scaffold) factorial ANOVA reveal significant main effects of explicit-scaffold and (F = 50.75, p &lt; 0.001) implicit-scaffold (F = 8.1, p = 0.005). The interaction between explicit &amp; implict scaffolds was non-significant (F = 0.98, p = 0.38). <br></p>
 </div>
+<div id="h1.-equality-of-control-textimage-explicit-scaffold" class="section level5">
+<h5>H1. Equality of control &amp; text/image explicit scaffold</h5>
+<p>Replicating results from Study 2, we predicted that no significant differences would be found between the control (no explicit scaffold) and text/image explicit scaffold condition (with non-impasse problems) <br></p>
+</div>
+<div id="h2.-superiority-of-interactive-explicit-scaffold" class="section level5">
+<h5>H2. Superiority of interactive explicit scaffold</h5>
+<p>Replicating results from Study 2, we predicted that the interactive explicit condition would yield significantly higher accuracy scores than either the text/image or control conditions (with non-impasse problems) <br></p>
+</div>
+<div id="h3.-interaction-between-implicit-and-explicit-scaffolds" class="section level5">
+<h5>H3. Interaction between implicit and explicit scaffolds</h5>
+<p>We predict a signficant interaction between implicit and explicit scaffold conditions. We predict that in the implicit-control (non-impasse) condition, the explicit scaffolds will be perform consistent with the findings of study 2. Conversely, under the implicit scaffold condition (impasse problem), the three explicit scaffolds will perform equally well, at performance ceiling. <br></p>
+<hr />
+</div>
+</div>
+<div id="exploration" class="section level4">
+<h4>EXPLORATION</h4>
 </div>
 <div id="one-way-anova-score-by-condition" class="section level4">
 <h4>One way ANOVA :: SCORE by CONDITION</h4>
