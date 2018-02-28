@@ -1,0 +1,59 @@
+
+body{
+  margin:25px;
+}
+
+div {}
+  .tools{
+    /* background-color: #dcdfe5; */
+  }
+
+  .data{
+    /* background-color: #c0cce2; */
+  }
+
+
+svg {
+  /* background-color: grey; */
+
+}
+
+
+
+g {
+  background-color: red;
+}
+
+rect {
+  fill:black;
+}
+
+.a1{
+  fill:#B8E986;
+}
+
+.a0{
+  fill:#EAABAB;
+}
+
+
+text {
+  fill:black;
+  font-size: 12px;
+}
+
+.subject{
+
+}
+
+.enter {
+
+}
+
+.update {
+
+}
+
+.exit {
+
+}
