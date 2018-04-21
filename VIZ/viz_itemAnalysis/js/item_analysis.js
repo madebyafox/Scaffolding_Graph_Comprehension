@@ -61,30 +61,32 @@ function render(dataFiltered){
         .duration(750);
 
     //TODO: get g structure to work.
-    
+
     // //DATA JOIN
-    var text = mysvg
-        // .selectAll("g")
-        .selectAll("text")
-        .data(dataBySubject, function(d) { return d.key; }); //<-- w a key
+    var subjects = mysvg
+      .selectAll("g")
+      // .selectAll("text")
+      .data(dataBySubject, function(d) { return d.key; }); //<-- w a key
 
     // EXIT old elements not present in new data.
-    text.exit()
+    subjects.exit()
       .attr("class", "exit")
-      .transition(t)
+      .transition(t-100)
       .style("fill-opacity", 0)
       .remove();
 
     // UPDATE old elements present in new data.
-    text.attr("class", "update")
+    subjects.attr("class", "update")
+      .select("text")
       .text(function(d){return d.key;})
       .transition(t)
       .attr("y",function(d,i) {return ((i+1)*iSpace-3)+topMargin;});
 
     // ENTER new elements present in new data.
-    text.enter().append("text") //ENTER
+    subjects.enter().append("g")
       .attr("class", "enter")
       .attr("id",function(d){return "s"+d.key})
+      .append("text") //ENTER
       .attr("y",function(d,i) {return ((i+1)*iSpace-3)+topMargin;})
       .attr("x",leftMargin)
       .style("fill-opacity", 0)
@@ -92,36 +94,37 @@ function render(dataFiltered){
       .transition(t)
       .style("fill-opacity", 1);
 
+
     console.log("xxxxxxxxxxxxxxxxxxxxxxxx");
     //
     // CREATE ITEMS//---------------------
-    for ( i = 0; i < dataBySubject.length; i++){
-
-      //Update
-      var items = mysvg
-         .selectAll('#s'+dataBySubject[i].key)
-         .selectAll(".item")
-         .data(dataBySubject[i].values);
-
-      //Enter
-      items.enter().append("rect")
-         .attr("class",function(d){return "item "+"a"+d.correct;})
-         .attr("subject",function(d){return dataBySubject[i].key;})
-         .attr("q",function(d){return d.q;})
-         .attr("session", function(d) { return d.session;})
-         .attr("rt", function(d) { return d.rt;})
-         .attr("tri", function(d) { return d.correct;})
-         .attr("orth", function(d) { return d.orth_correct;})
-         .attr("explicit", function(d) { return d.explicit;})
-         .attr("impasse", function(d) { return d.impasse;})
-         .attr("x", function(d) {return (d.q * iSpace) + leftMargin*5} )
-         .attr("y", (i * iSpace)+ topMargin )
-         .attr("width",iWidth)
-         .attr("height", iHeight)
-
-      //Exit
-      items.exit().remove();
-    }
+    // for ( i = 0; i < dataBySubject.length; i++){
+    //
+    //   //Update
+    //   var items = mysvg
+    //      .selectAll('#s'+dataBySubject[i].key)
+    //      .selectAll(".item")
+    //      .data(dataBySubject[i].values);
+    //
+    //   //Enter
+    //   items.enter().append("rect")
+    //      .attr("class",function(d){return "item "+"a"+d.correct;})
+    //      .attr("subject",function(d){return dataBySubject[i].key;})
+    //      .attr("q",function(d){return d.q;})
+    //      .attr("session", function(d) { return d.session;})
+    //      .attr("rt", function(d) { return d.rt;})
+    //      .attr("tri", function(d) { return d.correct;})
+    //      .attr("orth", function(d) { return d.orth_correct;})
+    //      .attr("explicit", function(d) { return d.explicit;})
+    //      .attr("impasse", function(d) { return d.impasse;})
+    //      .attr("x", function(d) {return (d.q * iSpace) + leftMargin*5} )
+    //      .attr("y", (i * iSpace)+ topMargin )
+    //      .attr("width",iWidth)
+    //      .attr("height", iHeight)
+    //
+    //   //Exit
+    //   items.exit().remove();
+    // }
     // END CREATE ITEMS--------------------------------------
 }
 
