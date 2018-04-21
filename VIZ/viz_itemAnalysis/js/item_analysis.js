@@ -44,97 +44,98 @@ function filter(data){
 
 function render(dataFiltered){
 
-  //Create nested data structure
-  console.log("RENDER DATA: "+ dataFiltered.length+ " records");
-  // console.log(dataFiltered);
-  // console.log("-------------------");
+  console.log("RENDER DATA: "+ dataFiltered.length+ " ");
 
-  var dataBySubject = 0;
-  dataBySubject = d3.nest()
+  //Create nested data structure
+  // var dataBySubject = 0;
+  var dataBySubject = d3.nest()
     .key(function(d) { return d.subject; })
     .entries(dataFiltered)
 
-    console.log("BY SUBJECT: " + dataBySubject.length + " records");
+    console.log("BY SUBJECT: " + dataBySubject.length + " ");
 
-    // //CREATE SUBJECTS//---------------------
+    // CREATE SUBJECTS//---------------------
     var t = d3.transition()
         .duration(750);
 
-    //TODO: get g structure to work.
-
-    // //DATA JOIN
+    //DATA JOIN
     var subjects = mysvg
       .selectAll("g")
-      // .selectAll("text")
       .data(dataBySubject, function(d) { return d.key; }); //<-- w a key
 
-    // EXIT old elements not present in new data.
+    // EXIT fade out
     subjects.exit()
       .attr("class", "exit")
       .transition(t-100)
       .style("fill-opacity", 0)
       .remove();
 
-    // UPDATE old elements present in new data.
+    // UPDATE position
     subjects.attr("class", "update")
       .select("text")
-      .text(function(d){return d.key;})
+      // .text(function(d){return d.key;})
       .transition(t)
       .attr("y",function(d,i) {return ((i+1)*iSpace-3)+topMargin;});
 
-    // ENTER new elements present in new data.
+    // ENTER write new subjects
     subjects.enter().append("g")
       .attr("class", "enter")
       .attr("id",function(d){return "s"+d.key})
       .append("text") //ENTER
       .attr("y",function(d,i) {return ((i+1)*iSpace-3)+topMargin;})
       .attr("x",leftMargin)
-      .style("fill-opacity", 0)
       .text(function(d){return d.key;})
+      .style("fill-opacity", 0)
       .transition(t)
       .style("fill-opacity", 1);
 
-
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxx");
-    //
     // CREATE ITEMS//---------------------
-    // for ( i = 0; i < dataBySubject.length; i++){
-    //
-    //   //Update
-    //   var items = mysvg
-    //      .selectAll('#s'+dataBySubject[i].key)
-    //      .selectAll(".item")
-    //      .data(dataBySubject[i].values);
-    //
-    //   //Enter
-    //   items.enter().append("rect")
-    //      .attr("class",function(d){return "item "+"a"+d.correct;})
-    //      .attr("subject",function(d){return dataBySubject[i].key;})
-    //      .attr("q",function(d){return d.q;})
-    //      .attr("session", function(d) { return d.session;})
-    //      .attr("rt", function(d) { return d.rt;})
-    //      .attr("tri", function(d) { return d.correct;})
-    //      .attr("orth", function(d) { return d.orth_correct;})
-    //      .attr("explicit", function(d) { return d.explicit;})
-    //      .attr("impasse", function(d) { return d.impasse;})
-    //      .attr("x", function(d) {return (d.q * iSpace) + leftMargin*5} )
-    //      .attr("y", (i * iSpace)+ topMargin )
-    //      .attr("width",iWidth)
-    //      .attr("height", iHeight)
-    //
-    //   //Exit
-    //   items.exit().remove();
-    // }
+    for ( i = 0; i < dataBySubject.length; i++){
+
+      //JOIN
+      var items = mysvg
+         .selectAll('#s'+dataBySubject[i].key)
+         .selectAll(".item")
+         .data(dataBySubject[i].values);
+
+      //EXIT fade out
+      items.exit()
+        .transition(t-100)
+        .style("fill-opacity", 0)
+        .remove();
+
+      // UPDATE position
+      items.transition(t)
+        .attr("x", function(d) {return (d.q * iSpace) + leftMargin*5} )
+        .attr("y", (i * iSpace)+ topMargin );
+
+      //ENTER write data
+      items.enter().append("rect")
+         .attr("class",function(d){return "item "+"a"+d.correct;})
+         .attr("subject",function(d){return dataBySubject[i].key;})
+         .attr("q",function(d){return d.q;})
+         .attr("session", function(d) { return d.session;})
+         .attr("rt", function(d) { return d.rt;})
+         .attr("tri", function(d) { return d.correct;})
+         .attr("orth", function(d) { return d.orth_correct;})
+         .attr("explicit", function(d) { return d.explicit;})
+         .attr("impasse", function(d) { return d.impasse;})
+         .attr("x", function(d) {return (d.q * iSpace) + leftMargin*5} )
+         .attr("y", (i * iSpace)+ topMargin )
+         .attr("width",iWidth)
+         .attr("height", iHeight)
+         .style("fill-opacity", 0)
+         .transition(t)
+         .style("fill-opacity", 1);
+
+      console.log("-----------------------");
+    }
     // END CREATE ITEMS--------------------------------------
 }
 
 //load data from json file
-var visualization = d3.json("/data/final_items.json").then(function(data)
-{
-    console.log("LOADING DATA: "+data.length+" records");
-    // console.log(data);
-    // console.log("-------------------");
-
+var visualization = d3.json("/data/final_items.json").then(function(data){
+    console.log("LOADING DATA: "+data.length+" ");
     render(data); //display the full data set
 
     //enable buttons once data is loaded
