@@ -38,8 +38,8 @@ rect {
 
 
 text {
-  fill:black;
-  font-size: 12px;
+  /* fill:black; */
+  font-size: 11px;
 }
 
 .subject{
@@ -47,13 +47,13 @@ text {
 }
 
 .enter {
-
+  fill:green;
 }
 
 .update {
-
+  fill:black;
 }
 
 .exit {
-
+  fill:red;
 }
