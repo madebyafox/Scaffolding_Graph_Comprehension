@@ -11,7 +11,12 @@ var topMargin = 10,
     iSpace = 12;
 var inScopeImpasse = [true,true];
 var inScopeExplicit = [true,true,true];
-var dataFiltered ; //mutable holder for filtered data
+// var dataFiltered ; //mutable holder for filtered data
+var mydata = [];
+//LOAD DATA
+d3.queue()
+    .defer(d3.json, "data/final_items.json")
+    .awaitAll(visualize);
 
 function filter(data){
 
@@ -139,7 +144,12 @@ function render(dataFiltered){
 }
 
 //load data from json file
-var visualization = d3.json("/data/final_items.json").then(function(data){
+// var visualization = d3.json("/data/final_items.json").then(function(data){
+function visualize (error, data){
+    // if (error) throw error;
+    data = data[0]; //because json request returned object with array as first element
+    mydata = data; //just for access in interpreter
+
     console.log("LOADING DATA: "+data.length+" ");
     render(data); //display the full data set
 
@@ -163,4 +173,5 @@ var visualization = d3.json("/data/final_items.json").then(function(data){
       inScopeExplicit[2]= !inScopeExplicit[2];
       render(filter(data));});
 
-})//end visualization
+// })//end visualization
+} //end visualize
