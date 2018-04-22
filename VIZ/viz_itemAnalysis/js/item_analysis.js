@@ -1,9 +1,8 @@
 //TODO: scale svg to size of div
 //TODO: figure out why active class is reported as opposite
+//TODO: change modal size
 
 var mysvg = d3.select("svg");
-
-//todo: FIX ERROR WITH DATA SET NOT UPDATING CORRECLTY - POSSIBLY INDEX ISSUE
 var topMargin = 10,
     leftMargin = 10,
     iWidth = 10,
@@ -85,14 +84,14 @@ function render(dataFiltered){
       .select("text")
       // .text(function(d){return d.key;})
       .transition(t)
-      .attr("y",function(d,i) {return ((i+1)*(vSpace+iHeight)-3)+topMargin;})
+      .attr("y",function(d,i) {return ((i+1)*(vSpace+iHeight))+topMargin;})
 
     // ENTER write new subjects
     subjects.enter().append("g")
       .attr("class", "enter")
       .attr("id",function(d){return "s"+d.key})
       .append("text") //ENTER
-      .attr("y",function(d,i) {return ((i+1)*(vSpace+iHeight)-3)+topMargin;})
+      .attr("y",function(d,i) {return ((i+1)*(vSpace+iHeight))+topMargin;})
       .attr("x",leftMargin)
       .text(function(d){return d.key;})
       .style("fill-opacity", 0)
@@ -139,7 +138,13 @@ function render(dataFiltered){
              s= d.subject;
              sq = s+"_"+q;
              index = mymappings.map(function(e) { return e.SID_QUESTION; }).indexOf(sq);
-             console.log(mymappings[index].VISITORID);
+             video = mymappings[index].VISITORID
+             console.log(video);
+             $("#iframe").attr('src',"recording.html?video="+video)
+             $("#subject").text(sq);
+             $("#video").val(video);
+             $('#myModal').modal('show');
+
          })
          .style("fill-opacity", 0)
          .transition(t)
@@ -150,12 +155,11 @@ function render(dataFiltered){
     // END CREATE ITEMS--------------------------------------
 }
 
-//load data from json file
 // var visualization = d3.json("/data/final_items.json").then(function(data){
 function visualize (error, data, mappings){
     if (error) throw error;
-    console.log(data);
-    console.log(mappings);
+    // console.log(data);
+    // console.log(mappings);
     mymappings = mappings; // for interpreter access
     // data = data[0]; //because json request returned object with array as first element
     mydata = data; //just for access in interpreter
