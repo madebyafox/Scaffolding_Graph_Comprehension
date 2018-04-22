@@ -124,6 +124,11 @@ function render(dataFiltered){
          .attr("y", (i * iSpace)+ topMargin )
          .attr("width",iWidth)
          .attr("height", iHeight)
+         .on('mouseup',function(d){
+             q= d.q;
+             s= d.subject;
+             console.log(s+"_"+q);
+         })
          .style("fill-opacity", 0)
          .transition(t)
          .style("fill-opacity", 1);
