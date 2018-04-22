@@ -12,11 +12,14 @@ var topMargin = 10,
 var inScopeImpasse = [true,true];
 var inScopeExplicit = [true,true,true];
 // var dataFiltered ; //mutable holder for filtered data
-var mydata = [];
+var mydata ;
+var mymappings ;
+
 //LOAD DATA
 d3.queue()
-    .defer(d3.json, "data/final_items.json")
-    .awaitAll(visualize);
+    .defer(d3.json, "/data/final_items.json")
+    .defer(d3.csv, "/data/recordings_mapping.csv")
+    .await(visualize);
 
 function filter(data){
 
@@ -132,7 +135,9 @@ function render(dataFiltered){
          .on('mouseup',function(d){
              q= d.q;
              s= d.subject;
-             console.log(s+"_"+q);
+             sq = s+"_"+q;
+             index = mymappings.map(function(e) { return e.SID_QUESTION; }).indexOf(sq);
+             console.log(mymappings[index].VISITORID);
          })
          .style("fill-opacity", 0)
          .transition(t)
@@ -145,9 +150,12 @@ function render(dataFiltered){
 
 //load data from json file
 // var visualization = d3.json("/data/final_items.json").then(function(data){
-function visualize (error, data){
-    // if (error) throw error;
-    data = data[0]; //because json request returned object with array as first element
+function visualize (error, data, mappings){
+    if (error) throw error;
+    console.log(data);
+    console.log(mappings);
+    mymappings = mappings; // for interpreter access
+    // data = data[0]; //because json request returned object with array as first element
     mydata = data; //just for access in interpreter
 
     console.log("LOADING DATA: "+data.length+" ");
