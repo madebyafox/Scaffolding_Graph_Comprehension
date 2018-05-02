@@ -138,13 +138,16 @@ function render(dataFiltered){
              s= d.subject;
              sq = s+"_"+q;
              index = mymappings.map(function(e) { return e.SID_QUESTION; }).indexOf(sq);
-             video = mymappings[index].VISITORID
-             console.log(video);
-             $("#iframe").attr('src',"recording.html?video="+video)
+             visitor = mymappings[index].VISITORID;
+             session = mymappings[index].SESSIONID;
+             console.log("visitorID: "+visitor);
+             console.log("sessionID: "+session);
+             $("#iframe").attr('src',"recording.html?visitor="+visitor+"&session="+session)
              $("#subject").text(sq);
-             $("#video").val(video);
              $('#myModal').modal('show');
-
+             //ADD SCRIPTS FOR PLAYING THE RECORDING
+             document.body.appendChild(document.createElement('script')).src='recordings/'+visitor+'.js';
+             document.body.appendChild(document.createElement('script')).src='recordings/session_'+visitor+'.js';
          })
          .style("fill-opacity", 0)
          .transition(t)
