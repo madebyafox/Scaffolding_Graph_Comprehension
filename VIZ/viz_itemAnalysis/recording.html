@@ -3,14 +3,14 @@
 <!--[if lt IE 7]>      <html class="bg-checker no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="bg-checker no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="bg-checker no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="bg-checker no-js gt-ie8"> <!--<![endif]-->    
+<!--[if gt IE 8]><!--> <html class="bg-checker no-js gt-ie8"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Playback &ndash; Mouseflow</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
 
     <meta property="og:title" content="#1 Website Heatmap &amp; Session Replay Tool - Mouseflow" />
     <meta property="og:description" content="Mouseflow is the most popular session replay / recording and website heatmap tool. Sign up today or call +1 (855) 668-7335 for a personal demonstration!" />
@@ -24,14 +24,14 @@
         <script src="resources/lang_en?v=267"></script>
         <style>.icon-device { background: url('img/devices-sda6debb8fd.png') no-repeat; } .icon-flag { background: url('img/flags-s8967039ba7.png') no-repeat; }</style>
         <style type="text/css">
-            
+
         </style>
     </head>
     <body>
-        <!--[if lt IE 8]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->        
-        
-<div id="player" class=" 
-       
+        <!--[if lt IE 8]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+
+<div id="player" class="
+
      ">
     <div class="head detail-head">
         <div class="detail-head__col detail-links detail-links-playback">
@@ -195,15 +195,66 @@
     </div>
 
         <script src="js/player-offline.min.js?v=267"></script>
-    <script src="data/session.js"></script><script src="data/1130488168442d0de4768fc84cd6f64e1f92cdec.js"></script>
+        <!-- SCRIPTS NOW ADDDED IN ITEM_ANALYSIS.JS ON MOUSE CLICK -->
+        <!-- <script src="recordings/session_8c1c857dc9bd7747009c8f6b279e4566.js"></script> -->
+        <!-- <script src="recordings/1130488168442d0de4768fc84cd6f64e1f92cdec.js"></script> -->
+
 </div>
 
-
-
         <script type="text/javascript">
-            
-    MF.Views.player.init('e0c9ff05-6fcb-4c4a-8173-e5a0724987b1', '0abe30b2eafc3352e36ff7cf85c87dec', '', '', false, true, 'Could not load recording data');
 
-        </script>       
+        //DYNAMICALLY LOAD SCRIPTS
+        function loadScript(file)
+        {
+          // Adding the script tag to the head as suggested before
+          var head = document.getElementsByTagName('head')[0];
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = "recordings/"+file;
+
+          // Then bind the event to the callback function.
+          // There are several events for cross browser compatibility.
+
+          // Fire the loading
+          head.appendChild(script);
+        }
+
+        //PARSE QUERY STRING INTO PARAMETERS
+        function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, "\\$&");
+          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var session = getParameterByName('session'); //
+        var visitor = getParameterByName('visitor'); //
+
+        // loadScript("session_"+visitor+".js");
+        // loadScript(visitor+".js");
+        // $.getScript("recordings/"+visitor+".js", function () {
+        //   console.log('data script is loaded');
+        // });
+        $.getScript("recordings/"+visitor+".js", function () {
+          console.log('data script is loaded');
+
+          $.getScript("recordings/session_"+visitor+".js", function () {
+            console.log('session script is loaded');
+            MF.Views.player.init('e0c9ff05-6fcb-4c4a-8173-e5a0724987b1', session, '', '', false, true, 'Could not load recording data');
+          });
+        });
+
+
+
+        console.log("SESSIONID: "+session);
+        console.log("VISITORID: "+visitor);
+
+    // MF.Views.player.init('e0c9ff05-6fcb-4c4a-8173-e5a0724987b1', '0abe30b2eafc3352e36ff7cf85c87dec', '', '', false, true, 'Could not load recording data');
+//TODO: different behavior if MF.Views is loaded inside the loadscript ?
+  // MF.Views.player.init('e0c9ff05-6fcb-4c4a-8173-e5a0724987b1', session, '', '', false, true, 'Could not load recording data');
+ // FIRST NUMBER IS A CUSTOMER ID OF SOME SORT,  SECOND IS THE SESSION ID
+        </script>
     </body>
 </html>
