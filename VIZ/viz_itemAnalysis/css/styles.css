@@ -28,15 +28,17 @@ rect {
   fill:black;
 }
 
-.a1{
+.right{
   fill:#B8E986;
 }
 
-.a0{
+.wrong{
   fill:#EAABAB;
 }
 
-
+.weird{
+  fill:#FEE777;
+}
 text {
   /* fill:black; */
   font-size: 11px;
