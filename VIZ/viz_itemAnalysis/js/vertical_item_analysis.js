@@ -84,16 +84,15 @@ function render(dataFiltered){
       .select("text")
       // .text(function(d){return d.key;})
       .transition(t)
-      .attr("x",function(d,i) {return ((i+1)*(vSpace+iHeight))+topMargin-5;})
+      .attr("y",function(d,i) {return ((i+1)*(vSpace+iHeight))+topMargin;})
 
     // ENTER write new subjects
     subjects.enter().append("g")
       .attr("class", "enter")
       .attr("id",function(d){return "s"+d.key})
       .append("text") //ENTER
-      .attr("x",function(d,i) {return ((i+1)*(vSpace+iHeight))+topMargin-5;})
-      .attr("y",leftMargin)
-      .attr("writing-mode","vertical-rl")
+      .attr("y",function(d,i) {return ((i+1)*(vSpace+iHeight))+topMargin;})
+      .attr("x",leftMargin)
       .text(function(d){return d.key;})
       .style("fill-opacity", 0)
       .transition(t)
@@ -116,8 +115,8 @@ function render(dataFiltered){
 
       // UPDATE position
       items.transition(t)
-        .attr("y", function(d) {return (d.q * (iWidth+hSpace)) + leftMargin*5} )
-        .attr("x", (i * (vSpace+iHeight))+6+ topMargin );
+      .attr("x", function(d) {return (d.q * (iWidth+hSpace)) + leftMargin*5} )
+        .attr("y", (i * (vSpace+iHeight))+6+ topMargin );
 
       //ENTER write data
       items.enter().append("rect")
@@ -138,8 +137,8 @@ function render(dataFiltered){
          .attr("orth", function(d) { return d.orth_correct;})
          .attr("explicit", function(d) { return d.explicit;})
          .attr("impasse", function(d) { return d.impasse;})
-         .attr("y", function(d) {return (d.q * (iWidth+hSpace)) + leftMargin*5} )
-         .attr("x", (i * (vSpace+iHeight))+6+ topMargin )
+         .attr("x", function(d) {return (d.q * (iWidth+hSpace)) + leftMargin*5} )
+         .attr("y", (i * (vSpace+iHeight))+6+ topMargin )
          .attr("width",iWidth)
          .attr("height", iHeight)
          .on('mouseup',function(d){

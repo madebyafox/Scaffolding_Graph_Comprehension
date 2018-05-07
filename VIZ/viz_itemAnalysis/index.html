@@ -28,33 +28,8 @@
 <body>
 
 <div class = "container">
+  <a id="status" value=""></a>
   <div class = "tools">
-
-<!--Modal: Name-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
-
-    <!--Content-->
-    <div class="modal-content">
-        <!--Body-->
-        <div class="modal-body mb-0 p-0 justify-content-center">
-            <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                <iframe id="iframe" class="embed-responsive-item"  allowfullscreen></iframe>
-            </div>
-        </div>
-        <!--Footer-->
-        <div class="modal-footer justify-content-center">
-            <a id="subject" value=""/>
-            <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-    <!--/.Content-->
-</div>
-</div>
-<!--Modal: Name-->
-
-
-
     <div class="btn-toolbar " role="toolbar" aria-label="Toolbar with button groups">
       <table>
         <tr>
@@ -62,7 +37,6 @@
           <td align="center">  <h6> Explicit Scaffold </h6></td>
          </tr>
         <tr>
-
           <td align="center">
             <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="implicit">
               <button disabled id="imp-none" type="button" class="btn btn-outline-secondary active"  >none</button>
@@ -80,6 +54,29 @@
        </table>
     </div>
   </div><!--tools-->
+
+  <!--Modal: Name-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <!--Content-->
+      <div class="modal-content">
+          <!--Body-->
+          <div class="modal-body mb-0 p-0 justify-content-center">
+              <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                  <iframe id="iframe" class="embed-responsive-item"  allowfullscreen></iframe>
+              </div>
+          </div>
+          <!--Footer-->
+          <div class="modal-footer justify-content-center">
+              <a id="subject" value=""/>
+              <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </div>
+  <!--Modal: Name-->
+
   <div class = "data">
     <svg width="100vw" height="3000"></svg>
   </div><!--data-->
