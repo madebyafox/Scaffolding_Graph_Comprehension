@@ -11,6 +11,7 @@ var topMargin = 10,
     hSpace = 5;
 var inScopeImpasse = [true,true];
 var inScopeExplicit = [true,true,true];
+var questions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
 //for global data access only
 var mydata ;
@@ -98,6 +99,19 @@ function render(dataFiltered){
       .style("fill-opacity", 0)
       .transition(t)
       .style("fill-opacity", 1);
+
+
+    var labels = mysvg
+         .selectAll(".label")
+         .data(questions);
+
+      labels.enter().append("g")
+        .attr("class","label")
+        .append("text")
+        .attr("y", function(d,i){return (i * (vSpace+iHeight) +5+ topMargin*7); })
+        .attr("x", 0 )
+        .text(function(d,i){return i+1});
+
 
     // CREATE ITEMS//---------------------
     for ( i = 0; i < dataBySubject.length; i++){
