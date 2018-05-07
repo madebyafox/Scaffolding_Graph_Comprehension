@@ -122,15 +122,13 @@ function render(dataFiltered){
       items.enter().append("rect")
          .attr("class",function(d){
            if(d.correct ==1)
-            {return "right";}
+            {return "item "+"right";}
            else if (d.orth_correct ==1) {
-             {return "wrong";}
+             {return "item "+"wrong";}
            }
            else if (d.orth_correct ==0 && d.correct ==0) {
-             {return "weird";}
-           }
-
-           "item "+"a"+d.correct;})
+             {return "item "+"weird";}
+           }})
          .attr("subject",function(d){return dataBySubject[i].key;})
          .attr("q",function(d){return d.q;})
          .attr("session", function(d) { return d.session;})
