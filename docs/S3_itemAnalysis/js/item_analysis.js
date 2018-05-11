@@ -19,8 +19,8 @@ var mymappings ;
 
 //LOAD DATA
 d3.queue()
-    .defer(d3.json, "/S3_itemAnalysis/data/final_items.json")
-    .defer(d3.csv, "/S3_itemAnalysis/data/recordings_mapping.csv")
+    .defer(d3.json, "../S3_itemAnalysis/data/final_items.json")
+    .defer(d3.csv, "../S3_itemAnalysis/data/recordings_mapping.csv")
     .await(visualize);
 
 function filter(data){
