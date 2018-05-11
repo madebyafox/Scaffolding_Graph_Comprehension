@@ -190,9 +190,6 @@ $(document).ready(function () {
 <li>
   <a href="Study2.html">Study 2</a>
 </li>
-<li>
-  <a href="Study3.html">Study 3</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -563,7 +560,7 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
 <h3>Hypothesis 3: Learners with (any form of) scaffolding will perform better with the TM than LM (replication of Qiang et al (2014)).</h3>
 <p>If we compare LM and TM scores in each scaffold condition (2-4) we expect to find that TM scores are higher than LM scores. Instead, we find that TM scores are on average lower than LM scores in every condition.</p>
 <pre class="r"><code>#explore descriptive statistics based on each IV
-desc &lt;- by(df_subjects$score_diff, list(df_subjects$condition), stat.desc, basic=FALSE)
+desc &lt;- by(df_subjects2$score_diff, list(df_subjects2$condition), stat.desc, basic=FALSE)
 desc
 ## : 0
 ##       median         mean      SE.mean CI.mean.0.95          var 
@@ -598,7 +595,7 @@ desc
 # LM_SD = desc_control$linear_score[6]
 # TM_mean = desc_control$triangular_score[2]
 # TM_SD = desc_control$triangular_score[6]</code></pre>
-<pre class="r"><code>bar &lt;- ggplot(df_subjects, aes(x = condition, y= score_diff))
+<pre class="r"><code>bar &lt;- ggplot(df_subjects2, aes(x = condition, y= score_diff))
 bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
       labs (x = &quot;Scaffold&quot;, y= &quot;Score Difference (TM-LM)&quot;) +
@@ -614,7 +611,7 @@ bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom=&quot
 #construct contrasts for ANOVA model
 options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
 
-simpleModel = ezANOVA(data = df_subjects,
+simpleModel = ezANOVA(data = df_subjects2,
                      dv = .(score_diff),
                      wid = .(subject),
                      between = .(condition),
@@ -637,11 +634,11 @@ simpleModel
 ## 1   4 311 65.26842 1928.592 2.631256 0.03443319     *
 
 
-pairwise.t.test(df_subjects$score_diff, df_subjects$condition,  p.adjust.method=&quot;bonferroni&quot;) 
+pairwise.t.test(df_subjects2$score_diff, df_subjects2$condition,  p.adjust.method=&quot;bonferroni&quot;) 
 ## 
 ##  Pairwise comparisons using t tests with pooled SD 
 ## 
-## data:  df_subjects$score_diff and df_subjects$condition 
+## data:  df_subjects2$score_diff and df_subjects2$condition 
 ## 
 ##   0       1     2     3    
 ## 1 0.117   -     -     -    
@@ -755,17 +752,17 @@ round(r,3)</code></pre>
 <h4>MAIN EFFECT: Scenario on SCORE</h4>
 <p>When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p &lt; 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)</p>
 <pre class="r"><code>#RUN ANCOVA ON tm_score with lm_score as covariate
-# model.1=aov(triangular_score~linear_score+condition, data=df_subjects)
+# model.1=aov(triangular_score~linear_score+condition, data=df_subjects2)
 # 
 # Anova(model.1, type=&quot;III&quot;) 
 #ANCOVA PRECONDITIONS
 #1. linear relationship between covariate and dependent variable
 #2. all treatment (condition) regression lines have same slope 
-test&lt;-lm(formula = triangular_score ~ linear_score + condition,  data = df_subjects)
+test&lt;-lm(formula = triangular_score ~ linear_score + condition,  data = df_subjects2)
 summary(test)
 ## 
 ## Call:
-## lm(formula = triangular_score ~ linear_score + condition, data = df_subjects)
+## lm(formula = triangular_score ~ linear_score + condition, data = df_subjects2)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -954,7 +951,7 @@ mixedModel = ezANOVA(data = l_times,
 <div id="results-graph-drawing" class="section level2">
 <h2>Results (Graph Drawing)</h2>
 <pre class="r"><code>#explore independence of graph drawing by condition
-table(df_subjects$`Graph Type`, df_subjects$condition)
+table(df_subjects2$`Graph Type`, df_subjects2$condition)
 ##                           
 ##                             0  1  2  3  4
 ##   Triangular (right angle) 17  6  9 10  2
@@ -963,19 +960,19 @@ table(df_subjects$`Graph Type`, df_subjects$condition)
 ##   Scatterplot               1  0  1  0  1
 ##   Other                     0  0  0  0  0
 ##   Triangular (asymmetric)   3  3  5  4  7
-chisq.test(df_subjects$`Graph Type`, df_subjects$condition, correct=TRUE) 
-## Warning in chisq.test(df_subjects$`Graph Type`, df_subjects$condition,
-## correct = TRUE): Chi-squared approximation may be incorrect
+chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, correct=TRUE) 
+## Warning in chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, :
+## Chi-squared approximation may be incorrect
 ## 
 ##  Pearson&#39;s Chi-squared test
 ## 
-## data:  df_subjects$`Graph Type` and df_subjects$condition
+## data:  df_subjects2$`Graph Type` and df_subjects2$condition
 ## X-squared = 35.487, df = 16, p-value = 0.003407
-fisher.test(df_subjects$`Graph Type`, df_subjects$condition) 
+fisher.test(df_subjects2$`Graph Type`, df_subjects2$condition) 
 ## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
-## data:  df_subjects$`Graph Type` and df_subjects$condition
+## data:  df_subjects2$`Graph Type` and df_subjects2$condition
 ## p-value = 1
 ## alternative hypothesis: two.sided
 
@@ -1092,7 +1089,7 @@ pairwise.table(FUN,
 ## Scatterplot         NaN        NaN       NaN          NA
 ## Asymmetric  0.527312842 0.97716142 0.1824224         NaN</code></pre>
 <pre class="r"><code>#explore independence of graph drawing by order
-table(df_subjects$`Graph Type`, df_subjects$order)
+table(df_subjects2$`Graph Type`, df_subjects2$order)
 ##                           
 ##                            LMFirst TMFirst
 ##   Triangular (right angle)      21      23
@@ -1101,26 +1098,26 @@ table(df_subjects$`Graph Type`, df_subjects$order)
 ##   Scatterplot                    0       3
 ##   Other                          0       0
 ##   Triangular (asymmetric)        8      14
-chisq.test(df_subjects$`Graph Type`, df_subjects$order, correct=TRUE) 
-## Warning in chisq.test(df_subjects$`Graph Type`, df_subjects$order, correct
-## = TRUE): Chi-squared approximation may be incorrect
+chisq.test(df_subjects2$`Graph Type`, df_subjects2$order, correct=TRUE) 
+## Warning in chisq.test(df_subjects2$`Graph Type`, df_subjects2$order,
+## correct = TRUE): Chi-squared approximation may be incorrect
 ## 
 ##  Pearson&#39;s Chi-squared test
 ## 
-## data:  df_subjects$`Graph Type` and df_subjects$order
+## data:  df_subjects2$`Graph Type` and df_subjects2$order
 ## X-squared = 12.503, df = 4, p-value = 0.01398
-fisher.test(df_subjects$`Graph Type`, df_subjects$order) 
+fisher.test(df_subjects2$`Graph Type`, df_subjects2$order) 
 ## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
-## data:  df_subjects$`Graph Type` and df_subjects$order
+## data:  df_subjects2$`Graph Type` and df_subjects2$order
 ## p-value = 0.01117
 ## alternative hypothesis: two.sided
 # ftable(bigTable)</code></pre>
 <p>The cell sizes are too heterogeneous to look for correlations in TM score and drawing type, but we can directly compare the TM scores for the two triangular interpretations: the right-angle triangle and asymetric triangle.</p>
 <pre class="r"><code>
 #SETUP DATA FOR RESPONSE ACCURACY ANALYSIS
-df_small_draw &lt;- subset(df_subjects, df_subjects$`Graph Type`%in% c(&quot;Triangular (asymmetric)&quot;,&quot;Triangular (right angle)&quot;))
+df_small_draw &lt;- subset(df_subjects2, df_subjects2$`Graph Type`%in% c(&quot;Triangular (asymmetric)&quot;,&quot;Triangular (right angle)&quot;))
  
 #LM SCORES BY SCAFFOLD
 desc_control &lt;- by(df_small_draw$triangular_score, df_small_draw$`Graph Type`, stat.desc, basic=FALSE)
@@ -1182,6 +1179,78 @@ round(r,3)
 <div id="references" class="section level2">
 <h2>References</h2>
 <p>Qiang, Y., Valcke, M., De Maeyer, P., &amp; Van de Weghe, N. (2014). Representing time intervals in a two-dimensional space: An empirical study. Journal of Visual Languages and Computing, 25(4), 466–480.</p>
+</div>
+<div id="power-analyses" class="section level2">
+<h2>Power Analyses</h2>
+<p>In order to estimate the number of subjects needed for future study, we will evaluate the statistical significance and effect size of any differences in accuracy scores between scaffold groups for the TM-graph only, in the TM-first graph order.</p>
+<pre class="r"><code>#explore descriptive statistics based on each IV
+desc &lt;- by(df_subjects2$triangular_score, list(df_subjects2$condition), stat.desc, basic=FALSE)
+desc
+## : 0
+##       median         mean      SE.mean CI.mean.0.95          var 
+##    6.0000000    6.9016393    0.5772106    1.1545931   20.3234973 
+##      std.dev     coef.var 
+##    4.5081590    0.6532012 
+## -------------------------------------------------------- 
+## : 1
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   10.0000000    8.8135593    0.5568103    1.1145770   18.2922268 
+##      std.dev     coef.var 
+##    4.2769413    0.4852683 
+## -------------------------------------------------------- 
+## : 2
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   10.0000000    8.6969697    0.5801574    1.1586543   22.2144522 
+##      std.dev     coef.var 
+##    4.7132210    0.5419383 
+## -------------------------------------------------------- 
+## : 3
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   10.0000000    8.5645161    0.5806782    1.1611378   20.9056055 
+##      std.dev     coef.var 
+##    4.5722648    0.5338614 
+## -------------------------------------------------------- 
+## : 4
+##       median         mean      SE.mean CI.mean.0.95          var 
+##   11.0000000   10.6764706    0.4129389    0.8242294   11.5952590 
+##      std.dev     coef.var 
+##    3.4051812    0.3189426
+# LM_mean = desc_control$linear_score[2]
+# LM_SD = desc_control$linear_score[6]
+# TM_mean = desc_control$triangular_score[2]
+# TM_SD = desc_control$triangular_score[6]</code></pre>
+<pre class="r"><code>bar &lt;- ggplot(df_subjects2, aes(x = condition, y= triangular_score))
+bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
+      stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
+      labs (x = &quot;Scaffold&quot;, y= &quot;Score Difference (TM-LM)&quot;) +
+      coord_cartesian(ylim=c(0,15)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle(&quot;TM Score by Scaffold for TM-first Order &quot;) +
+      scale_x_discrete(labels=c( &quot;0&quot; = &quot;none-control&quot;, &quot;1&quot; = &quot;what-text&quot;, &quot;2&quot;=&quot;how-text&quot;, &quot;3&quot;=&quot;static-img&quot;, &quot;4&quot;=&quot;ix img&quot;)) </code></pre>
+<p><img src="Study2_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre class="r"><code>#ONE WAY ANOVA ON triangular score BY SCAFFOLD
+#construct contrasts for ANOVA model
+options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
+
+simpleModel = ezANOVA(data = w_scores,
+                     dv = .(triangular_score),
+                     wid = .(subject),
+                     between = .(condition),
+                     type = 3,
+                    detailed = TRUE)</code></pre>
+<pre><code>## Warning: Converting &quot;subject&quot; to factor for ANOVA.</code></pre>
+<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified
+## a well-considered value for the type argument to ezANOVA().</code></pre>
+<pre class="r"><code>simpleModel$ANOVA</code></pre>
+<pre><code>##        Effect DFn DFd        SSn      SSd           F             p p&lt;.05
+## 1 (Intercept)   1 311 24021.4468 5776.423 1293.303895 8.013810e-113     *
+## 2   condition   4 311   463.1723 5776.423    6.234247  7.754407e-05     *
+##          ges
+## 1 0.80614645
+## 2 0.07423114</code></pre>
+<p>the GES is the (generalized eta squared)</p>
+<p>Eta-square (η2) is an effect size measurement for the analysis of variance (ANOVA). It measures the strength of the effect on a continuous field. The effect can be the main effect of one field or the interaction effect of two fields. Eta-square can be interpreted as the proportion of variance in the continuous target field explained by an effect while controlling for other effects. It is calculated by dividing the sum of squares for the effect by the total sum of squares. Table 1. Interpretation of effect size when there is one input (One-way ANOVA) Effect size (ES) Interpretation ES ≤ 0.04 The effect is statistically significant but weak. 0.04 &lt; ES ≤ 0.36 The effect is moderate. ES &gt; 0.36 The effect is strong.</p>
 </div>
 </div>
 

@@ -30,6 +30,8 @@ suppressPackageStartupMessages({
   library(WRS2) #robust tests
   library(multcomp) # post-hoc tests on repeated-measures anova
   library(rcompanion) # chi square post hocs
+  #library(sjstats) # convenient effect size for anovas
+
 
 
 })
@@ -37,7 +39,7 @@ suppressPackageStartupMessages({
 
 ```{r echo = FALSE}
 #LOAD THE PARTICIPANT DATA
-all_participants <- read_csv("../STUDY_2/Analysis/xls-files/master-wrangled-data/all_participants.csv", 
+all_participants2 <- read_csv("../STUDY_2/Analysis/xls-files/master-wrangled-data/all_participants.csv", 
     col_types = cols(ARF = col_skip(), Comments = col_skip(), 
         `Graph Description (if other)` = col_skip(), 
         `Graph Title` = col_skip(), `Graph Type` = col_factor(levels = c("Triangular (right angle)", 
@@ -58,7 +60,7 @@ all_participants <- read_csv("../STUDY_2/Analysis/xls-files/master-wrangled-data
         tm_scenarios = col_factor(levels = c("longmire", 
             "axis")), triangular_time = col_skip(), 
         ts_t = col_skip(), tt_t = col_skip() ))
-#View(all_participants)
+#View(all_participants2)
 ```
 
 ```{r echo = FALSE}
@@ -82,23 +84,23 @@ task_labels <- c("LM_T_M" = "linear graph", "TM_T_M" = "triangular graph")
 ```{r echo = FALSE}
 #SETUP DATA FRAMES
 #create copy data of base data frame 
-df_subjects <- cbind(all_participants)
+df_subjects2 <- cbind(all_participants2)
 
 #create a new column for order with better name
-df_subjects$order = df_subjects$experiment
-levels(df_subjects$order)[levels(df_subjects$order)=="experiment"] <- "LMFirst"
-levels(df_subjects$order)[levels(df_subjects$order)=="reverse"] <- "TMFirst"
+df_subjects2$order = df_subjects2$experiment
+levels(df_subjects2$order)[levels(df_subjects2$order)=="experiment"] <- "LMFirst"
+levels(df_subjects2$order)[levels(df_subjects2$order)=="reverse"] <- "TMFirst"
 
 #create a column for the sum of the two graphing tasks (graphScore)
-df_subjects$graphScore = df_subjects$linear_score + df_subjects$triangular_score
+df_subjects2$graphScore = df_subjects2$linear_score + df_subjects2$triangular_score
 
 #create a column for the sum of the two drawing tasks (graphScore)
-df_subjects$drawScore = df_subjects$points + df_subjects$d_n
+df_subjects2$drawScore = df_subjects2$points + df_subjects2$d_n
 
 #create data subsets
-df_regular <- subset(df_subjects, experiment=="experiment")
-df_reverse <- subset(df_subjects, experiment=="reverse")
-df_control <- subset(df_subjects, condition==0)
+df_regular <- subset(df_subjects2, experiment=="experiment")
+df_reverse <- subset(df_subjects2, experiment=="reverse")
+df_control <- subset(df_subjects2, condition==0)
 ```
 
 # Evaluating scaffolds for an unconventional statistical graph {.tabset .tabset-fade .tabset-pills}  
@@ -133,15 +135,15 @@ We employed a 5 (scaffold: none-control, what-text, how-text, static image, inte
 #EXPLORE SAMPLE STATISTICS
 
 #record sample size
-nSubjects = nrow(df_subjects)
+nSubjects = nrow(df_subjects2)
 nReg = nrow(df_regular)
 nRev = nrow(df_reverse)
 
 #how many women?
-nFemale <-nrow(filter(df_subjects, df_subjects$GENDER == 'Female'))
+nFemale <-nrow(filter(df_subjects2, df_subjects2$GENDER == 'Female'))
 
 #describe the sample
-descriptives<-stat.desc(df_subjects)
+descriptives<-stat.desc(df_subjects2)
 #descriptives
 
 #determine age range
@@ -244,8 +246,8 @@ Participants completed the study individually in a computer lab. After a short i
 ## Results (Score) 
 ```{r echo = FALSE}
 #SETUP DATA FOR RESPONSE ACCURACY ANALYSIS
-# our data df_subjects is in wide format (repeated measures in different columns), however we need it in long format
-w_scores = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "linear_score","triangular_score")) #create a wide form subset 
+# our data df_subjects2 is in wide format (repeated measures in different columns), however we need it in long format
+w_scores = subset(df_subjects2, select = c("subject","condition", "order", "lm_scenarios", "linear_score","triangular_score")) #create a wide form subset 
 l_scores <-melt(w_scores, id=c("subject","condition", "order", "lm_scenarios"), measured=c("linear_score","triangular_score")) 
 
 #convert other variables to factors
@@ -261,7 +263,7 @@ l_scores$scaffold <-l_scores$condition
 
 
 #SETUP DATA FOR RESPONSE ACCURACY ANALYSIS FOR CONTROL CONDITION ONLY
-# our data df_subjects is in wide format (repeated measures in different columns), however we need it in long format
+# our data df_subjects2 is in wide format (repeated measures in different columns), however we need it in long format
 w_scores_control = subset(df_control, select = c("subject", "order", "lm_scenarios", "linear_score","triangular_score")) #create a wide form subset 
 l_scores_control <-melt(w_scores_control, id=c("subject","order", "lm_scenarios"), measured=c("linear_score","triangular_score")) 
 
@@ -411,7 +413,7 @@ Instead, we find that TM scores are on average lower than LM scores in every con
 
 ```{r collapse=TRUE}
 #explore descriptive statistics based on each IV
-desc <- by(df_subjects$score_diff, list(df_subjects$condition), stat.desc, basic=FALSE)
+desc <- by(df_subjects2$score_diff, list(df_subjects2$condition), stat.desc, basic=FALSE)
 desc
 # LM_mean = desc_control$linear_score[2]
 # LM_SD = desc_control$linear_score[6]
@@ -420,7 +422,7 @@ desc
 ```
 
 ```{r} 
-bar <- ggplot(df_subjects, aes(x = condition, y= score_diff))
+bar <- ggplot(df_subjects2, aes(x = condition, y= score_diff))
 bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom="bar", position="dodge") +
       stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
       labs (x = "Scaffold", y= "Score Difference (TM-LM)") +
@@ -438,7 +440,7 @@ bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom="bar"
 #construct contrasts for ANOVA model
 options(contrasts=c("contr.sum","contr.poly"))
 
-simpleModel = ezANOVA(data = df_subjects,
+simpleModel = ezANOVA(data = df_subjects2,
                      dv = .(score_diff),
                      wid = .(subject),
                      between = .(condition),
@@ -447,7 +449,7 @@ simpleModel = ezANOVA(data = df_subjects,
 simpleModel
 
 
-pairwise.t.test(df_subjects$score_diff, df_subjects$condition,  p.adjust.method="bonferroni") 
+pairwise.t.test(df_subjects2$score_diff, df_subjects2$condition,  p.adjust.method="bonferroni") 
 
 
 
@@ -521,13 +523,13 @@ When answering questions (with either graph) in the axis scenario (M = 9.20, SD 
 
 ```{r collapse = TRUE}
 #RUN ANCOVA ON tm_score with lm_score as covariate
-# model.1=aov(triangular_score~linear_score+condition, data=df_subjects)
+# model.1=aov(triangular_score~linear_score+condition, data=df_subjects2)
 # 
 # Anova(model.1, type="III") 
 #ANCOVA PRECONDITIONS
 #1. linear relationship between covariate and dependent variable
 #2. all treatment (condition) regression lines have same slope 
-test<-lm(formula = triangular_score ~ linear_score + condition,  data = df_subjects)
+test<-lm(formula = triangular_score ~ linear_score + condition,  data = df_subjects2)
 summary(test)
 ```
 
@@ -586,8 +588,8 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom="point", p
 ## Results (Time)
 ```{r echo = FALSE}
 #SETUP DATA FOR RESPONSE TIME ANALYSIS
-# our data df_subjects is in wide format (repeated measures in different columns), however we need it in long format
-w_times = subset(df_subjects, select = c("subject","condition", "order", "lm_scenarios", "LM_T_M","TM_T_M")) #create a wide form subset 
+# our data df_subjects2 is in wide format (repeated measures in different columns), however we need it in long format
+w_times = subset(df_subjects2, select = c("subject","condition", "order", "lm_scenarios", "LM_T_M","TM_T_M")) #create a wide form subset 
 l_times <-melt(w_times, id=c("subject","condition", "order", "lm_scenarios"), measured=c("LM_T_M","TM_T_M")) 
 
 #convert other variables to factors
@@ -708,9 +710,9 @@ round(r,3)
 
 ```{r collapse=TRUE}
 #explore independence of graph drawing by condition
-table(df_subjects$`Graph Type`, df_subjects$condition)
-chisq.test(df_subjects$`Graph Type`, df_subjects$condition, correct=TRUE) 
-fisher.test(df_subjects$`Graph Type`, df_subjects$condition) 
+table(df_subjects2$`Graph Type`, df_subjects2$condition)
+chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, correct=TRUE) 
+fisher.test(df_subjects2$`Graph Type`, df_subjects2$condition) 
 
 Input =("
 Interpretation control  whattext howtext static interactive
@@ -751,9 +753,9 @@ pairwise.table(FUN,
 
 ```{r collapse = TRUE}
 #explore independence of graph drawing by order
-table(df_subjects$`Graph Type`, df_subjects$order)
-chisq.test(df_subjects$`Graph Type`, df_subjects$order, correct=TRUE) 
-fisher.test(df_subjects$`Graph Type`, df_subjects$order) 
+table(df_subjects2$`Graph Type`, df_subjects2$order)
+chisq.test(df_subjects2$`Graph Type`, df_subjects2$order, correct=TRUE) 
+fisher.test(df_subjects2$`Graph Type`, df_subjects2$order) 
 # ftable(bigTable)
 ```
 
@@ -762,7 +764,7 @@ The cell sizes are too heterogeneous to look for correlations in TM score and dr
 ```{r collapse = TRUE}
 
 #SETUP DATA FOR RESPONSE ACCURACY ANALYSIS
-df_small_draw <- subset(df_subjects, df_subjects$`Graph Type`%in% c("Triangular (asymmetric)","Triangular (right angle)"))
+df_small_draw <- subset(df_subjects2, df_subjects2$`Graph Type`%in% c("Triangular (asymmetric)","Triangular (right angle)"))
  
 #LM SCORES BY SCAFFOLD
 desc_control <- by(df_small_draw$triangular_score, df_small_draw$`Graph Type`, stat.desc, basic=FALSE)
@@ -795,3 +797,60 @@ Qiang, Y., Valcke, M., De Maeyer, P., & Van de Weghe, N. (2014). Representing ti
 
 
 
+
+
+
+
+## Power Analyses
+In order to estimate the number of subjects needed for future study, we will evaluate the statistical significance and effect size of any differences in accuracy scores between scaffold groups for the TM-graph only, in the TM-first graph order. 
+
+
+```{r collapse=TRUE}
+#explore descriptive statistics based on each IV
+desc <- by(df_subjects2$triangular_score, list(df_subjects2$condition), stat.desc, basic=FALSE)
+desc
+# LM_mean = desc_control$linear_score[2]
+# LM_SD = desc_control$linear_score[6]
+# TM_mean = desc_control$triangular_score[2]
+# TM_SD = desc_control$triangular_score[6]
+```
+
+
+
+```{r} 
+bar <- ggplot(df_subjects2, aes(x = condition, y= triangular_score))
+bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom="bar", position="dodge") +
+      stat_summary(fun.data = mean_cl_normal, geom="errorbar", position = position_dodge(width=0.9),width=0.2) +
+      labs (x = "Scaffold", y= "Score Difference (TM-LM)") +
+      coord_cartesian(ylim=c(0,15)) +
+      theme_bw() +
+      theme(strip.background = element_blank()) +
+      ggtitle("TM Score by Scaffold for TM-first Order ") +
+      scale_x_discrete(labels=c( "0" = "none-control", "1" = "what-text", "2"="how-text", "3"="static-img", "4"="ix img")) 
+
+```
+
+
+```{r}
+#ONE WAY ANOVA ON triangular score BY SCAFFOLD
+#construct contrasts for ANOVA model
+options(contrasts=c("contr.sum","contr.poly"))
+
+simpleModel = ezANOVA(data = w_scores,
+                     dv = .(triangular_score),
+                     wid = .(subject),
+                     between = .(condition),
+                     type = 3,
+                    detailed = TRUE)
+simpleModel$ANOVA
+```
+the GES is the (generalized eta squared)
+
+Eta-square (η2) is an effect size measurement for the analysis of variance (ANOVA). It measures the strength of the effect on a continuous field.
+The effect can be the main effect of one field or the interaction effect of two fields.
+Eta-square can be interpreted as the proportion of variance in the continuous target field explained by an effect while controlling for other effects. It is calculated by dividing the sum of squares for the effect by the total sum of squares.
+Table 1. Interpretation of effect size when there is one input (One-way ANOVA)
+Effect size (ES)	Interpretation
+ES ≤ 0.04	The effect is statistically significant but weak.
+0.04 < ES ≤ 0.36	The effect is moderate.
+ES > 0.36	The effect is strong.

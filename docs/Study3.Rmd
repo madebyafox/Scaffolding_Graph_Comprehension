@@ -54,7 +54,7 @@ nFemale <-sum(df_subjects_3$sex == "Female")
 ```
 
 #Comparing Explicit and Implicit Scaffolding   {.tabset .tabset-fade .tabset-pills} 
-<br> 
+
 
 ##Introduction   
 The purpose of this study is to compare the relative efficacy of *explicit* (ie. visually-salient text or images that serve instructional purpose) and *implicit* (ie. task and question structure) scaffolding for an unconventional statistical graph.  We hypothesize that implicit techniques---specifically presenting a task that forms a **mental impasse** for the reader---will be more supportive of correct graph interpretation than explicit graph-reading instructions.  We base this hypothesis on prior observation and experimental work (Fox & Hollan, *in preparation*) which revealed that when presented with an unconventional graph with structural elements (ie. axes and grid) that resembled conventional graphs, learners did not always realize they did not understand how the graph was meant to be read. We propose that prior knoweldge of conventional graph systems acts as a form of "graphical fixedness", that learners must overcome to form correct mental models for new representational systems. 
@@ -64,7 +64,7 @@ The purpose of this study is to compare the relative efficacy of *explicit* (ie.
 Based on the results from Study 2 we predict ...   
 <br>
 <!--html_preserve-->
-<img src="Study3_files/figure-html/expected_results_ixn.png" height="500" width="500" > 
+<img src="Study3_files/expected_results_ixn.png" height="500" width="500" > 
 <!--/html_preserve-->
 
 ##Methods
@@ -201,7 +201,7 @@ QP_time
 
 ####EXPECTED RESULTS 
 <!--html_preserve-->
-<img src="Study3_files/figure-html/expected_results_bar.png" height="800" width="800" > 
+<img src="Study3_files/expected_results_bar.png" height="800" width="800" > 
 <!--/html_preserve-->
 <br> 
 

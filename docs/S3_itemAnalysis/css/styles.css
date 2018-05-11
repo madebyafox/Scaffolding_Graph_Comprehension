@@ -1,0 +1,61 @@
+
+body{
+  margin:25px;
+}
+
+div {}
+  .tools{
+    /* background-color: #dcdfe5; */
+  }
+
+  .data{
+    /* background-color: #c0cce2; */
+  }
+
+
+svg {
+  /* background-color: grey; */
+
+}
+
+
+
+g {
+  background-color: red;
+}
+
+rect {
+  fill:black;
+}
+
+.right{
+  fill:#B8E986;
+}
+
+.wrong{
+  fill:#EAABAB;
+}
+
+.weird{
+  fill:#FEE777;
+}
+text {
+  /* fill:black; */
+  font-size: 11px;
+}
+
+.subject{
+
+}
+
+.enter {
+  fill:green;
+}
+
+.update {
+  fill:black;
+}
+
+.exit {
+  fill:red;
+}

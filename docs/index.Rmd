@@ -5,6 +5,9 @@ output:
   html_document:
     fig_width: 1
 ---
+```{r}
+
+```
 
 ----
 
@@ -14,14 +17,30 @@ As powerful as graphics may be in their communicative efficiency, they needn’t
 
 In <a href="Study1.html">**Study 1**</a> we observe learners solving problems with the TM graph, and challenge them to design instructional aids.    
 In <a href="Study2.html">**Study 2**</a> we design four scaffolding techniques and test their efficacy with both LM and TM graphs.    
-In <a href="Study3.html">**Study 3**</a> we compare the effectiveness of explicit and implicit (impasse) scaffolds for the TM graph.    
+In <a>**Study 3**</a> we compare the effectiveness of explicit and implicit (impasse) scaffolds for the TM graph.    
+<br> 
+
+<a target="_blank" href="S3_itemAnalysis/index.html">WIP Visualization</a>
+
 
 ----
 
 **Researchers**   
-Amy Rae Fox, MA. MEd.   
-James Hollan, PhD   
-Research Assistants:Evan Barosay, Kai-yu Chang, Hazel Leung   
+Amy Rae Fox, MA MEd, PhD student of Cognitive Science, UC San Diego
+James Hollan, PhD, Professor of Cognitive Science, UC San Diego   
+Caren Walker, PhD, Assistant Professor of Psychology, UC San Diego
+Research Assistants:Evan Barosay, Alexis Flores, Kai-yu Chang, Hazel Leung   
+
+----   
+
+**Publications**
+Fox, A. R., Hollan, J. (2018). Read It This Way: Sca olding Comprehension for Unconventional
+Statistical Graphs. In Diagrammatic Reasoning & Inference. Lecture Notes in Computer Science: Springer International Publishing. 
+*Accepted for presentation at the 2018 Conference on Theory and Application of Diagrams*
+
+Fox, A. R., Walker, C., Hollan, J. (August, 2018). Graphical Insight: How to Read an Unconventional Graph. European Association of Research on Learning and Instruction - SIG 2. Freiburg, Germany.
+*Accepted for presentation at the 2018 Conference for the EARLI SIG2 group on Comprehension of Text and Graphics*
+   
 
 ----   
 
