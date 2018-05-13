@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
   <div class = "stimulus">
     <p class = "userid" id="userid"></p>
     <div class = "userinput">
@@ -20,14 +19,6 @@
       <div class = "legend" id="hint-interactive" style="display:none" >
         <p>Hint: hover your mouse over the data points for help</p>
       </div> <!-- end legend -->
-
-
-      <!-- <div class="control-group centered">
-          <label class="centered control control-checkbox"> I agree to take part in this study.
-              <input id="consent_checkbox" type="checkbox"/>
-              <div class="control_indicator" ></div>
-          </label>
-      </div> -->
 
       <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
       <div class=test>
@@ -97,7 +88,7 @@
           </ul>
         </div>
         <div class = "acme" id="acme.starts" style ="display:none">
-          <p class = "question">Which shift(s) start with D?</p>
+          <p class = "question">Which shift(s) start at the same time as D?</p>
           <ul class="checkbox-grid">
             <li class="control"><label class="control control-checkbox">
               <input type="checkbox" name="C" value=C />C
@@ -511,7 +502,7 @@
           </ul>
         </div>
         <div class = "bigset" id="bigset.duration+contained" style ="display:none">
-          <p class = "question">Which shift under 7 hours long starts before B and ends after X?</p>
+          <p class = "question">Which shift under 7 hours long starts before B starts, and ends after X ends?</p>
           <ul class="checkbox-grid">
             <li class="control"><label class="control control-checkbox">
               <input type="checkbox" name="I" value=I />I
@@ -588,7 +579,7 @@
           </ul>
         </div>
         <div class = "bigset" id="bigset.starttime+before+endtime+during" style ="display:none">
-          <p class = "question">Which shift begins before J and ends during B?</p>
+          <p class = "question">Which shift begins before J begins and ends during B?</p>
           <ul class="checkbox-grid">
             <li class="control"><label class="control control-checkbox">
               <input type="checkbox" name="I" value=I />I
@@ -1135,7 +1126,8 @@
     </div> <!-- instructions -->
     <div class = "d3container"></div>
   </div> <!--stimulus container-->
-<script>
+
+  <script>
 
     // Track clicks on page
     $(document).ready(function() {
@@ -1293,13 +1285,13 @@
       xAxisTitle = "START & END TIME (time of day)";
       yAxisTitle = "DURATION (in hours)";
       drawTriangleModel(datafile,intersects,axis,scaffold,q);
-
-</script>
+  </script>
 
 </body>
 
 
 <script>
+
 //MOUSE LOGGING SCRIPT
 var mouseLog = []
 var xwidth = $(document).width();

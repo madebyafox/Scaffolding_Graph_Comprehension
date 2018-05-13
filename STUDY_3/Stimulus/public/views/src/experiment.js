@@ -187,8 +187,8 @@ var triangular_scaffolded = {
     jsPsych.data.addDataToLastTrial({graph:graph});
     jsPsych.data.addDataToLastTrial({scenario:scenario});
     jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({q:q/2});
-    jsPsych.data.addDataToLastTrial({clicks:clicks});
+    jsPsych.data.addDataToLastTrial({q:q});
+    jsPsych.data.addDataToLastTrial({clicks:clicks/2});
     jsPsych.data.addDataToLastTrial({condition:condition});
     jsPsych.data.addDataToLastTrial({explicit:explicit});
     jsPsych.data.addDataToLastTrial({impasse:impasse});
@@ -299,7 +299,7 @@ var triangular_testing = {
     console.log("finished: "+data.internal_node_id);
     console.log("tri_correct? "+correct);
     console.log("orth_correct? "+orth_correct);
-    console.log("PRINT MOUSE LOG "+mouseLog);
+    // console.log("PRINT MOUSE LOG "+mouseLog);
     window._mfq.push(["setVariable", "SID", sid]);
     window._mfq.push(["setVariable", "CONDITION", condition]);
     window._mfq.push(["setVariable", "TRI_CORRECT", correct]);
