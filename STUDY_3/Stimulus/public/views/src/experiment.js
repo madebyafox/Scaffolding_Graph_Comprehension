@@ -184,11 +184,11 @@ var triangular_scaffolded = {
   data : {},
   on_finish: function(data) {
     // console.log("finished: "+data.internal_node_id);
-    // console.log("correct? "+correct);
     jsPsych.data.addDataToLastTrial({graph:graph});
     jsPsych.data.addDataToLastTrial({scenario:scenario});
     jsPsych.data.addDataToLastTrial({question:question});
-    jsPsych.data.addDataToLastTrial({q:q});
+    jsPsych.data.addDataToLastTrial({q:q/2});
+    jsPsych.data.addDataToLastTrial({clicks:clicks});
     jsPsych.data.addDataToLastTrial({condition:condition});
     jsPsych.data.addDataToLastTrial({explicit:explicit});
     jsPsych.data.addDataToLastTrial({impasse:impasse});
@@ -216,6 +216,7 @@ var triangular_scaffolded = {
           scenario = scenarios[0];
           question = questions[0];
           q = 1;
+          clicks = 0;
           explicit = explicit;
           impasse = impasse;
           axis = axis;
@@ -227,6 +228,7 @@ var triangular_scaffolded = {
         scenario = scenarios[0];
         question = questions[1];
         q = 2;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -238,6 +240,7 @@ var triangular_scaffolded = {
         scenario = scenarios[0];
         question = questions[2];
         q = 3;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -248,6 +251,7 @@ var triangular_scaffolded = {
         scenario = scenarios[0];
         question = questions[3];
         q = 4;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -258,6 +262,7 @@ var triangular_scaffolded = {
         scenario = scenarios[0];
         question = questions[4];
         q = 5;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -278,6 +283,7 @@ var triangular_testing = {
     jsPsych.data.addDataToLastTrial({scenario:scenario});
     jsPsych.data.addDataToLastTrial({question:question});
     jsPsych.data.addDataToLastTrial({q:q});
+    jsPsych.data.addDataToLastTrial({clicks:clicks/2});
     jsPsych.data.addDataToLastTrial({condition:condition});
     jsPsych.data.addDataToLastTrial({explicit:explicit});
     jsPsych.data.addDataToLastTrial({impasse:impasse});
@@ -305,6 +311,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[5];
         q = 6;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -315,6 +322,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[6];
         q = 7;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -325,6 +333,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[7];
         q = 8;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -335,6 +344,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[8];
         q = 9;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -345,6 +355,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[9];
         q = 10;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -355,6 +366,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[10];
         q = 11;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -365,6 +377,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[11];
         q = 12;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -375,6 +388,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[12];
         q = 13;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -385,6 +399,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[13];
         q = 14;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;
@@ -395,6 +410,7 @@ var triangular_testing = {
         scenario = scenarios[1];
         question = questions[14];
         q = 15;
+        clicks = 0;
         explicit = explicit;
         impasse = impasse;
         axis = axis;

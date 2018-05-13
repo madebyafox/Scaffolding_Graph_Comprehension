@@ -1137,6 +1137,15 @@
   </div> <!--stimulus container-->
 <script>
 
+    // Track clicks on page
+    $(document).ready(function() {
+      $(".control").click(function(e) {
+        e.stopImmediatePropagation();
+        clicks = clicks + 1;
+        console.log(clicks);
+      });
+    });
+
     $('.userid').html(sid);
 
     // console.log("start of clicked array: "+clicked);
