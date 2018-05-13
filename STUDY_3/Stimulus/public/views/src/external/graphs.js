@@ -271,6 +271,7 @@ function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
 }
 function drawStaticLeaders(axis,staticLeaders,x,y){
   /*NOTE: NEED TO MANUALLY SET MINIMUM HERE TOO -- FIX THIS*/
+  /*NOTE: COMMENTED OUT TEXT LABELS */
   var exampleMin = moment("12:00","HH:mm");
   var exampleMax = moment("17:00","HH:mm");
   var exampleMid = moment("14:30","HH:mm");
@@ -290,11 +291,11 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
   .attr("cx", x(exampleMin))
   .attr("cy", y(0)+22);
 
-  staticLeaders.append("text")
-  .attr("class","scaffText")
-  .attr("x",x(exampleMin)-50)
-  .attr("y",y(0)+50)
-  .text("start");
+  // staticLeaders.append("text")
+  // .attr("class","scaffText")
+  // .attr("x",x(exampleMin)-50)
+  // .attr("y",y(0)+50)
+  // .text("start");
 
   staticLeaders.append("line")
   .attr("class", "scaffEndtime")
@@ -308,11 +309,11 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
   .attr("cx", x(exampleMax))
   .attr("cy", y(0)+22);
 
-  staticLeaders.append("text")
-  .attr("class","scaffText")
-  .attr("x",x(exampleMax)+15)
-  .attr("y",y(0)+50)
-  .text("end");
+  // staticLeaders.append("text")
+  // .attr("class","scaffText")
+  // .attr("x",x(exampleMax)+15)
+  // .attr("y",y(0)+50)
+  // .text("end");
 
   if (axis == "partial" || axis == "full") {
     staticLeaders.append("line")
