@@ -213,7 +213,7 @@ function drawDiagonalYAxis(x,y,dmin,dmax,title,graphLabel,range){
 function drawTriangleLeaders(x,y,start,mid,end,dur,min,leaders){
 
     /*NOTE: NEED TO MANUALLY SET MINIMUM HERE TOO -- FIX THIS*/
-    var actualMin = moment("8:00","HH:mm");
+    var actualMin = moment("6:00","HH:mm");
     var actual = actualMin.add(dur/2,"hours");
 
     leaders.append ("line")
@@ -276,7 +276,7 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
   var exampleMax = moment("17:00","HH:mm");
   var exampleMid = moment("14:30","HH:mm");
   var diagMid = moment("10:30","HH:mm");
-  var min = moment("8:00","HH:mm");
+  var min = moment("6:00","HH:mm");
   var dur = 5;
 
   staticLeaders.append ("line")
@@ -392,9 +392,9 @@ function drawTriangleModel(datafile, scaffold, axis,q) {
       var count = data.length;
       var backup = [];
       var graphLabel=[[]];
-      var dmin = moment("08:00","HH:mm");
-      var dmax = moment("20:00","HH:mm");
-      var range = 12;
+      var dmin = moment("06:00","HH:mm");
+      var dmax = moment("19:00","HH:mm");
+      var range = 13;
 
       //PROCESS RAW DATA
       data.forEach(function(d) {

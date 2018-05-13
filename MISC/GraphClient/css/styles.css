@@ -160,7 +160,7 @@ p .legend{
 .axisTitle text {
   fill:black;
   font-family:"Helvetica";
-  font-size:18px;
+  font-size:22px;
   font-weight:bold;
 }
 
@@ -180,7 +180,7 @@ p .legend{
 .tick text{
   fill:black;
   font-family:"Helvetica";
-  font-size:14px;
+  font-size:18px;
 }
 
 .xaxis  {
@@ -192,7 +192,7 @@ p .legend{
 }
 
 .xgrid  {
-  stroke: grey;
+  stroke: black;
   stroke-opacity: 1;
   stroke-width: 1;
   shape-rendering: crispEdges;
@@ -205,7 +205,7 @@ p .legend{
 }
 
 .ygrid  line {
-  stroke: grey;
+  stroke: black;
   stroke-opacity: 1;
   shape-rendering: crispEdges;
 }
@@ -213,7 +213,7 @@ p .legend{
 .data text{
   fill:black;
   font-family:"Helvetica";
-  font-size:12px;
+  font-size:18px;
   font-style:normal
 }
 
@@ -221,7 +221,6 @@ p .legend{
   display: block;
   float: left;
   width: 20%;
-
   fill:black;
   font-family:"Helvetica";
   font-size:16px;
@@ -243,7 +242,7 @@ p .legend{
   /*align-content: center;*/
 /*}*/
 .leaders {
-  stroke-width:5px;
+  stroke-width:8px;
   stroke:#3498db;
   opacity:0.75;
   stroke-linecap:round;
@@ -371,4 +370,75 @@ p .legend{
 }
 .boxed {
   border: 1px solid black;
+}
+
+
+
+
+
+.control {
+    font-family: arial;
+    /* display: block; */
+    position: relative;
+    padding-left: 29px;
+    margin-bottom: 8px;
+    padding-top: 0px;
+    cursor: pointer;
+    font-size: 20px;
+}
+    .control input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+.control_indicator {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #cccccc;
+    border: 0px solid #000000;
+}
+.control-radio .control_indicator {
+    border-radius: undefined%;
+}
+
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+    background: #aaaaaa;
+}
+
+.control input:checked ~ .control_indicator {
+    background: #3499DB;
+}
+.control:hover input:not([disabled]):checked ~ .control_indicator,
+.control input:checked:focus ~ .control_indicator {
+    background: #0e6647d;
+}
+.control input:disabled ~ .control_indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.control input:checked ~ .control_indicator:after {
+    display: block;
+}
+.control-checkbox .control_indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.control-checkbox input:disabled ~ .control_indicator:after {
+    border-color: #7b7b7b;
 }

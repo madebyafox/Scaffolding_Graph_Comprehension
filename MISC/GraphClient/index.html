@@ -21,7 +21,7 @@
 
   <!--STYLE SHEETS -->
   <link href="css/styles.css" rel="stylesheet" type="text/css"></link>
-  <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
+  <!-- <link href="css/experiment.css" rel="stylesheet" type="text/css"></link> -->
 
 </head>
 
@@ -36,27 +36,91 @@
         <p>Hint: hover your mouse over the data points for help</p>
       </div> <!-- end legend -->
 
+      <div class="control-group centered">
+          <label class="control control-checkbox"> I agree to take part in this study.
+              <input id="consent_checkbox" type="checkbox"/>
+          </label>
+      </div>
+
       <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
       <div class=test>
         <div class = "acme" id="acme.start" >
           <p class = "question">THIS IS A PLACEHOLDER QUESTION </p>
-          <ul class="checkbox-grid">
-        <li><input type="checkbox" name="A" value=A />A</li>
-        <li><input type="checkbox" name="B" value=B />B</li>
-        <li><input type="checkbox" name="C" value=C />C</li>
-        <li><input type="checkbox" name="D" value=D />D</li>
-        <li><input type="checkbox" name="E" value=E />E</li>
-        <li><input type="checkbox" name="F" value=F />F</li>
-        <li><input type="checkbox" name="G" value=G />G</li>
-        <li><input type="checkbox" name="H" value=H />H</li>
-        <li><input type="checkbox" name="I" value=I />I</li>
-        <li><input type="checkbox" name="J" value=J />J</li>
-        <li><input type="checkbox" name="K" value=K />K</li>
-        <li><input type="checkbox" name="L" value=L />L</li>
-        <li><input type="checkbox" name="M" value=M />M</li>
-        <li><input type="checkbox" name="N" value=N />N</li>
-        <li><input type="checkbox" name="O" value=O />O</li>
-      </li>
+
+      <ul class="checkbox-grid">
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+        <li class="control"><label class="control control-checkbox">
+          <input type="checkbox" name="A" value=A />A
+          <div class="control_indicator" ></div>
+        </li>
+      </ul>
           <!-- //answer =     "acme.start" : ["C","D","L"]-->
         </div>
       </div> <!--test questions div end-->
@@ -79,8 +143,8 @@
 
 
   //---------SET CONDITIONS -------------//
-  var q = 1; //question number [less than 5 gives scaffold, more than five does not]
-  var axis = 2; //"1 = full, "2 = partial", ,3 = diagonal"
+  var q = 6; //question number [less than 5 gives scaffold, more than five does not]
+  var axis = 1; //"1 = full, "2 = partial", ,3 = diagonal"
   var explicit = 3; //"1 = none", "2=image" , "3=interactive"
   var impasse = 1; //"1=nonimpasse", "2=impasse"
 
