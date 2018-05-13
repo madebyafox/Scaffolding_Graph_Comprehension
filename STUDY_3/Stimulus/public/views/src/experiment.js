@@ -50,6 +50,7 @@ var questions = [
   "endtime",
   "midpoint"
 ];
+var clicks = 0; //number of clicks on the page
 var q = 0 ; //question number, used for data file override
 var scenarios = ["acme","bigset"]; //determine the order of scenarios by randomly sorting the array
 var sid = jsPsych.randomization.randomID(5);
@@ -64,9 +65,7 @@ var phone = {
     data: {
       block:"phone"
     },
-    on_start: function(data){
-
-    }
+    on_start: function(data){}
 };
 var consent = {
     "type": "html",
@@ -74,9 +73,7 @@ var consent = {
     "url": "../views/src/external/consent.html",
     "cont_btn": "start",
     "check_fn": check_consent,
-    on_start: function(data){
-      window._mfq.push(["newPageView", "/consent"]);
-    },
+    on_start: function(data){},
     data: {
       block:"consent"
     }
@@ -85,9 +82,7 @@ var codes = {
     type: 'survey-text',
     preamble: "<p>Please enter the following information from your participant card</p>",
     questions: ["Session code: ", "Condition code: "],
-    on_start: function(data){
-      window._mfq.push(["newPageView", "/codes"]);
-    },
+    on_start: function(data){},
     data: {
       block:"codes"
     },
@@ -181,7 +176,6 @@ var choice_survey = {
 
 
 //-------------STIM BLOCKS-----------------------------------------------
-
 var triangular_scaffolded = {
   type: "html",
   force_refresh: true,
@@ -409,21 +403,21 @@ var triangular_testing = {
   ],
   randomize_order: false
 }
-//-------------ESTABLISH THE TIMELINE -----------------------------------
 
+//-------------ESTABLISH THE TIMELINE -----------------------------------
 var exp_timeline = [];
 
-//SETUP
 
+//SETUP------------------------------------------------------------------
 exp_timeline.push(phone);
 exp_timeline.push(consent);
 exp_timeline.push(codes);
 exp_timeline.push(instructions_lab);
-// // // //TRIANGULAR MODEL
+//TRIANGULAR MODEL
 exp_timeline.push(scenario);
-exp_timeline.push(triangular_scaffolded);  //linear with scaffold q 1-5
-exp_timeline.push(triangular_testing);  //linear without scaffold q 6-15
-// // //WRAPUP
+exp_timeline.push(triangular_scaffolded);  //with scaffold q 1-5
+exp_timeline.push(triangular_testing);     //without scaffold q 6-15
+//WRAPUP
 exp_timeline.push(text_survey);
 exp_timeline.push(choice_survey);
 exp_timeline.push(debrief);
