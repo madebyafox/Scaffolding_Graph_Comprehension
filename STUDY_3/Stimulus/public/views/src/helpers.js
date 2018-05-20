@@ -76,3 +76,9 @@ function checkOrthogonalAnswer(){
   answer = selected;
   // console.log("orthogonal_correct"+orth_correct);
 }
+
+function submitStrategy(){
+    console.log("submitting strategy");
+    answer = $("textarea").val();
+    console.log(answer);
+}

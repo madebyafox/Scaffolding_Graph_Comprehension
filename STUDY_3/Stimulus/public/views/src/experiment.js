@@ -28,7 +28,7 @@
 //                      2 = cartesian axes, into triag y, triag x
 //                      3 = triangular axes, inside triag y, triag x
 //                      4 = cartesian axes, inside y, triag x
-//                      5 = cartesian axes, full y, full x  
+//                      5 = cartesian axes, full y, full x
 //---------------------------------------------------------------------
 
 
@@ -64,7 +64,8 @@ var questions = [
   "starts",
   "meets",
   "endtime",
-  "midpoint"
+  "midpoint",
+  "strategy"
 ];
 var clicks = 0; //number of clicks on the page
 var q = 0 ; //question number, used for data file override
@@ -172,6 +173,17 @@ var year_options = ["First", "Second","Third","Fourth","Fifth","Graduate","Other
 var major_options = ["Math or Computer Sciences","Social Sciences (incl. CogSci)", "Biomedical & Health Sciences",
                       "Natural Sciences","Engineering","Humanities","Fine Arts"];
 var gender_options = ["Male","Female","Other"];
+
+// var strategy_question = ["Please explain how to determine what events start at 10am."];
+// var strategy_survey = {
+//     type: 'survey-text',
+//     questions: strategy_question,
+//     preamble:"<img src=\"../img/phone.png\">",
+//     data: {
+//       block: "demo-0"
+//     }
+// };
+
 var text_survey = {
     type: 'survey-text',
     questions: text_questions,
@@ -196,7 +208,7 @@ var triangular_scaffolded = {
   type: "html",
   force_refresh: true,
   url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
+  cont_btn: "testingButton",
   data : {},
   on_finish: function(data) {
     // console.log("finished: "+data.internal_node_id);
@@ -290,7 +302,7 @@ var triangular_testing = {
   type: "html",
   force_refresh: true,
   url: "../views/src/external/stimulus.html",
-  cont_btn: "start",
+  cont_btn: "testingButton",
   data : {},
   on_finish: function(data) {
     // console.log("finished: "+data.internal_node_id);
@@ -435,12 +447,43 @@ var triangular_testing = {
   ],
   randomize_order: false
 }
-
+var triangular_strategy = {
+  type: "html",
+  force_refresh: true,
+  url: "../views/src/external/stimulus.html",
+  cont_btn: "strategyButton",
+  data : {},
+  on_finish: function(data) {
+    // console.log("finished: "+data.internal_node_id);
+    // console.log("correct? "+correct);
+    jsPsych.data.addDataToLastTrial({q:q});
+    jsPsych.data.addDataToLastTrial({answer:answer});
+    jsPsych.data.addDataToLastTrial({block:"triangular_testing"});
+    console.log("TT"+(data.trial_index-25));
+    console.log("finished: "+data.internal_node_id);
+    window._mfq.push(["setVariable", "SID", sid]);
+    window._mfq.push(["setVariable", "CONDITION", condition]);
+  },
+  timeline: [
+      {on_start: function(){
+        graph= "triangular";
+        scenario = "";
+        question = questions[15];
+        q = 16;
+        clicks = 0;
+        explicit = explicit;
+        impasse = impasse;
+        axis = axis;
+        window._mfq.push(["newPageView", "/16"]);
+      }}
+  ],
+  randomize_order: false
+}
 //-------------ESTABLISH THE TIMELINE -----------------------------------
 var exp_timeline = [];
 
-
 //SETUP------------------------------------------------------------------
+
 exp_timeline.push(phone);
 exp_timeline.push(consent);
 exp_timeline.push(codes);
@@ -449,6 +492,8 @@ exp_timeline.push(instructions_lab);
 exp_timeline.push(scenario);
 exp_timeline.push(triangular_scaffolded);  //with scaffold q 1-5
 exp_timeline.push(triangular_testing);     //without scaffold q 6-15
+//STRATEGY
+exp_timeline.push(triangular_strategy);
 //WRAPUP
 exp_timeline.push(text_survey);
 exp_timeline.push(choice_survey);
@@ -481,8 +526,7 @@ jsPsych.init({
     //   window.location.href = "/";
     // })
   },
-  on_finish: function(data)
-  {
+  on_finish: function(data){
     console.log("trial has ended");
     jsPsych.data.displayData();
     $.ajax({
@@ -499,7 +543,5 @@ jsPsych.init({
       window.location.href = "/";
     })
   }
-
-
 
 });

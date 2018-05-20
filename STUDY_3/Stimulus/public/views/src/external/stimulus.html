@@ -1117,11 +1117,17 @@
             </li>
           </ul>
         </div>
+        <div class = "bigset" id=".strategy" style ="display:none">
+          <p class = "question">Please describe how to determine what event(s) start at 12pm?</p>
+          <textarea id= "strategyAnswer" rows="5" cols="80"></textarea>
+        </div>
+
       </div> <!--test questions div end-->
 
       <!-- SUBMIT AND HELP BUTTONS ------------------------------------------------------------------>
       <div class="fixbottom">
-        <button type="button" id="start" class='btn' onclick=checkTriangularAnswer()>SUBMIT</button>
+        <button type="button" id="testingButton" style="display:none;"class='btn' onclick=checkTriangularAnswer()>SUBMIT</button>
+        <button type="button" id="strategyButton" style="display:none;"class='btn' onclick=submitStrategy()>SUBMIT</button>
       </div>
     </div> <!-- instructions -->
     <div class = "d3container"></div>
@@ -1218,8 +1224,10 @@
       "bigset.endtime.2" : ["B"],
       "bigset.midpoint.2" : ["E","F"]
     }
-    //display the question based on input values from jsPsych
+    //display the question and answer buttons based on input values from jsPsych
     document.getElementById(scenario+"."+question).style.display = "block";
+    if (question == "strategy") {document.getElementById("strategyButton").style.display = "block";}
+    else {document.getElementById("testingButton").style.display = "block";}
 
     //---------SET PROPERTIES OF THE GRAPH -------------//
     // set the dimensions and margins of the graph
@@ -1256,6 +1264,7 @@
       scaffold = 2;
       intersects = false;
     }
+    //TODO: not sure if above two lines are still valid since leaders are now generated on the fly
     else if (explicit == 3){
       $('#hint-interactive').css("display","block"); //display textimage scaffold
       intersects = true;
