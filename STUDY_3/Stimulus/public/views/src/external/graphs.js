@@ -1,4 +1,3 @@
-//TODO: MOVE triangular axis ticks to axis function (currently in grid function)
 //TODO: This seemed to mess stuff up... not sure WHY
 // d3.selectAll(".tick line")
 //   .attr("y2", 15)
@@ -9,8 +8,6 @@
 //    }) ;
 // d3.selectAll(".tick text")
 //   .attr("y", 20) ;
-  //TODO: fix missing horizontal leader on 223
-
 
 
 //-----------AXIS HELPER FUNCTIONS ---------------------------//
@@ -166,9 +163,65 @@ function drawYGrid_Inside (x,y,min,max,range){
 }
 
 //-----------VERTICAL GRID HELPER FUNCTIONS ---------------------------//
-function drawXGrid_Full (){}
+function drawXGrid_Full (x,y,min,max,range){
+
+  var t0 = min.clone();
+  var t1 = max.clone();
+  var r = range;  // the range of the data values
+  var g = r;      //number of gradiations in the grid system (number of tickmarks)
+  var i = r/g;    //size of each interval in the grid system
+  // console.log("t0: "+ t0.format("HH:mm")+" t1: "+t1.format("HH:mm")+" r: "+r+" g: "+g+" i: "+i);
+
+  svg.append("g")
+     .attr("class", "xgrid");
+
+
+  for (n = 0; n < g; n++) {
+      console.log("n: "+n+"-------------------");
+      console.log(n*i);
+
+      var x1 = t0.clone();
+          x1 = x1.add(n*i,'hours');
+
+      var x2 = x1.clone();
+          x2 = x2.add(6,'hours');
+
+      if (x2 > t1){
+        x2 = t1;
+      }
+      y2 = x2.diff(x1,'minutes')/60*2;
+
+      svg.selectAll(".xgrid")
+        .append("line")
+        .attr("class","rgrid")
+        .attr("x1",x(x1))
+        .attr("y1",y(0))
+        .attr("x2",x(x2))
+        .attr("y2",y(y2))
+
+      x1 = t1.clone();
+      x1 = x1.add(-n*i,'hours');
+
+      x2 = x1.clone();
+      x2 = x2.add(-6,'hours');
+
+      if (x2 < t0){
+        x2 = t0;
+      }
+      y2 = x1.diff(x2,'minutes')/60*2;
+
+      svg.selectAll(".xgrid")
+        .append("line")
+        .attr("class","lgrid")
+        .attr("x1",x(x1))
+        .attr("y1",y(0))
+        .attr("x2",x(x2))
+        .attr("y2",y(y2))
+      }
+}//end drawFullX
+
 function drawXGrid_Triangular (x,y,min,max,range){
-  //DRAW THE X GRID
+
   var t0 = min;
   var t1 = max;
   var r = range;  // the range of the data values
@@ -357,8 +410,6 @@ function drawStaticLeaders(axis,staticLeaders,x,y){
 }
 
 
-
-
 //-----------ANSWER HELPER FUNCTIONS ------------------------//
 function toggleAnswer(x) {
   // console.log("before"+ clicked);
@@ -490,9 +541,9 @@ function drawTriangleModel(datafile, intersects, axis, scaffold, q) {
         drawXGrid_Triangular (x,y,dmin.clone(),dmax.clone(),range);
       }
       else if (axis == "Orthogonal-XFull-YFull") { //condition 5
-        drawYAxis_Orthogonal(x,y,yAxisTitle,dmin,dmax,range);
-        drawYGrid_Full(x,y,dmin,dmax,range);
-        drawXGrid_Full (x,y,dmin,dmax,range);
+        drawYAxis_Orthogonal(y,yAxisTitle);
+        drawYGrid_Full(x,y,dmin.clone(),dmax.clone(),range);
+        drawXGrid_Full (x,y,dmin.clone(),dmax.clone(),range);
       };
 
 
