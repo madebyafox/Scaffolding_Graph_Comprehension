@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------
-//Evaluating Scaffolds for Graph Learning
-//Experimental stimuli for PhD 2nd year project
+//Scaffolding Graph Comprehension (for Unconventional Graphs)
+//Experimental Stimuli
 //
 //             .       .
 //             |       |                ,-
@@ -13,6 +13,22 @@
 //of problem solving performance using first triangular model graph
 //first 5 questions of each graph are scaffolded, remainder are
 //not. Concludes with demographic survey and preferences before debrief
+//---------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------
+//  DESCRIPTION OF CONDITIONS
+//  _ _ _  [external scaffold] [impasse] [grid system]
+//  [external scaffold] 1 = none (control)
+//                      2 = static image
+//                      3 = interactive image
+//  [impasse]           1 = none (control)
+//                      2 = impasse problem
+//  [grid system]       1 = cartesian axes, full y, triag x
+//                      2 = cartesian axes, into triag y, triag x
+//                      3 = triangular axes, inside triag y, triag x
+//                      4 = cartesian axes, inside y, triag x
+//                      5 = cartesian axes, full y, full x  
 //---------------------------------------------------------------------
 
 
