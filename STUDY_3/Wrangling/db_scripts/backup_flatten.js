@@ -11,7 +11,8 @@ db.hotel.copyTo("all_sessions");
 db.indiaJulietKiloLima.copyTo("all_sessions");
 db.mike.copyTo("all_sessions");
 db.november.copyTo("all_sessions");
-db.delta.copyTo("all_sessions");
+
+
 //add each session file as they come in
 
 
@@ -104,8 +105,8 @@ db.getCollection('all_blocks').aggregate([
        ts_t: { $cond: { if: {$eq: ['$block', 'triangular_scaffolded']} , then: "$rt", else: null } },
        tt_t: { $cond: { if: {$eq: ['$block', 'triangular_testing']} , then: "$rt", else: null } },
        tt_n: { $cond: { if: {$eq: ['$block', 'triangular_testing']} , then: "$correct", else: null } },
-       os_n:  { $cond: { if: {$eq: ['$block', 'triangular_scaffolded']} , then: "$orth_correct", else: null } },
-       ot_n:  { $cond: { if: {$eq: ['$block', 'triangular_testing']} , then: "$orth_correct", else: null } },
+       orth_corr: { $cond: { if: {$eq: ['$block', 'triangular_scaffolded']} , then: "$orth_correct", else: null } },
+       orth_corr: { $cond: { if: {$eq: ['$block', 'triangular_testing']} , then: "$orth_correct", else: null } },
        attn_check: { $cond: { if: {$eq: ['$question', 'duration']} , then: "$correct", else: null } },
        demos: "$responses"
       }
@@ -120,10 +121,9 @@ db.getCollection('all_blocks').aggregate([
        demos: {$addToSet: "$demos"},
        ts_n: {$sum: "$ts_n"},
        tt_n: {$sum: "$tt_n"},
+       orthogonal_score: {$sum: "orth_corr"},
        ts_t: {$sum: "$ts_t"},
        tt_t: {$sum: "$tt_t"},
-       os_n: {$sum: "$os_n"},
-       ot_n: {$sum: "$ot_n"},
        totalTime: {$max:"$time_elapsed"},
        attn_check: {$sum:"$attn_check"}
       }},
@@ -139,9 +139,7 @@ db.getCollection('all_blocks').aggregate([
       tt_n: 1,
       ts_t: 1,
       tt_t: 1,
-      os_n: 1,
-      ot_n: 1,
-      orthogonal_score: {$add: ["$os_n","$ot_n"]},
+      orthogonal_score:1,
       triangular_score: {$add: ["$ts_n","$tt_n"]},
       triangular_time: {$add: ["$ts_t","$tt_t"]},
       totalTime: 1,
@@ -154,8 +152,8 @@ db.getCollection('all_blocks').aggregate([
 
 //CLEAN UP demographics demographics
 db.getCollection('all_participants').aggregate([
-    { $project : { demos1 : { $split: ["$demo1", ","] },
-                   demos2 : { $split: ["$demo2", ","] },
+    { $project : { demos1 : { $split: ["$demo1", ","] }, 
+                   demos2 : { $split: ["$demo2", ","] }, 
                    subject : 1,
                    session : 1,
                    condition : 1,
@@ -164,8 +162,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -173,8 +169,8 @@ db.getCollection('all_participants').aggregate([
                    attn_check : 1,
                    subject : 1,
                    triangular_score : 1,
-                   triangular_time : 1,
-                   }
+                   triangular_time : 1,   
+                   } 
     },
     { $project : { native_language: {"$arrayElemAt": ["$demos1",0]},
                    year: {"$arrayElemAt": ["$demos1",1]},
@@ -190,8 +186,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -200,14 +194,14 @@ db.getCollection('all_participants').aggregate([
                    subject : 1,
                    triangular_score : 1,
                    triangular_time : 1,
-                  }
+                  } 
     },
-    { $project : { native_language: { $split: ["$native_language", ":"] },
-                   year: { $split: ["$year", ":"] },
-                   major: { $split: ["$major", ":"] },
-                   sex: { $split: ["$sex", ":"] },
-                   age: { $split: ["$age", ":"] },
-                   country: { $split: ["$country", ":"] },
+    { $project : { native_language: { $split: ["$native_language", ":"] }, 
+                   year: { $split: ["$year", ":"] }, 
+                   major: { $split: ["$major", ":"] }, 
+                   sex: { $split: ["$sex", ":"] }, 
+                   age: { $split: ["$age", ":"] }, 
+                   country: { $split: ["$country", ":"] }, 
                    subject : 1,
                    session : 1,
                    condition : 1,
@@ -216,8 +210,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -225,8 +217,8 @@ db.getCollection('all_participants').aggregate([
                    attn_check : 1,
                    subject : 1,
                    triangular_score : 1,
-                   triangular_time : 1,
-                   }
+                   triangular_time : 1,   
+                   } 
     },
     { $project : { native_language: {"$arrayElemAt": ["$native_language",1]},
                    year: {"$arrayElemAt": ["$year",1]},
@@ -242,8 +234,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -252,14 +242,14 @@ db.getCollection('all_participants').aggregate([
                    subject : 1,
                    triangular_score : 1,
                    triangular_time : 1,
-                  }
+                  } 
     },
-    { $project : { native_language: 1,
-                   year: 1,
-                   major: 1,
-                   sex: { $split: ["$sex", "}"] },
-                   age: { $split: ["$age", "\""] },
-                   country: { $split: ["$country", "}"] },
+    { $project : { native_language: 1, 
+                   year: 1, 
+                   major: 1, 
+                   sex: { $split: ["$sex", "}"] }, 
+                   age: { $split: ["$age", "\""] }, 
+                   country: { $split: ["$country", "}"] }, 
                    subject : 1,
                    session : 1,
                    condition : 1,
@@ -268,8 +258,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -277,10 +265,10 @@ db.getCollection('all_participants').aggregate([
                    attn_check : 1,
                    subject : 1,
                    triangular_score : 1,
-                   triangular_time : 1,
-                   }
+                   triangular_time : 1,   
+                   } 
     },
-      { $project : {
+      { $project : { 
                    native_language: 1,
                    year: 1,
                    major: 1,
@@ -295,8 +283,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -305,15 +291,15 @@ db.getCollection('all_participants').aggregate([
                    subject : 1,
                    triangular_score : 1,
                    triangular_time : 1,
-                  }
+                  } 
     },
-    { $project : {
-                   native_language: { $split: ["$native_language", "\""] },
-                   year: { $split: ["$year", "\""] },
-                   major: { $split: ["$major", "\""] },
-                   sex: { $split: ["$sex", "\""] },
-                   age: { $split: ["$age", "\""] },
-                   country: { $split: ["$country", "\""] },
+    { $project : { 
+                   native_language: { $split: ["$native_language", "\""] }, 
+                   year: { $split: ["$year", "\""] }, 
+                   major: { $split: ["$major", "\""] }, 
+                   sex: { $split: ["$sex", "\""] }, 
+                   age: { $split: ["$age", "\""] }, 
+                   country: { $split: ["$country", "\""] }, 
                    subject : 1,
                    session : 1,
                    condition : 1,
@@ -322,8 +308,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -332,9 +316,9 @@ db.getCollection('all_participants').aggregate([
                    subject : 1,
                    triangular_score : 1,
                    triangular_time : 1,
-                  }
+                  } 
     },
-     { $project : {
+     { $project : { 
                    native_language: {"$arrayElemAt": ["$native_language",1]},
                    year: {"$arrayElemAt": ["$year",1]},
                    major: {"$arrayElemAt": ["$major",1]},
@@ -349,8 +333,6 @@ db.getCollection('all_participants').aggregate([
                    explicit : 1,
                    ts_n : 1,
                    tt_n : 1,
-                   os_n : 1,
-                   ot_n : 1,
                    orthogonal_score : 1,
                    ts_t : 1,
                    tt_t : 1,
@@ -359,7 +341,7 @@ db.getCollection('all_participants').aggregate([
                    subject : 1,
                    triangular_score : 1,
                    triangular_time : 1,
-                  }
+                  } 
     },
     { $out: "all_participants"}
 ]);

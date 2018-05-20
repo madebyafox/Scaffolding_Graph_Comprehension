@@ -2,8 +2,15 @@
 :: /db_scripts scripts to extract (processed) data from local db to file for analysis import
 :: /data_files processed data files for import with R analysis
 
+
+DESIRED OUTPUT
+final_participants.json is a participant level data file
+final_items is a question level data file
+
+
+
 STEP ONE: EXPORT DATA FROM DB SERVER TO FILE
----
+--- 
 //for each session, export the records into a json file for the session from the server
 mongoexport -h [connectionstring] -d [dbname] -c [tablename] -u [username] -p [password] --out [filename]
 mongoexport -h ds259325.mlab.com:59325 -d 2ypdb-s3-beh -c entries -u expadmin -p thirdyear --out alfa-bravo-charlie.json
@@ -37,7 +44,7 @@ levels of analysis
 
 -------------------------------------------------------------
 REGEX FOR WRANGLING JSON FILES
-/* x */ == \/\* .+ \*\/ (replace with comma)
+/* x */ == \/\* .+ \*\/ (replace with comma) //EXCEPT THE FIRST LINE, MANUALLY REMOVE THAT COMMA
 [objectID line]        =="_id" : ([A-Z])\w+\("\w+"\),
 -------------------------------------------------------------
 
