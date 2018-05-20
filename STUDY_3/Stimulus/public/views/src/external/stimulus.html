@@ -17,7 +17,7 @@
 
       <!--  IMAGE SCAFFOLDS AND HINTS  ------------------------------------------------------------------>
       <div class = "legend" id="hint-interactive" style="display:none" >
-        <p>Hint: hover your mouse over the data points in the graph</p>
+        <p>Hint: Hover your mouse over the data points in the graph</p>
       </div> <!-- end legend -->
 
       <!-- STIMULUS QUESTIONS  ---------------------------------------------------------------------->
@@ -1232,13 +1232,19 @@
 
     // SET AXIS VALUES
     if (axis == 1){
-      axis = "full";
+      axis = "Orthogonal-XInside-YFull";
     }
     else if (axis == 2){
-      axis = "partial";
+      axis = "Orthogonal-XInside-YPartial";
     }
     else if (axis ==3){
-      axis = "diagonal";
+      axis = "Triangular-XInside-YInside";
+    }
+    else if (axis ==4){
+      axis = "Orthogonal-XInside-YInside";
+    }
+    else if (axis ==5){
+      axis = "Orthogonal-XFull-YFull";
     }
 
     // SET EXPLICIT SCAFFOLD FEATURES
