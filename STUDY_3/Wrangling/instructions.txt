@@ -1,3 +1,19 @@
+1) DOWNLOAD DATA FROM MLAB DB SERVER & IMPORT TO LOCAL DB
+Run script to perform download, pass in desired sessionname, upload to local db
+//mongoexport -h ds259325.mlab.com:59325 -d 2ypdb-s3-beh -c entries -u expadmin -p thirdyear --out PARAMETER.json
+//mongoimport -d STUDY3 -c alfa-bravo-charlie --file PARAMETER.json
+>> sh download.sh [sessionName]
+
+2) BACKUP DATA TO GITHUB
+cd into data dump folder
+>> mongodump -h localhost -d [DB NAME]
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------
 :: /session_files raw exports (json) from each session to be downloaded to
 :: /db_scripts scripts to extract (processed) data from local db to file for analysis import
 :: /data_files processed data files for import with R analysis
@@ -10,7 +26,7 @@ final_items is a question level data file
 
 
 STEP ONE: EXPORT DATA FROM DB SERVER TO FILE
---- 
+---
 //for each session, export the records into a json file for the session from the server
 mongoexport -h [connectionstring] -d [dbname] -c [tablename] -u [username] -p [password] --out [filename]
 mongoexport -h ds259325.mlab.com:59325 -d 2ypdb-s3-beh -c entries -u expadmin -p thirdyear --out alfa-bravo-charlie.json
