@@ -113,11 +113,12 @@ div.userinput{
 /*hint for interactive scaffold */
 div.legend{
   /*background-color: orange;*/
-  color:#3498db;
+  /* color:#3498db; */
+  color: red;
   text-align: center;
   justify-content: center;
   font-family:"Helvetica";
-  font-size:18px;
+  font-size:22px;
   font-style: italic;
 }
 
