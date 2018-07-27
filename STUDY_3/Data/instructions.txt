@@ -67,3 +67,12 @@ REGEX FOR WRANGLING JSON FILES
 STEP FOUR: manually construct master spss / R data sets
 > in each _participants.xls file created, manually split demographics fields into separate columns by ','delimiter
 > create _min (or _m) translations for each time field (recorded in miliseconds)
+
+DEALING WITH MOUSEFLOW DATA
+Free and starter (39$) accounts do not include API access, or any way to download the .zip files of the recordings in bulk.
+To work around this issue, login to mouseflow and download the csv file of the recordings which includes their unique IDs and metadata.
+extract the recording unique IDs and edit in atom, so that you have a URL matching this pattern for each file
+https://us.mouseflow.com/websites/e0c9ff05-6fcb-4c4a-8173-e5a0724987b1/recordings/RECORDINGIDHERE/download
+Using the chrome extension Open Multiple URLs 1.3.2.1,
+have chrome open a tab for each URL on the list, which automatically starts the download.
+(recommend "Don't load tabs until selected" option, and only loading 100-500 at a time so that chrome doesn't crash)
