@@ -1,75 +1,64 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
 <title>Study 1</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
-</head>
 
-<body>
+
 
 <style type = "text/css">
 .main-container {
@@ -77,58 +66,68 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
 }
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
+.dropdown-submenu {
+  position: relative;
 }
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
 }
-
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
 }
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
 }
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
 }
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu.pull-left {
+  float: none;
 }
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -139,26 +138,93 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
-
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -189,7 +255,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -199,7 +265,7 @@ $(document).ready(function () {
 
 
 <div id="observing-learning-of-an-unconventional-statistical-graph" class="section level1 tabset tabset-fade tabset-pills">
-<h1>Observing learning of an unconventional statistical graph</h1>
+<h1 class="tabset tabset-fade tabset-pills">Observing learning of an unconventional statistical graph</h1>
 <p><br></p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
@@ -220,9 +286,9 @@ In this exploratory study we observed students solving problems with a novel gra
 <h3>Materials</h3>
 <div id="part-a-graph-reading-task" class="section level4">
 <h4>Part A: Graph Reading Task</h4>
-<p>In the Graph Reading Task, sixteen multiple choice questions were used to probe the reader’s ability to use the graph to reason about the properties of and relations between intervals. For example, a question testing the “duration” property might read: “For how many hours does event [x] last?” Participants were given one sheet of paper containing the questions and a second sheet containing a large TM graph with 15 data points. After delivering instructions, we started the video recording and left the room. Questions can be found <a href="Study1_files/graph_reading_task.pdf">here</a> and TM graph <a href="Study1_files/Axis_triangular.pdf">here</a>. <br> <br></p>
+<p>In the Graph Reading Task, sixteen multiple choice questions were used to probe the reader’s ability to use the graph to reason about the properties of and relations between intervals. For example, a question testing the “duration” property might read: “For how many hours does event [x] last?” Participants were given one sheet of paper containing the questions and a second sheet containing a large TM graph with 15 data points. After delivering instructions, we started the video recording and left the room. Questions can be found <a href="static/Study1/graph_reading_task.pdf">here</a> and TM graph <a href="static/Study1/Axis_triangular.pdf">here</a>. <br> <br></p>
 <p>
-<img src="Study1_files/figure-html/setup.png" >
+<img src="static/Study1/setup.png" >
 <b>Figure 1. Setup of the Graph Reading Task</b>
  <br></p>
 </div>
@@ -238,14 +304,14 @@ In this exploratory study we observed students solving problems with a novel gra
 </div>
 <div id="results-graph-reading-task" class="section level2">
 <h2>Results (Graph Reading Task)</h2>
-<p>Participants in only 3 of the 14 sessions correctly interpreted the TM graph (M(score) = 12 / 16 points, (SD = 1.7), (M(time) = 19 min, SD = 30s). (see raw data <a href="../STUDY_1/Data/2YP_OBS_MAIN.pdf">here</a>) These participants correctly described the graph’s rules in the post-task interview. In the remaining 11 sessions, participants correctly answered only 2.2 ques- tions on average (SD = 2.1), and were unable to correctly plot a point in the interview. Yet in these sessions, participants did persist in answering all questions, spending about the same amount of time on the task (M(time) = 21 min, SD=2 min).<br />
+<p>Participants in only 3 of the 14 sessions correctly interpreted the TM graph (M(score) = 12 / 16 points, (SD = 1.7), (M(time) = 19 min, SD = 30s). (see raw data <a href="static/Study1/2YP_OBS_MAIN.pdf">here</a>) These participants correctly described the graph’s rules in the post-task interview. In the remaining 11 sessions, participants correctly answered only 2.2 ques- tions on average (SD = 2.1), and were unable to correctly plot a point in the interview. Yet in these sessions, participants did persist in answering all questions, spending about the same amount of time on the task (M(time) = 21 min, SD=2 min).<br />
 <br> Reviewing the artifacts participants generated during the graph reading task gives us a window into how they interpreted the graph. Looking first at the lowest scoring sessions, we noticed several cases where participants appeared to superimpose the conventional linear model over top of the triangular graph (see figure 2) have dubbed this the “linear interpretation” of the TM. This interpretation relies on participants assuming that the data points are situated in a conventional Cartesian coordinate system with a single x and y intercept for each point. They must infer that a point represents a moment in time, not an interval of time, and that the interval is represented by a line segment which they must project (or draw) atop the graph. They must also decide which moment along an interval the point represents. In this sense, the “linear interpretation” relies on two kind of prior knowledge: first of Cartesian coordinates in which a point has a single x-intercept, and secondly of conventions for representing intervals: as linear extents, rather than as points. In our sample, participants decided the point referred to the start time. This interpretation also requires students to ignore, or assign no meaningful referent to the graph’s diagonal gridlines. Once constructed, participants can extract information from the “linear interpretation” following the same procedure one would follow for the LM graph.</p>
 <p>
 <table style="width:100%">
   <tr>
-    <td><img src="Study1_files/figure-html/2a.png" height="200" width="350" ></td> 
-    <td><img src="Study1_files/figure-html/2b.png" height="200" width="350" ></td> 
-    <td><img src="Study1_files/figure-html/2c.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/2a.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/2b.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/2c.png" height="200" width="350" ></td> 
   </tr>
   <tr> <b>Figure 2A. Artifacts for lowest scoring sessions of Graph Reading Task</b>
 <i>Note: When digitally-scanning the physical drawings, the diagonal gridlines of the TM were desaturated. In the printed graphs used by participants the gridlines were prominent.</i> 
@@ -255,7 +321,7 @@ In this exploratory study we observed students solving problems with a novel gra
 
 <table style="width:100%">
   <tr>
-    <td><img src="Study1_files/figure-html/3.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3.png" height="200" width="350" ></td> 
   </tr>
   <tr> <b>Figure 2B. Artifacts for highest scoring session of Graph Reading Task</b>
   </tr>
@@ -269,23 +335,23 @@ In this exploratory study we observed students solving problems with a novel gra
 
 <table style="width:100%">
   <tr>
-    <td><img src="Study1_files/figure-html/3a.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3a.png" height="200" width="800" ></td> 
     <td><b>Figure 3A. Pictorial Intersections</b>  Participants have drawn attention to the diagonal gridlines and their dual-intersections with the x-axis by darkening and coloring them. These partici- pants explained the most challenging part of the graph was realizing they had to look for two intersections with the x-axis.
 </td> 
   </tr>
   
   <tr>
-    <td><img src="Study1_files/figure-html/3b.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3b.png" height="200" width="350" ></td> 
     <td><b>Figure 3B. Annotations & Examples. </b>Participants have annotated their highlighted intersections. We see a partial worked example, via the annotation “7 hours” to the span for the red interval.
 </td> 
   </tr>
   <tr>
-    <td><img src="Study1_files/figure-html/3c.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3c.png" height="200" width="350" ></td> 
     <td><b>Figure 3C. Worked Example </b>A worked example where participants both highlighted the intersection and gave explicit values for a sample point on the plot. Under the graph they added a production rule for finding the start-time of a hypothetical point “S”, indicating that some learners may prefer text in- structions. </td> 
   </tr>
   
     <tr>
-    <td><img src="Study1_files/figure-html/3d.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3d.png" height="200" width="800" ></td> 
     <td><b>Figure 3D. Worked Example </b>Explanatory text with an explicit definition of several graph elements.
 </td> 
   </tr>
@@ -312,7 +378,7 @@ In this exploratory study we observed students solving problems with a novel gra
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -320,6 +386,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
