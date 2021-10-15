@@ -178,28 +178,28 @@ For the first five questions of each graph-reading task, participants saw their 
   </tr>
   <tr>
     <td>none-control</td>
-    <td><img src="images/study2/0-LM.png" height="200" width="350" ></td> 
-    <td><img src="images/study2/0-TM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/0-LM.png" height="200" width="200" ></td> 
+    <td><img src="static/Study2/0-TM.png" height="200" width="200" ></td> 
   </tr>
   <tr>
     <td>"what-text"</td>
-    <td><img src="Study2_files/figure-html/1-LM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/1-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/1-LM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/1-TM.png" height="200" width="350"></td> 
   </tr>
   <tr>
     <td>"how-text"</td>
-    <td><img src="Study2_files/figure-html/2-LM.png" height="200" width="350" ></td> 
-    <td><img src="Study2_files/figure-html/2-TM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/2-LM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/2-TM.png" height="200" width="350" ></td> 
   </tr>
   <tr>
     <td>"static-image"</td>
-    <td><img src="Study2_files/figure-html/3-LM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/3-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/3-LM.png" height="200" width="200"></td> 
+    <td><img src="static/Study2/3-TM.png" height="200" width="200"></td> 
   </tr>
   <tr>
     <td>"interactive-image"</td>
-    <td><img src="Study2_files/figure-html/4-LM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/4-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/4-LM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/4-TM.png" height="200" width="350"></td> 
     <td></td>
   </tr>  
 </table>
@@ -209,7 +209,7 @@ For the first five questions of each graph-reading task, participants saw their 
 #### The Graph Reading Task
 Each graph reading task consisted of a graph (LM or TM) and 15 multiple choice questions (used in Study One). Questions were presented one at a time, and participants did not receive feedback as to the accuracy of their response before proceeding to the next question. The order of the first five (scaffolded) questions was the same for each participant, while the order of the remaining 10 were randomized. For each question, the stimulus software recorded the participant’s response accuracy (correct, incorrect) and latency (time from page-load to “submit” button press). As each participant completed the reading task once with each graph, we developed two matched scenarios: a project manager scheduling tasks (scenario A), and an events manager scheduling reservations (scenario B). In each scenario, an equivalent question can be identified in the other pertaining to the same interval property or relation. For the LM graphs, intervals were sorted in order of duration, with the longest intervals appearing at the top of the graph.A pilot study on Amazon Mechanical Turk using the LM graph revealed no significant differences in difficulty between the scenarios. The four graphs constructed for the study are shown below. 
 
-<a href="Study2_files/questions.html"> **The full list of questions and correct answers can be found here** </a>.
+<a href="static/Study2/questions.html"> **The full list of questions and correct answers can be found here** </a>.
 
 <br> <br>
 <!--html_preserve-->
@@ -219,24 +219,24 @@ Each graph reading task consisted of a graph (LM or TM) and 15 multiple choice q
     <th>Event Scheduling (Scenario B)</th> 
   </tr>
   <tr>
-    <td><img src="Study2_files/figure-html/axis.png" height="200" width="350" ></td> 
-    <td><img src="Study2_files/figure-html/longmire.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/axis.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/longmire.png" height="200" width="350" ></td> 
   </tr>
   <tr>
-    <td><img src="Study2_files/figure-html/0-LM.png" height="200" width="350" ></td> 
-    <td><img src="Study2_files/figure-html/5-LM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/0-LM.png" height="200" width="200" ></td> 
+    <td><img src="static/Study2/5-LM.png" height="200" width="200" ></td> 
   </tr>
   <tr>
-    <td><img src="Study2_files/figure-html/0-TM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/5-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/0-TM.png" height="200" width="200"></td> 
+    <td><img src="static/Study2/5-TM.png" height="200" width="200"></td> 
   </tr>
 </table>
 <!--/html_preserve-->
 <br> <br>
 
 #### The Graph Drawing Task
-In the <a href="../Study2_files/drawing_task.pdf">graph drawing task</a> participants were given a sheet of isometric dot paper and a table containing a set of 10 time intervals. Isometric dot paper equally supports the construction of lines at 0, 45 and 90 degrees, thus minimizing any biasing effects of the paper on the type of graph the participants chose to draw.  Participants were directed to draw a triangular graph of the data (“like the triangle graph you saw in the previous task”), using the pencil, eraser and ruler provided. 
-<br> <br>
+In the <!--html_preserve--><a href="static/Study2/drawing_task.pdf"> graph drawing task</a><!--/html_preserve--> participants were given a sheet of isometric dot paper and a table containing a set of 10 time intervals. Isometric dot paper equally supports the construction of lines at 0, 45 and 90 degrees, thus minimizing any biasing effects of the paper on the type of graph the participants chose to draw. Participants were directed to draw a triangular graph of the data (“like the triangle graph you saw in the previous task”), using the pencil, eraser and ruler provided. 
+<!--html_preserve--><br> <br><!--/html_preserve-->
 
 
 ### Procedure
@@ -787,7 +787,7 @@ round(r,3)
 
 TM scores for participants who drew "right-angle" graphs were significantly lower (M = `r round(right_mean,2)`, SD = `r round(right_SD,2)`) than for participants who drew "asymmetric triangle" graphs (M = `r round(asy_mean,2)`, SD = `r round(asy_SD,2)`), t(`r df`) = `r t`, p = `r p[[1]]` , r = `r r`. 
 
-<!--html_preserve--><a href="gallery/analysis.html">See GALLERY of all images here</a><!--/html_preserve-->
+<!--html_preserve--><a href="static/Study2/gallery/analysis.html">See GALLERY of all images here</a><!--/html_preserve-->
 
 
 ## References

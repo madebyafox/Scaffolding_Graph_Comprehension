@@ -1,76 +1,65 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
 <title>Study 2</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
-</head>
 
-<body>
+
 
 <style type = "text/css">
 .main-container {
@@ -78,58 +67,68 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
 }
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
+.dropdown-submenu {
+  position: relative;
 }
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
 }
-
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
 }
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
 }
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
 }
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu.pull-left {
+  float: none;
 }
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -140,34 +139,96 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
-
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -198,11 +259,11 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -216,7 +277,7 @@ $(document).ready(function () {
 
 
 <div id="evaluating-scaffolds-for-an-unconventional-statistical-graph" class="section level1 tabset tabset-fade tabset-pills">
-<h1>Evaluating scaffolds for an unconventional statistical graph</h1>
+<h1 class="tabset tabset-fade tabset-pills">Evaluating scaffolds for an unconventional statistical graph</h1>
 <p><br></p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
@@ -264,28 +325,28 @@ $(document).ready(function () {
   </tr>
   <tr>
     <td>none-control</td>
-    <td><img src="images/study2/0-LM.png" height="200" width="350" ></td> 
-    <td><img src="images/study2/0-TM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/0-LM.png" height="200" width="200" ></td> 
+    <td><img src="static/Study2/0-TM.png" height="200" width="200" ></td> 
   </tr>
   <tr>
     <td>"what-text"</td>
-    <td><img src="Study2_files/figure-html/1-LM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/1-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/1-LM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/1-TM.png" height="200" width="350"></td> 
   </tr>
   <tr>
     <td>"how-text"</td>
-    <td><img src="Study2_files/figure-html/2-LM.png" height="200" width="350" ></td> 
-    <td><img src="Study2_files/figure-html/2-TM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/2-LM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/2-TM.png" height="200" width="350" ></td> 
   </tr>
   <tr>
     <td>"static-image"</td>
-    <td><img src="Study2_files/figure-html/3-LM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/3-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/3-LM.png" height="200" width="200"></td> 
+    <td><img src="static/Study2/3-TM.png" height="200" width="200"></td> 
   </tr>
   <tr>
     <td>"interactive-image"</td>
-    <td><img src="Study2_files/figure-html/4-LM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/4-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/4-LM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/4-TM.png" height="200" width="350"></td> 
     <td></td>
   </tr>  
 </table>
@@ -294,7 +355,7 @@ $(document).ready(function () {
 <div id="the-graph-reading-task" class="section level4">
 <h4>The Graph Reading Task</h4>
 <p>Each graph reading task consisted of a graph (LM or TM) and 15 multiple choice questions (used in Study One). Questions were presented one at a time, and participants did not receive feedback as to the accuracy of their response before proceeding to the next question. The order of the first five (scaffolded) questions was the same for each participant, while the order of the remaining 10 were randomized. For each question, the stimulus software recorded the participant’s response accuracy (correct, incorrect) and latency (time from page-load to “submit” button press). As each participant completed the reading task once with each graph, we developed two matched scenarios: a project manager scheduling tasks (scenario A), and an events manager scheduling reservations (scenario B). In each scenario, an equivalent question can be identified in the other pertaining to the same interval property or relation. For the LM graphs, intervals were sorted in order of duration, with the longest intervals appearing at the top of the graph.A pilot study on Amazon Mechanical Turk using the LM graph revealed no significant differences in difficulty between the scenarios. The four graphs constructed for the study are shown below.</p>
-<p><a href="Study2_files/questions.html"> <strong>The full list of questions and correct answers can be found here</strong> </a>.</p>
+<p><a href="static/Study2/questions.html"> <strong>The full list of questions and correct answers can be found here</strong> </a>.</p>
 <p><br> <br> 
 <table style="width:100%">
   <tr>
@@ -302,23 +363,23 @@ $(document).ready(function () {
     <th>Event Scheduling (Scenario B)</th> 
   </tr>
   <tr>
-    <td><img src="Study2_files/figure-html/axis.png" height="200" width="350" ></td> 
-    <td><img src="Study2_files/figure-html/longmire.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/axis.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/longmire.png" height="200" width="350" ></td> 
   </tr>
   <tr>
-    <td><img src="Study2_files/figure-html/0-LM.png" height="200" width="350" ></td> 
-    <td><img src="Study2_files/figure-html/5-LM.png" height="200" width="350" ></td> 
+    <td><img src="static/Study2/0-LM.png" height="200" width="200" ></td> 
+    <td><img src="static/Study2/5-LM.png" height="200" width="200" ></td> 
   </tr>
   <tr>
-    <td><img src="Study2_files/figure-html/0-TM.png" height="200" width="350"></td> 
-    <td><img src="Study2_files/figure-html/5-TM.png" height="200" width="350"></td> 
+    <td><img src="static/Study2/0-TM.png" height="200" width="200"></td> 
+    <td><img src="static/Study2/5-TM.png" height="200" width="200"></td> 
   </tr>
 </table>
  <br> <br></p>
 </div>
 <div id="the-graph-drawing-task" class="section level4">
 <h4>The Graph Drawing Task</h4>
-<p>In the <a href="../Study2_files/drawing_task.pdf">graph drawing task</a> participants were given a sheet of isometric dot paper and a table containing a set of 10 time intervals. Isometric dot paper equally supports the construction of lines at 0, 45 and 90 degrees, thus minimizing any biasing effects of the paper on the type of graph the participants chose to draw.  Participants were directed to draw a triangular graph of the data (“like the triangle graph you saw in the previous task”), using the pencil, eraser and ruler provided. <br> <br></p>
+<p>In the <a href="static/Study2/drawing_task.pdf"> graph drawing task</a> participants were given a sheet of isometric dot paper and a table containing a set of 10 time intervals. Isometric dot paper equally supports the construction of lines at 0, 45 and 90 degrees, thus minimizing any biasing effects of the paper on the type of graph the participants chose to draw. Participants were directed to draw a triangular graph of the data (“like the triangle graph you saw in the previous task”), using the pencil, eraser and ruler provided. <br> <br></p>
 </div>
 </div>
 <div id="procedure" class="section level3">
@@ -328,9 +389,7 @@ $(document).ready(function () {
 </div>
 <div id="results-score" class="section level2">
 <h2>Results (Score)</h2>
-<div id="explore-the-data" class="section level3">
-<h3>Explore the data</h3>
-<p><em>We see a large variance in TM scores across Graph-Orders</em></p>
+<p>###Explore the data <em>We see a large variance in TM scores across Graph-Orders</em></p>
 <pre class="r"><code>#EXPLORE THE DATA
 #create boxplot
 
@@ -368,7 +427,6 @@ mixedPlot_scenario &lt;- ggplot(l_scores, aes(condition,value, fill=variable))+ 
   #use scale_fill_manual to manually change colors 
 mixedPlot_scenario</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
-</div>
 <div id="hypothesis-1-scaffold-conditon-and-graph-order-will-not-affect-performance-on-the-lm-graph-because-it-is-conventional-and-relatively-easy-to-read" class="section level3">
 <h3>Hypothesis 1: Scaffold conditon and graph-order will not affect performance on the LM graph, because it is conventional and relatively easy to read</h3>
 <p>When we compare LM scores both graph-orders and scaffold-conditions (and scenarios), we do not find significant differences</p>
@@ -378,49 +436,49 @@ mixedPlot_scenario</code></pre>
 desc_control &lt;- by(w_scores$linear_score, list(w_scores$condition), stat.desc, basic=FALSE)
 desc_control
 ## : 0
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   10.9836066    0.2979821    0.5960530    5.4163934 
-##      std.dev     coef.var 
-##    2.3273146    0.2118898 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   10.9836066    0.2979821    0.5960530    5.4163934    2.3273146 
+##     coef.var 
+##    0.2118898 
+## ------------------------------------------------------------ 
 ## : 1
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   11.0677966    0.2848856    0.5702604    4.7884278 
-##      std.dev     coef.var 
-##    2.1882477    0.1977130 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   11.0677966    0.2848856    0.5702604    4.7884278    2.1882477 
+##     coef.var 
+##    0.1977130 
+## ------------------------------------------------------------ 
 ## : 2
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   10.8939394    0.2618998    0.5230500    4.5270396 
-##      std.dev     coef.var 
-##    2.1276841    0.1953090 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   10.8939394    0.2618998    0.5230500    4.5270396    2.1276841 
+##     coef.var 
+##    0.1953090 
+## ------------------------------------------------------------ 
 ## : 3
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   10.9193548    0.2790958    0.5580865    4.8294553 
-##      std.dev     coef.var 
-##    2.1976022    0.2012575 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   10.9193548    0.2790958    0.5580865    4.8294553    2.1976022 
+##     coef.var 
+##    0.2012575 
+## ------------------------------------------------------------ 
 ## : 4
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   10.8970588    0.2286922    0.4564716    3.5564091 
-##      std.dev     coef.var 
-##    1.8858444    0.1730599
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   10.8970588    0.2286922    0.4564716    3.5564091    1.8858444 
+##     coef.var 
+##    0.1730599
 
 #LM SCORES BY GRAPH-ORDER
 desc_control &lt;- by(w_scores$linear_score, list(w_scores$order), stat.desc, basic=FALSE)
 desc_control
 ## : LMFirst
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   10.8636364    0.1767556    0.3491966    4.8113488 
-##      std.dev     coef.var 
-##    2.1934787    0.2019102 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   10.8636364    0.1767556    0.3491966    4.8113488    2.1934787 
+##     coef.var 
+##    0.2019102 
+## ------------------------------------------------------------ 
 ## : TMFirst
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   11.0308642    0.1629851    0.3218642    4.3033893 
-##      std.dev     coef.var 
-##    2.0744612    0.1880597
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   11.0308642    0.1629851    0.3218642    4.3033893    2.0744612 
+##     coef.var 
+##    0.1880597
 
 #ONE WAY ANOVA ON LM_SCORE BY SCAFFOLD
 #construct contrasts for ANOVA model
@@ -433,16 +491,17 @@ simpleModel = ezANOVA(data = w_scores,
                      type = 3,
                      detailed = TRUE)
 ## Warning: Converting &quot;subject&quot; to factor for ANOVA.
-## Warning: Data is unbalanced (unequal N per group). Make sure you specified
-## a well-considered value for the type argument to ezANOVA().
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified a
+## well-considered value for the type argument to ezANOVA().
+## Coefficient covariances computed by hccm()
 simpleModel
 ## $ANOVA
-##        Effect DFn DFd          SSn      SSd            F             p
-## 1 (Intercept)   1 311 37802.682529 1429.846 8.222307e+03 9.970330e-226
-## 2   condition   4 311     1.343692 1429.846 7.306522e-02  9.902577e-01
-##   p&lt;.05          ges
-## 1     * 0.9635545750
-## 2       0.0009388633
+##        Effect DFn DFd          SSn      SSd            F             p p&lt;.05
+## 1 (Intercept)   1 311 37802.682529 1429.846 8.222307e+03 9.970330e-226     *
+## 2   condition   4 311     1.343692 1429.846 7.306522e-02  9.902577e-01      
+##            ges
+## 1 0.9635545750
+## 2 0.0009388633
 ## 
 ## $`Levene&#39;s Test for Homogeneity of Variance`
 ##   DFn DFd      SSn     SSd         F        p p&lt;.05
@@ -457,16 +516,17 @@ simpleModel = ezANOVA(data = w_scores,
                      detailed = TRUE)
 ## Warning: Converting &quot;subject&quot; to factor for ANOVA.
 
-## Warning: Data is unbalanced (unequal N per group). Make sure you specified
-## a well-considered value for the type argument to ezANOVA().
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified a
+## well-considered value for the type argument to ezANOVA().
+## Coefficient covariances computed by hccm()
 simpleModel
 ## $ANOVA
-##        Effect DFn DFd          SSn      SSd            F             p
-## 1 (Intercept)   1 314 37845.891375 1428.982 8316.1366183 5.300368e-228
-## 2       order   1 314     2.207831 1428.982    0.4851418  4.866178e-01
-##   p&lt;.05         ges
-## 1     * 0.963615871
-## 2       0.001542654
+##        Effect DFn DFd          SSn      SSd            F             p p&lt;.05
+## 1 (Intercept)   1 314 37845.891375 1428.982 8316.1366183 5.300368e-228     *
+## 2       order   1 314     2.207831 1428.982    0.4851418  4.866178e-01      
+##           ges
+## 1 0.963615871
+## 2 0.001542654
 ## 
 ## $`Levene&#39;s Test for Homogeneity of Variance`
 ##   DFn DFd         SSn      SSd           F         p p&lt;.05
@@ -481,16 +541,17 @@ simpleModel = ezANOVA(data = w_scores,
                      detailed = TRUE)
 ## Warning: Converting &quot;subject&quot; to factor for ANOVA.
 
-## Warning: Data is unbalanced (unequal N per group). Make sure you specified
-## a well-considered value for the type argument to ezANOVA().
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified a
+## well-considered value for the type argument to ezANOVA().
+## Coefficient covariances computed by hccm()
 simpleModel
 ## $ANOVA
-##         Effect DFn DFd          SSn      SSd            F             p
-## 1  (Intercept)   1 314 37714.168900 1428.553 8289.6834729 8.583230e-228
-## 2 lm_scenarios   1 314     2.637255 1428.553    0.5796762  4.470107e-01
-##   p&lt;.05         ges
-## 1     * 0.963504004
-## 2       0.001842701
+##         Effect DFn DFd          SSn      SSd            F             p p&lt;.05
+## 1  (Intercept)   1 314 37714.168900 1428.553 8289.6834729 8.583230e-228     *
+## 2 lm_scenarios   1 314     2.637255 1428.553    0.5796762  4.470107e-01      
+##           ges
+## 1 0.963504004
+## 2 0.001842701
 ## 
 ## $`Levene&#39;s Test for Homogeneity of Variance`
 ##   DFn DFd      SSn      SSd        F        p p&lt;.05
@@ -502,16 +563,16 @@ simpleModel
 desc_control &lt;- by(l_scores_control$value, list(l_scores_control$variable), stat.desc, basic=FALSE)
 desc_control
 ## : linear_score
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   10.9836066    0.2979821    0.5960530    5.4163934 
-##      std.dev     coef.var 
-##    2.3273146    0.2118898 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   10.9836066    0.2979821    0.5960530    5.4163934    2.3273146 
+##     coef.var 
+##    0.2118898 
+## ------------------------------------------------------------ 
 ## : triangular_score
-##       median         mean      SE.mean CI.mean.0.95          var 
-##    6.0000000    6.9016393    0.5772106    1.1545931   20.3234973 
-##      std.dev     coef.var 
-##    4.5081590    0.6532012
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##    6.0000000    6.9016393    0.5772106    1.1545931   20.3234973    4.5081590 
+##     coef.var 
+##    0.6532012
 LM_mean = desc_control$linear_score[2]
 LM_SD = desc_control$linear_score[6]
 TM_mean = desc_control$triangular_score[2]
@@ -540,7 +601,7 @@ r &lt;- sqrt(t^2/(t^2+df))
 r &lt;-round(r,2)
 r
 ## [1] 0.67</code></pre>
-<p>Across all factors, we see that LM scores (M = 10.98, SD = 2.33) are significantly higher than TM scores (M = 6.9, SD = 4.51), t(60) = 7.07, p = 1.911696710^{-9} , r = 0.67.</p>
+<p>Across all factors, we see that LM scores (M = 10.98, SD = 2.33) are significantly higher than TM scores (M = 6.9, SD = 4.51), t(60) = 7.07, p = 1.9116967^{-9} , r = 0.67.</p>
 <pre class="r"><code>bar &lt;- ggplot(l_scores_control, aes(x = variable, y= value, fill=variable))
 bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
@@ -554,6 +615,9 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
                         name = &quot;Graph Task&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_summary()`:
+## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="hypothesis-3-learners-with-any-form-of-scaffolding-will-perform-better-with-the-tm-than-lm-replication-of-qiang-et-al-2014." class="section level3">
@@ -563,34 +627,34 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
 desc &lt;- by(df_subjects2$score_diff, list(df_subjects2$condition), stat.desc, basic=FALSE)
 desc
 ## : 0
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   -4.0000000   -4.0819672    0.5774899    1.1551518   20.3431694 
-##      std.dev     coef.var 
-##    4.5103403   -1.1049428 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   -4.0000000   -4.0819672    0.5774899    1.1551518   20.3431694    4.5103403 
+##     coef.var 
+##   -1.1049428 
+## ------------------------------------------------------------ 
 ## : 1
-##       median         mean      SE.mean CI.mean.0.95          var 
-##    -2.000000    -2.254237     0.511466     1.023810    15.434249 
-##      std.dev     coef.var 
-##     3.928645    -1.742782 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##    -2.000000    -2.254237     0.511466     1.023810    15.434249     3.928645 
+##     coef.var 
+##    -1.742782 
+## ------------------------------------------------------------ 
 ## : 2
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   -2.0000000   -2.1969697    0.4943597    0.9873044   16.1298368 
-##      std.dev     coef.var 
-##    4.0161968   -1.8280620 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   -2.0000000   -2.1969697    0.4943597    0.9873044   16.1298368    4.0161968 
+##     coef.var 
+##   -1.8280620 
+## ------------------------------------------------------------ 
 ## : 3
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   -1.0000000   -2.3548387    0.5085711    1.0169507   16.0359598 
-##      std.dev     coef.var 
-##    4.0044925   -1.7005379 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   -1.0000000   -2.3548387    0.5085711    1.0169507   16.0359598    4.0044925 
+##     coef.var 
+##   -1.7005379 
+## ------------------------------------------------------------ 
 ## : 4
-##       median         mean      SE.mean CI.mean.0.95          var 
-##    0.5000000   -0.2205882    0.3913269    0.7810919   10.4133011 
-##      std.dev     coef.var 
-##    3.2269647  -14.6289066
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##    0.5000000   -0.2205882    0.3913269    0.7810919   10.4133011    3.2269647 
+##     coef.var 
+##  -14.6289066
 # LM_mean = desc_control$linear_score[2]
 # LM_SD = desc_control$linear_score[6]
 # TM_mean = desc_control$triangular_score[2]
@@ -604,6 +668,9 @@ bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom=&quot
       theme(strip.background = element_blank()) +
       ggtitle(&quot;Score Difference by Scaffold&quot;) +
       scale_x_discrete(labels=c( &quot;0&quot; = &quot;none-control&quot;, &quot;1&quot; = &quot;what-text&quot;, &quot;2&quot;=&quot;how-text&quot;, &quot;3&quot;=&quot;static-img&quot;, &quot;4&quot;=&quot;ix img&quot;)) </code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_summary()`:
+## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>#REPEATED MEASURES ANOVA ON score by scaffold condition
 
@@ -618,16 +685,14 @@ simpleModel = ezANOVA(data = df_subjects2,
                      type = 3,
                      detailed = TRUE)
 ## Warning: Converting &quot;subject&quot; to factor for ANOVA.
-## Warning: Data is unbalanced (unequal N per group). Make sure you specified
-## a well-considered value for the type argument to ezANOVA().
+## Warning: Data is unbalanced (unequal N per group). Make sure you specified a
+## well-considered value for the type argument to ezANOVA().
+## Coefficient covariances computed by hccm()
 simpleModel
 ## $ANOVA
-##        Effect DFn DFd       SSn      SSd        F            p p&lt;.05
-## 1 (Intercept)   1 311 1555.5595 4840.101 99.95226 1.373019e-20     *
-## 2   condition   4 311  483.9752 4840.101  7.77444 5.544654e-06     *
-##          ges
-## 1 0.24322110
-## 2 0.09090314
+##        Effect DFn DFd       SSn      SSd        F            p p&lt;.05        ges
+## 1 (Intercept)   1 311 1555.5595 4840.101 99.95226 1.373019e-20     * 0.24322110
+## 2   condition   4 311  483.9752 4840.101  7.77444 5.544654e-06     * 0.09090314
 ## 
 ## $`Levene&#39;s Test for Homogeneity of Variance`
 ##   DFn DFd      SSn      SSd        F          p p&lt;.05
@@ -648,9 +713,7 @@ pairwise.t.test(df_subjects2$score_diff, df_subjects2$condition,  p.adjust.metho
 ## 
 ## P value adjustment method: bonferroni</code></pre>
 <p>Instead, we find that only in the interactive-image condition yields TM scores significantly higher than the no-scaffold control.</p>
-</div>
-<div id="mixed-effects-model" class="section level3">
-<h3>MIXED EFFECTS MODEL</h3>
+<p>###MIXED EFFECTS MODEL</p>
 <p><em>Compute mixed effects ANOVA on Response Score</em><br />
 Significant main effect of Graph F(1,297) = 97.67, p &lt; .001<br />
 Significant main effect of Scaffold F(4,297) = 4.24, p &lt; .01<br />
@@ -669,8 +732,8 @@ mixedModel = ezANOVA(data = l_scores,
                      type = 3,
                      detailed = TRUE)</code></pre>
 <pre><code>## Warning: Converting &quot;subject&quot; to factor for ANOVA.</code></pre>
-<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified
-## a well-considered value for the type argument to ezANOVA().</code></pre>
+<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified a
+## well-considered value for the type argument to ezANOVA().</code></pre>
 <pre class="r"><code>mixedModel</code></pre>
 <pre><code>## $ANOVA
 ##                                   Effect DFn DFd          SSn      SSd
@@ -708,9 +771,8 @@ mixedModel = ezANOVA(data = l_scores,
 ## 15 2.450374e-01  6.209585e-01       2.668550e-04
 ## 16 3.013402e-01  8.769499e-01       1.311312e-03</code></pre>
 <pre class="r"><code>#summary(mixedModel)</code></pre>
-<div id="main-effect-graph-on-score" class="section level4">
-<h4>MAIN EFFECT: Graph on SCORE</h4>
-<p>On average, participants scored significantly higher on the linear model task (M = 10.96, SD = 2.13) than on the triangular model (M = 8.78 SD = 4.44), t(316) = 9.41, p &lt; 0.001, r = 0.47</p>
+<p>####MAIN EFFECT: Graph on SCORE<br />
+On average, participants scored significantly higher on the linear model task (M = 10.96, SD = 2.13) than on the triangular model (M = 8.78 SD = 4.44), t(316) = 9.41, p &lt; 0.001, r = 0.47</p>
 <pre class="r"><code>bar &lt;- ggplot(l_scores, aes(x = variable, y= value, fill=variable))
 bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
@@ -724,6 +786,9 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
                         name = &quot;Graph Task&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_summary()`:
+## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>#CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
 mainEffectGraph  &lt;- t.test(value ~ variable, data=l_scores, paired=TRUE)
@@ -744,12 +809,7 @@ df &lt;-mainEffectGraph$parameter[[1]]
 r &lt;- sqrt(t^2/(t^2+df))
 round(r,3)</code></pre>
 <pre><code>## [1] 0.469</code></pre>
-</div>
-<div id="main-effect-scaffold-on-score" class="section level4">
-<h4>MAIN EFFECT: Scaffold on SCORE</h4>
-</div>
-<div id="main-effect-scenario-on-score" class="section level4">
-<h4>MAIN EFFECT: Scenario on SCORE</h4>
+<p>####MAIN EFFECT: Scaffold on SCORE ####MAIN EFFECT: Scenario on SCORE</p>
 <p>When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p &lt; 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)</p>
 <pre class="r"><code>#RUN ANCOVA ON tm_score with lm_score as covariate
 # model.1=aov(triangular_score~linear_score+condition, data=df_subjects2)
@@ -795,6 +855,9 @@ bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom=&quot;b
                         name = &quot;Task Scenario&quot;,
                         breaks =c(&quot;axis&quot;,&quot;longmire&quot;),
                         labels =c(&quot;axis&quot;,&quot;longmire&quot;))</code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_summary()`:
+## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>dots &lt;- ggplot(l_scores, aes(x = lm_scenarios, y= value, color=variable))
 dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;point&quot;, position = position_dodge(width=0.1),width=0.2) +
@@ -810,22 +873,19 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;poin
                         name = &quot;Task Graph&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear (LM)&quot;,&quot;triangular (TM)&quot;))</code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
 <pre><code>## Warning: Ignoring unknown parameters: width</code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_summary()`:
+## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-</div>
-<div id="interaction-scaffold-graph" class="section level4">
-<h4>INTERACTION: Scaffold &amp; Graph</h4>
-</div>
-<div id="interaction-scenario-graph" class="section level4">
-<h4>INTERACTION: Scenario &amp; Graph</h4>
-</div>
+<p>####INTERACTION: Scaffold &amp; Graph<br />
+####INTERACTION: Scenario &amp; Graph</p>
 </div>
 </div>
 <div id="results-time" class="section level2">
 <h2>Results (Time)</h2>
-<div id="explore-the-data-1" class="section level4">
-<h4>Explore the data</h4>
-<p><em>We see comparable response times for LM and TM graphs when the LM graph is solved first. However, when the TM graph is solved first, the TM graph-reading task seems to take much longer.</em></p>
+<p>####Explore the data <em>We see comparable response times for LM and TM graphs when the LM graph is solved first. However, when the TM graph is solved first, the TM graph-reading task seems to take much longer.</em></p>
 <pre class="r"><code>#EXPLORE THE DATA
 
 #SIMPLE BOXPLOT BY CONDITION
@@ -861,9 +921,7 @@ mixedPlot_scenario &lt;- ggplot(l_times, aes(condition,value, fill=variable))+ g
                        labels=c(&quot;linear&quot;, &quot;triangular&quot;))
 mixedPlot_scenario</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
-</div>
-<div id="hypothesis-testing" class="section level4">
-<h4>Hypothesis Testing</h4>
+<p>####Hypothesis Testing</p>
 <p><em>Compute mixed effects ANOVA on Response Time</em><br />
 Significant main-effect of Graph F(1,297) = 109.71, p &lt;.001<br />
 Significant interaction between Graph &amp; Scaffold F(4,297) = 3.51, p &lt; .01<br />
@@ -881,8 +939,8 @@ mixedModel = ezANOVA(data = l_times,
                      type = 3,
                      detailed = TRUE)</code></pre>
 <pre><code>## Warning: Converting &quot;subject&quot; to factor for ANOVA.</code></pre>
-<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified
-## a well-considered value for the type argument to ezANOVA().</code></pre>
+<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified a
+## well-considered value for the type argument to ezANOVA().</code></pre>
 <pre class="r"><code>mixedModel</code></pre>
 <pre><code>## $ANOVA
 ##                                   Effect DFn DFd          SSn      SSd
@@ -920,10 +978,11 @@ mixedModel = ezANOVA(data = l_times,
 ## 15 6.391074e-02  8.005938e-01       5.183909e-05
 ## 16 1.467536e+00  2.120297e-01       4.739055e-03</code></pre>
 <pre class="r"><code>#summary(mixedModel)</code></pre>
-</div>
-<div id="main-effect-graph-on-time" class="section level4">
-<h4>MAIN EFFECT: Graph on TIME</h4>
-<p>On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
+<p>####MAIN EFFECT: Graph on TIME<br />
+On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_summary()`:
+## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <pre><code>## 
 ##  Paired t-test
@@ -937,16 +996,9 @@ mixedModel = ezANOVA(data = l_times,
 ## mean of the differences 
 ##               -1.642816</code></pre>
 <pre><code>## [1] 0.47</code></pre>
-</div>
-<div id="interaction-scaffold-graph-1" class="section level4">
-<h4>INTERACTION: Scaffold &amp; Graph</h4>
-</div>
-<div id="interaction-scenario-graph-1" class="section level4">
-<h4>INTERACTION: Scenario &amp; Graph</h4>
-</div>
-<div id="interaction-order-graph" class="section level4">
-<h4>INTERACTION: Order &amp; Graph</h4>
-</div>
+<p>####INTERACTION: Scaffold &amp; Graph<br />
+####INTERACTION: Scenario &amp; Graph<br />
+####INTERACTION: Order &amp; Graph</p>
 </div>
 <div id="results-graph-drawing" class="section level2">
 <h2>Results (Graph Drawing)</h2>
@@ -961,8 +1013,8 @@ table(df_subjects2$`Graph Type`, df_subjects2$condition)
 ##   Other                     0  0  0  0  0
 ##   Triangular (asymmetric)   3  3  5  4  7
 chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, correct=TRUE) 
-## Warning in chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, : Chi-
+## squared approximation may be incorrect
 ## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -1010,31 +1062,22 @@ pairwiseNominalIndependence(Matriz,
                             gtest  = FALSE,
                             chisq  = TRUE,
                             method = &quot;fdr&quot;)
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be
-## incorrect
+## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 ##                   Comparison  p.Chisq p.adj.Chisq
 ## 1   Right angle : Triangular 0.000504     0.00302
 ## 2       Right angle : Linear 0.413000     0.49600
@@ -1058,31 +1101,31 @@ FUN = function(i,j){
 pairwise.table(FUN,
                rownames(Matriz),
                p.adjust.method=&quot;none&quot;)
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], :
-## Chi-squared approximation may be incorrect
+## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
+## squared approximation may be incorrect
 ##             Right angle Triangular    Linear Scatterplot
 ## Triangular  0.009076978         NA        NA          NA
 ## Linear      0.401473200 0.01597337        NA          NA
@@ -1099,8 +1142,8 @@ table(df_subjects2$`Graph Type`, df_subjects2$order)
 ##   Other                          0       0
 ##   Triangular (asymmetric)        8      14
 chisq.test(df_subjects2$`Graph Type`, df_subjects2$order, correct=TRUE) 
-## Warning in chisq.test(df_subjects2$`Graph Type`, df_subjects2$order,
-## correct = TRUE): Chi-squared approximation may be incorrect
+## Warning in chisq.test(df_subjects2$`Graph Type`, df_subjects2$order, correct =
+## TRUE): Chi-squared approximation may be incorrect
 ## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -1123,28 +1166,28 @@ df_small_draw &lt;- subset(df_subjects2, df_subjects2$`Graph Type`%in% c(&quot;T
 desc_control &lt;- by(df_small_draw$triangular_score, df_small_draw$`Graph Type`, stat.desc, basic=FALSE)
 desc_control
 ## df_small_draw$`Graph Type`: Triangular (right angle)
-##       median         mean      SE.mean CI.mean.0.95          var 
-##    2.0000000    2.2954545    0.2990110    0.6030131    3.9339323 
-##      std.dev     coef.var 
-##    1.9834143    0.8640617 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##    2.0000000    2.2954545    0.2990110    0.6030131    3.9339323    1.9834143 
+##     coef.var 
+##    0.8640617 
+## ------------------------------------------------------------ 
 ## df_small_draw$`Graph Type`: Triangular
 ## NULL
-## -------------------------------------------------------- 
+## ------------------------------------------------------------ 
 ## df_small_draw$`Graph Type`: Linear Model
 ## NULL
-## -------------------------------------------------------- 
+## ------------------------------------------------------------ 
 ## df_small_draw$`Graph Type`: Scatterplot
 ## NULL
-## -------------------------------------------------------- 
+## ------------------------------------------------------------ 
 ## df_small_draw$`Graph Type`: Other
 ## NULL
-## -------------------------------------------------------- 
+## ------------------------------------------------------------ 
 ## df_small_draw$`Graph Type`: Triangular (asymmetric)
-##       median         mean      SE.mean CI.mean.0.95          var 
-##    9.0000000    8.5454545    0.7942632    1.6517607   13.8787879 
-##      std.dev     coef.var 
-##    3.7254245    0.4359539
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##    9.0000000    8.5454545    0.7942632    1.6517607   13.8787879    3.7254245 
+##     coef.var 
+##    0.4359539
 
 right_mean = desc_control$`Triangular (right angle)`[2]
 right_SD = desc_control$`Triangular (right angle)`[6]
@@ -1163,18 +1206,16 @@ mainEffectGraph
 ## 95 percent confidence interval:
 ##  -7.991027 -4.508973
 ## sample estimates:
-## mean in group Triangular (right angle) 
-##                               2.295455 
-##  mean in group Triangular (asymmetric) 
-##                               8.545455
+## mean in group Triangular (right angle)  mean in group Triangular (asymmetric) 
+##                               2.295455                               8.545455
 
 t &lt;-mainEffectGraph$statistic[[1]]
 df &lt;-mainEffectGraph$parameter[[1]]
 r &lt;- sqrt(t^2/(t^2+df))
 round(r,3)
 ## [1] 0.817</code></pre>
-<p>TM scores for participants who drew “right-angle” graphs were significantly lower (M = 2.3, SD = 1.98) than for participants who drew “asymmetric triangle” graphs (M = 8.55, SD = 3.73), t(27.1083223) = -7.3643582, p = 1.911696710^{-9} , r = 0.8165396.</p>
-<a href="gallery/analysis.html">See GALLERY of all images here</a>
+<p>TM scores for participants who drew “right-angle” graphs were significantly lower (M = 2.3, SD = 1.98) than for participants who drew “asymmetric triangle” graphs (M = 8.55, SD = 3.73), t(27.1083223) = -7.3643582, p = 1.9116967^{-9} , r = 0.8165396.</p>
+<a href="static/Study2/gallery/analysis.html">See GALLERY of all images here</a>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
@@ -1187,34 +1228,34 @@ round(r,3)
 desc &lt;- by(df_subjects2$triangular_score, list(df_subjects2$condition), stat.desc, basic=FALSE)
 desc
 ## : 0
-##       median         mean      SE.mean CI.mean.0.95          var 
-##    6.0000000    6.9016393    0.5772106    1.1545931   20.3234973 
-##      std.dev     coef.var 
-##    4.5081590    0.6532012 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##    6.0000000    6.9016393    0.5772106    1.1545931   20.3234973    4.5081590 
+##     coef.var 
+##    0.6532012 
+## ------------------------------------------------------------ 
 ## : 1
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   10.0000000    8.8135593    0.5568103    1.1145770   18.2922268 
-##      std.dev     coef.var 
-##    4.2769413    0.4852683 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   10.0000000    8.8135593    0.5568103    1.1145770   18.2922268    4.2769413 
+##     coef.var 
+##    0.4852683 
+## ------------------------------------------------------------ 
 ## : 2
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   10.0000000    8.6969697    0.5801574    1.1586543   22.2144522 
-##      std.dev     coef.var 
-##    4.7132210    0.5419383 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   10.0000000    8.6969697    0.5801574    1.1586543   22.2144522    4.7132210 
+##     coef.var 
+##    0.5419383 
+## ------------------------------------------------------------ 
 ## : 3
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   10.0000000    8.5645161    0.5806782    1.1611378   20.9056055 
-##      std.dev     coef.var 
-##    4.5722648    0.5338614 
-## -------------------------------------------------------- 
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   10.0000000    8.5645161    0.5806782    1.1611378   20.9056055    4.5722648 
+##     coef.var 
+##    0.5338614 
+## ------------------------------------------------------------ 
 ## : 4
-##       median         mean      SE.mean CI.mean.0.95          var 
-##   11.0000000   10.6764706    0.4129389    0.8242294   11.5952590 
-##      std.dev     coef.var 
-##    3.4051812    0.3189426
+##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+##   11.0000000   10.6764706    0.4129389    0.8242294   11.5952590    3.4051812 
+##     coef.var 
+##    0.3189426
 # LM_mean = desc_control$linear_score[2]
 # LM_SD = desc_control$linear_score[6]
 # TM_mean = desc_control$triangular_score[2]
@@ -1228,6 +1269,9 @@ bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom
       theme(strip.background = element_blank()) +
       ggtitle(&quot;TM Score by Scaffold for TM-first Order &quot;) +
       scale_x_discrete(labels=c( &quot;0&quot; = &quot;none-control&quot;, &quot;1&quot; = &quot;what-text&quot;, &quot;2&quot;=&quot;how-text&quot;, &quot;3&quot;=&quot;static-img&quot;, &quot;4&quot;=&quot;ix img&quot;)) </code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_summary()`:
+## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <pre class="r"><code>#ONE WAY ANOVA ON triangular score BY SCAFFOLD
 #construct contrasts for ANOVA model
@@ -1240,8 +1284,9 @@ simpleModel = ezANOVA(data = w_scores,
                      type = 3,
                     detailed = TRUE)</code></pre>
 <pre><code>## Warning: Converting &quot;subject&quot; to factor for ANOVA.</code></pre>
-<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified
-## a well-considered value for the type argument to ezANOVA().</code></pre>
+<pre><code>## Warning: Data is unbalanced (unequal N per group). Make sure you specified a
+## well-considered value for the type argument to ezANOVA().</code></pre>
+<pre><code>## Coefficient covariances computed by hccm()</code></pre>
 <pre class="r"><code>simpleModel$ANOVA</code></pre>
 <pre><code>##        Effect DFn DFd        SSn      SSd           F             p p&lt;.05
 ## 1 (Intercept)   1 311 24021.4468 5776.423 1293.303895 8.013810e-113     *
@@ -1266,7 +1311,7 @@ simpleModel = ezANOVA(data = w_scores,
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -1274,6 +1319,28 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
