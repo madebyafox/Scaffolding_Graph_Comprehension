@@ -35,7 +35,7 @@ cases where one recruit was absent we conducted the session with the individual 
 
 #### Part A: Graph Reading Task   
 In the Graph Reading Task, sixteen multiple choice questions were used to probe the reader’s ability to use the graph to reason about the properties of and relations between intervals. For example, a question testing the “duration” property might read: "For how many hours does event [x] last?" Participants were given one sheet of paper
-containing the questions and a second sheet containing a large TM graph with 15 data points.  After delivering instructions, we started the video recording and left the room.  Questions can be found <!--html_preserve--><a href="static/Study1/graph_reading_task.pdf">here</a><!--/html_preserve--> and TM graph <!--html_preserve--><a href="static/Study1/Axis_triangular.pdf">here</a><!--/html_preserve-->.
+containing the questions and a second sheet containing a large TM graph with 15 data points.  After delivering instructions, we started the video recording and left the room.  Questions can be found <!--html_preserve--><a href="static/Study1/graph_reading_task.pdf">here</a><!--/html_preserve--> and TM graph <!--html_preserve--><a href="static/Study1/Axis_Triangular.pdf">here</a><!--/html_preserve-->.
 <br> <br>   
 
 <!--html_preserve-->
