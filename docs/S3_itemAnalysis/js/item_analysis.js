@@ -21,7 +21,7 @@ var mymappings ;
 d3.queue()
     // .defer(d3.json, "docs/S3_itemAnalysis/data/final_items.json")
     .defer(d3.json, "./Scaffolding_Graph_Comprehension/S3_itemAnalysis/data/final_items.json")
-    .defer(d3.csv, "S3_itemAnalysis/data/recordings_mapping.csv")
+    .defer(d3.csv, "data/recordings_mapping.csv")
     .await(visualize);
 
 function filter(data){
