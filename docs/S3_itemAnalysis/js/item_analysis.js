@@ -19,8 +19,9 @@ var mymappings ;
 
 //LOAD DATA
 d3.queue()
-    .defer(d3.json, "docs/S3_itemAnalysis/data/final_items.json")
-    .defer(d3.csv, "docs/S3_itemAnalysis/data/recordings_mapping.csv")
+    // .defer(d3.json, "docs/S3_itemAnalysis/data/final_items.json")
+    .defer(d3.json, "../data/final_items.json")
+    .defer(d3.csv, "../data/recordings_mapping.csv")
     .await(visualize);
 
 function filter(data){
@@ -165,14 +166,14 @@ function render(dataFiltered){
              session = mymappings[index].SESSIONID;
              console.log("visitorID: "+visitor);
              console.log("sessionID: "+session);
-             $("#iframe").attr('src',"recording.html?visitor="+visitor+"&session="+session)
+             $("#iframe").attr('src',"../recording.html?visitor="+visitor+"&session="+session)
              $("#subject").text(sq);
              $('#myModal').modal('show');
              $('#status').text("");
 
              //ADD SCRIPTS FOR PLAYING THE RECORDING
-             document.body.appendChild(document.createElement('script')).src='recordings/'+visitor+'.js';
-             document.body.appendChild(document.createElement('script')).src='recordings/session_'+visitor+'.js';
+             document.body.appendChild(document.createElement('script')).src='../recordings/'+visitor+'.js';
+             document.body.appendChild(document.createElement('script')).src='../recordings/session_'+visitor+'.js';
          })
          .style("fill-opacity", 0)
          .transition(t)
@@ -186,8 +187,8 @@ function render(dataFiltered){
 // var visualization = d3.json("/data/final_items.json").then(function(data){
 function visualize (error, data, mappings){
     if (error) throw error;
-    // console.log(data);
-    // console.log(mappings);
+    console.log(data);
+    console.log(mappings);
     mymappings = mappings; // for interpreter access
     // data = data[0]; //because json request returned object with array as first element
     mydata = data; //just for access in interpreter
