@@ -20,7 +20,7 @@ var mymappings ;
 //LOAD DATA
 d3.queue()
     // .defer(d3.json, "docs/S3_itemAnalysis/data/final_items.json")
-    .defer(d3.json, "./Scaffolding_Graph_Comprehension/S3_itemAnalysis/data/final_items.json")
+    .defer(d3.json, "data/final_items.json")
     .defer(d3.csv, "data/recordings_mapping.csv")
     .await(visualize);
 
@@ -166,14 +166,14 @@ function render(dataFiltered){
              session = mymappings[index].SESSIONID;
              console.log("visitorID: "+visitor);
              console.log("sessionID: "+session);
-             $("#iframe").attr('src',"/S3_itemAnalysis/recording.html?visitor="+visitor+"&session="+session)
+             $("#iframe").attr('src',"recording.html?visitor="+visitor+"&session="+session)
              $("#subject").text(sq);
              $('#myModal').modal('show');
              $('#status').text("");
 
              //ADD SCRIPTS FOR PLAYING THE RECORDING
-             document.body.appendChild(document.createElement('script')).src='/S3_itemAnalysis/recordings/'+visitor+'.js';
-             document.body.appendChild(document.createElement('script')).src='/S3_itemAnalysis/recordings/session_'+visitor+'.js';
+             document.body.appendChild(document.createElement('script')).src='recordings/'+visitor+'.js';
+             document.body.appendChild(document.createElement('script')).src='recordings/session_'+visitor+'.js';
          })
          .style("fill-opacity", 0)
          .transition(t)
