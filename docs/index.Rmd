@@ -1,6 +1,6 @@
 ---
 title: "Scaffolding Comprehension of Unconventional Graphs"
-#author:  "Amy Rae Fox, 11/24/17"
+#author:  "Amy Rae Fox, 2022"
 output:
   html_document:
     fig_width: 1
