@@ -60,9 +60,9 @@ Reviewing the artifacts participants generated during the graph reading task giv
 <!--html_preserve-->
 <table style="width:100%">
   <tr>
-    <td><img src="static/Study1/2a.png" height="200" width="350" ></td> 
-    <td><img src="static/Study1/2b.png" height="200" width="350" ></td> 
-    <td><img src="static/Study1/2c.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/2a.png" height="300" width="350" ></td> 
+    <td><img src="static/Study1/2b.png" height="300" width="350" ></td> 
+    <td><img src="static/Study1/2c.png" height="300" width="350" ></td> 
   </tr>
   <tr> <b>Figure 2A. Artifacts for lowest scoring sessions of Graph Reading Task</b>
 <i>Note: When digitally-scanning the physical drawings, the diagonal gridlines of the TM were desaturated. In the printed graphs used by participants the gridlines were prominent.</i> 
@@ -72,7 +72,7 @@ Reviewing the artifacts participants generated during the graph reading task giv
 
 <table style="width:100%">
   <tr>
-    <td><img src="static/Study1/3.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3.png" height="300" width="350" ></td> 
   </tr>
   <tr> <b>Figure 2B. Artifacts for highest scoring session of Graph Reading Task</b>
   </tr>
@@ -89,24 +89,24 @@ We evaluated the artifacts produced in response to our prompt to make the graph 
 <!--html_preserve-->
 <table style="width:100%">
   <tr>
-    <td><img src="static/Study1/3a.png" height="200" width="800" ></td> 
+    <td><img src="static/Study1/3a.png" height="250" width="700" ></td> 
     <td><b>Figure 3A. Pictorial Intersections</b>  Participants have drawn attention to the diagonal gridlines and their dual-intersections with the x-axis by darkening and coloring them. These partici- pants explained the most challenging part of the graph was realizing they had to look for two intersections with the x-axis.
 </td> 
   </tr>
   
   <tr>
-    <td><img src="static/Study1/3b.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3b.png" height="250" width="700" ></td> 
     <td><b>Figure 3B. Annotations & Examples. </b>Participants have annotated their highlighted intersections. We see a partial worked example, via the annotation “7 hours” to the span for the red interval.
 </td> 
   </tr>
   <tr>
-    <td><img src="static/Study1/3c.png" height="200" width="350" ></td> 
+    <td><img src="static/Study1/3c.png" height="250" width="700" ></td> 
     <td><b>Figure 3C. Worked Example </b>A worked example where participants both highlighted the intersection and gave explicit values for a sample point on the plot. Under the graph they added a production rule for finding the start-time of a hypothetical point “S”, indicating that some learners may prefer text in- structions. </td> 
   </tr>
   
-    <tr>
-    <td><img src="static/Study1/3d.png" height="200" width="800" ></td> 
-    <td><b>Figure 3D. Worked Example </b>Explanatory text with an explicit definition of several graph elements.
+  <tr>
+  <td><img src="static/Study1/3d.png" height="50" width="800" ></td> 
+  <td><b>Figure 3D. Worked Example </b>Explanatory text with an explicit definition of several graph elements.
 </td> 
   </tr>
 </table>
