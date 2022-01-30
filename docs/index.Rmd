@@ -34,12 +34,18 @@ Research Assistants:Evan Barosay, Alexis Flores, Kai-yu Chang, Hazel Leung
 ----   
 
 **Publications**
-Fox, A. R., Hollan, J. (2018). Read It This Way: Sca olding Comprehension for Unconventional
-Statistical Graphs. In Diagrammatic Reasoning & Inference. Lecture Notes in Computer Science: Springer International Publishing. 
-*Accepted for presentation at the 2018 Conference on Theory and Application of Diagrams*
+<br>
+Fox, A. R., Hollan, J. (2018). <a href="static/pubs/2018_DIAG_Fox.pdf" target="_blank">Read it This Way: Scaffolding Comprehension for Unconventional Statistical Graphs</a> <br>
+In Diagrammatic Reasoning & Inference. Lecture Notes in Computer Science: Springer International Publishing. *Presented at the 2018 Conference on Theory and Application of Diagrams*
 
-Fox, A. R., Walker, C., Hollan, J. (August, 2018). Graphical Insight: How to Read an Unconventional Graph. European Association of Research on Learning and Instruction - SIG 2. Freiburg, Germany.
-*Accepted for presentation at the 2018 Conference for the EARLI SIG2 group on Comprehension of Text and Graphics*
+Fox, A. R., Walker, C., Hollan, J. (August, 2018). Graphical Insight: How to Read an Unconventional Graph. <br>
+European Association of Research on Learning and Instruction - SIG 2. Freiburg, Germany.
+*Presented at the 2018 Conference for the EARLI SIG2 group on Comprehension of Text and Graphics*
+   
+Fox, A.R., Hollan, J., Walker, C. (July, 2019). <a href="static/pubs/2019_COGS_Fox.pdf" target="_blank">When Graph Comprehension Is An Insight Problem.</a> <br>
+Proceedings of the Annual Meeting of The Cognitive Science Society	
+*Presented at the 2019 Annual Conference of the Cognitive Science Society*
+
    
 
 ----   
