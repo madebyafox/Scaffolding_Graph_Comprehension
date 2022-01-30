@@ -6,8 +6,10 @@ navbar:
       href: Study1.html
     - text: "Study 2"
       href: Study2.html
-    - text: "Study 3"
-      href: Study3.html
+    - text: "Study 3A"
+      href: Study3A.html
+    - text: "Study 3B"
+      href: Study3B.html
 output_dir: "."
 output:
   html_document:
