@@ -11,6 +11,7 @@ var topMargin = 10,
     hSpace = 5;
 var inScopeImpasse = [true,true];
 var inScopeExplicit = [true,true,true];
+var questions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
 //for global data access only
 var mydata ;
@@ -18,8 +19,8 @@ var mymappings ;
 
 //LOAD DATA
 d3.queue()
-    .defer(d3.json, "/data/final_items.json")
-    .defer(d3.csv, "/data/recordings_mapping.csv")
+    .defer(d3.json, "data/final_items.json")
+    .defer(d3.csv, "data/recordings_mapping.csv")
     .await(visualize);
 
 function filter(data){
@@ -171,7 +172,7 @@ function render(dataFiltered){
 // var visualization = d3.json("/data/final_items.json").then(function(data){
 function visualize (error, data, mappings){
     if (error) throw error;
-    // console.log(data);
+    console.log(data);
     // console.log(mappings);
     mymappings = mappings; // for interpreter access
     // data = data[0]; //because json request returned object with array as first element

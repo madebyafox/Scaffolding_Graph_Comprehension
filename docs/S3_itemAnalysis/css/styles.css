@@ -1,27 +1,40 @@
 
 body{
-  margin:25px;
+  /* margin:25px; */
 }
 
 div {}
+
+  .container-big{
+    width:100vw;
+    height:800px;
+    display:flex;
+    margin-top:25px;
+    /* background-color: green; */
+  }
+  .panel{
+    width:330px;
+    margin-left:25px;
+    /* background-color:black; */
+  }
   .tools{
     /* background-color: #dcdfe5; */
+    
   }
 
   .data{
-    /* background-color: #c0cce2; */
+    /* background-color: #e2c0d0; */
   }
 
 
 svg {
   /* background-color: grey; */
-
+  /* width:320px ; */
+  height:100vh;
 }
 
-
-
 g {
-  background-color: red;
+  /* background-color: red; */
 }
 
 rect {

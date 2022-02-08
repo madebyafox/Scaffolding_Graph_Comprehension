@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>FOX Item Analysis</title>
+  <meta name="description" content="SGC-3 Item Analysis">
+  <meta name="author" content="madebyafox">
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+  <!--  Modules -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js'></script>
+  <script src="//rawgit.com/saribe/eModal/master/dist/eModal.min.js"></script> <!--modal helper-->
+
+  <!-- D3v4 Modules -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-fetch.v1.min.js"></script> <!--data load-->
+  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script> <!--consise syntax-->
+  <script src="https://d3js.org/d3-request.v1.min.js"></script> <!--data load -->
+  <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+
+</head>
+
+<body>
+
+<div class = "container">
+  <a id="status" value=""></a>
+  <div class = "tools">
+    <div class="btn-toolbar " role="toolbar" aria-label="Toolbar with button groups">
+      <table>
+        <tr>
+          <td align="center">  <h6> Implicit Scaffold </h6></td>
+          <td align="center">  <h6> Explicit Scaffold </h6></td>
+         </tr>
+        <tr>
+          <td align="center">
+            <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="implicit">
+              <button disabled id="imp-none" type="button" class="btn btn-outline-secondary active"  >none</button>
+              <button disabled id="impasse" type="button" class="btn btn-outline-secondary active"  >impasse</button>
+            </div>
+           </td>
+          <td align="center">
+            <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="explicit">
+              <button disabled id="exp-none" type="button" class="btn btn-outline-secondary active" >none</button>
+              <button disabled id="static" type="button" class="btn btn-outline-secondary active" >static</button>
+              <button disabled id="interactive" type="button" class="btn btn-outline-secondary active" >interactive</button>
+            </div>
+           </td>
+         </tr>
+       </table>
+    </div>
+  </div><!--tools-->
+
+  <!--Modal: Name-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <!--Content-->
+      <div class="modal-content">
+          <!--Body-->
+          <div class="modal-body mb-0 p-0 justify-content-center">
+              <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                  <iframe id="iframe" class="embed-responsive-item"  allowfullscreen></iframe>
+              </div>
+          </div>
+          <!--Footer-->
+          <div class="modal-footer justify-content-center">
+              <a id="subject" value=""/>
+              <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </div>
+  <!--Modal: Name-->
+
+  <div class = "data">
+    <svg width="100vw" height="3000"></svg>
+  </div><!--data-->
+</div> <!--container-->
+
+
+
+  <!-- JavaScript for Bootstrap-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script src="js/backup_item_analysis.js"></script>
+
+</body>
+
+</html>
+
+
+<!-- lessons:
+1) set svg to fit window with 100vw, 100vh
+2) iDs in html4 must start with a letter
+!-->
