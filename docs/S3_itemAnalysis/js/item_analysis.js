@@ -4,8 +4,8 @@
 var mymappings ;
 var topMargin = 20,
     leftMargin = 10,
-    iWidth = 10,
-    iHeight = 10,
+    iWidth = 12,
+    iHeight = 12,
     vSpace = 5;
     hSpace = 5;
 var questions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];

@@ -9,15 +9,18 @@ div {}
     width:100vw;
     height:800px;
     display:flex;
-    margin-top:25px;
+    padding-left:50px;
     /* background-color: green; */
   }
   .panel{
-    width:330px;
-    margin-left:25px;
+    width:400px;
+    /* margin-left:25px; */
+    /* border-right: 2px solid grey;
+    border-radius: 5px; */
     /* background-color:black; */
   }
   .tools{
+    margin-top: 25px;
     /* background-color: #dcdfe5; */
     
   }
@@ -29,8 +32,9 @@ div {}
 
 svg {
   /* background-color: grey; */
-  /* width:320px ; */
-  height:100vh;
+  overflow: visible;
+  width:400px ;
+  height:300vh;
 }
 
 g {
@@ -72,3 +76,41 @@ text {
 .exit {
   fill:red;
 }
+
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-add{
+  vertical-align: top;
+
+}
+
+.panel-add{
+  margin:25px;
+  display:flex;
+}
+
+.input-group{
+  margin:2px;
+}
+
+.input-group-text{ 
+  font-size: 12px;
+  padding-left:5px;
+  margin-left:0px;
+  border-radius: 0px 0px 0px 0px ;
+  background-color: white;
+  width:75px;
+}
+
+.study{
+  margin-bottom:10px;
+}
+

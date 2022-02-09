@@ -9,8 +9,14 @@
 
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="css/styles.css?v=1.0"> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+  <!-- Add icon library -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <script src="https://kit.fontawesome.com/bf9aa9fbff.js" crossorigin="anonymous"></script>
 
   <!--  Modules -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js'></script>
@@ -31,36 +37,12 @@
 </head>
 
 <body>
-<div class = "container-big">
-  <div class = "panel">
-  <a id="status" value=""></a>
-  <div class = "tools">
-    <div class="btn-toolbar " role="toolbar" aria-label="Toolbar with button groups">
-      <table>
-        <tr>
-          <td align="center">  <h6> Implicit Scaffold </h6></td>
-          <td align="center">  <h6> Explicit Scaffold </h6></td>
-         </tr>
-        <tr>
-          <td align="center">
-            <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="implicit">
-              <button disabled id="imp-none-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active"  >none</button>
-              <button disabled id="impasse-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active"  >impasse</button>
-            </div>
-           </td>
-          <td align="center">
-            <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="explicit">
-              <button disabled id="exp-none-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >none</button>
-              <button disabled id="static-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >static</button>
-              <button disabled id="interactive-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >interactive</button>
-            </div>
-           </td>
-         </tr>
-       </table>
-    </div>
-  </div><!--tools-->
 
-  <!--Modal: Name-->
+  
+
+<div class = "container-big">
+
+  <!--Modal: MOUSEFLOW RECORDING-->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <!--Content-->
@@ -73,7 +55,7 @@
           </div>
           <!--Footer-->
           <div class="modal-footer justify-content-center">
-              <a id="subject" value=""/>
+              <a id="subject" value=""></a>
               <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
           </div>
       </div>
@@ -82,12 +64,87 @@
   </div>
   <!--Modal: Name-->
 
+  <div class = "panel" id="panel-1">
+  <a id="status" value=""></a>
+  <div class = "tools" id = "tools-1">
+
+    <div class="panel-group">
+      
+        
+        
+          
+          <div class="btn-group study" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="radio3A" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="radio3A">SGC3A</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="radio3B" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="radio3B">SGC3B</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="radio4" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="radio4">SGC4</label>
+            
+            <input type="radio" class="btn-check" name="btnradio" id="radio5" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="radio5">SGC5</label>
+          </div>
+
+
+
+          <div class="input-group"id="IMPLICIT">  
+            <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="implicit">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Impasse</span>
+              </div>
+              <button disabled id="imp-none-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active"  >none</button>
+              <button disabled id="impasse-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active"  >impasse</button>
+            </div>
+          </div>
+      
+          <div class="input-group"id="EXPLICIT">  
+            <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="explicit">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Explicit</span>
+              </div>
+              <button disabled id="exp-none-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >none</button>
+              <button disabled id="static-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >static</button>
+              <button disabled id="interactive-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >interactive</button>
+            </div>
+          </div>
+      
+          <div class="input-group"id="GRID">  
+            <div class="btn-group btn-group-sm" data-toggle="buttons" role="group" aria-label="grid">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Grid</span>
+              </div>
+              <button disabled id="g-full-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >full</button>
+              <button disabled id="g-partial-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >partial</button>
+              <button disabled id="g-ideal-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >triangle</button>
+              <button disabled id="g-minimal-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >minimal</button>
+              <button disabled id="g-sparse-1" aria-pressed="true" type="button" class="btn btn-outline-secondary active" >sparse</button>
+            </div>
+          </div>
+        
+      
+      
+      
+    </div>
+
+   
+  </div><!--tools-->
+
   <div class = "data">
     <svg id="svg-1"></svg>
   </div><!--data-->
   </div> <!--panel-->
 
-  <div class = "panel">
+  <div class = "panel-add" >
+  <button type="button" class="btn btn-default btn-circle btn-lg btn-add">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+  </div>
+
+  <div class = "panel-2">
+    
+
     <a id="status" value=""></a>
     <div class = "tools">
       <div class="btn-toolbar " role="toolbar" aria-label="Toolbar with button groups">
@@ -128,7 +185,7 @@
             </div>
             <!--Footer-->
             <div class="modal-footer justify-content-center">
-                <a id="subject" value=""/>
+                <a id="subject" value=""></a>
                 <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -144,14 +201,32 @@
 </div> <!--container-big-->
 
 
+
+
   <!-- JavaScript for Bootstrap-->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+  <!--JQUERY-->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+  
+  
+
 
   <script src="js/item_analysis.js"></script>
 
   <script>
+
+    //ON PAGE LOAD SET VISIBILITY
+    $(document).ready(function(){
+      $("#IMPLICIT").hide();
+      $("#EXPLICIT").hide();
+      $("#GRID").hide();
+    })
     console.log("hello world");
 
     drawPanel(1);
@@ -161,6 +236,30 @@
   
   
 
+  //add controls for study button
+  $("#radio3A").click(function(){
+    $("#IMPLICIT").fadeIn(200);
+    $("#EXPLICIT").fadeOut(200);
+    $("#GRID").fadeOut(200);
+  });
+
+  $("#radio3B").click(function(){
+    $("#IMPLICIT").show(300);
+    $("#EXPLICIT").show(200);
+    $("#GRID").hide(200);
+  });
+
+  $("#radio4").click(function(){
+    $("#IMPLICIT").hide(200);
+    $("#EXPLICIT").hide(200);
+    $("#GRID").hide(200);
+  });
+
+  $("#radio5").click(function(){
+    $("#IMPLICIT").hide(200);
+    $("#EXPLICIT").hide(200);
+    $("#GRID").hide(200);
+  });
     
 
     
