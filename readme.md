@@ -18,5 +18,6 @@ Qiang, Y., Valcke, M., De Maeyer, P., & Van de Weghe, N. (2014). Representing ti
 - STUDY_2 --> experimental study comparing explicit scaffolds (mixed: 5(scaffold [between]) X 2(graph [within]))
 - VIZ --> WIP interactive visualization code 
 - note that docs/ folder contains polished analyses, while the STUDY_1 and STUDY_2 folders contain interim and exploratory analyes as well (including some SPSS files)
+- prior subdirectories with (pilot) data for Study 3 and Study 5 (interaction) removed and backed up in main SGC-X repository
 
 
