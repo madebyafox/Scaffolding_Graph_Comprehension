@@ -709,45 +709,45 @@ round(r,3)
 ## Results (Graph Drawing) 
 
 ```{r collapse=TRUE}
-#explore independence of graph drawing by condition
-table(df_subjects2$`Graph Type`, df_subjects2$condition)
-chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, correct=TRUE) 
-fisher.test(df_subjects2$`Graph Type`, df_subjects2$condition) 
-
-Input =("
-Interpretation control  whattext howtext static interactive
-'Right angle'    17  6  9 10  2
-'Triangular'    34 50 48 41 57
-'Linear'        6  0  3  7  1
-'Scatterplot'      0  0  0  0  0
-'Asymmetric'      3  3  5  4  7
-")
-
-Matriz = as.matrix(read.table(textConnection(Input),
-                   header=TRUE, 
-                   row.names=1))
-
-Matriz
-
-chisq.test(Matriz)
-
-pairwiseNominalIndependence(Matriz,
-                            fisher = FALSE,
-                            gtest  = FALSE,
-                            chisq  = TRUE,
-                            method = "fdr")
-
-
-FUN = function(i,j){     
-      chisq.test(matrix(c(Matriz[i,1], Matriz[i,2],
-                          Matriz[j,1], Matriz[j,2]),
-                 nrow=2,
-                 byrow=TRUE))$ p.value
-                }
-      
-pairwise.table(FUN,
-               rownames(Matriz),
-               p.adjust.method="none")
+# #explore independence of graph drawing by condition
+# table(df_subjects2$`Graph Type`, df_subjects2$condition)
+# chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, correct=TRUE) 
+# fisher.test(df_subjects2$`Graph Type`, df_subjects2$condition) 
+# 
+# Input =("
+# Interpretation control  whattext howtext static interactive
+# 'Right angle'    17  6  9 10  2
+# 'Triangular'    34 50 48 41 57
+# 'Linear'        6  0  3  7  1
+# 'Scatterplot'      0  0  0  0  0
+# 'Asymmetric'      3  3  5  4  7
+# ")
+# 
+# Matriz = as.matrix(read.table(textConnection(Input),
+#                    header=TRUE, 
+#                    row.names=1))
+# 
+# Matriz
+# 
+# chisq.test(Matriz)
+# 
+# pairwiseNominalIndependence(Matriz,
+#                             fisher = FALSE,
+#                             gtest  = FALSE,
+#                             chisq  = TRUE,
+#                             method = "fdr")
+# 
+# 
+# FUN = function(i,j){     
+#       chisq.test(matrix(c(Matriz[i,1], Matriz[i,2],
+#                           Matriz[j,1], Matriz[j,2]),
+#                  nrow=2,
+#                  byrow=TRUE))$ p.value
+#                 }
+#       
+# pairwise.table(FUN,
+#                rownames(Matriz),
+#                p.adjust.method="none")
 
 ```
 

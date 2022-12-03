@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Amy Rae Fox, 2018" />
 
 
 <title>Scaffolding Comprehension of Unconventional Graphs</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -60,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -80,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -137,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -170,8 +179,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -179,16 +188,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -232,7 +234,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -247,12 +249,6 @@ $(document).ready(function () {
 <li>
   <a href="Study2.html">Study 2</a>
 </li>
-<li>
-  <a href="Study3A.html">Study 3A</a>
-</li>
-<li>
-  <a href="Study3B.html">Study 3B</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -265,36 +261,91 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Scaffolding Comprehension of Unconventional Graphs</h1>
+<h1 class="title toc-ignore">Scaffolding Comprehension of Unconventional
+Graphs</h1>
+<h4 class="author">Amy Rae Fox, 2018</h4>
 
 </div>
 
 
 <hr />
-<p><strong>How do you make sense of a graph that you have never seen before?</strong><br />
-As powerful as graphics may be in their communicative efficiency, they needn’t be immediately easy to understand. In fact, there are often real tradeoffs between a representation’s discoverability and efficiency. Peebles &amp; Cheng (2003) demonstrated that even for informationally equivalent graphs, the computational efficiency (operationalized in terms of the number of steps to retrieve information) of a less conventional representation may outweigh its ease of use to the untrained reader. It is this fact that underlies much modern research in Information Visualization: developing sophisticated information interfaces for highly skilled workers performing complex and specialized tasks. Sometimes this work results in novel, unconventional representations that are computationally suited to a particular set of data and analytical task, but that present a graph-reading challenge to the lay reader. Most work in remediating errors in graph comprehension has focused on “second order” readings: characterizing the trend or relationships between data points in a graph. In the case of time interval graphs this would involve generalizations like, “most events occur late in the day”, or “longer events start earlier in the day”. We tend to accept a priori that well-designed graphs readily afford first-order readings: operations for extracting data from the graph. In fact, it is the seeming effortlessness of these readings that make graphs so desirable as external representations. In this project, we use a simple but unconventional graph - The Triangular Model (TM) of Interval Relations (Qiang et. al. 2014) to explore how individuals make use of prior knowledge when reading unconventional graphs.</p>
-<p>In <a href="Study1.html"><strong>Study 1</strong></a> we observe learners solving problems with the TM graph, and challenge them to design instructional aids.<br />
-In <a href="Study2.html"><strong>Study 2</strong></a> we evalute efficacy of four scaffolding techniques with both conventional and TM graphs.<br />
-In <a href="Study3A.html"><strong>Study 3A</strong></a> we evaluate efficacy of an implicit impasse scaffold. In <a href="Study3B.html"><strong>Study 3B</strong></a> we compare the effectiveness of explicit and implicit scaffolds.</p>
+<p><strong>How do you make sense of a graph that you have never seen
+before?</strong><br />
+As powerful as graphics may be in their communicative efficiency, they
+needn’t be immediately easy to understand. In fact, there are often real
+tradeoffs between a representation’s discoverability and efficiency.
+Peebles &amp; Cheng (2003) demonstrated that even for informationally
+equivalent graphs, the computational efficiency (operationalized in
+terms of the number of steps to retrieve information) of a less
+conventional representation may outweigh its ease of use to the
+untrained reader. It is this fact that underlies much modern research in
+Information Visualization: developing sophisticated information
+interfaces for highly skilled workers performing complex and specialized
+tasks. Sometimes this work results in novel, unconventional
+representations that are computationally suited to a particular set of
+data and analytical task, but that present a graph-reading challenge to
+the lay reader. Most work in remediating errors in graph comprehension
+has focused on “second order” readings: characterizing the trend or
+relationships between data points in a graph. In the case of time
+interval graphs this would involve generalizations like, “most events
+occur late in the day”, or “longer events start earlier in the day”. We
+tend to accept a priori that well-designed graphs readily afford
+first-order readings: operations for extracting data from the graph. In
+fact, it is the seeming effortlessness of these readings that make
+graphs so desirable as external representations. In this project, we use
+a simple but unconventional graph - The Triangular Model (TM) of
+Interval Relations (Qiang et. al. 2014) to explore how individuals make
+use of prior knowledge when reading unconventional graphs.</p>
+<p>In <a href="Study1.html"><strong>Study 1</strong></a> we observe
+learners solving problems with the TM graph, and challenge them to
+design instructional aids.<br />
+In <a href="Study2.html"><strong>Study 2</strong></a> we evalute
+efficacy of four scaffolding techniques with both conventional and TM
+graphs.</p>
 <p><br></p>
-<p><a target="_blank" href="S3_itemAnalysis/index.html">WIP Visualization</a></p>
+<p><a target="_blank" href="S3_itemAnalysis/index.html">WIP Interactive
+Mouseflow Visualization</a></p>
 <hr />
 <p><strong>Researchers</strong><br />
-Amy Rae Fox, MA MEd, PhD student of Cognitive Science, UC San Diego James Hollan, PhD, Professor of Cognitive Science, UC San Diego<br />
-Caren Walker, PhD, Assistant Professor of Psychology, UC San Diego Research Assistants:Evan Barosay, Alexis Flores, Kai-yu Chang, Hazel Leung</p>
+Amy Rae Fox, MA MEd, PhD student of Cognitive Science, UC San Diego <br>
+James Hollan, PhD, Professor of Cognitive Science, UC San Diego<br />
+<br> Caren Walker, PhD, Assistant Professor of Psychology, UC San Diego
+<br> Research Assistants: Evan Barosay, Hazel Leung, Alexis Flores,
+Kai-yu Chang</p>
 <hr />
-<p><strong>Publications</strong> <br> Fox, A. R., Hollan, J. (2018). <a href="static/pubs/2018_DIAG_Fox.pdf" target="_blank">Read it This Way: Scaffolding Comprehension for Unconventional Statistical Graphs</a> <br> In Diagrammatic Reasoning &amp; Inference. Lecture Notes in Computer Science: Springer International Publishing. <em>Presented at the 2018 Conference on Theory and Application of Diagrams</em></p>
-<p>Fox, A. R., Walker, C., Hollan, J. (August, 2018). Graphical Insight: How to Read an Unconventional Graph. <br> European Association of Research on Learning and Instruction - SIG 2. Freiburg, Germany. <em>Presented at the 2018 Conference for the EARLI SIG2 group on Comprehension of Text and Graphics</em></p>
-<p>Fox, A.R., Hollan, J., Walker, C. (July, 2019). <a href="static/pubs/2019_COGS_Fox.pdf" target="_blank">When Graph Comprehension Is An Insight Problem.</a> <br> Proceedings of the Annual Meeting of The Cognitive Science Society<br />
-<em>Presented at the 2019 Annual Conference of the Cognitive Science Society</em></p>
+<p><strong>Publications</strong> <br> Fox, A. R., Hollan, J. (2018).
+<a href="static/pubs/2018_DIAG_Fox.pdf" target="_blank">Read it This
+Way: Scaffolding Comprehension for Unconventional Statistical Graphs</a>
+<br> In Diagrammatic Reasoning &amp; Inference. Lecture Notes in
+Computer Science: Springer International Publishing. <em>Presented at
+the 2018 Conference on Theory and Application of Diagrams</em></p>
+<p>Fox, A. R., Walker, C., Hollan, J. (August, 2018). Graphical Insight:
+How to Read an Unconventional Graph. <br> European Association of
+Research on Learning and Instruction - SIG 2. Freiburg, Germany.
+<em>Presented at the 2018 Conference for the EARLI SIG2 group on
+Comprehension of Text and Graphics</em></p>
+<p>Fox, A.R., Hollan, J., Walker, C. (July, 2019).
+<a href="static/pubs/2019_COGS_Fox.pdf" target="_blank">When Graph
+Comprehension Is An Insight Problem.</a> <br> Proceedings of the Annual
+Meeting of The Cognitive Science Society<br />
+<em>Presented at the 2019 Annual Conference of the Cognitive Science
+Society, Montreal Canada.</em></p>
 <hr />
 <p><strong>References</strong><br />
-1. Peebles, D., &amp; Cheng, P. C.-H. (2003). Modeling the effect of task and graphical representation on response latency in a graph reading task. Human Factors, 45(1), 28–46. <a href="https://doi.org/10.1518/hfes.45.1.28.27225" class="uri">https://doi.org/10.1518/hfes.45.1.28.27225</a><br />
-2. Qiang, Y., Valcke, M., De Maeyer, P., &amp; Van de Weghe, N. (2014). Representing time intervals in a two-dimensional space: An empirical study. Journal of Visual Languages and Computing, 25(4), 466–480. <a href="https://doi.org/10.1016/j.jvlc.2014.01.001" class="uri">https://doi.org/10.1016/j.jvlc.2014.01.001</a></p>
+1. Peebles, D., &amp; Cheng, P. C.-H. (2003). Modeling the effect of
+task and graphical representation on response latency in a graph reading
+task. Human Factors, 45(1), 28–46. <a
+href="https://doi.org/10.1518/hfes.45.1.28.27225"
+class="uri">https://doi.org/10.1518/hfes.45.1.28.27225</a><br />
+2. Qiang, Y., Valcke, M., De Maeyer, P., &amp; Van de Weghe, N. (2014).
+Representing time intervals in a two-dimensional space: An empirical
+study. Journal of Visual Languages and Computing, 25(4), 466–480. <a
+href="https://doi.org/10.1016/j.jvlc.2014.01.001"
+class="uri">https://doi.org/10.1016/j.jvlc.2014.01.001</a></p>
 
 <br>
 <hr>
-<p>Copyright &copy; 2022 Amy Rae Fox. All rights reserved.</p>
+<p>Copyright &copy; 2018 Amy Rae Fox. All rights reserved.</p>
 
 
 

@@ -1,6 +1,6 @@
 ---
 title: "Scaffolding Comprehension of Unconventional Graphs"
-#author:  "Amy Rae Fox, 2022"
+author:  "Amy Rae Fox, 2018"
 output:
   html_document:
     fig_width: 1
@@ -17,21 +17,22 @@ As powerful as graphics may be in their communicative efficiency, they needn’t
 
 In <a href="Study1.html">**Study 1**</a> we observe learners solving problems with the TM graph, and challenge them to design instructional aids.    
 In <a href="Study2.html">**Study 2**</a> we evalute efficacy of four scaffolding techniques with both conventional and TM graphs.    
-In <a href="Study3A.html">**Study 3A**</a> we evaluate efficacy of an implicit impasse scaffold.
-In <a href="Study3B.html">**Study 3B**</a> we compare the effectiveness of explicit and implicit scaffolds. 
 
 <br> 
 
-<a target="_blank" href="S3_itemAnalysis/index.html">WIP Visualization</a>
+<a target="_blank" href="S3_itemAnalysis/index.html">WIP Interactive Mouseflow Visualization</a>
 
 
 ----
 
 **Researchers**   
 Amy Rae Fox, MA MEd, PhD student of Cognitive Science, UC San Diego
+<br>
 James Hollan, PhD, Professor of Cognitive Science, UC San Diego   
+<br>
 Caren Walker, PhD, Assistant Professor of Psychology, UC San Diego
-Research Assistants:Evan Barosay, Alexis Flores, Kai-yu Chang, Hazel Leung   
+<br>
+Research Assistants: Evan Barosay, Hazel Leung, Alexis Flores, Kai-yu Chang
 
 ----   
 
@@ -46,7 +47,7 @@ European Association of Research on Learning and Instruction - SIG 2. Freiburg, 
    
 Fox, A.R., Hollan, J., Walker, C. (July, 2019). <a href="static/pubs/2019_COGS_Fox.pdf" target="_blank">When Graph Comprehension Is An Insight Problem.</a> <br>
 Proceedings of the Annual Meeting of The Cognitive Science Society	
-*Presented at the 2019 Annual Conference of the Cognitive Science Society*
+*Presented at the 2019 Annual Conference of the Cognitive Science Society, Montreal Canada.*
 
    
 

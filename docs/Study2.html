@@ -13,7 +13,7 @@
 
 <title>Study 2</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -138,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -171,8 +179,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -180,16 +188,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -236,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -262,7 +263,7 @@ $(document).ready(function () {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -276,27 +277,50 @@ $(document).ready(function () {
 </div>
 
 
-<div id="evaluating-scaffolds-for-an-unconventional-statistical-graph" class="section level1 tabset tabset-fade tabset-pills">
-<h1 class="tabset tabset-fade tabset-pills">Evaluating scaffolds for an unconventional statistical graph</h1>
+<div id="evaluating-scaffolds-for-an-unconventional-statistical-graph"
+class="section level1 tabset tabset-fade tabset-pills">
+<h1 class="tabset tabset-fade tabset-pills">Evaluating scaffolds for an
+unconventional statistical graph</h1>
 <p><br></p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p><br> In Study Two we examine if scaffolding is effective in aiding untrained students to understand the Triangular Model (TM) graph. We know that students are unlikely to construct the correct interpretation of the TM without assistance. Guided by the results of the Study One Design Task, we created four scaffolds. We test the effectiveness of these scaffolds by seeking to replicate the Qiang et.al (2014) finding that after 20 minutes of video training, students perform faster and more accurately with the unconventional TM than the conventional Linear Model (LM). Will our participants show similar performance on the TM with scaffolds rather than formal instruction? Further, will engagement with the TM in a reading task be sufficient for students to reproduce the graph in a subsequent drawing task?<br />
+<p><br> In Study Two we examine if scaffolding is effective in aiding
+untrained students to understand the Triangular Model (TM) graph. We
+know that students are unlikely to construct the correct interpretation
+of the TM without assistance. Guided by the results of the Study One
+Design Task, we created four scaffolds. We test the effectiveness of
+these scaffolds by seeking to replicate the Qiang et.al (2014) finding
+that after 20 minutes of video training, students perform faster and
+more accurately with the unconventional TM than the conventional Linear
+Model (LM). Will our participants show similar performance on the TM
+with scaffolds rather than formal instruction? Further, will engagement
+with the TM in a reading task be sufficient for students to reproduce
+the graph in a subsequent drawing task?<br />
 <br></p>
 <div id="hypotheses" class="section level3">
 <h3>Hypotheses</h3>
 <ol style="list-style-type: decimal">
-<li>Learners without scaffolding (control) will perform better with the LM than TM<br />
+<li>Learners without scaffolding (control) will perform better with the
+LM than TM<br />
 </li>
-<li>Learners with (any form of) scaffolding will perform better with the TM than LM (replication of [12]).<br />
+<li>Learners with (any form of) scaffolding will perform better with the
+TM than LM (replication of [12]).<br />
 </li>
-<li>Based on observations in Study One we expect that graph-order will act as a scaffold. Learners who solve problems with the LM graph first will perform better on the TM (relative to TM-first learners) as their attention will be drawn to the salient differences between the graphs.<br />
+<li>Based on observations in Study One we expect that graph-order will
+act as a scaffold. Learners who solve problems with the LM graph first
+will perform better on the TM (relative to TM-first learners) as their
+attention will be drawn to the salient differences between the
+graphs.<br />
 <br></li>
 </ol>
 <hr />
-<p><strong>To try the study yourself: </strong> visit <a href="http://morning-gorge-17056.herokuapp.com/" class="uri">http://morning-gorge-17056.herokuapp.com/</a><br />
-<em>Enter “github” as your session code, and number of the condition you wish to test</em><br />
-0 = control (no-scaffold), 1 = “what-text”, 2 = “how-text”, 3 = “static-image”, 4 = “interactive-image”<br />
+<p><strong>To try the study yourself: </strong> visit <a
+href="http://morning-gorge-17056.herokuapp.com/"
+class="uri">http://morning-gorge-17056.herokuapp.com/</a><br />
+<em>Enter “github” as your session code, and number of the condition you
+wish to test</em><br />
+0 = control (no-scaffold), 1 = “what-text”, 2 = “how-text”, 3 =
+“static-image”, 4 = “interactive-image”<br />
 <br> <br></p>
 </div>
 </div>
@@ -304,18 +328,42 @@ $(document).ready(function () {
 <h2>Methods</h2>
 <div id="design" class="section level3">
 <h3>Design</h3>
-<p>We employed a 5 (scaffold: none-control, what-text, how-text, static image, interactive image) x 2 (graph: LM, TM) mixed design, with scaffold as a between-subjects variable and graph as a within-subject variable. To test our hypothesis that exposure to the conventional LM acts as a scaffold for the TM, we counterbalanced the order of graph-reading tasks (order: LM-first, TM-first). For each task we measured response accuracy and time. For the follow-up graph-drawing task, a team of raters coded the type of graph produced by each participant.<br />
+<p>We employed a 5 (scaffold: none-control, what-text, how-text, static
+image, interactive image) x 2 (graph: LM, TM) mixed design, with
+scaffold as a between-subjects variable and graph as a within-subject
+variable. To test our hypothesis that exposure to the conventional LM
+acts as a scaffold for the TM, we counterbalanced the order of
+graph-reading tasks (order: LM-first, TM-first). For each task we
+measured response accuracy and time. For the follow-up graph-drawing
+task, a team of raters coded the type of graph produced by each
+participant.<br />
 <br></p>
 </div>
 <div id="participants" class="section level3">
 <h3>Participants</h3>
-<p>316 (69% female) students aged 17 to 33 at a public American univeristy participated in the study. All participants completed three activities: two graph reading tasks (with both the linear model (LM) and triangular model (TM) graphs) followed by a drawing task. In some cases (linear-first), participants (n = 154) completed the graph reading task with the LM graph, followed by the task with the TM graph. An additional (n= 162) subjects completed the graph reading tasks in reverse order. Each particiant was randomly assigned to one of five conditions which determined what additional information (scaffold) they received while solving the first five problems with each graph: no-scaffold (control), ‘what’ text, ‘how’-text, static-image, and interactive-image. The runtime of the entire study ranged from 22 to 66 minutes (m = 40, sd = 0.48). <br> <br></p>
+<p>316 (69% female) students aged 17 to 33 at a public American
+univeristy participated in the study. All participants completed three
+activities: two graph reading tasks (with both the linear model (LM) and
+triangular model (TM) graphs) followed by a drawing task. In some cases
+(linear-first), participants (n = 154) completed the graph reading task
+with the LM graph, followed by the task with the TM graph. An additional
+(n= 162) subjects completed the graph reading tasks in reverse order.
+Each particiant was randomly assigned to one of five conditions which
+determined what additional information (scaffold) they received while
+solving the first five problems with each graph: no-scaffold (control),
+‘what’ text, ‘how’-text, static-image, and interactive-image. The
+runtime of the entire study ranged from 22 to 66 minutes (m = 40, sd =
+0.48). <br> <br></p>
 </div>
 <div id="materials" class="section level3">
 <h3>Materials</h3>
 <div id="scaffolds" class="section level4">
 <h4>Scaffolds</h4>
-<p>For the first five questions of each graph-reading task, participants saw their assigned scaffold along with the designated graph. On the following ten questions, the scaffold was not present. Examples of each scaffold-condition for the TM and LM graphs are shown below. <br> <br></p>
+<p>For the first five questions of each graph-reading task, participants
+saw their assigned scaffold along with the designated graph. On the
+following ten questions, the scaffold was not present. Examples of each
+scaffold-condition for the TM and LM graphs are shown below. <br>
+<br></p>
 <p>
 <table style="width:100%">
   <tr>
@@ -354,8 +402,26 @@ $(document).ready(function () {
 </div>
 <div id="the-graph-reading-task" class="section level4">
 <h4>The Graph Reading Task</h4>
-<p>Each graph reading task consisted of a graph (LM or TM) and 15 multiple choice questions (used in Study One). Questions were presented one at a time, and participants did not receive feedback as to the accuracy of their response before proceeding to the next question. The order of the first five (scaffolded) questions was the same for each participant, while the order of the remaining 10 were randomized. For each question, the stimulus software recorded the participant’s response accuracy (correct, incorrect) and latency (time from page-load to “submit” button press). As each participant completed the reading task once with each graph, we developed two matched scenarios: a project manager scheduling tasks (scenario A), and an events manager scheduling reservations (scenario B). In each scenario, an equivalent question can be identified in the other pertaining to the same interval property or relation. For the LM graphs, intervals were sorted in order of duration, with the longest intervals appearing at the top of the graph.A pilot study on Amazon Mechanical Turk using the LM graph revealed no significant differences in difficulty between the scenarios. The four graphs constructed for the study are shown below.</p>
-<p><a href="static/Study2/questions.html"> <strong>The full list of questions and correct answers can be found here</strong> </a>.</p>
+<p>Each graph reading task consisted of a graph (LM or TM) and 15
+multiple choice questions (used in Study One). Questions were presented
+one at a time, and participants did not receive feedback as to the
+accuracy of their response before proceeding to the next question. The
+order of the first five (scaffolded) questions was the same for each
+participant, while the order of the remaining 10 were randomized. For
+each question, the stimulus software recorded the participant’s response
+accuracy (correct, incorrect) and latency (time from page-load to
+“submit” button press). As each participant completed the reading task
+once with each graph, we developed two matched scenarios: a project
+manager scheduling tasks (scenario A), and an events manager scheduling
+reservations (scenario B). In each scenario, an equivalent question can
+be identified in the other pertaining to the same interval property or
+relation. For the LM graphs, intervals were sorted in order of duration,
+with the longest intervals appearing at the top of the graph.A pilot
+study on Amazon Mechanical Turk using the LM graph revealed no
+significant differences in difficulty between the scenarios. The four
+graphs constructed for the study are shown below.</p>
+<p><a href="static/Study2/questions.html"> <strong>The full list of
+questions and correct answers can be found here</strong> </a>.</p>
 <p><br> <br> 
 <table style="width:100%">
   <tr>
@@ -379,17 +445,32 @@ $(document).ready(function () {
 </div>
 <div id="the-graph-drawing-task" class="section level4">
 <h4>The Graph Drawing Task</h4>
-<p>In the <a href="static/Study2/drawing_task.pdf"> graph drawing task</a> participants were given a sheet of isometric dot paper and a table containing a set of 10 time intervals. Isometric dot paper equally supports the construction of lines at 0, 45 and 90 degrees, thus minimizing any biasing effects of the paper on the type of graph the participants chose to draw. Participants were directed to draw a triangular graph of the data (“like the triangle graph you saw in the previous task”), using the pencil, eraser and ruler provided. <br> <br></p>
+<p>In the <a href="static/Study2/drawing_task.pdf"> graph drawing task</a> participants were given a sheet of
+isometric dot paper and a table containing a set of 10 time intervals.
+Isometric dot paper equally supports the construction of lines at 0, 45
+and 90 degrees, thus minimizing any biasing effects of the paper on the
+type of graph the participants chose to draw. Participants were directed
+to draw a triangular graph of the data (“like the triangle graph you saw
+in the previous task”), using the pencil, eraser and ruler provided.
+<br> <br></p>
 </div>
 </div>
 <div id="procedure" class="section level3">
 <h3>Procedure</h3>
-<p>Participants completed the study individually in a computer lab. After a short introduction they continued to the first of two graph reading tasks (graph order counterbalanced). After completing the first graph reading task, they were introduced to the second scenario, and completed the second graph reading task with the remaining graph. Finally, participants completed the graph drawing task. They finished the study by completing a short demographic survey, and reading the debriefing text. <br> <br></p>
+<p>Participants completed the study individually in a computer lab.
+After a short introduction they continued to the first of two graph
+reading tasks (graph order counterbalanced). After completing the first
+graph reading task, they were introduced to the second scenario, and
+completed the second graph reading task with the remaining graph.
+Finally, participants completed the graph drawing task. They finished
+the study by completing a short demographic survey, and reading the
+debriefing text. <br> <br></p>
 </div>
 </div>
 <div id="results-score" class="section level2">
 <h2>Results (Score)</h2>
-<p>###Explore the data <em>We see a large variance in TM scores across Graph-Orders</em></p>
+<p>###Explore the data <em>We see a large variance in TM scores across
+Graph-Orders</em></p>
 <pre class="r"><code>#EXPLORE THE DATA
 #create boxplot
 
@@ -427,9 +508,14 @@ mixedPlot_scenario &lt;- ggplot(l_scores, aes(condition,value, fill=variable))+ 
   #use scale_fill_manual to manually change colors 
 mixedPlot_scenario</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
-<div id="hypothesis-1-scaffold-conditon-and-graph-order-will-not-affect-performance-on-the-lm-graph-because-it-is-conventional-and-relatively-easy-to-read" class="section level3">
-<h3>Hypothesis 1: Scaffold conditon and graph-order will not affect performance on the LM graph, because it is conventional and relatively easy to read</h3>
-<p>When we compare LM scores both graph-orders and scaffold-conditions (and scenarios), we do not find significant differences</p>
+<div
+id="hypothesis-1-scaffold-conditon-and-graph-order-will-not-affect-performance-on-the-lm-graph-because-it-is-conventional-and-relatively-easy-to-read"
+class="section level3">
+<h3>Hypothesis 1: Scaffold conditon and graph-order will not affect
+performance on the LM graph, because it is conventional and relatively
+easy to read</h3>
+<p>When we compare LM scores both graph-orders and scaffold-conditions
+(and scenarios), we do not find significant differences</p>
 <pre class="r"><code>#explore descriptive statistics based on each IV
 
 #LM SCORES BY SCAFFOLD
@@ -557,8 +643,11 @@ simpleModel
 ##   DFn DFd      SSn      SSd        F        p p&lt;.05
 ## 1   1 314 2.707298 499.6598 1.701341 0.193068</code></pre>
 </div>
-<div id="hypothesis-2-learners-without-scaffolding-control-will-perform-better-with-the-lm-than-tm." class="section level3">
-<h3>Hypothesis 2: Learners without scaffolding (control) will perform better with the LM than TM.</h3>
+<div
+id="hypothesis-2-learners-without-scaffolding-control-will-perform-better-with-the-lm-than-tm."
+class="section level3">
+<h3>Hypothesis 2: Learners without scaffolding (control) will perform
+better with the LM than TM.</h3>
 <pre class="r"><code>#explore descriptive statistics based on each IV
 desc_control &lt;- by(l_scores_control$value, list(l_scores_control$variable), stat.desc, basic=FALSE)
 desc_control
@@ -577,7 +666,9 @@ LM_mean = desc_control$linear_score[2]
 LM_SD = desc_control$linear_score[6]
 TM_mean = desc_control$triangular_score[2]
 TM_SD = desc_control$triangular_score[6]</code></pre>
-<p>If we compare LM and TM scores (across both graph-orders) for the participants in the control condition, we expect their LM scores will be significantly higer than the TM scores.</p>
+<p>If we compare LM and TM scores (across both graph-orders) for the
+participants in the control condition, we expect their LM scores will be
+significantly higer than the TM scores.</p>
 <pre class="r"><code>#CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
 mainEffectGraph  &lt;- t.test(value ~ variable, data=l_scores_control, paired=TRUE)
 mainEffectGraph
@@ -586,12 +677,12 @@ mainEffectGraph
 ## 
 ## data:  value by variable
 ## t = 7.0685, df = 60, p-value = 1.912e-09
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true mean difference is not equal to 0
 ## 95 percent confidence interval:
 ##  2.926815 5.237119
 ## sample estimates:
-## mean of the differences 
-##                4.081967
+## mean difference 
+##        4.081967
 
 t &lt;-mainEffectGraph$statistic[[1]]
 t &lt;-round(t,2)
@@ -601,7 +692,9 @@ r &lt;- sqrt(t^2/(t^2+df))
 r &lt;-round(r,2)
 r
 ## [1] 0.67</code></pre>
-<p>Across all factors, we see that LM scores (M = 10.98, SD = 2.33) are significantly higher than TM scores (M = 6.9, SD = 4.51), t(60) = 7.07, p = 1.9116967^{-9} , r = 0.67.</p>
+<p>Across all factors, we see that LM scores (M = 10.98, SD = 2.33) are
+significantly higher than TM scores (M = 6.9, SD = 4.51), t(60) = 7.07,
+p = 1.9116967^{-9} , r = 0.67.</p>
 <pre class="r"><code>bar &lt;- ggplot(l_scores_control, aes(x = variable, y= value, fill=variable))
 bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
@@ -615,14 +708,19 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
                         name = &quot;Graph Task&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Computation failed in `stat_summary()`:
-## The `Hmisc` package is required.</code></pre>
+<pre><code>## Warning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.
+## ℹ Please use the `fun` argument instead.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
-<div id="hypothesis-3-learners-with-any-form-of-scaffolding-will-perform-better-with-the-tm-than-lm-replication-of-qiang-et-al-2014." class="section level3">
-<h3>Hypothesis 3: Learners with (any form of) scaffolding will perform better with the TM than LM (replication of Qiang et al (2014)).</h3>
-<p>If we compare LM and TM scores in each scaffold condition (2-4) we expect to find that TM scores are higher than LM scores. Instead, we find that TM scores are on average lower than LM scores in every condition.</p>
+<div
+id="hypothesis-3-learners-with-any-form-of-scaffolding-will-perform-better-with-the-tm-than-lm-replication-of-qiang-et-al-2014."
+class="section level3">
+<h3>Hypothesis 3: Learners with (any form of) scaffolding will perform
+better with the TM than LM (replication of Qiang et al (2014)).</h3>
+<p>If we compare LM and TM scores in each scaffold condition (2-4) we
+expect to find that TM scores are higher than LM scores. Instead, we
+find that TM scores are on average lower than LM scores in every
+condition.</p>
 <pre class="r"><code>#explore descriptive statistics based on each IV
 desc &lt;- by(df_subjects2$score_diff, list(df_subjects2$condition), stat.desc, basic=FALSE)
 desc
@@ -668,9 +766,6 @@ bar + stat_summary(aes(y = score_diff, group=condition), fun.y=mean,  geom=&quot
       theme(strip.background = element_blank()) +
       ggtitle(&quot;Score Difference by Scaffold&quot;) +
       scale_x_discrete(labels=c( &quot;0&quot; = &quot;none-control&quot;, &quot;1&quot; = &quot;what-text&quot;, &quot;2&quot;=&quot;how-text&quot;, &quot;3&quot;=&quot;static-img&quot;, &quot;4&quot;=&quot;ix img&quot;)) </code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Computation failed in `stat_summary()`:
-## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>#REPEATED MEASURES ANOVA ON score by scaffold condition
 
@@ -712,14 +807,17 @@ pairwise.t.test(df_subjects2$score_diff, df_subjects2$condition,  p.adjust.metho
 ## 4 6.1e-07 0.040 0.040 0.022
 ## 
 ## P value adjustment method: bonferroni</code></pre>
-<p>Instead, we find that only in the interactive-image condition yields TM scores significantly higher than the no-scaffold control.</p>
+<p>Instead, we find that only in the interactive-image condition yields
+TM scores significantly higher than the no-scaffold control.</p>
 <p>###MIXED EFFECTS MODEL</p>
 <p><em>Compute mixed effects ANOVA on Response Score</em><br />
 Significant main effect of Graph F(1,297) = 97.67, p &lt; .001<br />
 Significant main effect of Scaffold F(4,297) = 4.24, p &lt; .01<br />
 Significant main effect of Scenario F(1,297) = 22.29, p &lt; .001<br />
-Significant interaction of Scaffold and Graph F(4,297) = 9.99, p &lt;.001<br />
-Significant interaction of Graph and Scenario F(1,297) = 34.80, p &lt;.001</p>
+Significant interaction of Scaffold and Graph F(4,297) = 9.99, p
+&lt;.001<br />
+Significant interaction of Graph and Scenario F(1,297) = 34.80, p
+&lt;.001</p>
 <pre class="r"><code>#construct contrasts for ANOVA model
 options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
 
@@ -772,7 +870,9 @@ mixedModel = ezANOVA(data = l_scores,
 ## 16 3.013402e-01  8.769499e-01       1.311312e-03</code></pre>
 <pre class="r"><code>#summary(mixedModel)</code></pre>
 <p>####MAIN EFFECT: Graph on SCORE<br />
-On average, participants scored significantly higher on the linear model task (M = 10.96, SD = 2.13) than on the triangular model (M = 8.78 SD = 4.44), t(316) = 9.41, p &lt; 0.001, r = 0.47</p>
+On average, participants scored significantly higher on the linear model
+task (M = 10.96, SD = 2.13) than on the triangular model (M = 8.78 SD =
+4.44), t(316) = 9.41, p &lt; 0.001, r = 0.47</p>
 <pre class="r"><code>bar &lt;- ggplot(l_scores, aes(x = variable, y= value, fill=variable))
 bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&quot;, position=&quot;dodge&quot;) +
       stat_summary(fun.data = mean_cl_normal, geom=&quot;errorbar&quot;, position = position_dodge(width=0.9),width=0.2) +
@@ -786,9 +886,6 @@ bar + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;bar&q
                         name = &quot;Graph Task&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear&quot;,&quot;triangular&quot;))</code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Computation failed in `stat_summary()`:
-## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>#CALULCULATE POSTHOC DIFFERENCE &amp; EFFECT SIZE
 mainEffectGraph  &lt;- t.test(value ~ variable, data=l_scores, paired=TRUE)
@@ -798,19 +895,23 @@ mainEffectGraph</code></pre>
 ## 
 ## data:  value by variable
 ## t = 9.4141, df = 315, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true mean difference is not equal to 0
 ## 95 percent confidence interval:
 ##  1.722182 2.632249
 ## sample estimates:
-## mean of the differences 
-##                2.177215</code></pre>
+## mean difference 
+##        2.177215</code></pre>
 <pre class="r"><code>t &lt;-mainEffectGraph$statistic[[1]]
 df &lt;-mainEffectGraph$parameter[[1]]
 r &lt;- sqrt(t^2/(t^2+df))
 round(r,3)</code></pre>
 <pre><code>## [1] 0.469</code></pre>
-<p>####MAIN EFFECT: Scaffold on SCORE ####MAIN EFFECT: Scenario on SCORE</p>
-<p>When answering questions (with either graph) in the axis scenario (M = 9.20, SD = 4.12), participants had significantly lower scores, t(316) = -4.77, p &lt; 0.001, r = -.26, than in the longmire scenario (M = 10.52, SD = 2.97)</p>
+<p>####MAIN EFFECT: Scaffold on SCORE ####MAIN EFFECT: Scenario on
+SCORE</p>
+<p>When answering questions (with either graph) in the axis scenario (M
+= 9.20, SD = 4.12), participants had significantly lower scores, t(316)
+= -4.77, p &lt; 0.001, r = -.26, than in the longmire scenario (M =
+10.52, SD = 2.97)</p>
 <pre class="r"><code>#RUN ANCOVA ON tm_score with lm_score as covariate
 # model.1=aov(triangular_score~linear_score+condition, data=df_subjects2)
 # 
@@ -855,9 +956,6 @@ bar + stat_summary(aes(y = value, group=lm_scenarios), fun.y=mean,  geom=&quot;b
                         name = &quot;Task Scenario&quot;,
                         breaks =c(&quot;axis&quot;,&quot;longmire&quot;),
                         labels =c(&quot;axis&quot;,&quot;longmire&quot;))</code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Computation failed in `stat_summary()`:
-## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>dots &lt;- ggplot(l_scores, aes(x = lm_scenarios, y= value, color=variable))
 dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;point&quot;, position = position_dodge(width=0.1),width=0.2) +
@@ -873,11 +971,8 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;poin
                         name = &quot;Task Graph&quot;,
                         breaks =c(&quot;linear_score&quot;, &quot;triangular_score&quot;),
                         labels =c(&quot;linear (LM)&quot;,&quot;triangular (TM)&quot;))</code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Ignoring unknown parameters: width</code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Computation failed in `stat_summary()`:
-## The `Hmisc` package is required.</code></pre>
+<pre><code>## Warning in stat_summary(aes(y = value, group = variable), fun.y = mean, :
+## Ignoring unknown parameters: `width`</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>####INTERACTION: Scaffold &amp; Graph<br />
 ####INTERACTION: Scenario &amp; Graph</p>
@@ -885,7 +980,10 @@ dots + stat_summary(aes(y = value, group=variable), fun.y=mean,  geom=&quot;poin
 </div>
 <div id="results-time" class="section level2">
 <h2>Results (Time)</h2>
-<p>####Explore the data <em>We see comparable response times for LM and TM graphs when the LM graph is solved first. However, when the TM graph is solved first, the TM graph-reading task seems to take much longer.</em></p>
+<p>####Explore the data <em>We see comparable response times for LM and
+TM graphs when the LM graph is solved first. However, when the TM graph
+is solved first, the TM graph-reading task seems to take much
+longer.</em></p>
 <pre class="r"><code>#EXPLORE THE DATA
 
 #SIMPLE BOXPLOT BY CONDITION
@@ -924,9 +1022,12 @@ mixedPlot_scenario</code></pre>
 <p>####Hypothesis Testing</p>
 <p><em>Compute mixed effects ANOVA on Response Time</em><br />
 Significant main-effect of Graph F(1,297) = 109.71, p &lt;.001<br />
-Significant interaction between Graph &amp; Scaffold F(4,297) = 3.51, p &lt; .01<br />
-Significant interaction between Graph and Scenario, F(1,297) = 8.35, p &lt;.01<br />
-Significant interaction between Graph and Graph-Order, F(1,297) = 44.24, p &lt;.001</p>
+Significant interaction between Graph &amp; Scaffold F(4,297) = 3.51, p
+&lt; .01<br />
+Significant interaction between Graph and Scenario, F(1,297) = 8.35, p
+&lt;.01<br />
+Significant interaction between Graph and Graph-Order, F(1,297) = 44.24,
+p &lt;.001</p>
 <pre class="r"><code>#construct contrasts for ANOVA model
 options(contrasts=c(&quot;contr.sum&quot;,&quot;contr.poly&quot;))
 
@@ -979,22 +1080,21 @@ mixedModel = ezANOVA(data = l_times,
 ## 16 1.467536e+00  2.120297e-01       4.739055e-03</code></pre>
 <pre class="r"><code>#summary(mixedModel)</code></pre>
 <p>####MAIN EFFECT: Graph on TIME<br />
-On average, participants spent significantly more time on triangular model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD = 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Computation failed in `stat_summary()`:
-## The `Hmisc` package is required.</code></pre>
+On average, participants spent significantly more time on triangular
+model task (M = 10.84, SD = 3.28) than on the linear model (M = 9.20, SD
+= 2.53), t(316) = -9.46, p &lt; 0.001, r = 0.47</p>
 <p><img src="Study2_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  value by variable
 ## t = -9.458, df = 315, p-value &lt; 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true mean difference is not equal to 0
 ## 95 percent confidence interval:
 ##  -1.984566 -1.301067
 ## sample estimates:
-## mean of the differences 
-##               -1.642816</code></pre>
+## mean difference 
+##       -1.642816</code></pre>
 <pre><code>## [1] 0.47</code></pre>
 <p>####INTERACTION: Scaffold &amp; Graph<br />
 ####INTERACTION: Scenario &amp; Graph<br />
@@ -1002,135 +1102,46 @@ On average, participants spent significantly more time on triangular model task 
 </div>
 <div id="results-graph-drawing" class="section level2">
 <h2>Results (Graph Drawing)</h2>
-<pre class="r"><code>#explore independence of graph drawing by condition
-table(df_subjects2$`Graph Type`, df_subjects2$condition)
-##                           
-##                             0  1  2  3  4
-##   Triangular (right angle) 17  6  9 10  2
-##   Triangular               34 50 48 41 57
-##   Linear Model              6  0  3  7  1
-##   Scatterplot               1  0  1  0  1
-##   Other                     0  0  0  0  0
-##   Triangular (asymmetric)   3  3  5  4  7
-chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, correct=TRUE) 
-## Warning in chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, : Chi-
-## squared approximation may be incorrect
-## 
-##  Pearson&#39;s Chi-squared test
-## 
-## data:  df_subjects2$`Graph Type` and df_subjects2$condition
-## X-squared = 35.487, df = 16, p-value = 0.003407
-fisher.test(df_subjects2$`Graph Type`, df_subjects2$condition) 
-## 
-##  Fisher&#39;s Exact Test for Count Data
-## 
-## data:  df_subjects2$`Graph Type` and df_subjects2$condition
-## p-value = 1
-## alternative hypothesis: two.sided
-
-Input =(&quot;
-Interpretation control  whattext howtext static interactive
-&#39;Right angle&#39;    17  6  9 10  2
-&#39;Triangular&#39;    34 50 48 41 57
-&#39;Linear&#39;        6  0  3  7  1
-&#39;Scatterplot&#39;      0  0  0  0  0
-&#39;Asymmetric&#39;      3  3  5  4  7
-&quot;)
-
-Matriz = as.matrix(read.table(textConnection(Input),
-                   header=TRUE, 
-                   row.names=1))
-
-Matriz
-##             control whattext howtext static interactive
-## Right angle      17        6       9     10           2
-## Triangular       34       50      48     41          57
-## Linear            6        0       3      7           1
-## Scatterplot       0        0       0      0           0
-## Asymmetric        3        3       5      4           7
-
-chisq.test(Matriz)
-## Warning in chisq.test(Matriz): Chi-squared approximation may be incorrect
-## 
-##  Pearson&#39;s Chi-squared test
-## 
-## data:  Matriz
-## X-squared = NaN, df = 16, p-value = NA
-
-pairwiseNominalIndependence(Matriz,
-                            fisher = FALSE,
-                            gtest  = FALSE,
-                            chisq  = TRUE,
-                            method = &quot;fdr&quot;)
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-
-## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
-##                   Comparison  p.Chisq p.adj.Chisq
-## 1   Right angle : Triangular 0.000504     0.00302
-## 2       Right angle : Linear 0.413000     0.49600
-## 3  Right angle : Scatterplot      NaN         NaN
-## 4   Right angle : Asymmetric 0.024400     0.04880
-## 5        Triangular : Linear 0.005280     0.01580
-## 6   Triangular : Scatterplot      NaN         NaN
-## 7    Triangular : Asymmetric 0.899000     0.89900
-## 8       Linear : Scatterplot      NaN         NaN
-## 9        Linear : Asymmetric 0.053300     0.07990
-## 10  Scatterplot : Asymmetric      NaN         NaN
-
-
-FUN = function(i,j){     
-      chisq.test(matrix(c(Matriz[i,1], Matriz[i,2],
-                          Matriz[j,1], Matriz[j,2]),
-                 nrow=2,
-                 byrow=TRUE))$ p.value
-                }
-      
-pairwise.table(FUN,
-               rownames(Matriz),
-               p.adjust.method=&quot;none&quot;)
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-
-## Warning in chisq.test(matrix(c(Matriz[i, 1], Matriz[i, 2], Matriz[j, 1], : Chi-
-## squared approximation may be incorrect
-##             Right angle Triangular    Linear Scatterplot
-## Triangular  0.009076978         NA        NA          NA
-## Linear      0.401473200 0.01597337        NA          NA
-## Scatterplot         NaN        NaN       NaN          NA
-## Asymmetric  0.527312842 0.97716142 0.1824224         NaN</code></pre>
+<pre class="r"><code># #explore independence of graph drawing by condition
+# table(df_subjects2$`Graph Type`, df_subjects2$condition)
+# chisq.test(df_subjects2$`Graph Type`, df_subjects2$condition, correct=TRUE) 
+# fisher.test(df_subjects2$`Graph Type`, df_subjects2$condition) 
+# 
+# Input =(&quot;
+# Interpretation control  whattext howtext static interactive
+# &#39;Right angle&#39;    17  6  9 10  2
+# &#39;Triangular&#39;    34 50 48 41 57
+# &#39;Linear&#39;        6  0  3  7  1
+# &#39;Scatterplot&#39;      0  0  0  0  0
+# &#39;Asymmetric&#39;      3  3  5  4  7
+# &quot;)
+# 
+# Matriz = as.matrix(read.table(textConnection(Input),
+#                    header=TRUE, 
+#                    row.names=1))
+# 
+# Matriz
+# 
+# chisq.test(Matriz)
+# 
+# pairwiseNominalIndependence(Matriz,
+#                             fisher = FALSE,
+#                             gtest  = FALSE,
+#                             chisq  = TRUE,
+#                             method = &quot;fdr&quot;)
+# 
+# 
+# FUN = function(i,j){     
+#       chisq.test(matrix(c(Matriz[i,1], Matriz[i,2],
+#                           Matriz[j,1], Matriz[j,2]),
+#                  nrow=2,
+#                  byrow=TRUE))$ p.value
+#                 }
+#       
+# pairwise.table(FUN,
+#                rownames(Matriz),
+#                p.adjust.method=&quot;none&quot;)
+</code></pre>
 <pre class="r"><code>#explore independence of graph drawing by order
 table(df_subjects2$`Graph Type`, df_subjects2$order)
 ##                           
@@ -1157,7 +1168,10 @@ fisher.test(df_subjects2$`Graph Type`, df_subjects2$order)
 ## p-value = 0.01117
 ## alternative hypothesis: two.sided
 # ftable(bigTable)</code></pre>
-<p>The cell sizes are too heterogeneous to look for correlations in TM score and drawing type, but we can directly compare the TM scores for the two triangular interpretations: the right-angle triangle and asymetric triangle.</p>
+<p>The cell sizes are too heterogeneous to look for correlations in TM
+score and drawing type, but we can directly compare the TM scores for
+the two triangular interpretations: the right-angle triangle and
+asymetric triangle.</p>
 <pre class="r"><code>
 #SETUP DATA FOR RESPONSE ACCURACY ANALYSIS
 df_small_draw &lt;- subset(df_subjects2, df_subjects2$`Graph Type`%in% c(&quot;Triangular (asymmetric)&quot;,&quot;Triangular (right angle)&quot;))
@@ -1202,7 +1216,7 @@ mainEffectGraph
 ## 
 ## data:  triangular_score by Graph Type
 ## t = -7.3644, df = 27.108, p-value = 6.223e-08
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true difference in means between group Triangular (right angle) and group Triangular (asymmetric) is not equal to 0
 ## 95 percent confidence interval:
 ##  -7.991027 -4.508973
 ## sample estimates:
@@ -1214,16 +1228,24 @@ df &lt;-mainEffectGraph$parameter[[1]]
 r &lt;- sqrt(t^2/(t^2+df))
 round(r,3)
 ## [1] 0.817</code></pre>
-<p>TM scores for participants who drew “right-angle” graphs were significantly lower (M = 2.3, SD = 1.98) than for participants who drew “asymmetric triangle” graphs (M = 8.55, SD = 3.73), t(27.1083223) = -7.3643582, p = 1.9116967^{-9} , r = 0.8165396.</p>
+<p>TM scores for participants who drew “right-angle” graphs were
+significantly lower (M = 2.3, SD = 1.98) than for participants who drew
+“asymmetric triangle” graphs (M = 8.55, SD = 3.73), t(27.1083223) =
+-7.3643582, p = 1.9116967^{-9} , r = 0.8165396.</p>
 <a href="static/Study2/gallery/analysis.html">See GALLERY of all images here</a>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
-<p>Qiang, Y., Valcke, M., De Maeyer, P., &amp; Van de Weghe, N. (2014). Representing time intervals in a two-dimensional space: An empirical study. Journal of Visual Languages and Computing, 25(4), 466–480.</p>
+<p>Qiang, Y., Valcke, M., De Maeyer, P., &amp; Van de Weghe, N. (2014).
+Representing time intervals in a two-dimensional space: An empirical
+study. Journal of Visual Languages and Computing, 25(4), 466–480.</p>
 </div>
 <div id="power-analyses" class="section level2">
 <h2>Power Analyses</h2>
-<p>In order to estimate the number of subjects needed for future study, we will evaluate the statistical significance and effect size of any differences in accuracy scores between scaffold groups for the TM-graph only, in the TM-first graph order.</p>
+<p>In order to estimate the number of subjects needed for future study,
+we will evaluate the statistical significance and effect size of any
+differences in accuracy scores between scaffold groups for the TM-graph
+only, in the TM-first graph order.</p>
 <pre class="r"><code>#explore descriptive statistics based on each IV
 desc &lt;- by(df_subjects2$triangular_score, list(df_subjects2$condition), stat.desc, basic=FALSE)
 desc
@@ -1269,9 +1291,6 @@ bar + stat_summary(aes(y = triangular_score, group=condition), fun.y=mean,  geom
       theme(strip.background = element_blank()) +
       ggtitle(&quot;TM Score by Scaffold for TM-first Order &quot;) +
       scale_x_discrete(labels=c( &quot;0&quot; = &quot;none-control&quot;, &quot;1&quot; = &quot;what-text&quot;, &quot;2&quot;=&quot;how-text&quot;, &quot;3&quot;=&quot;static-img&quot;, &quot;4&quot;=&quot;ix img&quot;)) </code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
-<pre><code>## Warning: Computation failed in `stat_summary()`:
-## The `Hmisc` package is required.</code></pre>
 <p><img src="Study2_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <pre class="r"><code>#ONE WAY ANOVA ON triangular score BY SCAFFOLD
 #construct contrasts for ANOVA model
@@ -1295,13 +1314,23 @@ simpleModel = ezANOVA(data = w_scores,
 ## 1 0.80614645
 ## 2 0.07423114</code></pre>
 <p>the GES is the (generalized eta squared)</p>
-<p>Eta-square (η2) is an effect size measurement for the analysis of variance (ANOVA). It measures the strength of the effect on a continuous field. The effect can be the main effect of one field or the interaction effect of two fields. Eta-square can be interpreted as the proportion of variance in the continuous target field explained by an effect while controlling for other effects. It is calculated by dividing the sum of squares for the effect by the total sum of squares. Table 1. Interpretation of effect size when there is one input (One-way ANOVA) Effect size (ES) Interpretation ES ≤ 0.04 The effect is statistically significant but weak. 0.04 &lt; ES ≤ 0.36 The effect is moderate. ES &gt; 0.36 The effect is strong.</p>
+<p>Eta-square (η2) is an effect size measurement for the analysis of
+variance (ANOVA). It measures the strength of the effect on a continuous
+field. The effect can be the main effect of one field or the interaction
+effect of two fields. Eta-square can be interpreted as the proportion of
+variance in the continuous target field explained by an effect while
+controlling for other effects. It is calculated by dividing the sum of
+squares for the effect by the total sum of squares. Table 1.
+Interpretation of effect size when there is one input (One-way ANOVA)
+Effect size (ES) Interpretation ES ≤ 0.04 The effect is statistically
+significant but weak. 0.04 &lt; ES ≤ 0.36 The effect is moderate. ES
+&gt; 0.36 The effect is strong.</p>
 </div>
 </div>
 
 <br>
 <hr>
-<p>Copyright &copy; 2017 Amy Rae Fox. All rights reserved.</p>
+<p>Copyright &copy; 2018 Amy Rae Fox. All rights reserved.</p>
 
 
 
